@@ -20,6 +20,6 @@ export class User extends BaseEntity {
   @Column({ default: ROLES.member })
   role: string;
 
-  @Column({ default: false })
+  @Column({ default: true })
   confirmed: boolean;
 }

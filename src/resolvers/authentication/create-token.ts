@@ -25,7 +25,7 @@ export class CreateTokenResolver {
   ): Promise<AuthTokens | null> {
     const user = await User.findOne({ where: { email } });
     const userIsValid = await bcrypt.compare(password, user?.password || '');
-    if(!user || !userIsValid) return null;
+    if(!user || !user.confirmed || !userIsValid) return null;
     
     const { accessToken, refreshToken } = generateTokens(user);
     const token = await AuthTokens.create({ refreshToken }).save();

@@ -27,7 +27,7 @@ export class RefreshTokenResolver {
   ): Promise<AuthTokens | null> {
     const user = await User.findOne({ where: { email } });
     const userIsValid = await bcrypt.compare(password, user?.password || '');
-    if(!user || !userIsValid) return null;
+    if(!user || !user.confirmed || !userIsValid) return null;
 
     const authToken = await AuthTokens.findOne({ where: { refreshToken: token } });
     if(!authToken || !authToken.refreshToken || authToken.archived) return null;
