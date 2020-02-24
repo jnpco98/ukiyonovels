@@ -5,7 +5,7 @@ import { authChecker } from '../utilities/auth/auth-checker';
 
 export async function createSchema() {
   return await buildSchema({ 
-    resolvers: [path.resolve(__dirname, '..', 'resolvers/**/*.ts')], 
+    resolvers: [path.resolve(__dirname, '..', 'resolvers/**/!(*.test|*.spec).ts')], 
     authChecker
   });
 }
