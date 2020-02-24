@@ -25,15 +25,16 @@
     }
   },
   {
-    "name": "testing",
+    "name": "test",
     "type": "postgres",
     "host": "localhost",
     "port": "5432",
     "username": "postgres",
     "password": "root",
-    "database": "ukiyo",
-    "synchronize": false,
+    "database": "ukiyo-test",
     "logging": false,
+    "synchronize": false,
+    "dropSchema": false,
     "entities": [
       "src/entity/**/*.ts"
     ],
