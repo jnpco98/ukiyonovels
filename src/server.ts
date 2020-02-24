@@ -7,10 +7,10 @@ import cookieParser from 'cookie-parser';
 
 import { authenticateToken } from './middleware/authenticate-token';
 import { createSchema } from './schema/create-schema';
+import { initializeConnection } from './utilities/connection/initialize-connection';
 
 async function main() {
-  const configuration = await getConnectionOptions(process.env.NODE_ENV);
-  const connection = await createConnection({ ...configuration, name: 'default' });
+  const connection = await initializeConnection();
   await connection.runMigrations();
 
   const schema = await createSchema();

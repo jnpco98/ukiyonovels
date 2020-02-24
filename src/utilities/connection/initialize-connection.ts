@@ -1,10 +1,16 @@
 import { getConnectionOptions, createConnection } from "typeorm";
 
-export async function initializeConnection(drop: boolean = false) {
+interface DropDatabaseGuardOptions {
+  drop?: boolean;
+  databaseToDrop?: string;
+}
+
+export async function initializeConnection(dropDatabaseGuardOptions: DropDatabaseGuardOptions = {}) {
+  const { drop, databaseToDrop } = dropDatabaseGuardOptions;
   const configuration = await getConnectionOptions(process.env.NODE_ENV);
   const connectionParams = { ...configuration, name: 'default' };
 
-  if(drop) {
+  if(drop && databaseToDrop === connectionParams.database) {
     connectionParams.synchronize = drop;
     connectionParams.dropSchema = drop;
   }
