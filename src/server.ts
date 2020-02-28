@@ -1,15 +1,18 @@
 import 'reflect-metadata';
-import { createConnection, getConnectionOptions } from 'typeorm';
 import { ApolloServer } from 'apollo-server-express';
 import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import { TypeOrmConnection } from '@auto-relay/typeorm';
+import { AutoRelayConfig } from 'auto-relay';
 
 import { authenticateToken } from './middleware/authenticate-token';
 import { createSchema } from './schema/create-schema';
 import { initializeConnection } from './utilities/connection/initialize-connection';
 
 async function main() {
+  new AutoRelayConfig({ orm: () => TypeOrmConnection });
+
   const connection = await initializeConnection();
   await connection.runMigrations();
 

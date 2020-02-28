@@ -31,8 +31,8 @@ export class CreateTokenResolver {
     const tokens = new AuthTokens();
     tokens.refreshToken = refreshToken;
     tokens.accessToken = accessToken;
-
-    await AuthTokens.save(tokens);
+    await tokens.save();
+    
     return tokens;
   }
 }
