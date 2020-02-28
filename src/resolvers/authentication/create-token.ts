@@ -20,17 +20,19 @@ class CreateTokenInput {
 export class CreateTokenResolver {  
   @Mutation(returns => AuthTokens, { nullable: true })
   async createToken(
-    @Arg('data') { password, email }: CreateTokenInput,
-    @Ctx() { req, res }: Context
+    @Arg('data') { password, email }: CreateTokenInput
   ): Promise<AuthTokens | null> {
     const user = await User.findOne({ where: { email } });
     const userIsValid = await bcrypt.compare(password, user?.password || '');
     if(!user || !user.confirmed || !userIsValid) return null;
     
     const { accessToken, refreshToken } = generateTokens(user);
-    const token = await AuthTokens.create({ refreshToken }).save();
-    token.accessToken = accessToken;
 
-    return token;
+    const tokens = new AuthTokens();
+    tokens.refreshToken = refreshToken;
+    tokens.accessToken = accessToken;
+
+    await AuthTokens.save(tokens);
+    return tokens;
   }
 }

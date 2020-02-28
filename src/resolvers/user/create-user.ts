@@ -23,10 +23,12 @@ export class CreateUserResolver {
   async createUser(
     @Arg('data') { username, password, email }: CreateUserInput
   ): Promise<User | null> {
-    const hashedPassword = await bcrypt.hash(password, 12);
-    const user = await User.create({
-      username, password: hashedPassword, email
-    }).save();
+    const user = new User();
+    user.username = username;
+    user.password = await bcrypt.hash(password, 12);
+    user.email = email;
+
+    await user.save();
     return user;
   }
 }

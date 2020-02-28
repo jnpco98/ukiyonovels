@@ -10,7 +10,8 @@ export async function createSchema() {
   if(!schema) {
     schema = await buildSchema({ 
       resolvers: [path.resolve(__dirname, '..', 'resolvers/**/!(*.test|*.spec).ts')], 
-      authChecker
+      authChecker,
+      authMode: "null"
     });
   }
   return schema;
