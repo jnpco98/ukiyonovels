@@ -5,11 +5,11 @@ import { RelayedConnection } from "auto-relay";
 import { BaseEntity } from '../../entity/entity';
 
 interface AuthorizationRequirements {
-  get?: [];
-  paginate?: [];
-  create?: [];
-  update?: [];
-  delete?: [];
+  get?: string[];
+  paginate?: string[];
+  create?: string[];
+  update?: string[];
+  delete?: string[];
 }
 
 interface InputParams {}
@@ -25,8 +25,6 @@ interface FilterParams {
   filter: {
     [key: string]: string;
   }
-  skip: number;
-  take: number;
 }
 
 export function createBaseResolver<T extends BaseEntity, U extends InputParams>(params: BaseResolverParams<T, U>) {
@@ -35,31 +33,31 @@ export function createBaseResolver<T extends BaseEntity, U extends InputParams>(
   @Resolver({ isAbstract: true })
   abstract class BaseResolver {
     @Authorized(authorization.get || [])
-    @Query(type => EntityType, { name: `get${resource}` })
-    async getOne(id: number) {
+    @Query(returns => EntityType, { name: `get${resource}`, nullable: true })
+    async getOne(@Arg("id", type => ID) id: number) {
       return await getRepository(EntityType).findOne({ 
         where: { id, archived: false } 
       });
     }
 
-    @Authorized(authorization.paginate || [])
-    @Query(type => [EntityType], { name: `getAll${resource}` })
-    @RelayedConnection(() => EntityType)
-    async getAll(@Arg("data") data: FilterParams ) {
-      const filter = this.buildFilterOptions(data);
-      filter.where = { ...filter.where as ObjectLiteral, archived: false };
-      return await getRepository(EntityType).find(filter);
-    }
+    // @Authorized(authorization.paginate || [])
+    // @Query(returns => [EntityType], { name: `getAll${resource}` })
+    // @RelayedConnection(() => EntityType)
+    // async getAll(@Arg("data") data: FilterParams ) {
+    //   const filter = this.buildFilterOptions(data);
+    //   filter.where = { ...filter.where as ObjectLiteral, archived: false };
+    //   return await getRepository(EntityType).find(filter);
+    // }
 
     @Authorized(authorization.create || [])
-    @Mutation(type => EntityType, { name: `create${resource}` })
+    @Mutation(returns => EntityType, { name: `create${resource}`, nullable: true })
     async create(@Arg("data", () => InputType) data: U) {
       const entity = getRepository(EntityType).create(data);
       return await entity.save();
     }
 
     @Authorized(authorization.update || [])
-    @Mutation(type => EntityType, { name: `update${resource}` })
+    @Mutation(returns => EntityType, { name: `update${resource}`, nullable: true })
     async update(
       @Arg("id", () => ID) id: number, 
       @Arg("data", () => InputType) data: U
@@ -70,7 +68,7 @@ export function createBaseResolver<T extends BaseEntity, U extends InputParams>(
 
       if(existing) {
         const entity = getRepository(EntityType).create({ 
-          ...data, id: existing.id 
+          ...existing,...data, id: existing.id 
         });
         return await entity.save();
       } 
@@ -78,7 +76,7 @@ export function createBaseResolver<T extends BaseEntity, U extends InputParams>(
     }
 
     @Authorized(authorization.delete || [])
-    @Mutation(type => EntityType, { name: `delete${resource}` })
+    @Mutation(returns => EntityType, { name: `delete${resource}`, nullable: true })
     async delete(
       @Arg("id", () => ID) id: number, 
       @Arg("data", () => InputType) data: U
@@ -89,14 +87,14 @@ export function createBaseResolver<T extends BaseEntity, U extends InputParams>(
 
       if(existing) {
         const entity = getRepository(EntityType).create({ 
-          ...data, id: existing.id, archived: true 
+          ...existing, ...data, id: existing.id, archived: true 
         });
         return await entity.save();
       }
       return null;
     }
 
-    protected abstract buildFilterOptions(data: FilterParams): FindManyOptions<T>;
+    // protected abstract buildFilterOptions(data: FilterParams): FindManyOptions<T>;
   }
 
   return BaseResolver;
