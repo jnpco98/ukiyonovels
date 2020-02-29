@@ -22,7 +22,7 @@ export function createBaseResolver<T extends BaseEntity, V, U extends DeepPartia
     @Authorized(authorization.get || [])
     @UseMiddleware(resolverMiddleware.get || [])
     @Query(returns => EntityType, { name: `${resource}`, nullable: true })
-    async getOne(@Arg('id', type => ID) id: number) {
+    async getOne(@Arg('id', type => ID) id: string) {
       return await getRepository(EntityType).findOne({
         where: { id, archived: false }
       });
@@ -38,7 +38,8 @@ export function createBaseResolver<T extends BaseEntity, V, U extends DeepPartia
       @Args() connArgs: ConnectionArgs, 
       @Arg(
         `${resource}Where`, 
-        () => WhereInputType, { nullable: true }) query?: WhereAndOrParams
+        () => WhereInputType, { nullable: true }
+        ) query?: WhereAndOrParams
     ) {
       const { sortKey, reverse, pagination } = connArgs;
       const { limit, offset } = pagination;
@@ -46,7 +47,7 @@ export function createBaseResolver<T extends BaseEntity, V, U extends DeepPartia
       const queryBuilder = getRepository(EntityType).createQueryBuilder();
       if(query) filterQuery(queryBuilder, query);
 
-      const sort = sortKey && sortKey.trim() ? sortKey : 'entity_id';
+      const sort = sortKey && sortKey.trim() ? sortKey : 'created_at';
       const order = reverse ? 'DESC' : 'ASC';
 
       const [entities, count] = await queryBuilder
@@ -79,7 +80,7 @@ export function createBaseResolver<T extends BaseEntity, V, U extends DeepPartia
     @UseMiddleware(resolverMiddleware.update || [])
     @Mutation(returns => EntityType, { name: `${resource}Update`, nullable: true })
     async update(
-      @Arg("id", () => ID) id: number, 
+      @Arg("id", () => ID) id: string, 
       @Arg("data", () => MutationInputType) data: U
     ) {
       const existing = await getRepository(EntityType).findOne({ 
@@ -88,7 +89,7 @@ export function createBaseResolver<T extends BaseEntity, V, U extends DeepPartia
 
       if(existing) {
         const entity = getRepository(EntityType).merge(existing, data);
-        entity.id = existing.id;
+        entity.id = id;
         return await entity.save();
       } 
       return null;
@@ -101,7 +102,7 @@ export function createBaseResolver<T extends BaseEntity, V, U extends DeepPartia
     @UseMiddleware(resolverMiddleware.delete || [])
     @Mutation(returns => EntityType, { name: `${resource}Delete`, nullable: true })
     async delete(
-      @Arg("id", () => ID) id: number,
+      @Arg("id", () => ID) id: string,
     ) {
       const existing = await getRepository(EntityType).findOne({ 
         where: { id, archived: false } 

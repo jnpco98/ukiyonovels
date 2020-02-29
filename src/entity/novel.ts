@@ -1,7 +1,7 @@
 import { Field, ObjectType, InputType } from 'type-graphql';
 import { Entity, Column } from 'typeorm';
 import { BaseEntity } from './entity';
-import { Length, IsOptional, IsIn, ArrayUnique } from 'class-validator';
+import { Length, IsOptional, IsIn } from 'class-validator';
 
 export const novelTypes = [
   'Web Novel', 
@@ -30,57 +30,48 @@ export class Novel extends BaseEntity implements Partial<Novel> {
   @IsIn(novelTypes)
   type: string;
 
-  @Field(returns => [String], { nullable: true })
-  @Column({ type: 'text', array: true, nullable: true })
-  @ArrayUnique()
+  @Field(returns => String, { nullable: true })
+  @Column({ type: 'text', nullable: true })
   @IsOptional()
   tags?: string;
 
-  @Field(returns => [String], { nullable: true })
-  @Column({ type: 'text', array: true, nullable: true })
-  @ArrayUnique()
+  @Field(returns => String, { nullable: true })
+  @Column({ type: 'text', nullable: true })
   @IsOptional()
   genres?: string;
 
-  @Field(returns => [String], { nullable: true })
-  @Column({ type: 'text', array: true, nullable: true })
-  @ArrayUnique()
+  @Field(returns => String, { nullable: true })
+  @Column({ type: 'text', nullable: true })
   @IsOptional()
   origins?: string;
 
-  @Field(returns => [String], { nullable: true })
-  @Column({ type: 'text', array: true, nullable: true })
-  @ArrayUnique()
+  @Field(returns => String, { nullable: true })
+  @Column({ type: 'text', nullable: true })
   @IsOptional()
   authors?: string;
 
-  @Field(returns => [String], { nullable: true })
-  @Column({ type: 'text', array: true, nullable: true })
-  @ArrayUnique()
+  @Field(returns => String, { nullable: true })
+  @Column({ type: 'text', nullable: true })
   @IsOptional()
   artists?: string;
 
-  @Field(returns => [String], { nullable: true })
-  @Column({ name: 'related_novels', type: 'text', array: true, nullable: true })
-  @ArrayUnique()
+  @Field(returns => String, { nullable: true })
+  @Column({ name: 'related_novels', type: 'text', nullable: true })
   @IsOptional()
   relatedNovels?: string;
 
-  @Field(returns => [String], { nullable: true })
-  @Column({ name: 'associated_names', type: 'text', array: true, nullable: true })
-  @ArrayUnique()
+  @Field(returns => String, { nullable: true })
+  @Column({ name: 'associated_names', type: 'text', nullable: true })
   @IsOptional()
   associatedNames?: string;
 
-  @Field(returns => [String], { nullable: true })
-  @Column({ name: 'media_gallery', type: 'text', array: true, nullable: true })
-  @ArrayUnique()
+  @Field(returns => String, { nullable: true })
+  @Column({ name: 'media_gallery', type: 'text', nullable: true })
   @IsOptional()
   mediaGallery?: string;
  
-  @Field(returns => [String], { nullable: true })
-  @Column({ name: 'cover_image', type: 'text', array: true, nullable: true })
-  @ArrayUnique()
+  @Field(returns => String, { nullable: true })
+  @Column({ name: 'cover_image', type: 'text', nullable: true })
   @IsOptional()
   coverImage?: string;
 

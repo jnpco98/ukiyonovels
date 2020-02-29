@@ -1,4 +1,4 @@
 export interface TokenDecoded {
-  userId: number; 
+  userId: string; 
   role: string; 
 }
