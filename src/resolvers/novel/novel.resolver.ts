@@ -1,10 +1,6 @@
 import { createBaseResolver } from "../base/base-resolver";
 import { Novel } from "../../entity/novel";
-import { Resolver, ArgsType } from "type-graphql";
-
-@ArgsType()
-class NovelArgs {
-}
+import { Resolver } from "type-graphql";
 
 const BaseNovelResolver = createBaseResolver({ 
   EntityType: Novel,

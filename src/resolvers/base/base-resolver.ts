@@ -6,6 +6,7 @@ import { BaseEntity } from '../../entity/entity';
 import { Middleware } from "type-graphql/dist/interfaces/Middleware";
 import { ConnectionArgs, createConnectionDefinition } from "./pagination";
 import { connectionFromArraySlice } from "graphql-relay";
+import { NovelWhereInput, filterQuery } from "../novel/novel.input";
 
 interface AuthorizationRequirements {
   get?: string[];
@@ -50,18 +51,21 @@ export function createBaseResolver<T extends BaseEntity, U extends DeepPartial<T
     @Authorized(authorization.paginate || [])
     @UseMiddleware(resolverMiddleware.paginate || [])
     @Query(returns => ConnectionType.Connection, { name: `${plural(resource)}`, nullable: true })
-    async getAll(@Args() connArgs: ConnectionArgs) {
+    async getAll(@Args() connArgs: ConnectionArgs, @Arg('novelWhere', { nullable: true }) query?: NovelWhereInput) {
       const { sortKey, reverse, pagination } = connArgs;
       const { limit, offset } = pagination;
 
-      const queryParams: FindManyOptions<T> = { 
-        skip: offset, take: limit, order: { id: "ASC" } 
-      };
+      const queryBuilder = getRepository(EntityType).createQueryBuilder();
+      if(query) {
+        console.log('som')
+        filterQuery(queryBuilder, query)
+      }
 
-      if(sortKey) queryParams.order = { [sortKey]: reverse ? "DESC" : "ASC" } as any;
-
-      const [entities, count] = await getRepository(EntityType).findAndCount(queryParams);
-
+      queryBuilder.skip(offset).take(limit).orderBy(
+        sortKey && sortKey.trim().length ? sortKey : 'entity_id', reverse ? 'DESC' : 'ASC'
+      );
+      const [entities, count] = await queryBuilder.getManyAndCount();
+      
       const res = connectionFromArraySlice(
         entities, connArgs, { 
           arrayLength: count, sliceStart: offset || 0 
@@ -69,6 +73,21 @@ export function createBaseResolver<T extends BaseEntity, U extends DeepPartial<T
       );
 
       return res;
+      // const queryParams: FindManyOptions<T> = { 
+      //   skip: offset, take: limit, order: { id: "ASC" } 
+      // };
+
+      // if(sortKey) queryParams.order = { [sortKey]: reverse ? "DESC" : "ASC" } as any;
+
+      // const [entities, count] = await getRepository(EntityType).findAndCount(queryParams);
+
+      // const res = connectionFromArraySlice(
+      //   entities, connArgs, { 
+      //     arrayLength: count, sliceStart: offset || 0 
+      //   }
+      // );
+
+      // return res;
     }
 
     @Authorized(authorization.create || [])

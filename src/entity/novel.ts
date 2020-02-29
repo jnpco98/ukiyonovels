@@ -29,55 +29,55 @@ export class Novel extends BaseEntity implements Partial<Novel> {
   @Column({ type: 'text', array: true, nullable: true })
   @ArrayUnique()
   @IsOptional()
-  tags?: string[];
+  tags?: string;
 
   @Field(returns => [String], { nullable: true })
   @Column({ type: 'text', array: true, nullable: true })
   @ArrayUnique()
   @IsOptional()
-  genres?: string[];
+  genres?: string;
 
   @Field(returns => [String], { nullable: true })
   @Column({ type: 'text', array: true, nullable: true })
   @ArrayUnique()
   @IsOptional()
-  origins?: string[];
+  origins?: string;
 
   @Field(returns => [String], { nullable: true })
   @Column({ type: 'text', array: true, nullable: true })
   @ArrayUnique()
   @IsOptional()
-  authors?: string[];
+  authors?: string;
 
   @Field(returns => [String], { nullable: true })
   @Column({ type: 'text', array: true, nullable: true })
   @ArrayUnique()
   @IsOptional()
-  artists?: string[];
+  artists?: string;
 
   @Field(returns => [String], { nullable: true })
   @Column({ name: 'related_novels', type: 'text', array: true, nullable: true })
   @ArrayUnique()
   @IsOptional()
-  relatedNovels?: string[];
+  relatedNovels?: string;
 
   @Field(returns => [String], { nullable: true })
   @Column({ name: 'associated_names', type: 'text', array: true, nullable: true })
   @ArrayUnique()
   @IsOptional()
-  associatedNames?: string[];
+  associatedNames?: string;
 
   @Field(returns => [String], { nullable: true })
   @Column({ name: 'media_gallery', type: 'text', array: true, nullable: true })
   @ArrayUnique()
   @IsOptional()
-  mediaGallery?: string[];
+  mediaGallery?: string;
  
   @Field(returns => [String], { nullable: true })
   @Column({ name: 'cover_image', type: 'text', array: true, nullable: true })
   @ArrayUnique()
   @IsOptional()
-  coverImage?: string[];
+  coverImage?: string;
 
   @Field({ description: 'Likes: (not related to novel ratings)', nullable: true })
   @Column({ type: 'integer', default: 0 })
