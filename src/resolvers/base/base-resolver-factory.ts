@@ -1,5 +1,5 @@
 import { ClassType, Resolver, Query, Arg, Authorized, Mutation, ID } from "type-graphql";
-import { getRepository, FindManyOptions, ObjectLiteral } from "typeorm";
+import { getRepository, DeepPartial } from "typeorm";
 import { RelayedConnection } from "auto-relay";
 
 import { BaseEntity } from '../../entity/entity';
@@ -12,9 +12,7 @@ interface AuthorizationRequirements {
   delete?: string[];
 }
 
-interface InputParams {}
-
-interface BaseResolverParams<T, U> {
+interface BaseResolverParams<T extends BaseEntity, U extends DeepPartial<T>> {
   EntityType: ClassType<T>;
   InputType: ClassType<U>;
   resource: String;
@@ -27,7 +25,7 @@ interface FilterParams {
   }
 }
 
-export function createBaseResolver<T extends BaseEntity, U extends InputParams>(params: BaseResolverParams<T, U>) {
+export function createBaseResolver<T extends BaseEntity, U extends DeepPartial<T>>(params: BaseResolverParams<T, U>) {
   const { EntityType, InputType, resource, authorization } = params;
 
   @Resolver({ isAbstract: true })
@@ -67,9 +65,8 @@ export function createBaseResolver<T extends BaseEntity, U extends InputParams>(
       });
 
       if(existing) {
-        const entity = getRepository(EntityType).create({ 
-          ...existing,...data, id: existing.id 
-        });
+        const entity = getRepository(EntityType).merge(existing, data);
+        entity.id = existing.id;
         return await entity.save();
       } 
       return null;
@@ -78,17 +75,15 @@ export function createBaseResolver<T extends BaseEntity, U extends InputParams>(
     @Authorized(authorization.delete || [])
     @Mutation(returns => EntityType, { name: `delete${resource}`, nullable: true })
     async delete(
-      @Arg("id", () => ID) id: number, 
-      @Arg("data", () => InputType) data: U
+      @Arg("id", () => ID) id: number,
     ) {
       const existing = await getRepository(EntityType).findOne({ 
-        where: { id: true, archived: false } 
+        where: { id, archived: false } 
       });
 
       if(existing) {
-        const entity = getRepository(EntityType).create({ 
-          ...existing, ...data, id: existing.id, archived: true 
-        });
+        const entity = getRepository(EntityType).merge(existing)
+        entity.archived = true;
         return await entity.save();
       }
       return null;

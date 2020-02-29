@@ -1,8 +1,6 @@
 import { createBaseResolver } from "../base/base-resolver-factory";
 import { Novel } from "../../entity/novel";
-import { InputType, Field, Resolver, ArgsType } from "type-graphql";
-import { FindManyOptions } from "typeorm";
-import { IsIn } from "class-validator";
+import { Resolver, ArgsType } from "type-graphql";
 
 @ArgsType()
 class NovelArgs {
