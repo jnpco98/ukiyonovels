@@ -1,4 +1,4 @@
-import { createBaseResolver } from "../base/base-resolver-factory";
+import { createBaseResolver } from "../base/base-resolver";
 import { Novel } from "../../entity/novel";
 import { Resolver, ArgsType } from "type-graphql";
 
@@ -7,12 +7,13 @@ class NovelArgs {
 }
 
 const BaseNovelResolver = createBaseResolver({ 
-  EntityType: Novel, 
-  InputType: Novel, 
+  EntityType: Novel,
+  QueryType: Novel,
+  InputType: Novel,
   authorization: { 
     get: ["ADMIN"], 
   }, 
-  resource: "Novel" 
+  resource: "novel" 
 });
 
 @Resolver()
