@@ -1,13 +1,14 @@
-import { Field, ObjectType } from 'type-graphql';
+import { Field, ObjectType, InputType } from 'type-graphql';
 import { Entity, Column } from 'typeorm';
 import { BaseEntity } from './entity';
 import { Length, IsOptional, IsIn, ArrayUnique } from 'class-validator';
 
-const novelTypes = ['Web Novel', 'Light Novel', 'Chinese Novel', 'Korean Novel']
+export const novelTypes = ['Web Novel', 'Light Novel', 'Chinese Novel', 'Korean Novel']
 
 @Entity()
 @ObjectType()
-export class Novel extends BaseEntity {
+@InputType('NovelInput')
+export class Novel extends BaseEntity implements Partial<Novel> {
   @Field()
   @Column({ type: 'text' })
   @Length(5, 40, { message: 'Title should be between 5-40 characters' })
@@ -19,8 +20,8 @@ export class Novel extends BaseEntity {
   @IsOptional()
   description?: string;
 
-  @Field({ description: `Types: [${novelTypes.join(', ')}]` })
-  @Column({ type: 'text', default: 'Web Novel' })
+  @Column({ type: 'text', default: novelTypes[0] })
+  @Field({ description: `Types: [${novelTypes.join(', ')}]`, nullable: true })
   @IsIn(novelTypes)
   type: string;
 
@@ -78,11 +79,11 @@ export class Novel extends BaseEntity {
   @IsOptional()
   coverImage?: string[];
 
-  @Field({ description: 'Likes: (not related to novel ratings)' })
+  @Field({ description: 'Likes: (not related to novel ratings)', nullable: true })
   @Column({ type: 'integer', default: 0 })
-  likes: number;
+  likes?: number;
 
-  @Field({ description: 'Total Views: (controlled increment)' })
+  @Field({ description: 'Total Views: (controlled increment)', nullable: true })
   @Column({ type: 'integer', default: 0 })
-  views: number;
+  views?: number;
 }

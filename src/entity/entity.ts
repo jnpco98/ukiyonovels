@@ -1,7 +1,7 @@
 import { BaseEntity as ActiveRecordBaseEntity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, Column } from "typeorm";
 import { ObjectType, ID, Field } from "type-graphql";
 
-@ObjectType()
+@ObjectType({ isAbstract: true })
 export abstract class BaseEntity extends ActiveRecordBaseEntity {
   @Field(type => ID)
   @PrimaryGeneratedColumn({ name: 'entity_id' })
