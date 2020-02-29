@@ -1,12 +1,12 @@
 import { ClassType, Resolver, Query, Arg, Authorized, Mutation, ID, UseMiddleware, Args } from "type-graphql";
-import { getRepository, DeepPartial, FindManyOptions, Entity } from "typeorm";
+import { getRepository, DeepPartial } from "typeorm";
 import { plural } from 'pluralize';
 
 import { BaseEntity } from '../../entity/entity';
 import { Middleware } from "type-graphql/dist/interfaces/Middleware";
 import { ConnectionArgs, createConnectionDefinition } from "./pagination";
 import { connectionFromArraySlice } from "graphql-relay";
-import { NovelWhereInput, filterQuery } from "../novel/novel.input";
+import { createWhereInput, filterQuery, WhereAndOrParams } from "../base/where-input";
 
 interface AuthorizationRequirements {
   get?: string[];
@@ -24,18 +24,20 @@ interface ResolverMiddleware {
   delete?: Middleware<any>[];
 }
 
-interface BaseResolverParams<T extends BaseEntity, U extends DeepPartial<T>> {
+interface BaseResolverParams<T extends BaseEntity, V, U extends DeepPartial<T>> {
   EntityType: ClassType<T>;
+  QueryableInputType: ClassType<V>;
   InputType: ClassType<U>;
   resource: string;
   authorization?: AuthorizationRequirements;
   resolverMiddleware?: ResolverMiddleware;
 }
 
-export function createBaseResolver<T extends BaseEntity, U extends DeepPartial<T>>(params: BaseResolverParams<T, U>) {
-  const { EntityType, InputType, resource, authorization = {}, resolverMiddleware = {} } = params;
+export function createBaseResolver<T extends BaseEntity, V, U extends DeepPartial<T>>(params: BaseResolverParams<T, V, U>) {
+  const { EntityType, QueryableInputType, InputType, resource, authorization = {}, resolverMiddleware = {} } = params;
 
   const ConnectionType = createConnectionDefinition(resource, EntityType);
+  const WhereInputType = createWhereInput(resource, QueryableInputType);
 
   @Resolver({ isAbstract: true })
   abstract class BaseResolver {
@@ -51,15 +53,12 @@ export function createBaseResolver<T extends BaseEntity, U extends DeepPartial<T
     @Authorized(authorization.paginate || [])
     @UseMiddleware(resolverMiddleware.paginate || [])
     @Query(returns => ConnectionType.Connection, { name: `${plural(resource)}`, nullable: true })
-    async getAll(@Args() connArgs: ConnectionArgs, @Arg('novelWhere', { nullable: true }) query?: NovelWhereInput) {
+    async getAll(@Args() connArgs: ConnectionArgs, @Arg(`${resource}Where`, () => WhereInputType, { nullable: true }) query?: WhereAndOrParams) {
       const { sortKey, reverse, pagination } = connArgs;
       const { limit, offset } = pagination;
 
       const queryBuilder = getRepository(EntityType).createQueryBuilder();
-      if(query) {
-        console.log('som')
-        filterQuery(queryBuilder, query)
-      }
+      if(query) filterQuery(queryBuilder, query)
 
       queryBuilder.skip(offset).take(limit).orderBy(
         sortKey && sortKey.trim().length ? sortKey : 'entity_id', reverse ? 'DESC' : 'ASC'
@@ -73,21 +72,6 @@ export function createBaseResolver<T extends BaseEntity, U extends DeepPartial<T
       );
 
       return res;
-      // const queryParams: FindManyOptions<T> = { 
-      //   skip: offset, take: limit, order: { id: "ASC" } 
-      // };
-
-      // if(sortKey) queryParams.order = { [sortKey]: reverse ? "DESC" : "ASC" } as any;
-
-      // const [entities, count] = await getRepository(EntityType).findAndCount(queryParams);
-
-      // const res = connectionFromArraySlice(
-      //   entities, connArgs, { 
-      //     arrayLength: count, sliceStart: offset || 0 
-      //   }
-      // );
-
-      // return res;
     }
 
     @Authorized(authorization.create || [])

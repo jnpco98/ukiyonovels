@@ -1,60 +1,20 @@
-import { InputType, Field } from "type-graphql";
-import { StringWhere } from '../base/string-where';
-import { NumberWhere } from '../base/number-where';
-import { SelectQueryBuilder, Brackets, WhereExpression } from "typeorm";
+import { InputType, Field, ClassType } from "type-graphql";
+import { WhereExpression, SelectQueryBuilder, Brackets } from "typeorm";
 
-@InputType()
-export class NovelWhereInput {
-  @Field(type => [NovelWhereInput], { nullable: true })
-  AND?: [NovelWhereInput];
+export function createWhereInput(name: string, ReturnType: ClassType<WhereAndOrParams>): ClassType<WhereAndOrParams> {
+  @InputType(`${name}Where`)
+  class WhereInput implements WhereAndOrParams{
+    @Field(type => [ReturnType], { nullable: true })
+    AND?: [typeof ReturnType];
+  
+    @Field(type => [ReturnType], { nullable: true })
+    OR?: [typeof ReturnType];
+  }
 
-  @Field(type => [NovelWhereInput], { nullable: true })
-  OR?: [NovelWhereInput];
-
-  @Field({ nullable: true })
-  title?: StringWhere;
-
-  @Field({ nullable: true })
-  description?: StringWhere;
-
-  @Field({ nullable: true })
-  type?: StringWhere;
-
-  @Field({ nullable: true })
-  tags?: StringWhere;
-
-  @Field({ nullable: true })
-  genres?: StringWhere;
-
-  @Field({ nullable: true })
-  origins?: StringWhere;
-
-  @Field({ nullable: true })
-  authors?: StringWhere;
-
-  @Field({ nullable: true })
-  artists?: StringWhere;
-
-  @Field({ nullable: true })
-  relatedNovels?: StringWhere;
-
-  @Field({ nullable: true })
-  associatedNames?: StringWhere;
-
-  @Field({ nullable: true })
-  likes?: NumberWhere;
-
-  @Field({ nullable: true })
-  views?: NumberWhere;
+  return WhereInput;
 }
 
-
-
-const handleArgs = (
-  query: WhereExpression,
-  where: NovelWhereInput,
-  andOr: "andWhere" | "orWhere"
-) => {
+function handleArgs<T extends { [key: string ]: any }>(query: WhereExpression, where: T, andOr: "andWhere" | "orWhere") {
   const whereArgs = Object.entries(where);
 
   whereArgs.map(whereArg => {
@@ -145,7 +105,16 @@ const handleArgs = (
   return query;
 };
 
-export const filterQuery = <T>(query: SelectQueryBuilder<T>, where: NovelWhereInput) => {
+export interface WhereFilterParams {
+  [key: string]: any;
+}
+
+export interface WhereAndOrParams {
+  AND?: WhereFilterParams[];
+  OR?: WhereFilterParams[];
+}
+
+export function filterQuery<T, U extends WhereAndOrParams>(query: SelectQueryBuilder<T>, where: U) {
   if (!where) {
     return query;
   }
