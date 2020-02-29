@@ -1,5 +1,9 @@
+import { createBaseResolver } from "../base/base-resolver";
+import { Novel } from "../../entity/novel";
 import { InputType, Field } from "type-graphql";
+
 import { StringWhere, NumberWhere } from "../base/where-type";
+import ROLES from "../../constants/roles";
 
 @InputType()
 export class NovelQueryableInput {
@@ -39,3 +43,27 @@ export class NovelQueryableInput {
   @Field(type => NumberWhere, { nullable: true })
   views?: typeof NumberWhere;
 }
+
+const {
+  BaseGetResolver, BaseSearchResolver,
+  BaseCreateResolver, BaseUpdateResolver,
+  BaseDeleteResolver
+} = createBaseResolver({
+  EntityType: Novel,
+  QueryableInputType: NovelQueryableInput,
+  MutationInputType: Novel,
+  authorization: {
+    get: [ROLES.owner],
+    paginate: [ROLES.owner],
+    create: [ROLES.owner],
+    update: [ROLES.owner],
+    delete: [ROLES.owner]
+  },
+  resource: 'novel'
+});
+
+export {
+  BaseGetResolver, BaseSearchResolver,
+  BaseCreateResolver, BaseUpdateResolver,
+  BaseDeleteResolver
+};

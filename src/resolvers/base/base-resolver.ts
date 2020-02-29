@@ -27,67 +27,82 @@ interface ResolverMiddleware {
 interface BaseResolverParams<T extends BaseEntity, V, U extends DeepPartial<T>> {
   EntityType: ClassType<T>;
   QueryableInputType: ClassType<V>;
-  InputType: ClassType<U>;
+  MutationInputType: ClassType<U>;
+  
   resource: string;
   authorization?: AuthorizationRequirements;
   resolverMiddleware?: ResolverMiddleware;
 }
 
 export function createBaseResolver<T extends BaseEntity, V, U extends DeepPartial<T>>(params: BaseResolverParams<T, V, U>) {
-  const { EntityType, QueryableInputType, InputType, resource, authorization = {}, resolverMiddleware = {} } = params;
+  const { EntityType, QueryableInputType, MutationInputType, resource, authorization = {}, resolverMiddleware = {} } = params;
 
   const ConnectionType = createConnectionDefinition(resource, EntityType);
   const WhereInputType = createWhereInput(resource, QueryableInputType);
 
   @Resolver({ isAbstract: true })
-  abstract class BaseResolver {
+  abstract class BaseGetResolver {
     @Authorized(authorization.get || [])
     @UseMiddleware(resolverMiddleware.get || [])
     @Query(returns => EntityType, { name: `${resource}`, nullable: true })
-    async getOne(@Arg("id", type => ID) id: number) {
-      return await getRepository(EntityType).findOne({ 
-        where: { id, archived: false } 
+    async getOne(@Arg('id', type => ID) id: number) {
+      return await getRepository(EntityType).findOne({
+        where: { id, archived: false }
       });
     }
+  }
 
+  @Resolver({ isAbstract: true })
+  abstract class BaseSearchResolver {
     @Authorized(authorization.paginate || [])
     @UseMiddleware(resolverMiddleware.paginate || [])
     @Query(returns => ConnectionType.Connection, { name: `${plural(resource)}`, nullable: true })
-    async getAll(@Args() connArgs: ConnectionArgs, @Arg(`${resource}Where`, () => WhereInputType, { nullable: true }) query?: WhereAndOrParams) {
+    async paginate(
+      @Args() connArgs: ConnectionArgs, 
+      @Arg(`${resource}Where`, 
+        () => WhereInputType, { nullable: true }) query?: WhereAndOrParams
+    ) {
       const { sortKey, reverse, pagination } = connArgs;
       const { limit, offset } = pagination;
 
       const queryBuilder = getRepository(EntityType).createQueryBuilder();
-      if(query) filterQuery(queryBuilder, query)
+      if(query) filterQuery(queryBuilder, query);
 
-      queryBuilder.skip(offset).take(limit).orderBy(
-        sortKey && sortKey.trim().length ? sortKey : 'entity_id', reverse ? 'DESC' : 'ASC'
-      );
-      const [entities, count] = await queryBuilder.getManyAndCount();
+      const sort = sortKey && sortKey.trim() ? sortKey : 'entity_id';
+      const order = reverse ? 'DESC' : 'ASC';
+
+      const [entities, count] = await queryBuilder
+        .skip(offset).take(limit).orderBy(sort, order).getManyAndCount();
       
-      const res = connectionFromArraySlice(
-        entities, connArgs, { 
-          arrayLength: count, sliceStart: offset || 0 
+      const result = connectionFromArraySlice(
+        entities, connArgs, {
+          arrayLength: count, sliceStart: offset || 0
         }
       );
 
-      return res;
+      return result;
     }
+  }
 
+  @Resolver({ isAbstract: true })
+  abstract class BaseCreateResolver {
     @Authorized(authorization.create || [])
     @UseMiddleware(resolverMiddleware.create || [])
-    @Mutation(returns => EntityType, { name: `${resource}Create`, nullable: true })
-    async create(@Arg("data", () => InputType) data: U) {
+    @Query(returns => ConnectionType.Connection, { name: `${resource}Create`, nullable: true })
+    async create(@Arg('data', () => MutationInputType) data: U) {
       const entity = getRepository(EntityType).create(data);
       return await entity.save();
     }
+  }
 
+  @Resolver({ isAbstract: true })
+  abstract class BaseUpdateResolver {
     @Authorized(authorization.update || [])
     @UseMiddleware(resolverMiddleware.update || [])
     @Mutation(returns => EntityType, { name: `${resource}Update`, nullable: true })
     async update(
       @Arg("id", () => ID) id: number, 
-      @Arg("data", () => InputType) data: U
+      @Arg("data", () => MutationInputType) data: U
     ) {
       const existing = await getRepository(EntityType).findOne({ 
         where: { id, archived: false } 
@@ -100,7 +115,10 @@ export function createBaseResolver<T extends BaseEntity, V, U extends DeepPartia
       } 
       return null;
     }
+  }
 
+  @Resolver({ isAbstract: true })
+  abstract class BaseDeleteResolver {
     @Authorized(authorization.delete || [])
     @UseMiddleware(resolverMiddleware.delete || [])
     @Mutation(returns => EntityType, { name: `${resource}Delete`, nullable: true })
@@ -120,5 +138,11 @@ export function createBaseResolver<T extends BaseEntity, V, U extends DeepPartia
     }
   }
 
-  return BaseResolver;
+  return {
+    BaseGetResolver,
+    BaseSearchResolver,
+    BaseCreateResolver,
+    BaseUpdateResolver,
+    BaseDeleteResolver
+  }
 }
