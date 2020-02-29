@@ -2,8 +2,8 @@ import { createBaseResolver } from "../base/base-resolver";
 import { Novel } from "../../entity/novel";
 import { InputType, Field } from "type-graphql";
 
-import { StringWhere, NumberWhere } from "../base/where-type";
 import ROLES from "../../constants/roles";
+import { StringWhere, NumberWhere } from "../../lib/query/create-type";
 
 @InputType()
 export class NovelQueryableInput {

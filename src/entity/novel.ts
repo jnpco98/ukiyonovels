@@ -3,7 +3,12 @@ import { Entity, Column } from 'typeorm';
 import { BaseEntity } from './entity';
 import { Length, IsOptional, IsIn, ArrayUnique } from 'class-validator';
 
-export const novelTypes = ['Web Novel', 'Light Novel', 'Chinese Novel', 'Korean Novel']
+export const novelTypes = [
+  'Web Novel', 
+  'Light Novel', 
+  'Chinese Novel', 
+  'Korean Novel'
+];
 
 @Entity()
 @ObjectType()

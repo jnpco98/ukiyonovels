@@ -1,29 +1,16 @@
-import { Resolver, Mutation, Arg, InputType, Field } from 'type-graphql';
+import { Resolver, Mutation, Arg } from 'type-graphql';
 import bcrypt from 'bcrypt';
 import { User } from "../../entity/user";
-import { IsEmail } from "class-validator";
 import { generateTokens } from '../../utilities/auth/token';
 import { AuthTokens } from '../../entity/token';
 import { verify } from 'jsonwebtoken';
-
-@InputType()
-class RefreshTokenInput {
-  @Field()
-  @IsEmail()
-  email: string;
-
-  @Field()
-  password: string;
-
-  @Field()
-  token: string;
-}
+import { TokenRefreshInput } from './token-base';
 
 @Resolver()
-export class RefreshTokenResolver {  
-  @Mutation(returns => AuthTokens, { nullable: true })
+export class TokenRefreshResolver {  
+  @Mutation(returns => AuthTokens, { name: 'tokenRefresh', nullable: true })
   async refreshAccessToken(
-    @Arg('data') { password, email, token }: RefreshTokenInput
+    @Arg('data') { password, email, token }: TokenRefreshInput
   ): Promise<AuthTokens | null> {
     const user = await User.findOne({ where: { email } });
     const userIsValid = await bcrypt.compare(password, user?.password || '');

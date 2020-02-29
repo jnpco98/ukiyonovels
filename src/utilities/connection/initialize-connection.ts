@@ -1,9 +1,5 @@
 import { getConnectionOptions, createConnection } from "typeorm";
-
-interface DropDatabaseGuardOptions {
-  drop?: boolean;
-  databaseToDrop?: string;
-}
+import { DropDatabaseGuardOptions } from "./types/drop-database-guard-options";
 
 export async function initializeConnection(dropDatabaseGuardOptions: DropDatabaseGuardOptions = {}) {
   const { drop, databaseToDrop } = dropDatabaseGuardOptions;

@@ -4,7 +4,7 @@ import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 
-import { authenticateToken } from './middleware/authenticate-token';
+import { authenticateToken } from './middleware/authentication/authenticate-token';
 import { createSchema } from './schema/create-schema';
 import { initializeConnection } from './utilities/connection/initialize-connection';
 

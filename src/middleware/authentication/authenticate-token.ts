@@ -1,8 +1,9 @@
 import { verify } from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
 
-import { User } from '../entity/user';
-import ROLES from '../constants/roles';
+import { User } from '../../entity/user';
+import ROLES from '../../constants/roles';
+import { TokenDecoded } from './types/token-decoded';
 
 export async function authenticateToken(req: Request, res: Response, next: NextFunction) {
   const authHeader = req.headers.authorization;
@@ -12,7 +13,7 @@ export async function authenticateToken(req: Request, res: Response, next: NextF
 
   if(accessToken) {
     try {
-      const decoded = verify(accessToken, process.env.ACCESS_TOKEN_SECRET!) as { userId: number, role: string; };
+      const decoded = verify(accessToken, process.env.ACCESS_TOKEN_SECRET!) as TokenDecoded;
       const user = await User.findOne(decoded.userId);
 
       if(user && user.role === decoded.role) {

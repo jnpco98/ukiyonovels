@@ -1,41 +1,15 @@
-import { ClassType, Resolver, Query, Arg, Authorized, Mutation, ID, UseMiddleware, Args } from "type-graphql";
+import { Resolver, Query, Arg, Authorized, Mutation, ID, UseMiddleware, Args } from "type-graphql";
 import { getRepository, DeepPartial } from "typeorm";
 import { plural } from 'pluralize';
 
 import { BaseEntity } from '../../entity/entity';
-import { Middleware } from "type-graphql/dist/interfaces/Middleware";
 import { connectionFromArraySlice } from "graphql-relay";
 import { createConnectionDefinition } from "../../lib/cursors/create-connection-definition";
 import { ConnectionArgs } from "../../lib/cursors/connection-args";
 import { createWhereInputType } from "../../lib/query/create-input-type";
 import { WhereAndOrParams } from "../../lib/query/types/where-and-or";
 import { filterQuery } from "../../lib/query/filter-query";
-
-interface AuthorizationRequirements {
-  get?: string[];
-  paginate?: string[];
-  create?: string[];
-  update?: string[];
-  delete?: string[];
-}
-
-interface ResolverMiddleware {
-  get?: Middleware<any>[];
-  paginate?: Middleware<any>[];
-  create?: Middleware<any>[];
-  update?: Middleware<any>[];
-  delete?: Middleware<any>[];
-}
-
-interface BaseResolverParams<T extends BaseEntity, V, U extends DeepPartial<T>> {
-  EntityType: ClassType<T>;
-  QueryableInputType: ClassType<V>;
-  MutationInputType: ClassType<U>;
-  
-  resource: string;
-  authorization?: AuthorizationRequirements;
-  resolverMiddleware?: ResolverMiddleware;
-}
+import { BaseResolverParams } from "./types/resolver";
 
 export function createBaseResolver<T extends BaseEntity, V, U extends DeepPartial<T>>(params: BaseResolverParams<T, V, U>) {
   const { EntityType, QueryableInputType, MutationInputType, resource, authorization = {}, resolverMiddleware = {} } = params;
@@ -62,7 +36,8 @@ export function createBaseResolver<T extends BaseEntity, V, U extends DeepPartia
     @Query(returns => ConnectionType.Connection, { name: `${plural(resource)}`, nullable: true })
     async paginate(
       @Args() connArgs: ConnectionArgs, 
-      @Arg(`${resource}Where`, 
+      @Arg(
+        `${resource}Where`, 
         () => WhereInputType, { nullable: true }) query?: WhereAndOrParams
     ) {
       const { sortKey, reverse, pagination } = connArgs;
