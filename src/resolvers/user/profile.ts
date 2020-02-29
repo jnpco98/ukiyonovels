@@ -5,8 +5,10 @@ import { Context } from "../../types/context";
 @Resolver()
 export class ProfileResolver {
   @Query(returns => User, { nullable: true })
-  async profile(@Ctx() { request }: Context): Promise<User | null>  {
-    const { userId } = request.auth;
+  async profile(@Ctx() { req }: Context): Promise<User | null>  {
+    if(!req || !req.auth) return null;
+    
+    const { userId } = req.auth;
 
     if(userId) {
       const user = await User.findOne(userId);
@@ -15,4 +17,4 @@ export class ProfileResolver {
 
     return null;
   }
-} 
+}
