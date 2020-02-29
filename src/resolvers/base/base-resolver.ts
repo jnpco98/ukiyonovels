@@ -1,11 +1,10 @@
-import { ClassType, Resolver, Query, Arg, Authorized, Mutation, ID, UseMiddleware, ArgsType, Args } from "type-graphql";
-import { getRepository, DeepPartial } from "typeorm";
+import { ClassType, Resolver, Query, Arg, Authorized, Mutation, ID, UseMiddleware, Args } from "type-graphql";
+import { getRepository, DeepPartial, FindManyOptions, Entity } from "typeorm";
 import { plural } from 'pluralize';
-import { RelayedConnection } from "auto-relay";
 
 import { BaseEntity } from '../../entity/entity';
 import { Middleware } from "type-graphql/dist/interfaces/Middleware";
-import { ConnectionArgs, createConnectionType } from "./pagination";
+import { ConnectionArgs, createConnectionDefinition } from "./pagination";
 import { connectionFromArraySlice } from "graphql-relay";
 
 interface AuthorizationRequirements {
@@ -24,25 +23,18 @@ interface ResolverMiddleware {
   delete?: Middleware<any>[];
 }
 
-interface BaseResolverParams<T extends BaseEntity, U, V extends DeepPartial<T>> {
+interface BaseResolverParams<T extends BaseEntity, U extends DeepPartial<T>> {
   EntityType: ClassType<T>;
-  QueryType: ClassType<U>;
-  InputType: ClassType<V>;
+  InputType: ClassType<U>;
   resource: string;
   authorization?: AuthorizationRequirements;
   resolverMiddleware?: ResolverMiddleware;
 }
 
-interface FilterParams {
-  filter: {
-    [key: string]: string;
-  }
-}
+export function createBaseResolver<T extends BaseEntity, U extends DeepPartial<T>>(params: BaseResolverParams<T, U>) {
+  const { EntityType, InputType, resource, authorization = {}, resolverMiddleware = {} } = params;
 
-export function createBaseResolver<T extends BaseEntity, U, V extends DeepPartial<T>>(params: BaseResolverParams<T, U, V>) {
-  const { EntityType, QueryType, InputType, resource, authorization = {}, resolverMiddleware = {} } = params;
-
-  const ConnectionType = createConnectionType(resource, EntityType);
+  const ConnectionType = createConnectionDefinition(resource, EntityType);
 
   @Resolver({ isAbstract: true })
   abstract class BaseResolver {
@@ -59,29 +51,30 @@ export function createBaseResolver<T extends BaseEntity, U, V extends DeepPartia
     @UseMiddleware(resolverMiddleware.paginate || [])
     @Query(returns => ConnectionType.Connection, { name: `${plural(resource)}`, nullable: true })
     async getAll(@Args() connArgs: ConnectionArgs) {
-      const { limit, offset } = connArgs.pagination;
+      const { sortKey, reverse, pagination } = connArgs;
+      const { limit, offset } = pagination;
 
-      const [entities, count] = await getRepository(EntityType).findAndCount({
-        skip: offset, take: limit
-      })
+      const queryParams: FindManyOptions<T> = { 
+        skip: offset, take: limit, order: { id: "ASC" } 
+      };
 
-      const res = connectionFromArraySlice(entities, connArgs, { 
-        arrayLength: count, sliceStart: offset || 0 
-      });
-      console.log(res)
+      if(sortKey) queryParams.order = { [sortKey]: reverse ? "DESC" : "ASC" } as any;
+
+      const [entities, count] = await getRepository(EntityType).findAndCount(queryParams);
+
+      const res = connectionFromArraySlice(
+        entities, connArgs, { 
+          arrayLength: count, sliceStart: offset || 0 
+        }
+      );
 
       return res;
-      return res;
-      // const filter = this.buildFilterOptions(data);
-      // filter.where = { ...filter.where as ObjectLiteral, archived: false };
-      // return await getRepository(EntityType).find(filter);
-      return await getRepository(EntityType).find();
     }
 
     @Authorized(authorization.create || [])
     @UseMiddleware(resolverMiddleware.create || [])
     @Mutation(returns => EntityType, { name: `${resource}Create`, nullable: true })
-    async create(@Arg("data", () => InputType) data: V) {
+    async create(@Arg("data", () => InputType) data: U) {
       const entity = getRepository(EntityType).create(data);
       return await entity.save();
     }
@@ -91,7 +84,7 @@ export function createBaseResolver<T extends BaseEntity, U, V extends DeepPartia
     @Mutation(returns => EntityType, { name: `${resource}Update`, nullable: true })
     async update(
       @Arg("id", () => ID) id: number, 
-      @Arg("data", () => InputType) data: V
+      @Arg("data", () => InputType) data: U
     ) {
       const existing = await getRepository(EntityType).findOne({ 
         where: { id, archived: false } 
@@ -122,8 +115,6 @@ export function createBaseResolver<T extends BaseEntity, U, V extends DeepPartia
       }
       return null;
     }
-
-    // protected abstract buildFilterOptions(data: FilterParams): FindManyOptions<T>;
   }
 
   return BaseResolver;

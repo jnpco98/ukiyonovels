@@ -8,7 +8,6 @@ class NovelArgs {
 
 const BaseNovelResolver = createBaseResolver({ 
   EntityType: Novel,
-  QueryType: Novel,
   InputType: Novel,
   authorization: { 
     get: ["ADMIN"], 
@@ -18,7 +17,4 @@ const BaseNovelResolver = createBaseResolver({
 
 @Resolver()
 export class NovelResolver extends BaseNovelResolver {
-  // buildFilterOptions(): FindManyOptions<Novel> {
-  //   return {};
-  // }
 }
