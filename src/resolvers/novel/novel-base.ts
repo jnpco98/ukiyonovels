@@ -53,8 +53,8 @@ const {
   QueryableInputType: NovelQueryableInput,
   MutationInputType: Novel,
   authorization: {
-    get: [ROLES.owner],
-    paginate: [ROLES.owner],
+    get: [ROLES.anonymous],
+    paginate: [ROLES.anonymous],
     create: [ROLES.owner],
     update: [ROLES.owner],
     delete: [ROLES.owner]

@@ -4,9 +4,10 @@ import { plural } from 'pluralize';
 
 import { BaseEntity } from '../../entity/entity';
 import { Middleware } from "type-graphql/dist/interfaces/Middleware";
-import { ConnectionArgs, createConnectionDefinition } from "./pagination";
 import { connectionFromArraySlice } from "graphql-relay";
 import { createWhereInput, filterQuery, WhereAndOrParams } from "../base/where-input";
+import { createConnectionDefinition } from "../../lib/cursors/create-connection-definition";
+import { ConnectionArgs } from "../../lib/cursors/connection-args";
 
 interface AuthorizationRequirements {
   get?: string[];
