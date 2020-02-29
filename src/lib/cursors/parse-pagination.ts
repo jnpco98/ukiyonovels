@@ -1,9 +1,5 @@
 import { ConnectionArgs } from "./connection-args";
-
-type PagingMeta = 
-| { pagingType: 'forward'; after?: string; first: number }
-| { pagingType: 'backward'; before?: string; last: number }
-| { pagingType: 'none'; }
+import { PagingMeta } from './types/paging-meta';
 
 export function parsePagination(connArgs: ConnectionArgs): PagingMeta {
   const { first = 0, last = 0, after, before } = connArgs;

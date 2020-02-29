@@ -1,20 +1,6 @@
-import { InputType, Field, ClassType } from "type-graphql";
-import { WhereExpression, SelectQueryBuilder, Brackets } from "typeorm";
+import { WhereExpression } from "typeorm";
 
-export function createWhereInput(name: string, ReturnType: ClassType<WhereAndOrParams>): ClassType<WhereAndOrParams> {
-  @InputType(`${name}Where`)
-  class WhereInput implements WhereAndOrParams{
-    @Field(type => [ReturnType], { nullable: true })
-    AND?: [typeof ReturnType];
-  
-    @Field(type => [ReturnType], { nullable: true })
-    OR?: [typeof ReturnType];
-  }
-
-  return WhereInput;
-}
-
-function handleArgs<T extends { [key: string ]: any }>(query: WhereExpression, where: T, andOr: "andWhere" | "orWhere") {
+export function parseInput<T extends { [key: string ]: any }>(query: WhereExpression, where: T, andOr: "andWhere" | "orWhere") {
   const whereArgs = Object.entries(where);
 
   whereArgs.map(whereArg => {
@@ -100,43 +86,6 @@ function handleArgs<T extends { [key: string ]: any }>(query: WhereExpression, w
         }
       }
     });
-  });
-
-  return query;
-};
-
-export interface WhereFilterParams {
-  [key: string]: any;
-}
-
-export interface WhereAndOrParams {
-  AND?: WhereFilterParams[];
-  OR?: WhereFilterParams[];
-}
-
-export function filterQuery<T, U extends WhereAndOrParams>(query: SelectQueryBuilder<T>, where: U) {
-  if (!where) {
-    return query;
-  }
-
-  Object.keys(where).forEach(key => {
-    if (key === "OR") {
-      query.andWhere(
-        new Brackets(qb =>
-          where[key]!.map(queryArray => {
-            handleArgs(qb, queryArray, "orWhere");
-          })
-        )
-      );
-    } else if (key === "AND") {
-      query.andWhere(
-        new Brackets(qb =>
-          where[key]!.map(queryArray => {
-            handleArgs(qb, queryArray, "andWhere");
-          })
-        )
-      );
-    }
   });
 
   return query;

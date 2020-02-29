@@ -1,6 +1,6 @@
 import { Field, InputType, ClassType } from "type-graphql";
 
-export function createTypeWhere<T>(resource: string, ReturnType: ClassType<T>) {
+export function createWhereType<T>(resource: string, ReturnType: ClassType<T>) {
   @InputType(`${resource}Where`, { isAbstract: true })
   abstract class TypeWhere {
     @Field(type => ReturnType, { nullable: true })
@@ -49,5 +49,5 @@ export function createTypeWhere<T>(resource: string, ReturnType: ClassType<T>) {
   return TypeWhere;
 }
 
-export const StringWhere = createTypeWhere('String', String);
-export const NumberWhere = createTypeWhere('Number', Number)
+export const StringWhere = createWhereType('String', String);
+export const NumberWhere = createWhereType('Number', Number)

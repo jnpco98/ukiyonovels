@@ -5,9 +5,11 @@ import { plural } from 'pluralize';
 import { BaseEntity } from '../../entity/entity';
 import { Middleware } from "type-graphql/dist/interfaces/Middleware";
 import { connectionFromArraySlice } from "graphql-relay";
-import { createWhereInput, filterQuery, WhereAndOrParams } from "../base/where-input";
 import { createConnectionDefinition } from "../../lib/cursors/create-connection-definition";
 import { ConnectionArgs } from "../../lib/cursors/connection-args";
+import { createWhereInputType } from "../../lib/query/create-input-type";
+import { WhereAndOrParams } from "../../lib/query/types/where-and-or";
+import { filterQuery } from "../../lib/query/filter-query";
 
 interface AuthorizationRequirements {
   get?: string[];
@@ -39,7 +41,7 @@ export function createBaseResolver<T extends BaseEntity, V, U extends DeepPartia
   const { EntityType, QueryableInputType, MutationInputType, resource, authorization = {}, resolverMiddleware = {} } = params;
 
   const ConnectionType = createConnectionDefinition(resource, EntityType);
-  const WhereInputType = createWhereInput(resource, QueryableInputType);
+  const WhereInputType = createWhereInputType(resource, QueryableInputType);
 
   @Resolver({ isAbstract: true })
   abstract class BaseGetResolver {
