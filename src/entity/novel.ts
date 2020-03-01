@@ -90,9 +90,9 @@ export class Novel extends BaseEntity implements Partial<Novel> {
   @OneToMany(() => Book, book => book.novel, { lazy: true })
   books: Promise<Book[]>;
 
-  @Field(() => [Chapter], { nullable: true })
-  @OneToMany(() => Chapter, chapter => chapter.novel, { lazy: true })
-  chapters: Promise<Chapter[]>;
+  // @Field(() => [Chapter], { nullable: true })
+  // @OneToMany(() => Chapter, chapter => chapter.novel, { lazy: true })
+  // chapters: Promise<Chapter[]>;
 
   @Field(() => [Review], { nullable: true })
   @OneToMany(() => Review, review => review.novel, { lazy: true })
