@@ -1,4 +1,4 @@
-import { Resolver, Query, Arg, Authorized, Mutation, ID, UseMiddleware, Args } from "type-graphql";
+import { Resolver, Query, Arg, Authorized, Mutation, ID, UseMiddleware, Args, Ctx } from "type-graphql";
 import { getRepository, DeepPartial } from "typeorm";
 import { plural } from 'pluralize';
 
@@ -10,9 +10,10 @@ import { createWhereInputType } from "../../lib/query/create-input-type";
 import { WhereAndOrParams } from "../../lib/query/types/where-and-or";
 import { filterQuery } from "../../lib/query/filter-query";
 import { BaseResolverParams } from "./types/resolver";
+import { Context } from "../../types/context";
 
 export function createBaseResolver<T extends BaseEntity, V, U extends DeepPartial<T>>(params: BaseResolverParams<T, V, U>) {
-  const { EntityType, QueryableInputType, MutationInputType, resource, authorization = {}, resolverMiddleware = {} } = params;
+  const { EntityType, QueryableInputType, MutationInputType, resource, authorization = {}, resolverMiddleware = {}, contextHooks = {} } = params;
 
   const ConnectionType = createConnectionDefinition(resource, EntityType);
   const WhereInputType = createWhereInputType(resource, QueryableInputType);
@@ -22,10 +23,18 @@ export function createBaseResolver<T extends BaseEntity, V, U extends DeepPartia
     @Authorized(authorization.get || [])
     @UseMiddleware(resolverMiddleware.get || [])
     @Query(returns => EntityType, { name: `${resource}`, nullable: true })
-    async getOne(@Arg('id', type => ID) id: string) {
-      return await getRepository(EntityType).findOne({
+    async getOne(
+      @Arg('id', type => ID) id: string,
+      @Ctx() ctx: Context
+    ) {
+      const entity = await getRepository(EntityType).findOne({
         where: { id, archived: false }
       });
+
+      if(contextHooks.get) 
+        return contextHooks.get(entity, ctx);
+      
+      return entity;
     }
   }
 
@@ -67,9 +76,21 @@ export function createBaseResolver<T extends BaseEntity, V, U extends DeepPartia
   abstract class BaseCreateResolver {
     @Authorized(authorization.create || [])
     @UseMiddleware(resolverMiddleware.create || [])
-    @Query(returns => ConnectionType.Connection, { name: `${resource}Create`, nullable: true })
-    async create(@Arg('data', () => MutationInputType) data: U) {
+    @Query(returns => EntityType, { name: `${resource}Create`, nullable: true })
+    async create(
+      @Arg('data', () => MutationInputType) data: U,
+      @Ctx() ctx : Context
+    ) {
       const entity = getRepository(EntityType).create(data);
+
+      if(ctx.req.auth && ctx.req.auth.userId) 
+        entity.creatorId = ctx.req.auth.userId;
+
+      if(contextHooks.create) {
+        const hookedEntity = contextHooks.create(entity, ctx);
+        return hookedEntity ? await hookedEntity.save() : null;
+      }
+      
       return await entity.save();
     }
   }
@@ -81,7 +102,8 @@ export function createBaseResolver<T extends BaseEntity, V, U extends DeepPartia
     @Mutation(returns => EntityType, { name: `${resource}Update`, nullable: true })
     async update(
       @Arg("id", () => ID) id: string, 
-      @Arg("data", () => MutationInputType) data: U
+      @Arg("data", () => MutationInputType) data: U,
+      @Ctx() ctx : Context
     ) {
       const existing = await getRepository(EntityType).findOne({ 
         where: { id, archived: false } 
@@ -90,6 +112,12 @@ export function createBaseResolver<T extends BaseEntity, V, U extends DeepPartia
       if(existing) {
         const entity = getRepository(EntityType).merge(existing, data);
         entity.id = id;
+
+        if(contextHooks.update) {
+          const hookedEntity = contextHooks.update(entity, ctx);
+          return hookedEntity ? await hookedEntity.save() : null;
+        }
+
         return await entity.save();
       } 
       return null;
@@ -103,6 +131,7 @@ export function createBaseResolver<T extends BaseEntity, V, U extends DeepPartia
     @Mutation(returns => EntityType, { name: `${resource}Delete`, nullable: true })
     async delete(
       @Arg("id", () => ID) id: string,
+      @Ctx() ctx : Context
     ) {
       const existing = await getRepository(EntityType).findOne({ 
         where: { id, archived: false } 
@@ -111,6 +140,12 @@ export function createBaseResolver<T extends BaseEntity, V, U extends DeepPartia
       if(existing) {
         const entity = getRepository(EntityType).merge(existing)
         entity.archived = true;
+
+        if(contextHooks.delete) {
+          const hookedEntity = contextHooks.delete(entity, ctx);
+          return hookedEntity ? await hookedEntity.save() : null;
+        }
+
         return await entity.save();
       }
       return null;

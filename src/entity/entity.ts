@@ -15,7 +15,7 @@ export abstract class BaseEntity extends ActiveRecordBaseEntity {
   lastModified: Date;
 
   @Column({ name: 'creator_id', nullable: true })
-  creatorId: string;
+  creatorId?: string;
 
   @Column({ type: 'boolean', default: false })
   archived: boolean;

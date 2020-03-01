@@ -1,11 +1,12 @@
-import { Field, ObjectType, ID } from 'type-graphql';
+import { Field, ObjectType, ID, InputType } from 'type-graphql';
 import { Entity, Column } from 'typeorm';
 import { BaseEntity } from './entity';
 import { Min, Max, IsOptional, Length } from 'class-validator';
 
 @Entity()
 @ObjectType()
-export class Review extends BaseEntity {
+@InputType('ReviewInput')
+export class Review extends BaseEntity implements Partial<Review> {
   @Field({ nullable: true })
   @Column({ type: 'text', nullable: true })
   @Length(20, 1000, { message: 'Content should be between 20-1000 characters' })
