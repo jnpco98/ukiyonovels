@@ -20,6 +20,6 @@ export class Review extends BaseEntity implements Partial<Review> {
   rating: number;
   
   @Field(type => ID)
-  @Column({ name: 'novel_id', type: 'integer' })
+  @Column({ name: 'novel_id' })
   novelId: string;
 }
