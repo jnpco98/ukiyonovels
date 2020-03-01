@@ -1,7 +1,10 @@
 import { Field, ObjectType, InputType } from 'type-graphql';
-import { Entity, Column } from 'typeorm';
+import { Entity, Column, OneToMany } from 'typeorm';
 import { BaseEntity } from './entity';
 import { Length, IsOptional, IsIn } from 'class-validator';
+import { Chapter } from './chapter';
+import { Book } from './book';
+import { Review } from './review';
 
 export const novelTypes = [
   'Web Novel', 
@@ -82,4 +85,16 @@ export class Novel extends BaseEntity implements Partial<Novel> {
   @Field({ description: 'Total Views: (controlled increment)', nullable: true })
   @Column({ type: 'integer', default: 0 })
   views?: number;
+
+  @Field(() => [Book], { nullable: true })
+  @OneToMany(() => Book, book => book.novel, { lazy: true })
+  books: Promise<Book[]>;
+
+  @Field(() => [Chapter], { nullable: true })
+  @OneToMany(() => Chapter, chapter => chapter.novel, { lazy: true })
+  chapters: Promise<Chapter[]>;
+
+  @Field(() => [Review], { nullable: true })
+  @OneToMany(() => Review, review => review.novel, { lazy: true })
+  reviews: Promise<Review[]>;
 }

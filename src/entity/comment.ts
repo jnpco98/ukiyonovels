@@ -1,7 +1,8 @@
 import { Field, ObjectType, ID, InputType } from 'type-graphql';
-import { Entity, Column } from 'typeorm';
+import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { BaseEntity } from './entity';
 import { Length } from 'class-validator';
+import { Chapter } from './chapter';
 
 @Entity()
 @ObjectType()
@@ -12,7 +13,9 @@ export class Comment extends BaseEntity implements Partial<Comment> {
   @Length(20, 1000, { message: 'Content should be between 20-1000 characters' })
   content: string;
   
-  @Field(type => ID)
   @Column({ name: 'chapter_id' })
   chapterId: string;
+  @ManyToOne(() => Chapter, chapter => chapter.comments)
+  @JoinColumn({ name: 'chapter_id' })
+  chapter: Chapter;
 }

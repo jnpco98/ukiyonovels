@@ -1,7 +1,9 @@
 import { Field, ObjectType, ID, InputType } from 'type-graphql';
-import { Entity, Column } from 'typeorm';
+import { Entity, Column, OneToMany, ManyToOne, JoinColumn } from 'typeorm';
 import { BaseEntity } from './entity';
 import { IsISBN, IsOptional, Length } from 'class-validator';
+import { Chapter } from './chapter';
+import { Novel } from './novel';
 
 @Entity()
 @ObjectType()
@@ -24,7 +26,13 @@ export class Book extends BaseEntity implements Partial<Book> {
   @IsOptional()
   isbn?: string;
   
-  @Field(type => ID)
   @Column({ name: 'novel_id' })
   novelId: string;
+  @ManyToOne(() => Novel, novel => novel.books)
+  @JoinColumn({ name: 'novel_id' })
+  novel: Novel;
+
+  @Field(() => [Chapter], { nullable: true })
+  @OneToMany(() => Chapter, chapter => chapter.book, { lazy: true })
+  chapters: Promise<Chapter[]>;
 }

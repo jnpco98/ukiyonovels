@@ -1,7 +1,8 @@
 import { Field, ObjectType, ID, InputType } from 'type-graphql';
-import { Entity, Column } from 'typeorm';
+import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { BaseEntity } from './entity';
 import { Min, Max, IsOptional, Length } from 'class-validator';
+import { Novel } from './novel';
 
 @Entity()
 @ObjectType()
@@ -19,7 +20,9 @@ export class Review extends BaseEntity implements Partial<Review> {
   @Max(1)
   rating: number;
   
-  @Field(type => ID)
   @Column({ name: 'novel_id' })
   novelId: string;
+  @JoinColumn({ name: 'novel_id' })
+  @ManyToOne(() => Novel, novel => novel.reviews)
+  novel: Novel;
 }
