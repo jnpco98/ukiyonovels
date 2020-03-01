@@ -4,7 +4,6 @@ import { User } from "../../entity/user";
 import { generateTokens } from '../../utilities/auth/token';
 import { AuthTokens } from '../../entity/token';
 import { TokenCreateInput } from './token-base';
-import { REFRESH_TOKEN_LIMIT } from '../../constants/token';
 
 @Resolver()
 export class TokenCreateResolver {  
@@ -16,23 +15,26 @@ export class TokenCreateResolver {
     const userIsValid = await bcrypt.compare(password, user?.password || '');
     if(!user || !user.confirmed || !userIsValid) return null;
 
-    const userActiveTokensCount = await AuthTokens.count({ 
-      where: { 
-        creatorId: user.id, 
-        archived: false 
+    const existingRefreshToken = await AuthTokens.findOne({ 
+      where: {
+        creatorId: user.id,
+        archived: false
       } 
     });
-
-    if(userActiveTokensCount + 1 > REFRESH_TOKEN_LIMIT) return null;
     
-    const { accessToken, refreshToken } = generateTokens(user);
+    const { refreshToken, accessToken } = generateTokens(user);
+
+    if(existingRefreshToken) {
+      const tokens = AuthTokens.create(existingRefreshToken);
+      tokens.accessToken = accessToken;
+      return tokens;
+    }
 
     const tokens = new AuthTokens();
     tokens.refreshToken = refreshToken;
     tokens.accessToken = accessToken;
     tokens.creatorId = user.id;
-    await tokens.save();
-    
-    return tokens;
+
+    return await tokens.save();
   }
 }

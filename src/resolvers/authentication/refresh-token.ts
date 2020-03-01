@@ -16,8 +16,14 @@ export class TokenRefreshResolver {
     const userIsValid = await bcrypt.compare(password, user?.password || '');
     if(!user || !user.confirmed || !userIsValid) return null;
 
-    const authToken = await AuthTokens.findOne({ where: { refreshToken: token } });
-    if(!authToken || !authToken.refreshToken || authToken.archived) return null;
+    const authToken = await AuthTokens.findOne({ 
+      where: {
+        archived: false,
+        refreshToken: token 
+      } 
+    });
+    
+    if(!authToken || !authToken.refreshToken) return null;
 
     try {
       verify(token, process.env.REFRESH_TOKEN_SECRET!);
@@ -25,6 +31,10 @@ export class TokenRefreshResolver {
       authToken.accessToken = accessToken;
       return authToken;
     } catch(e) {
+      const tokens = AuthTokens.create(authToken);
+      tokens.archived = true;
+      await tokens.save();
+      
       return e;
     }
   }

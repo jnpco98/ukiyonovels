@@ -1,1 +1,0 @@
-export const REFRESH_TOKEN_LIMIT = 5;
