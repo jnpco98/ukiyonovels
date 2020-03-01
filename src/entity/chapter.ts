@@ -22,7 +22,7 @@ export class Chapter extends BaseEntity implements Partial<Chapter> {
   @Column({ name: 'novel_id' })
   novelId: string;
   
-  @Field(type => ID)
-  @Column({ name: 'book_id' })
-  bookId: string;
+  @Field(type => ID, { nullable: true })
+  @Column({ name: 'book_id', nullable: true })
+  bookId?: string;
 }

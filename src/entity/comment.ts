@@ -5,7 +5,7 @@ import { Length } from 'class-validator';
 
 @Entity()
 @ObjectType()
-@InputType('ChapterInput')
+@InputType('CommentInput')
 export class Comment extends BaseEntity implements Partial<Comment> {
   @Field()
   @Column({ type: 'text' })

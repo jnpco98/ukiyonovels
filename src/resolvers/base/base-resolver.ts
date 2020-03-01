@@ -76,7 +76,7 @@ export function createBaseResolver<T extends BaseEntity, V, U extends DeepPartia
   abstract class BaseCreateResolver {
     @Authorized(authorization.create || [])
     @UseMiddleware(resolverMiddleware.create || [])
-    @Query(returns => EntityType, { name: `${resource}Create`, nullable: true })
+    @Mutation(returns => EntityType, { name: `${resource}Create`, nullable: true })
     async create(
       @Arg('data', () => MutationInputType) data: U,
       @Ctx() ctx : Context

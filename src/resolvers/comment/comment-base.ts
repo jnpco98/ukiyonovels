@@ -5,7 +5,7 @@ import { InputType, Field } from "type-graphql";
 import { StringWhere, NumberWhere } from "../../lib/query/create-type";
 
 @InputType()
-export class NovelQueryableInput {
+export class CommentQueryableInput {
   @Field(type => StringWhere, { nullable: true })
   content?: typeof StringWhere;
 }
@@ -16,7 +16,7 @@ const {
   BaseDeleteResolver
 } = createBaseResolver({
   EntityType: Comment,
-  QueryableInputType: NovelQueryableInput,
+  QueryableInputType: CommentQueryableInput,
   MutationInputType: Comment,
   authorization: {
     get: [ROLES.anonymous],
