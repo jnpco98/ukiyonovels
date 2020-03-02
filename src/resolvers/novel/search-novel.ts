@@ -1,41 +1,65 @@
 import { Resolver, FieldResolver, Root, Args, Arg } from "type-graphql";
-import { BaseSearchResolver } from "./novel-base";
 import { Novel } from "../../entity/novel";
-import { Chapter } from "../../entity/chapter";
 import { ConnectionArgs } from "../../lib/cursors/connection-args";
-import { WhereAndOrParams } from "../../lib/query/types/where-and-or";
-import { createWhereInputType } from "../../lib/query/create-input-type";
-import { getRepository, ConnectionOptions, Connection } from "typeorm";
-import { connectionFromArraySlice } from "graphql-relay";
-import { createConnectionDefinition } from "../../lib/cursors/create-connection-definition";
 
-const ConnectionType = createConnectionDefinition('_chapter', Chapter);
+import { BaseNovelSearchResolver } from "./novel-base";
+import { createCursorConnection } from "../../lib/relay/create-cursor-connection";
+import { ChapterConnectionType, ChapterWhereInputType } from "../chapter/chapter-base";
+import { BookConnectionType, BookWhereInputType } from "../book/book-base";
+import { ReviewConnectionType, ReviewWhereInputType } from "../review/review-base";
+import { WhereAndOrParams } from "../../lib/query/types/where-and-or";
+import { getRepository } from "typeorm";
+import { Chapter } from "../../entity/chapter";
+import { Book } from "../../entity/book";
+import { Review } from "../../entity/review";
 
 @Resolver(of => Novel)
-export class NovelSearchResolver extends BaseSearchResolver {
-  @FieldResolver(returns => ConnectionType.Connection)
+export class NovelSearchResolver extends BaseNovelSearchResolver {
+  @FieldResolver(returns => ChapterConnectionType.Connection)
   async chapters(
     @Root() novel: Novel,
-    @Args() connArgs: ConnectionArgs
+    @Args() connArgs: ConnectionArgs,
+    @Arg(
+      `where`, 
+      () => ChapterWhereInputType, { nullable: true }
+    ) query?: WhereAndOrParams
   ): Promise<any> {
-    const { sortKey, reverse, pagination } = connArgs;
-    const { limit, offset } = pagination;
+    const queryBuilder = getRepository(Chapter).createQueryBuilder();
+    queryBuilder.andWhere('novel_id = :isvalue', { isvalue: novel.id })
+    return await createCursorConnection({
+      queryBuilder, connArgs, query
+    });
+  }
 
-    const queryBuilder = getRepository(Chapter).createQueryBuilder('c').where('c.novel_id = :novel_id', { novel_id: novel.id });
+  @FieldResolver(returns => BookConnectionType.Connection)
+  async books(
+    @Root() novel: Novel,
+    @Args() connArgs: ConnectionArgs,
+    @Arg(
+      `where`, 
+      () => BookWhereInputType, { nullable: true }
+    ) query?: WhereAndOrParams
+  ): Promise<any> {
+    const queryBuilder = getRepository(Book).createQueryBuilder();
+    queryBuilder.andWhere('novel_id = :isvalue', { isvalue: novel.id })
+    return await createCursorConnection({
+      queryBuilder, connArgs, query
+    });
+  }
 
-    const sort = sortKey && sortKey.trim() ? sortKey : 'created_at';
-    const order = reverse ? 'DESC' : 'ASC';
-
-    const [entities, count] = await queryBuilder
-      .skip(offset).take(limit).orderBy(sort, order).getManyAndCount();
-
-    
-    const result = connectionFromArraySlice(
-      entities, connArgs, {
-        arrayLength: count, sliceStart: offset || 0
-      }
-    );
-
-    return result;
+  @FieldResolver(returns => ReviewConnectionType.Connection)
+  async reviews(
+    @Root() novel: Novel,
+    @Args() connArgs: ConnectionArgs,
+    @Arg(
+      `where`, 
+      () => ReviewWhereInputType, { nullable: true }
+    ) query?: WhereAndOrParams
+  ): Promise<any> {
+    const queryBuilder = getRepository(Review).createQueryBuilder();
+    queryBuilder.andWhere('novel_id = :isvalue', { isvalue: novel.id })
+    return await createCursorConnection({
+      queryBuilder, connArgs, query
+    });
   }
 }

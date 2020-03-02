@@ -1,5 +1,5 @@
 import { Resolver } from "type-graphql";
-import { BaseSearchResolver } from "./book-base";
+import { BaseBookSearchResolver } from "./book-base";
 
 @Resolver()
-export class BookSearchResolver extends BaseSearchResolver {}
+export class BookSearchResolver extends BaseBookSearchResolver {}

@@ -11,8 +11,12 @@ export class ChapterQueryableInput {
 }
 
 const {
-  BaseGetResolver, BaseSearchResolver,
-  BaseCreateResolver, BaseUpdateResolver,
+  ConnectionType,
+  WhereInputType,
+  BaseGetResolver, 
+  BaseSearchResolver,
+  BaseCreateResolver, 
+  BaseUpdateResolver,
   BaseDeleteResolver
 } = createBaseResolver({
   EntityType: Chapter,
@@ -29,7 +33,11 @@ const {
 });
 
 export {
-  BaseGetResolver, BaseSearchResolver,
-  BaseCreateResolver, BaseUpdateResolver,
-  BaseDeleteResolver
+  ConnectionType as ChapterConnectionType,
+  WhereInputType as ChapterWhereInputType,
+  BaseGetResolver as BaseChapterGetResolver, 
+  BaseSearchResolver as BaseChapterSearchResolver,
+  BaseCreateResolver as BaseChapterCreateResolver, 
+  BaseUpdateResolver as BaseChapterUpdateResolver,
+  BaseDeleteResolver as BaseChapterDeleteResolver, 
 };

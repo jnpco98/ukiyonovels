@@ -45,8 +45,12 @@ export class NovelQueryableInput {
 }
 
 const {
-  BaseGetResolver, BaseSearchResolver,
-  BaseCreateResolver, BaseUpdateResolver,
+  ConnectionType,
+  WhereInputType,
+  BaseGetResolver, 
+  BaseSearchResolver,
+  BaseCreateResolver, 
+  BaseUpdateResolver,
   BaseDeleteResolver
 } = createBaseResolver({
   EntityType: Novel,
@@ -63,7 +67,11 @@ const {
 });
 
 export {
-  BaseGetResolver, BaseSearchResolver,
-  BaseCreateResolver, BaseUpdateResolver,
-  BaseDeleteResolver
+  ConnectionType as NovelConnectionType,
+  WhereInputType as NovelWhereInputType,
+  BaseGetResolver as BaseNovelGetResolver, 
+  BaseSearchResolver as BaseNovelSearchResolver,
+  BaseCreateResolver as BaseNovelCreateResolver, 
+  BaseUpdateResolver as BaseNovelUpdateResolver,
+  BaseDeleteResolver as BaseNovelDeleteResolver
 };

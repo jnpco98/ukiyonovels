@@ -1,5 +1,5 @@
 import { Resolver } from "type-graphql";
-import { BaseUpdateResolver } from "./comment-base";
+import { BaseCommentUpdateResolver } from "./comment-base";
 
 @Resolver()
-export class CommentUpdateResolver extends BaseUpdateResolver {}
+export class CommentUpdateResolver extends BaseCommentUpdateResolver {}

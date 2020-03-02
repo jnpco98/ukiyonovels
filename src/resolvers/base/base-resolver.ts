@@ -3,14 +3,13 @@ import { getRepository, DeepPartial } from "typeorm";
 import { plural } from 'pluralize';
 
 import { BaseEntity } from '../../entity/entity';
-import { connectionFromArraySlice } from "graphql-relay";
 import { createConnectionDefinition } from "../../lib/cursors/create-connection-definition";
 import { ConnectionArgs } from "../../lib/cursors/connection-args";
 import { createWhereInputType } from "../../lib/query/create-input-type";
 import { WhereAndOrParams } from "../../lib/query/types/where-and-or";
-import { filterQuery } from "../../lib/query/filter-query";
 import { BaseResolverParams } from "./types/resolver";
 import { Context } from "../../types/context";
+import { createCursorConnection } from "../../lib/relay/create-cursor-connection";
 
 export function createBaseResolver<T extends BaseEntity, V, U extends DeepPartial<T>>(params: BaseResolverParams<T, V, U>) {
   const { EntityType, QueryableInputType, MutationInputType, resource, authorization = {}, resolverMiddleware = {}, contextHooks = {} } = params;
@@ -46,29 +45,12 @@ export function createBaseResolver<T extends BaseEntity, V, U extends DeepPartia
     async paginate(
       @Args() connArgs: ConnectionArgs, 
       @Arg(
-        `${resource}Where`, 
+        `where`, 
         () => WhereInputType, { nullable: true }
-        ) query?: WhereAndOrParams
+      ) query?: WhereAndOrParams
     ) {
-      const { sortKey, reverse, pagination } = connArgs;
-      const { limit, offset } = pagination;
-
       const queryBuilder = getRepository(EntityType).createQueryBuilder();
-      if(query) filterQuery(queryBuilder, query);
-
-      const sort = sortKey && sortKey.trim() ? sortKey : 'created_at';
-      const order = reverse ? 'DESC' : 'ASC';
-
-      const [entities, count] = await queryBuilder
-        .skip(offset).take(limit).orderBy(sort, order).getManyAndCount();
-      
-      const result = connectionFromArraySlice(
-        entities, connArgs, {
-          arrayLength: count, sliceStart: offset || 0
-        }
-      );
-
-      return result;
+      return await createCursorConnection({ queryBuilder, connArgs, query });
     }
   }
 
@@ -153,6 +135,8 @@ export function createBaseResolver<T extends BaseEntity, V, U extends DeepPartia
   }
 
   return {
+    ConnectionType,
+    WhereInputType,
     BaseGetResolver,
     BaseSearchResolver,
     BaseCreateResolver,

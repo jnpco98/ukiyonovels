@@ -14,8 +14,12 @@ export class ReviewQueryableInput {
 }
 
 const {
-  BaseGetResolver, BaseSearchResolver,
-  BaseCreateResolver, BaseUpdateResolver,
+  ConnectionType,
+  WhereInputType,
+  BaseGetResolver, 
+  BaseSearchResolver,
+  BaseCreateResolver, 
+  BaseUpdateResolver,
   BaseDeleteResolver
 } = createBaseResolver({
   EntityType: Review,
@@ -32,7 +36,11 @@ const {
 });
 
 export {
-  BaseGetResolver, BaseSearchResolver,
-  BaseCreateResolver, BaseUpdateResolver,
-  BaseDeleteResolver
+  ConnectionType as ReviewConnectionType,
+  WhereInputType as ReviewWhereInputType,
+  BaseGetResolver as BaseReviewGetResolver, 
+  BaseSearchResolver as BaseReviewSearchResolver,
+  BaseCreateResolver as BaseReviewCreateResolver, 
+  BaseUpdateResolver as BaseReviewUpdateResolver,
+  BaseDeleteResolver as BaseReviewDeleteResolver
 };

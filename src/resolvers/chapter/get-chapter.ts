@@ -1,5 +1,5 @@
 import { Resolver } from "type-graphql";
-import { BaseGetResolver } from "./chapter-base";
+import { BaseChapterGetResolver } from "./chapter-base";
 
 @Resolver()
-export class ChapterGetResolver extends BaseGetResolver {}
+export class ChapterGetResolver extends BaseChapterGetResolver {}

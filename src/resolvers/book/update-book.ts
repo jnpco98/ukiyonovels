@@ -1,5 +1,5 @@
 import { Resolver } from "type-graphql";
-import { BaseUpdateResolver } from "./book-base";
+import { BaseBookUpdateResolver } from "./book-base";
 
 @Resolver()
-export class BookUpdateResolver extends BaseUpdateResolver {}
+export class BookUpdateResolver extends BaseBookUpdateResolver {}

@@ -11,8 +11,12 @@ export class CommentQueryableInput {
 }
 
 const {
-  BaseGetResolver, BaseSearchResolver,
-  BaseCreateResolver, BaseUpdateResolver,
+  ConnectionType,
+  WhereInputType,
+  BaseGetResolver, 
+  BaseSearchResolver,
+  BaseCreateResolver, 
+  BaseUpdateResolver,
   BaseDeleteResolver
 } = createBaseResolver({
   EntityType: Comment,
@@ -29,7 +33,11 @@ const {
 });
 
 export {
-  BaseGetResolver, BaseSearchResolver,
-  BaseCreateResolver, BaseUpdateResolver,
-  BaseDeleteResolver
+  ConnectionType as CommentConnectionType,
+  WhereInputType as CommentWhereInputType,
+  BaseGetResolver as BaseCommentGetResolver, 
+  BaseSearchResolver as BaseCommentSearchResolver,
+  BaseCreateResolver as BaseCommentCreateResolver, 
+  BaseUpdateResolver as BaseCommentUpdateResolver,
+  BaseDeleteResolver as BaseCommentDeleteResolver
 };
