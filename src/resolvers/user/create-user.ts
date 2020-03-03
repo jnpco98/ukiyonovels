@@ -1,12 +1,12 @@
-import { Resolver, Mutation, Arg, InputType, Field } from "type-graphql";
+import { Resolver, Mutation, Arg, InputType, Field } from 'type-graphql';
 import bcrypt from 'bcrypt';
-import { User } from "../../entity/user";
-import { Length, IsEmail } from "class-validator";
+import { User } from '../../entity/user';
+import { Length, IsEmail } from 'class-validator';
 
 @InputType()
 class CreateUserInput {
   @Field()
-  @Length(6, 40, { message: "Username should be between 6 to 40 characters" })
+  @Length(6, 40, { message: 'Username should be between 6 to 40 characters' })
   username: string;
 
   @Field()

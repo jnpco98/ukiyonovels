@@ -1,10 +1,17 @@
-import { ConnectionCursor, Connection as RelayConnection, Edge as RelayEdge } from "graphql-relay";
-import { TypeValue } from "type-graphql/dist/decorators/types";
-import { ObjectType, Field } from "type-graphql";
+import {
+  ConnectionCursor,
+  Connection as RelayConnection,
+  Edge as RelayEdge
+} from 'graphql-relay';
+import { TypeValue } from 'type-graphql/dist/decorators/types';
+import { ObjectType, Field } from 'type-graphql';
 
-import { PageInfo } from "./page-info";
+import { PageInfo } from './page-info';
 
-export function createConnectionDefinition<T extends TypeValue>(resource: string, NodeType: T) {
+export function createConnectionDefinition<T extends TypeValue>(
+  resource: string,
+  NodeType: T
+) {
   @ObjectType(`${resource}Edge`)
   class Edge implements RelayEdge<T> {
     @Field(() => NodeType)
@@ -24,6 +31,7 @@ export function createConnectionDefinition<T extends TypeValue>(resource: string
   }
 
   return {
-    Connection, Edge
-  }
+    Connection,
+    Edge
+  };
 }

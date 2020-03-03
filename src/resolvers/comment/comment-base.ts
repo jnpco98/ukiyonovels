@@ -1,8 +1,8 @@
-import { createBaseResolver } from "../base/base-resolver";
-import { Comment } from "../../entity/comment";
-import ROLES from "../../constants/roles";
-import { InputType, Field } from "type-graphql";
-import { StringWhere, NumberWhere } from "../../lib/query/create-type";
+import { createBaseResolver } from '../base/base-resolver';
+import { Comment } from '../../entity/comment';
+import ROLES from '../../constants/roles';
+import { InputType, Field } from 'type-graphql';
+import { StringWhere, NumberWhere } from '../../lib/query/create-type';
 
 @InputType()
 export class CommentQueryableInput {
@@ -13,9 +13,9 @@ export class CommentQueryableInput {
 const {
   ConnectionType,
   WhereInputType,
-  BaseGetResolver, 
+  BaseGetResolver,
   BaseSearchResolver,
-  BaseCreateResolver, 
+  BaseCreateResolver,
   BaseUpdateResolver,
   BaseDeleteResolver
 } = createBaseResolver({
@@ -35,9 +35,9 @@ const {
 export {
   ConnectionType as CommentConnectionType,
   WhereInputType as CommentWhereInputType,
-  BaseGetResolver as BaseCommentGetResolver, 
+  BaseGetResolver as BaseCommentGetResolver,
   BaseSearchResolver as BaseCommentSearchResolver,
-  BaseCreateResolver as BaseCommentCreateResolver, 
+  BaseCreateResolver as BaseCommentCreateResolver,
   BaseUpdateResolver as BaseCommentUpdateResolver,
   BaseDeleteResolver as BaseCommentDeleteResolver
 };

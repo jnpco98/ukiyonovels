@@ -2,11 +2,9 @@ declare namespace Express {
   interface Request {
     auth: {
       userId: string | null;
-      role: string 
-    }
+      role: string;
+    };
   }
 
-  interface Response {
-    
-  }
+  interface Response {}
 }

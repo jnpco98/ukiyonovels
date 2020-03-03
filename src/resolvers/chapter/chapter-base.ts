@@ -1,8 +1,8 @@
-import { createBaseResolver } from "../base/base-resolver";
-import { Chapter } from "../../entity/chapter";
-import ROLES from "../../constants/roles";
-import { InputType, Field } from "type-graphql";
-import { StringWhere } from "../../lib/query/create-type";
+import { createBaseResolver } from '../base/base-resolver';
+import { Chapter } from '../../entity/chapter';
+import ROLES from '../../constants/roles';
+import { InputType, Field } from 'type-graphql';
+import { StringWhere } from '../../lib/query/create-type';
 
 @InputType()
 export class ChapterQueryableInput {
@@ -13,9 +13,9 @@ export class ChapterQueryableInput {
 const {
   ConnectionType,
   WhereInputType,
-  BaseGetResolver, 
+  BaseGetResolver,
   BaseSearchResolver,
-  BaseCreateResolver, 
+  BaseCreateResolver,
   BaseUpdateResolver,
   BaseDeleteResolver
 } = createBaseResolver({
@@ -35,9 +35,9 @@ const {
 export {
   ConnectionType as ChapterConnectionType,
   WhereInputType as ChapterWhereInputType,
-  BaseGetResolver as BaseChapterGetResolver, 
+  BaseGetResolver as BaseChapterGetResolver,
   BaseSearchResolver as BaseChapterSearchResolver,
-  BaseCreateResolver as BaseChapterCreateResolver, 
+  BaseCreateResolver as BaseChapterCreateResolver,
   BaseUpdateResolver as BaseChapterUpdateResolver,
-  BaseDeleteResolver as BaseChapterDeleteResolver, 
+  BaseDeleteResolver as BaseChapterDeleteResolver
 };

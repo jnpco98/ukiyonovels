@@ -1,5 +1,12 @@
-import { BaseEntity as ActiveRecordBaseEntity, CreateDateColumn, UpdateDateColumn, Column, PrimaryColumn, BeforeInsert } from "typeorm";
-import { ObjectType, ID, Field } from "type-graphql";
+import {
+  BaseEntity as ActiveRecordBaseEntity,
+  CreateDateColumn,
+  UpdateDateColumn,
+  Column,
+  PrimaryColumn,
+  BeforeInsert
+} from 'typeorm';
+import { ObjectType, ID, Field } from 'type-graphql';
 import nanoid from 'nanoid';
 
 @ObjectType({ isAbstract: true })
@@ -20,7 +27,7 @@ export abstract class BaseEntity extends ActiveRecordBaseEntity {
   @Column({ type: 'boolean', default: false })
   archived: boolean;
 
-  @BeforeInsert() 
+  @BeforeInsert()
   generateNanoId() {
     this.id = nanoid();
   }

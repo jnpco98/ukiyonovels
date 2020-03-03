@@ -1,22 +1,22 @@
-import { initializeConnection } from "../../utilities/connection/initialize-connection";
-import { Connection } from "typeorm";
-import { graphql } from "graphql";
-import { createSchema } from "../../schema/create-schema";
+import { initializeConnection } from '../../utilities/connection/initialize-connection';
+import { Connection } from 'typeorm';
+import { graphql } from 'graphql';
+import { createSchema } from '../../schema/create-schema';
 import faker from 'faker';
-import { User } from "../../entity/user";
+import { User } from '../../entity/user';
 
 let connection: Connection;
 
-beforeAll(async() => {
+beforeAll(async () => {
   connection = await initializeConnection();
 });
 
-afterAll(async() => {
-  if(connection) await connection.close();
+afterAll(async () => {
+  if (connection) await connection.close();
 });
 
 describe('Create User', () => {
-  it('should create a user', async() => {
+  it('should create a user', async () => {
     const schema = await createSchema();
 
     const username = faker.internet.userName();
@@ -43,9 +43,9 @@ describe('Create User', () => {
     expect(gqlResult).toEqual({
       data: {
         createUser: {
-          id: expect.any(String), 
-          username: username, 
-          email: email 
+          id: expect.any(String),
+          username: username,
+          email: email
         }
       }
     });
@@ -57,7 +57,7 @@ describe('Create User', () => {
     expect(dbResult!.archived).toBe(false);
   });
 
-  it('should return error with message \'Cannot query field "password"\' when querying for password', async() => {
+  it('should return error with message \'Cannot query field "password"\' when querying for password', async () => {
     const schema = await createSchema();
 
     const username = faker.internet.userName();
@@ -84,10 +84,10 @@ describe('Create User', () => {
     const result = await graphql({ schema, source: mutation });
     expect(result.errors).toEqual(
       expect.arrayContaining([
-        expect.objectContaining({ 
+        expect.objectContaining({
           message: expect.stringMatching(/cannot.*query.*"password"/gim)
         })
       ])
     );
-  })
+  });
 });

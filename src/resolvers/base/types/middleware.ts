@@ -1,4 +1,4 @@
-import { Middleware } from "type-graphql/dist/interfaces/Middleware";
+import { Middleware } from 'type-graphql/dist/interfaces/Middleware';
 
 export interface ResolverMiddleware {
   get?: Middleware<any>[];

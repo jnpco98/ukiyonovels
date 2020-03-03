@@ -1,9 +1,9 @@
-import { createBaseResolver } from "../base/base-resolver";
-import { Novel } from "../../entity/novel";
-import { InputType, Field } from "type-graphql";
+import { createBaseResolver } from '../base/base-resolver';
+import { Novel } from '../../entity/novel';
+import { InputType, Field } from 'type-graphql';
 
-import ROLES from "../../constants/roles";
-import { StringWhere, NumberWhere } from "../../lib/query/create-type";
+import ROLES from '../../constants/roles';
+import { StringWhere, NumberWhere } from '../../lib/query/create-type';
 
 @InputType()
 export class NovelQueryableInput {
@@ -47,9 +47,9 @@ export class NovelQueryableInput {
 const {
   ConnectionType,
   WhereInputType,
-  BaseGetResolver, 
+  BaseGetResolver,
   BaseSearchResolver,
-  BaseCreateResolver, 
+  BaseCreateResolver,
   BaseUpdateResolver,
   BaseDeleteResolver
 } = createBaseResolver({
@@ -69,9 +69,9 @@ const {
 export {
   ConnectionType as NovelConnectionType,
   WhereInputType as NovelWhereInputType,
-  BaseGetResolver as BaseNovelGetResolver, 
+  BaseGetResolver as BaseNovelGetResolver,
   BaseSearchResolver as BaseNovelSearchResolver,
-  BaseCreateResolver as BaseNovelCreateResolver, 
+  BaseCreateResolver as BaseNovelCreateResolver,
   BaseUpdateResolver as BaseNovelUpdateResolver,
   BaseDeleteResolver as BaseNovelDeleteResolver
 };

@@ -11,7 +11,7 @@ export class Comment extends BaseEntity implements Partial<Comment> {
   @Column({ type: 'text' })
   @Length(20, 1000, { message: 'Content should be between 20-1000 characters' })
   content: string;
-  
+
   @Field(() => ID)
   @Column({ name: 'chapter_id' })
   chapterId: string;

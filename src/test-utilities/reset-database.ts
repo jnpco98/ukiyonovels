@@ -1,7 +1,7 @@
-import { initializeConnection } from "../utilities/connection/initialize-connection";
+import { initializeConnection } from '../utilities/connection/initialize-connection';
 
-(async() => {
+(async () => {
   await initializeConnection({ drop: true, databaseToDrop: 'ukiyo-test' });
-  console.log('Database reset success')
+  console.log('Database reset success');
   process.exit(0);
 })();

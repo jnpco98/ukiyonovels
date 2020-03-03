@@ -1,5 +1,5 @@
-import { Context } from "../../../types/context";
-import { BaseEntity } from "typeorm";
+import { Context } from '../../../types/context';
+import { BaseEntity } from 'typeorm';
 
 export interface ContextHooks<T extends Partial<BaseEntity>> {
   get?: (entity?: T, ctx?: Context) => T | null;

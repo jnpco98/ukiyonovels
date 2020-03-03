@@ -7,11 +7,13 @@ import { GraphQLSchema } from 'graphql';
 let schema: GraphQLSchema;
 
 export async function createSchema() {
-  if(!schema) {
-    schema = await buildSchema({ 
-      resolvers: [path.resolve(__dirname, '..', 'resolvers/**/!(*.test|*.spec).ts')], 
+  if (!schema) {
+    schema = await buildSchema({
+      resolvers: [
+        path.resolve(__dirname, '..', 'resolvers/**/!(*.test|*.spec).ts')
+      ],
       authChecker,
-      authMode: "null"
+      authMode: 'null'
     });
   }
   return schema;

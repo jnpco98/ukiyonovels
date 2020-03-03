@@ -17,11 +17,11 @@ export class Chapter extends BaseEntity implements Partial<Chapter> {
   @MinLength(20, { message: 'Content should be longer than 20 characters' })
   @IsOptional()
   content?: string;
-  
+
   @Field(type => ID)
   @Column({ name: 'novel_id' })
   novelId: string;
-  
+
   @Field(type => ID, { nullable: true })
   @Column({ name: 'book_id', nullable: true })
   bookId?: string;

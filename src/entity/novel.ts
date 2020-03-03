@@ -4,9 +4,9 @@ import { BaseEntity } from './entity';
 import { Length, IsOptional, IsIn } from 'class-validator';
 
 export const novelTypes = [
-  'Web Novel', 
-  'Light Novel', 
-  'Chinese Novel', 
+  'Web Novel',
+  'Light Novel',
+  'Chinese Novel',
   'Korean Novel'
 ];
 
@@ -18,10 +18,12 @@ export class Novel extends BaseEntity implements Partial<Novel> {
   @Column({ type: 'text' })
   @Length(5, 150, { message: 'Title should be between 5-150 characters' })
   title: string;
-  
+
   @Field({ nullable: true })
   @Column({ type: 'text', nullable: true })
-  @Length(20, 1000, { message: 'Description should be between 20-1000 characters' })
+  @Length(20, 1000, {
+    message: 'Description should be between 20-1000 characters'
+  })
   @IsOptional()
   description?: string;
 
@@ -69,13 +71,16 @@ export class Novel extends BaseEntity implements Partial<Novel> {
   @Column({ name: 'media_gallery', type: 'text', nullable: true })
   @IsOptional()
   mediaGallery?: string;
- 
+
   @Field(returns => String, { nullable: true })
   @Column({ name: 'cover_image', type: 'text', nullable: true })
   @IsOptional()
   coverImage?: string;
 
-  @Field({ description: 'Likes: (not related to novel ratings)', nullable: true })
+  @Field({
+    description: 'Likes: (not related to novel ratings)',
+    nullable: true
+  })
   @Column({ type: 'integer', default: 0 })
   likes?: number;
 

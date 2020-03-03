@@ -1,14 +1,14 @@
-import { InputType, Field } from "type-graphql";
-import { createBaseResolver } from "../base/base-resolver";
-import { Review } from "../../entity/review";
-import ROLES from "../../constants/roles";
-import { StringWhere, NumberWhere } from "../../lib/query/create-type";
+import { InputType, Field } from 'type-graphql';
+import { createBaseResolver } from '../base/base-resolver';
+import { Review } from '../../entity/review';
+import ROLES from '../../constants/roles';
+import { StringWhere, NumberWhere } from '../../lib/query/create-type';
 
 @InputType()
 export class ReviewQueryableInput {
   @Field(type => StringWhere, { nullable: true })
   content?: string;
-  
+
   @Field(type => NumberWhere, { nullable: true })
   rating: number;
 }
@@ -16,9 +16,9 @@ export class ReviewQueryableInput {
 const {
   ConnectionType,
   WhereInputType,
-  BaseGetResolver, 
+  BaseGetResolver,
   BaseSearchResolver,
-  BaseCreateResolver, 
+  BaseCreateResolver,
   BaseUpdateResolver,
   BaseDeleteResolver
 } = createBaseResolver({
@@ -38,9 +38,9 @@ const {
 export {
   ConnectionType as ReviewConnectionType,
   WhereInputType as ReviewWhereInputType,
-  BaseGetResolver as BaseReviewGetResolver, 
+  BaseGetResolver as BaseReviewGetResolver,
   BaseSearchResolver as BaseReviewSearchResolver,
-  BaseCreateResolver as BaseReviewCreateResolver, 
+  BaseCreateResolver as BaseReviewCreateResolver,
   BaseUpdateResolver as BaseReviewUpdateResolver,
   BaseDeleteResolver as BaseReviewDeleteResolver
 };

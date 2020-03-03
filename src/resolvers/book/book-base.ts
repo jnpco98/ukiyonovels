@@ -1,8 +1,8 @@
-import { createBaseResolver } from "../base/base-resolver";
-import { Book } from "../../entity/book";
-import ROLES from "../../constants/roles";
-import { InputType, Field } from "type-graphql";
-import { StringWhere } from "../../lib/query/create-type";
+import { createBaseResolver } from '../base/base-resolver';
+import { Book } from '../../entity/book';
+import ROLES from '../../constants/roles';
+import { InputType, Field } from 'type-graphql';
+import { StringWhere } from '../../lib/query/create-type';
 
 @InputType()
 export class BookQueryableInput {
@@ -19,9 +19,9 @@ export class BookQueryableInput {
 const {
   ConnectionType,
   WhereInputType,
-  BaseGetResolver, 
+  BaseGetResolver,
   BaseSearchResolver,
-  BaseCreateResolver, 
+  BaseCreateResolver,
   BaseUpdateResolver,
   BaseDeleteResolver
 } = createBaseResolver({
@@ -41,9 +41,9 @@ const {
 export {
   ConnectionType as BookConnectionType,
   WhereInputType as BookWhereInputType,
-  BaseGetResolver as BaseBookGetResolver, 
+  BaseGetResolver as BaseBookGetResolver,
   BaseSearchResolver as BaseBookSearchResolver,
-  BaseCreateResolver as BaseBookCreateResolver, 
+  BaseCreateResolver as BaseBookCreateResolver,
   BaseUpdateResolver as BaseBookUpdateResolver,
   BaseDeleteResolver as BaseBookDeleteResolver
 };

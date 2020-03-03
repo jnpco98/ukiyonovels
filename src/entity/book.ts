@@ -11,7 +11,7 @@ export class Book extends BaseEntity implements Partial<Book> {
   @Column({ type: 'text' })
   @Length(10, 50, { message: 'Title should be between 10-50 characters' })
   title: string;
-  
+
   @Field({ nullable: true })
   @Column({ type: 'text', nullable: true })
   @Length(20, 5000, { message: 'Content should be between 20-5000 characters' })
@@ -23,7 +23,7 @@ export class Book extends BaseEntity implements Partial<Book> {
   @IsISBN()
   @IsOptional()
   isbn?: string;
-  
+
   @Field(() => ID)
   @Column({ name: 'novel_id' })
   novelId: string;

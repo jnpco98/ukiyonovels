@@ -1,4 +1,4 @@
-import { WhereFilterParams } from "./where-filter";
+import { WhereFilterParams } from './where-filter';
 
 export interface WhereAndOrParams {
   AND?: WhereFilterParams[];

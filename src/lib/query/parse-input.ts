@@ -1,6 +1,10 @@
-import { WhereExpression } from "typeorm";
+import { WhereExpression } from 'typeorm';
 
-export function parseInput<T extends { [key: string ]: any }>(query: WhereExpression, where: T, andOr: "andWhere" | "orWhere") {
+export function parseInput<T extends { [key: string]: any }>(
+  query: WhereExpression,
+  where: T,
+  andOr: 'andWhere' | 'orWhere'
+) {
   const whereArgs = Object.entries(where);
 
   whereArgs.map(whereArg => {
@@ -11,71 +15,71 @@ export function parseInput<T extends { [key: string ]: any }>(query: WhereExpres
       const [operation, value] = parameters;
 
       switch (operation) {
-        case "is": {
+        case 'is': {
           query[andOr](`${fieldName} = :isvalue`, { isvalue: value });
           break;
         }
-        case "not": {
+        case 'not': {
           query[andOr](`${fieldName} != :notvalue`, { notvalue: value });
           break;
         }
-        case "in": {
+        case 'in': {
           query[andOr](`${fieldName} IN :invalue`, { invalue: value });
           break;
         }
-        case "notIn": {
+        case 'notIn': {
           query[andOr](`${fieldName} NOT IN :notinvalue`, {
             notinvalue: value
           });
           break;
         }
-        case "lt": {
+        case 'lt': {
           query[andOr](`${fieldName} < :ltvalue`, { ltvalue: value });
           break;
         }
-        case "lte": {
+        case 'lte': {
           query[andOr](`${fieldName} <= :ltevalue`, { ltevalue: value });
           break;
         }
-        case "gt": {
+        case 'gt': {
           query[andOr](`${fieldName} > :gtvalue`, { gtvalue: value });
           break;
         }
-        case "gte": {
+        case 'gte': {
           query[andOr](`${fieldName} >= :gtevalue`, { gtevalue: value });
           break;
         }
-        case "contains": {
+        case 'contains': {
           query[andOr](`${fieldName} ILIKE :convalue`, {
             convalue: `%${value}%`
           });
           break;
         }
-        case "notContains": {
+        case 'notContains': {
           query[andOr](`${fieldName} NOT ILIKE :notconvalue`, {
             notconvalue: `%${value}%`
           });
           break;
         }
-        case "startsWith": {
+        case 'startsWith': {
           query[andOr](`${fieldName} ILIKE :swvalue`, {
             swvalue: `${value}%`
           });
           break;
         }
-        case "notStartsWith": {
+        case 'notStartsWith': {
           query[andOr](`${fieldName} NOT ILIKE :nswvalue`, {
             nswvalue: `${value}%`
           });
           break;
         }
-        case "endsWith": {
+        case 'endsWith': {
           query[andOr](`${fieldName} ILIKE :ewvalue`, {
             ewvalue: `%${value}`
           });
           break;
         }
-        case "notEndsWith": {
+        case 'notEndsWith': {
           query[andOr](`${fieldName} ILIKE :newvalue`, {
             newvalue: `%${value}`
           });
@@ -89,4 +93,4 @@ export function parseInput<T extends { [key: string ]: any }>(query: WhereExpres
   });
 
   return query;
-};
+}

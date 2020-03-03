@@ -1,4 +1,4 @@
-import { Resolver } from "type-graphql";
+import { Resolver } from 'type-graphql';
 import { BaseReviewDeleteResolver } from './review-base';
 
 @Resolver()
