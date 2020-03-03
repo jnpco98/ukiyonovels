@@ -16,7 +16,7 @@ export const novelTypes = [
 export class Novel extends BaseEntity implements Partial<Novel> {
   @Field()
   @Column({ type: 'text' })
-  @Length(5, 40, { message: 'Title should be between 5-40 characters' })
+  @Length(5, 150, { message: 'Title should be between 5-150 characters' })
   title: string;
   
   @Field({ nullable: true })
@@ -25,8 +25,8 @@ export class Novel extends BaseEntity implements Partial<Novel> {
   @IsOptional()
   description?: string;
 
-  @Column({ type: 'text', default: novelTypes[0] })
   @Field({ description: `Types: [${novelTypes.join(', ')}]`, nullable: true })
+  @Column({ type: 'text', default: novelTypes[0] })
   @IsIn(novelTypes)
   type: string;
 

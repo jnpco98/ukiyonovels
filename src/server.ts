@@ -3,7 +3,7 @@ import { ApolloServer } from 'apollo-server-express';
 import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import { getComplexity, fieldExtensionsEstimator, simpleEstimator } from 'graphql-query-complexity';
+import { getComplexity, fieldConfigEstimator, simpleEstimator } from 'graphql-query-complexity';
 
 import { authenticateToken } from './middleware/authentication/authenticate-token';
 import { createSchema } from './schema/create-schema';
@@ -30,11 +30,11 @@ async function main() {
                 : document,
               variables: request.variables,
               estimators: [
-                fieldExtensionsEstimator(),
+                fieldConfigEstimator(),
                 simpleEstimator({ defaultComplexity: 1 })
-              ] 
+              ],
             });
-
+            
             if(complexity >= MAX_QUERY_COST) {
               throw new Error(
                 `Query has a cost of ${complexity} which exceeds the max cost of ${MAX_QUERY_COST}`
