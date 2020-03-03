@@ -61,7 +61,9 @@ export function createBaseResolver<
     @UseMiddleware(resolverMiddleware.paginate || [])
     @Query(returns => ConnectionType.Connection, {
       name: `${plural(resource)}`,
-      nullable: true
+      nullable: true,
+      complexity: ({ childComplexity, args }) =>
+        (args.first || args.last) * childComplexity
     })
     async paginate(
       @Args() connArgs: ConnectionArgs,

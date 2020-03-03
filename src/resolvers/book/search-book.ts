@@ -22,7 +22,10 @@ export class BookSearchResolver extends BaseBookSearchResolver {
     });
   }
 
-  @FieldResolver(returns => ChapterConnectionType.Connection)
+  @FieldResolver(returns => ChapterConnectionType.Connection, {
+    complexity: ({ childComplexity, args }) =>
+      (args.first || args.last) * childComplexity
+  })
   async chapters(
     @Root() book: Book,
     @Args() connArgs: ConnectionArgs,

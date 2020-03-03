@@ -31,7 +31,10 @@ export class ChapterSearchResolver extends BaseChapterSearchResolver {
     });
   }
 
-  @FieldResolver(returns => ChapterConnectionType.Connection)
+  @FieldResolver(returns => ChapterConnectionType.Connection, {
+    complexity: ({ childComplexity, args }) =>
+      (args.first || args.last) * childComplexity
+  })
   async comments(
     @Root() chapter: Chapter,
     @Args() connArgs: ConnectionArgs,

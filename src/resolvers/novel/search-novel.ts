@@ -21,7 +21,9 @@ import { Review } from '../../entity/review';
 
 @Resolver(of => Novel)
 export class NovelSearchResolver extends BaseNovelSearchResolver {
-  @FieldResolver(returns => ChapterConnectionType.Connection)
+  @FieldResolver(returns => ChapterConnectionType.Connection, {
+    complexity: ({ childComplexity, args }) => args['first'] * childComplexity
+  })
   async chapters(
     @Root() novel: Novel,
     @Args() connArgs: ConnectionArgs,
@@ -37,7 +39,10 @@ export class NovelSearchResolver extends BaseNovelSearchResolver {
     });
   }
 
-  @FieldResolver(returns => BookConnectionType.Connection)
+  @FieldResolver(returns => BookConnectionType.Connection, {
+    complexity: ({ childComplexity, args }) =>
+      (args.first || args.last) * childComplexity
+  })
   async books(
     @Root() novel: Novel,
     @Args() connArgs: ConnectionArgs,
@@ -53,7 +58,9 @@ export class NovelSearchResolver extends BaseNovelSearchResolver {
     });
   }
 
-  @FieldResolver(returns => ReviewConnectionType.Connection)
+  @FieldResolver(returns => ReviewConnectionType.Connection, {
+    complexity: ({ childComplexity, args }) => args['first'] * childComplexity
+  })
   async reviews(
     @Root() novel: Novel,
     @Args() connArgs: ConnectionArgs,
