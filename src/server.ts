@@ -3,18 +3,47 @@ import { ApolloServer } from 'apollo-server-express';
 import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import { getComplexity, fieldExtensionsEstimator, simpleEstimator } from 'graphql-query-complexity';
 
 import { authenticateToken } from './middleware/authentication/authenticate-token';
 import { createSchema } from './schema/create-schema';
 import { initializeConnection } from './utilities/connection/initialize-connection';
+import { separateOperations } from 'graphql';
 
 async function main() {
   const connection = await initializeConnection();
   await connection.runMigrations();
 
+  const MAX_QUERY_COST = process.env.MAX_QUERY_COST || 1000;
+
   const schema = await createSchema();
   const server = new ApolloServer({
-    schema, context: ({ req, res }) => ({ req, res })
+    schema, context: ({ req, res }) => ({ req, res }),
+    plugins: [
+      {
+        requestDidStart: () => ({
+          didResolveOperation: ({ request, document }) => {
+            const complexity = getComplexity({
+              schema, 
+              query: request.operationName
+                ? separateOperations(document)[request.operationName]
+                : document,
+              variables: request.variables,
+              estimators: [
+                fieldExtensionsEstimator(),
+                simpleEstimator({ defaultComplexity: 1 })
+              ] 
+            });
+
+            if(complexity >= MAX_QUERY_COST) {
+              throw new Error(
+                `Query has a cost of ${complexity} which exceeds the max cost of ${MAX_QUERY_COST}`
+              );
+            }
+          }
+        })
+      }
+    ]
   });
 
   const app = express();
