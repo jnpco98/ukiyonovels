@@ -21,7 +21,7 @@ import { BaseResolverParams } from './types/resolver';
 import { Context } from '../../types/context';
 import { createCursorConnection } from '../../lib/relay/create-cursor-connection';
 import { fromGlobalId } from 'graphql-relay';
-import { CursorData } from '../../lib/cursors/types/cursor-data';
+import { CursorDecoded } from '../../lib/cursors/types/cursor-decoded';
 
 export function createBaseResolver<
   T extends BaseEntity,
@@ -47,7 +47,7 @@ export function createBaseResolver<
     @UseMiddleware(resolverMiddleware.get || [])
     @Query(returns => EntityType, { name: `${resource}`, nullable: true })
     async getOne(@Arg('cursor', type => ID) cursor: string, @Ctx() ctx: Context) {
-      const { id } = JSON.parse(fromGlobalId(cursor).id) as CursorData;
+      const { id } = JSON.parse(fromGlobalId(cursor).id) as CursorDecoded;
       const entity = await getRepository(EntityType).findOne({
         where: { id, archived: false }
       });
@@ -117,7 +117,7 @@ export function createBaseResolver<
       @Arg('data', () => MutationInputType) data: U,
       @Ctx() ctx: Context
     ) {
-      const { id } = JSON.parse(fromGlobalId(cursor).id) as CursorData;
+      const { id } = JSON.parse(fromGlobalId(cursor).id) as CursorDecoded;
       const existing = await getRepository(EntityType).findOne({
         where: { id, archived: false }
       });
@@ -146,7 +146,7 @@ export function createBaseResolver<
       nullable: true
     })
     async delete(@Arg('cursor', () => ID) cursor: string, @Ctx() ctx: Context) {
-      const { id } = JSON.parse(fromGlobalId(cursor).id) as CursorData;
+      const { id } = JSON.parse(fromGlobalId(cursor).id) as CursorDecoded;
       const existing = await getRepository(EntityType).findOne({
         where: { id, archived: false }
       });
