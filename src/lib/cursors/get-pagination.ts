@@ -4,13 +4,6 @@ import { ConnectionArgs } from './connection-args';
 import { CursorDecoded } from './types/cursor-decoded';
 import { ObjectLiteral } from 'typeorm';
 
-// Fix paginfo
-// pascalcalse parse-input fieldname
-// instead of returning limit and offset
-// return where clause and limit
-// validator positive last and after
-// validator last is not used with after
-
 type ParsedPagination = {
   limit?: number;
   andWhere?: {
@@ -27,20 +20,26 @@ export function getPagination(connArgs: ConnectionArgs): ParsedPagination {
       const params = { limit: meta.first, andWhere: [] } as ParsedPagination;
       
       if(meta.after) {
-        const { id } = JSON.parse(fromGlobalId(meta.after).id) as CursorDecoded;
-        params.andWhere?.push({ op: `entity_id > :gtvalue`, value: { gtvalue: id } });
-      } 
-
+        try {
+          const { id } = JSON.parse(fromGlobalId(meta.after).id) as CursorDecoded;
+          params.andWhere?.push({ op: `increment_id > :gtval`, value: { gtval: id } });
+        } catch (e) {
+          throw new Error('Invalid cursor');
+        }
+      }
       return params;
     }
     case 'backward': {
       const params = { limit: meta.last, andWhere: [] } as ParsedPagination;
       
       if(meta.before) {
-        const { id } = JSON.parse(fromGlobalId(meta.before).id) as CursorDecoded;
-        params.andWhere?.push({ op: `entity_id < :ltvalue`, value: { ltvalue: id } });
+        try {
+          const { id } = JSON.parse(fromGlobalId(meta.before).id) as CursorDecoded;
+          params.andWhere?.push({ op: `increment_id < :ltval`, value: { ltval: id } });
+        } catch (e) {
+          throw new Error('Invalid cursor');
+        }
       }
-
       return params;
     }
     default:

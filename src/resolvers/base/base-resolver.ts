@@ -20,8 +20,6 @@ import { WhereAndOrParams } from '../../lib/query/types/where-and-or';
 import { BaseResolverParams } from './types/resolver';
 import { Context } from '../../types/context';
 import { createCursorConnection } from '../../lib/relay/create-cursor-connection';
-import { fromGlobalId } from 'graphql-relay';
-import { CursorDecoded } from '../../lib/cursors/types/cursor-decoded';
 
 export function createBaseResolver<
   T extends BaseEntity,
@@ -46,8 +44,7 @@ export function createBaseResolver<
     @Authorized(authorization.get || [])
     @UseMiddleware(resolverMiddleware.get || [])
     @Query(returns => EntityType, { name: `${resource}`, nullable: true })
-    async getOne(@Arg('cursor', type => ID) cursor: string, @Ctx() ctx: Context) {
-      const { id } = JSON.parse(fromGlobalId(cursor).id) as CursorDecoded;
+    async getOne(@Arg('id', type => ID) id: string, @Ctx() ctx: Context) {
       const entity = await getRepository(EntityType).findOne({
         where: { id, archived: false }
       });
@@ -113,11 +110,10 @@ export function createBaseResolver<
       nullable: true
     })
     async update(
-      @Arg('cursor', () => ID) cursor: string,
+      @Arg('id', () => ID) id: string,
       @Arg('data', () => MutationInputType) data: U,
       @Ctx() ctx: Context
     ) {
-      const { id } = JSON.parse(fromGlobalId(cursor).id) as CursorDecoded;
       const existing = await getRepository(EntityType).findOne({
         where: { id, archived: false }
       });
@@ -145,8 +141,7 @@ export function createBaseResolver<
       name: `${resource}Delete`,
       nullable: true
     })
-    async delete(@Arg('cursor', () => ID) cursor: string, @Ctx() ctx: Context) {
-      const { id } = JSON.parse(fromGlobalId(cursor).id) as CursorDecoded;
+    async delete(@Arg('id', () => ID) id: string, @Ctx() ctx: Context) {
       const existing = await getRepository(EntityType).findOne({
         where: { id, archived: false }
       });

@@ -14,7 +14,7 @@ export const novelTypes = [
 @ObjectType()
 @InputType('NovelInput')
 export class Novel extends BaseEntity implements Partial<Novel> {
-  @Field()
+  @Field({ nullable: true })
   @Column({ type: 'text' })
   @Length(5, 150, { message: 'Title should be between 5-150 characters' })
   title: string;

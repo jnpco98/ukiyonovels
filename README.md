@@ -14,6 +14,12 @@
 
 [ ] Add tests
 
-[ ] Clean up with codemaid
+[x] Clean up with codemaid
 
 [ ] Add context hooks for resources
+
+[ ] Pageinfo fix
+
+[ ] Annotation Validation require first or last && before is not used with after
+
+[ ] Cursor decoded guard
