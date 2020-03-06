@@ -3,15 +3,29 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   Column,
-  PrimaryGeneratedColumn
+  PrimaryGeneratedColumn,
+  BeforeInsert,
+  PrimaryColumn,
+  Generated
 } from 'typeorm';
 import { ObjectType, Field, ID } from 'type-graphql';
 import { toGlobalId } from 'graphql-relay';
+import nanoid from 'nanoid';
 
 @ObjectType({ isAbstract: true })
 export abstract class BaseEntity extends ActiveRecordBaseEntity {
-  @PrimaryGeneratedColumn({ name: 'entity_id' })
+  @Field({ name: 'id' })
+  @PrimaryColumn({ name: 'entity_id' })
   id: string;
+
+  @Generated('increment')
+  @Column({ name: 'increment_id' })
+  incrementId: number;
+
+  @BeforeInsert()
+  generateUID() {
+    this.id = nanoid();
+  }
 
   @CreateDateColumn({ name: 'created_at', type: 'timestamp', update: false })
   createdAt: Date;
@@ -27,12 +41,11 @@ export abstract class BaseEntity extends ActiveRecordBaseEntity {
 
   abstract get objectType(): string;
 
-  @Field(type => ID, { name: 'id' })
+  @Field(type => ID, { name: 'cursor' })
   get relayId(): string {
     return toGlobalId(this.objectType, 
       JSON.stringify({ 
-        id: this.id,
-        createdAt: this.createdAt 
+        id: this.incrementId
       })
     );
   }
