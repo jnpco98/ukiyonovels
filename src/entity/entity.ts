@@ -6,12 +6,12 @@ import {
   PrimaryColumn,
   BeforeInsert
 } from 'typeorm';
-import { ObjectType, ID, Field } from 'type-graphql';
+import { ObjectType, Field, ID } from 'type-graphql';
 import nanoid from 'nanoid';
+import { toGlobalId } from 'graphql-relay';
 
 @ObjectType({ isAbstract: true })
 export abstract class BaseEntity extends ActiveRecordBaseEntity {
-  @Field(type => ID)
   @PrimaryColumn({ name: 'entity_id' })
   id: string;
 
@@ -30,5 +30,17 @@ export abstract class BaseEntity extends ActiveRecordBaseEntity {
   @BeforeInsert()
   generateNanoId() {
     this.id = nanoid();
+  }
+
+  abstract get objectType(): string;
+
+  @Field(type => ID, { name: 'id' })
+  get relayId(): string {
+    return toGlobalId(this.objectType, 
+      JSON.stringify({ 
+        id: this.id, 
+        createdAt: this.createdAt 
+      })
+    );
   }
 }

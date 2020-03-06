@@ -11,4 +11,8 @@ export class AuthTokens extends BaseEntity {
   @Field()
   @Column({ name: 'refresh_token', unique: true })
   refreshToken: string;
+
+  get objectType(): string {
+    return 'AuthToken';
+  }
 }

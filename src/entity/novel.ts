@@ -1,4 +1,4 @@
-import { Field, ObjectType, InputType } from 'type-graphql';
+import { Field, ObjectType, InputType, ID } from 'type-graphql';
 import { Entity, Column } from 'typeorm';
 import { BaseEntity } from './entity';
 import { Length, IsOptional, IsIn } from 'class-validator';
@@ -87,4 +87,8 @@ export class Novel extends BaseEntity implements Partial<Novel> {
   @Field({ description: 'Total Views: (controlled increment)', nullable: true })
   @Column({ type: 'integer', default: 0 })
   views?: number;
+
+  get objectType(): string {
+    return 'Novel';
+  }
 }

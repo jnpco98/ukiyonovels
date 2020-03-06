@@ -27,4 +27,8 @@ export class Book extends BaseEntity implements Partial<Book> {
   @Field(() => ID)
   @Column({ name: 'novel_id' })
   novelId: string;
+
+  get objectType(): string {
+    return 'Book';
+  }
 }

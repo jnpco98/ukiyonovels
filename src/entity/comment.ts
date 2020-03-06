@@ -15,4 +15,8 @@ export class Comment extends BaseEntity implements Partial<Comment> {
   @Field(() => ID)
   @Column({ name: 'chapter_id' })
   chapterId: string;
+
+  get objectType(): string {
+    return 'Comment';
+  }
 }
