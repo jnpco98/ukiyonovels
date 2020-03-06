@@ -22,4 +22,4 @@
 
 [ ] Annotation Validation require first or last && before is not used with after
 
-[ ] Cursor decoded guard
+[x] Cursor decoded guard

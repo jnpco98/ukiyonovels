@@ -1,6 +1,6 @@
 import { WhereAndOrParams } from '../query/types/where-and-or';
 import { ConnectionArgs } from '../cursors/connection-args';
-import { connectionFromArray } from 'graphql-relay';
+import { connectionFromArray, connectionFromPromisedArray, connectionFromArraySlice } from 'graphql-relay';
 import { BaseEntity } from '../../entity/entity';
 import { SelectQueryBuilder } from 'typeorm';
 import { filterQuery } from '../query/filter-query';
@@ -26,11 +26,11 @@ export async function createCursorConnection<T extends BaseEntity>(
 
   const sort = sortKey && sortKey.trim() ? sortKey : 'created_at';
   const order = reverse ? 'DESC' : 'ASC';
-
-  const entities = await queryBuilder
+  
+  const [entities, count]= await queryBuilder
     .take(limit)
     .orderBy(sort, order)
-    .getMany();
+    .getManyAndCount();
 
-  return connectionFromArray(entities, connArgs);
+  return connectionFromArraySlice(entities, connArgs, { arrayLength: count, sliceStart: 0 });
 }

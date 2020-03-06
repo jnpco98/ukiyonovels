@@ -3,7 +3,6 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   Column,
-  PrimaryGeneratedColumn,
   BeforeInsert,
   PrimaryColumn,
   Generated
