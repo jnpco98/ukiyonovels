@@ -38,6 +38,6 @@ export class BookSearchResolver extends BaseBookSearchResolver {
       queryBuilder,
       connArgs,
       query
-    });
+    }, Chapter);
   }
 }

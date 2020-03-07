@@ -25,8 +25,4 @@ export class Chapter extends BaseEntity implements Partial<Chapter> {
   @Field(type => ID, { nullable: true })
   @Column({ name: 'book_id', nullable: true })
   bookId?: string;
-
-  get objectType(): string {
-    return 'Chapter';
-  }
 }

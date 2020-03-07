@@ -1,4 +1,4 @@
 export type PagingMeta =
-  | { pagingType: 'forward'; after?: string; first: number }
-  | { pagingType: 'backward'; before?: string; last: number }
-  | { pagingType: 'none' };
+  | { type: 'forward'; after?: string; first: number }
+  | { type: 'backward'; before?: string; last: number }
+  | { type: 'none' };

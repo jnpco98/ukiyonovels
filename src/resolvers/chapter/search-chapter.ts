@@ -47,6 +47,6 @@ export class ChapterSearchResolver extends BaseChapterSearchResolver {
       queryBuilder,
       connArgs,
       query
-    });
+    }, Comment);
   }
 }

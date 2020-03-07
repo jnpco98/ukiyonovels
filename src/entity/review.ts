@@ -22,8 +22,4 @@ export class Review extends BaseEntity implements Partial<Review> {
   @Field(() => ID)
   @Column({ name: 'novel_id' })
   novelId: string;
-
-  get objectType(): string {
-    return 'Review';
-  }
 }

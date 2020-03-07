@@ -71,7 +71,7 @@ export function createBaseResolver<
       query?: WhereAndOrParams
     ) {
       const queryBuilder = getRepository(EntityType).createQueryBuilder();
-      return await createCursorConnection({ queryBuilder, connArgs, query });
+      return await createCursorConnection({ queryBuilder, connArgs, query }, EntityType);
     }
   }
 

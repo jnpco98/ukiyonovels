@@ -23,3 +23,11 @@
 [ ] Annotation Validation require first or last && before is not used with after
 
 [x] Cursor decoded guard
+
+[x] Remove graphql-relay
+
+[ ] Add types for cursors and stuff
+
+[ ] Graphql Enums
+
+[ ] Declare types so they're not functions

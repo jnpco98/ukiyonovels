@@ -1,48 +1,72 @@
-import { fromGlobalId } from 'graphql-relay';
 import { parsePagination } from './parse-pagination';
 import { ConnectionArgs } from './connection-args';
-import { CursorDecoded } from './types/cursor-decoded';
-import { ObjectLiteral } from 'typeorm';
+import { unBase64 } from '../../utilities/base64/encode';
+import { ClassType } from 'type-graphql';
+import { getConnection, ObjectLiteral } from 'typeorm';
 
-type ParsedPagination = {
+interface ParsedPagination {
   limit?: number;
-  andWhere?: {
-    op: string;
-    value: ObjectLiteral;
-  }[];
+  dbSortKey: string;
+  operation?: {
+    ops: string;
+    map: {
+      opval: string;
+    }
+  };
 }
 
-export function getPagination(connArgs: ConnectionArgs): ParsedPagination {
-  const meta = parsePagination(connArgs);
+function dbFieldIsNumeric(field: string) {
+  return [
+    "int", "int2", "int4", "int8", "integer", "tinyint", "smallint", "mediumint", "bigint", "dec", "decimal", "smalldecimal", "fixed", "numeric", "number", "uuid"
+  ].includes(field.toLowerCase());
+}  
 
-  switch (meta.pagingType) {
-    case 'forward': {
-      const params = { limit: meta.first, andWhere: [] } as ParsedPagination;
-      
-      if(meta.after) {
-        try {
-          const { id } = JSON.parse(fromGlobalId(meta.after).id) as CursorDecoded;
-          params.andWhere?.push({ op: `increment_id > :gtval`, value: { gtval: id } });
-        } catch (e) {
-          throw new Error('Invalid cursor');
+export function getPagination<T>(connArgs: ConnectionArgs): (EntityType: ClassType<T>) => ParsedPagination {
+
+  return (EntityType: ClassType<T>): ParsedPagination => {
+    const meta = parsePagination(connArgs);
+    const connectionProperties = getConnectionProperties(EntityType);
+    if(!connArgs.sortKey) connArgs.sortKey = 'incrementId';
+ 
+    if(!Object.keys(connectionProperties).includes(connArgs.sortKey))
+      throw new Error('Invalid Sort Key');
+    
+    const { dbSortKey, dbSortType } = connectionProperties[connArgs.sortKey];
+
+    switch (meta.type) {
+      case 'forward': {
+        const params = { limit: meta.first, dbSortKey } as ParsedPagination;
+        if(meta.after) {
+          try {
+            const { def } = JSON.parse(unBase64(meta.after));
+            params.operation = { ops: `${dbSortKey} > :opval`, map: { opval: dbFieldIsNumeric(dbSortType) ? def >> 0 : def } };
+          } catch(e) {
+            throw new Error(`Invalid Cursor`);
+          }
         }
+        return params;
       }
-      return params;
-    }
-    case 'backward': {
-      const params = { limit: meta.last, andWhere: [] } as ParsedPagination;
-      
-      if(meta.before) {
-        try {
-          const { id } = JSON.parse(fromGlobalId(meta.before).id) as CursorDecoded;
-          params.andWhere?.push({ op: `increment_id < :ltval`, value: { ltval: id } });
-        } catch (e) {
-          throw new Error('Invalid cursor');
+      case 'backward': {
+        const params = { limit: meta.last, dbSortKey } as ParsedPagination;
+        if(meta.before) {
+          try {
+            const { def } = JSON.parse(unBase64(meta.before));
+            params.operation = { ops: `${dbSortKey} < :opval`, map: { opval: dbFieldIsNumeric(dbSortType) ? def >> 0 : def  } };
+          } catch(e) {
+            throw new Error(`Invalid Cursor`);
+          }
         }
+        return params
       }
-      return params;
+      default:
+        return { dbSortKey };
     }
-    default:
-      return {};
   }
+}
+
+export function getConnectionProperties<T>(EntityType: ClassType<T>): { [key: string]: { dbSortKey: string, dbSortType: string } } {
+  const connectionProperties = getConnection().getMetadata(EntityType).ownColumns
+    .reduce((acc, col) => ({ ...acc, [col.propertyName]: { dbSortKey: col.databaseName, dbSortType: col.type } }), {}) as ObjectLiteral;
+
+  return connectionProperties;
 }

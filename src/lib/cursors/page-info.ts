@@ -1,8 +1,7 @@
 import { ObjectType, Field } from 'type-graphql';
-import { ConnectionCursor, PageInfo as RelayPageInfo } from 'graphql-relay';
 
 @ObjectType()
-export class PageInfo implements RelayPageInfo {
+export class PageInfo {
   @Field()
   hasNextPage: boolean;
 
@@ -10,8 +9,11 @@ export class PageInfo implements RelayPageInfo {
   hasPreviousPage: boolean;
 
   @Field(() => String, { nullable: true })
-  startCursor: ConnectionCursor;
+  startCursor: String;
 
   @Field(() => String, { nullable: true })
-  endCursor: ConnectionCursor;
+  endCursor: String;
+
+  @Field()
+  count: number;
 }

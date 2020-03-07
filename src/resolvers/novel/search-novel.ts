@@ -36,7 +36,7 @@ export class NovelSearchResolver extends BaseNovelSearchResolver {
       queryBuilder,
       connArgs,
       query
-    });
+    }, Chapter);
   }
 
   @FieldResolver(returns => BookConnectionType.Connection, {
@@ -55,7 +55,7 @@ export class NovelSearchResolver extends BaseNovelSearchResolver {
       queryBuilder,
       connArgs,
       query
-    });
+    }, Book);
   }
 
   @FieldResolver(returns => ReviewConnectionType.Connection, {
@@ -73,6 +73,6 @@ export class NovelSearchResolver extends BaseNovelSearchResolver {
       queryBuilder,
       connArgs,
       query
-    });
+    }, Review);
   }
 }

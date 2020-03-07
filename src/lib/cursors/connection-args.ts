@@ -1,20 +1,20 @@
-import { ConnectionCursor, ConnectionArguments } from 'graphql-relay';
 import { ArgsType, Field } from 'type-graphql';
 import { getPagination } from './get-pagination';
+import { parsePagination } from './parse-pagination';
 
 @ArgsType()
-export class ConnectionArgs implements ConnectionArguments {
+export class ConnectionArgs {
   @Field(() => String, {
     description: 'Returns the elements that come before the specified cursor',
     nullable: true
   })
-  before?: ConnectionCursor;
+  before?: string;
 
   @Field(() => String, {
     description: 'Returns the elements that come after the specified cursor',
     nullable: true
   })
-  after?: ConnectionCursor;
+  after?: string;
 
   @Field({
     description: 'Returns up to the first n elements from the list',

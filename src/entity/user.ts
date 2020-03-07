@@ -22,8 +22,4 @@ export class User extends BaseEntity {
 
   @Column({ default: true })
   confirmed: boolean;
-
-  get objectType(): string {
-    return 'User';
-  }
 }

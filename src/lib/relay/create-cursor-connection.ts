@@ -1,9 +1,10 @@
 import { WhereAndOrParams } from '../query/types/where-and-or';
 import { ConnectionArgs } from '../cursors/connection-args';
-import { connectionFromArray, connectionFromPromisedArray, connectionFromArraySlice } from 'graphql-relay';
 import { BaseEntity } from '../../entity/entity';
 import { SelectQueryBuilder } from 'typeorm';
 import { filterQuery } from '../query/filter-query';
+import { ClassType } from 'type-graphql';
+import { base64 } from '../../utilities/base64/decode';
 
 interface CursorConnectionParams<T> {
   queryBuilder: SelectQueryBuilder<T>;
@@ -12,25 +13,45 @@ interface CursorConnectionParams<T> {
 }
 
 export async function createCursorConnection<T extends BaseEntity>(
-  connParams: CursorConnectionParams<T>
+  connParams: CursorConnectionParams<T>,
+  EntityType: ClassType<T>
 ) {
   const { queryBuilder, connArgs, query } = connParams;
-  const { sortKey, reverse, pagination } = connArgs;
-  const { limit, andWhere } = pagination;
+  const { sortKey = 'incrementId', reverse, pagination } = connArgs;
+  const { limit, operation, dbSortKey } = pagination(EntityType);
+  const order = reverse ? 'DESC' : 'ASC';
 
   if (query) filterQuery(queryBuilder, query);
-  
-  if(andWhere && andWhere.length) {
-    andWhere.forEach(aw => queryBuilder.andWhere(aw.op, aw.value));
-  }
+  if (limit) queryBuilder.take(limit);
 
-  const sort = sortKey && sortKey.trim() ? sortKey : 'created_at';
-  const order = reverse ? 'DESC' : 'ASC';
-  
-  const [entities, count]= await queryBuilder
-    .take(limit)
-    .orderBy(sort, order)
+
+  if(operation && operation.ops && operation.map.opval) 
+    queryBuilder.andWhere(operation.ops, operation.map)
+
+  const [entities, count] = await queryBuilder
+    .orderBy(dbSortKey, order)
     .getManyAndCount();
 
-  return connectionFromArraySlice(entities, connArgs, { arrayLength: count, sliceStart: 0 });
+    
+  const firstEdge = entities[0];
+  const lastEdge = entities[entities.length - 1];
+    
+  if(sortKey && firstEdge && (firstEdge as any)[sortKey || ''] === undefined) throw new Error('Invalid Sort Key');
+  
+  return {
+    pageInfo: { 
+      hasNextPage: false, 
+      hasPreviousPage: false,
+      startCursor: entities.length ? generateRelayId(firstEdge, sortKey) : null,
+      endCursor: entities.length ? generateRelayId(lastEdge, sortKey) : null,
+      count
+    },
+    edges: entities.map(node => 
+      ({ node, cursor: generateRelayId(node, sortKey) })
+    )
+  }
+}
+
+function generateRelayId(node: any, sortKey?: string) {
+  return base64(JSON.stringify({ def: (node as any)[sortKey || '_'] || node.incrementId }));
 }

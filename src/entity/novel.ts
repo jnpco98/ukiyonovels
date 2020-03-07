@@ -87,8 +87,4 @@ export class Novel extends BaseEntity implements Partial<Novel> {
   @Field({ description: 'Total Views: (controlled increment)', nullable: true })
   @Column({ type: 'integer', default: 0 })
   views?: number;
-
-  get objectType(): string {
-    return 'Novel';
-  }
 }
