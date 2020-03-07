@@ -3,6 +3,8 @@ import { ConnectionArgs } from './connection-args';
 import { unBase64 } from '../../utilities/base64/encode';
 import { ClassType } from 'type-graphql';
 import { getConnection, ObjectLiteral } from 'typeorm';
+import { CursorNotMatchingSort, InvalidCursor } from './errors/invalid-cursor';
+import { InvalidSortKey } from './errors/invalid-sort-key';
 
 interface ParsedPagination {
   limit?: number;
@@ -15,12 +17,6 @@ interface ParsedPagination {
   };
 }
 
-function dbFieldIsNumeric(field: string) {
-  return [
-    "int", "int2", "int4", "int8", "integer", "tinyint", "smallint", "mediumint", "bigint", "dec", "decimal", "smalldecimal", "fixed", "numeric", "number", "uuid"
-  ].includes(field.toLowerCase());
-}  
-
 export function getPagination<T>(connArgs: ConnectionArgs): (EntityType: ClassType<T>) => ParsedPagination {
 
   return (EntityType: ClassType<T>): ParsedPagination => {
@@ -29,7 +25,7 @@ export function getPagination<T>(connArgs: ConnectionArgs): (EntityType: ClassTy
     if(!connArgs.sortKey) connArgs.sortKey = 'incrementId';
  
     if(!Object.keys(connectionProperties).includes(connArgs.sortKey))
-      throw new Error('Invalid Sort Key');
+      throw new InvalidSortKey();
     
     const { dbSortKey, dbSortType } = connectionProperties[connArgs.sortKey];
 
@@ -38,10 +34,12 @@ export function getPagination<T>(connArgs: ConnectionArgs): (EntityType: ClassTy
         const params = { limit: meta.first, dbSortKey } as ParsedPagination;
         if(meta.after) {
           try {
-            const { def } = JSON.parse(unBase64(meta.after));
-            params.operation = { ops: `${dbSortKey} > :opval`, map: { opval: dbFieldIsNumeric(dbSortType) ? def >> 0 : def } };
+            const { def, type } = JSON.parse(unBase64(meta.after));
+            if(type != connArgs.sortKey) throw new CursorNotMatchingSort();
+            params.operation = { ops: `${dbSortKey} > :opval`, map: { opval: def } };
           } catch(e) {
-            throw new Error(`Invalid Cursor`);
+            if(e instanceof CursorNotMatchingSort) throw new CursorNotMatchingSort();
+            throw new InvalidCursor();
           }
         }
         return params;
@@ -50,10 +48,12 @@ export function getPagination<T>(connArgs: ConnectionArgs): (EntityType: ClassTy
         const params = { limit: meta.last, dbSortKey } as ParsedPagination;
         if(meta.before) {
           try {
-            const { def } = JSON.parse(unBase64(meta.before));
-            params.operation = { ops: `${dbSortKey} < :opval`, map: { opval: dbFieldIsNumeric(dbSortType) ? def >> 0 : def  } };
+            const { def, type } = JSON.parse(unBase64(meta.before));
+            if(type != connArgs.sortKey) throw new CursorNotMatchingSort();
+            params.operation = { ops: `${dbSortKey} < :opval`, map: { opval: def  } };
           } catch(e) {
-            throw new Error(`Invalid Cursor`);
+            if(e instanceof CursorNotMatchingSort) throw new CursorNotMatchingSort();
+            throw new InvalidCursor();
           }
         }
         return params

@@ -5,6 +5,7 @@ import { SelectQueryBuilder } from 'typeorm';
 import { filterQuery } from '../query/filter-query';
 import { ClassType } from 'type-graphql';
 import { base64 } from '../../utilities/base64/decode';
+import { InvalidSortKey } from '../cursors/errors/invalid-sort-key';
 
 interface CursorConnectionParams<T> {
   queryBuilder: SelectQueryBuilder<T>;
@@ -36,7 +37,7 @@ export async function createCursorConnection<T extends BaseEntity>(
   const firstEdge = entities[0];
   const lastEdge = entities[entities.length - 1];
     
-  if(sortKey && firstEdge && (firstEdge as any)[sortKey || ''] === undefined) throw new Error('Invalid Sort Key');
+  if(sortKey && firstEdge && (firstEdge as any)[sortKey || ''] === undefined) throw new InvalidSortKey();
   
   return {
     pageInfo: { 
@@ -53,5 +54,5 @@ export async function createCursorConnection<T extends BaseEntity>(
 }
 
 function generateRelayId(node: any, sortKey?: string) {
-  return base64(JSON.stringify({ def: (node as any)[sortKey || '_'] || node.incrementId }));
+  return base64(JSON.stringify({ def: (node as any)[sortKey || '_'] || node.incrementId, type: sortKey || 'increment_id' }));
 }

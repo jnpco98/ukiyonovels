@@ -31,3 +31,5 @@
 [ ] Graphql Enums
 
 [ ] Declare types so they're not functions
+
+[ ] Error classes
