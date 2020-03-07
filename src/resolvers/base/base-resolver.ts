@@ -9,7 +9,7 @@ import {
   Args,
   Ctx
 } from 'type-graphql';
-import { getRepository, DeepPartial, Connection } from 'typeorm';
+import { getRepository, DeepPartial } from 'typeorm';
 import { plural } from 'pluralize';
 
 import { BaseEntity } from '../../entity/entity';
@@ -49,7 +49,8 @@ export function createBaseResolver<
         where: { id, archived: false }
       });
 
-      if (contextHooks.get) return contextHooks.get(entity, ctx);
+      if (contextHooks.get && entity) 
+        return contextHooks.get(entity, ctx);
 
       return entity;
     }

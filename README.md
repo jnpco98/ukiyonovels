@@ -6,8 +6,6 @@
 
 [x] Implement costs
 
-[ ] Implement max resources per connection
-
 [ ] Implement complexity for each field / connection / query
 
 [ ] Implement hourly rates
@@ -20,7 +18,7 @@
 
 [x] Pageinfo fix
 
-[ ] Annotation Validation require first or last && before is not used with after
+[x] Require first or last && before is not used with after
 
 [x] Cursor decoded guard
 
