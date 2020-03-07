@@ -18,7 +18,7 @@
 
 [ ] Add context hooks for resources
 
-[ ] Pageinfo fix
+[x] Pageinfo fix
 
 [ ] Annotation Validation require first or last && before is not used with after
 

@@ -43,10 +43,13 @@ export class ChapterSearchResolver extends BaseChapterSearchResolver {
   ): Promise<any> {
     const queryBuilder = getRepository(Comment).createQueryBuilder();
     queryBuilder.andWhere('chapter_id = :isvalue', { isvalue: chapter.id });
-    return await createCursorConnection({
-      queryBuilder,
-      connArgs,
-      query
-    }, Comment);
+    return await createCursorConnection(
+      {
+        queryBuilder,
+        connArgs,
+        query
+      },
+      Comment
+    );
   }
 }

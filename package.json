@@ -7,6 +7,7 @@
     "dev": "ts-node-dev --respawn --inspect=9000 --require dotenv/config src/server.ts",
     "migration:create": "ts-node ./node_modules/typeorm/cli.js migration:generate -c development -n",
     "migration:revert": "ts-node ./node_modules/typeorm/cli.js migration:revert -c development",
+    "prettier": "prettier --print-width 80 --single-quote --write **/*.ts",
     "build": "tsc",
     "test": "yarn run test:resetdb && jest",
     "test:resetdb": "ts-node --require dotenv/config ./src/test-utilities/reset-database.ts"

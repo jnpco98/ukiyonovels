@@ -13,7 +13,7 @@ interface CursorConnectionParams<T> {
   query?: WhereAndOrParams;
 }
 
-export async function createCursorConnection<T extends BaseEntity> (
+export async function createCursorConnection<T extends BaseEntity>(
   connParams: CursorConnectionParams<T>,
   EntityType: ClassType<T>
 ) {
@@ -25,34 +25,49 @@ export async function createCursorConnection<T extends BaseEntity> (
   if (query) filterQuery(queryBuilder, query);
   if (limit) queryBuilder.take(limit);
 
-
-  if(operation && operation.ops && operation.map.opval) 
-    queryBuilder.andWhere(operation.ops, operation.map)
+  if (operation && operation.ops && operation.map.opval)
+    queryBuilder.andWhere(operation.ops, operation.map);
 
   const [entities, count] = await queryBuilder
     .orderBy(dbSortKey, order)
     .getManyAndCount();
 
-    
   const firstEdge = entities[0];
   const lastEdge = entities[entities.length - 1];
-    
-  if(sortKey && firstEdge && (firstEdge as any)[sortKey || ''] === undefined) throw new InvalidSortKey();
-  
+
+  if (sortKey && firstEdge && (firstEdge as any)[sortKey || ''] === undefined)
+    throw new InvalidSortKey();
+
   return {
-    pageInfo: { 
-      hasNextPage: connArgs.first !== undefined ? count > entities.length ? true : false : false ,
-      hasPreviousPage: connArgs.last !== undefined ? count > entities.length ? true : false : false,
+    pageInfo: {
+      hasNextPage:
+        connArgs.first !== undefined
+          ? count > entities.length
+            ? true
+            : false
+          : false,
+      hasPreviousPage:
+        connArgs.last !== undefined
+          ? count > entities.length
+            ? true
+            : false
+          : false,
       startCursor: entities.length ? generateRelayId(firstEdge, sortKey) : null,
       endCursor: entities.length ? generateRelayId(lastEdge, sortKey) : null,
       count
     },
-    edges: entities.map(node => 
-      ({ node, cursor: generateRelayId(node, sortKey) })
-    )
-  }
+    edges: entities.map(node => ({
+      node,
+      cursor: generateRelayId(node, sortKey)
+    }))
+  };
 }
 
 function generateRelayId(node: any, sortKey?: string) {
-  return base64(JSON.stringify({ def: (node as any)[sortKey || '_'] || node.incrementId, type: sortKey }));
+  return base64(
+    JSON.stringify({
+      def: (node as any)[sortKey || '_'] || node.incrementId,
+      type: sortKey
+    })
+  );
 }

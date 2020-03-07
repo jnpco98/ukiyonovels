@@ -13,7 +13,7 @@ import nanoid from 'nanoid';
 @ObjectType({ isAbstract: true })
 export abstract class BaseEntity extends ActiveRecordBaseEntity {
   @Field(type => ID, { name: 'id' })
-  @PrimaryColumn({ name: 'entity_id',type: 'varchar' })
+  @PrimaryColumn({ name: 'entity_id', type: 'varchar' })
   id: string;
 
   @Generated('increment')
@@ -31,7 +31,7 @@ export abstract class BaseEntity extends ActiveRecordBaseEntity {
   @UpdateDateColumn({ name: 'last_modified', type: 'timestamp' })
   lastModified: Date;
 
-  @Column({ name: 'creator_id', nullable: true, type:'varchar' })
+  @Column({ name: 'creator_id', nullable: true, type: 'varchar' })
   creatorId?: string;
 
   @Column({ type: 'boolean', default: false })

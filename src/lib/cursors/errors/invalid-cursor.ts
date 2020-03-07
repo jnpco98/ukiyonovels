@@ -7,7 +7,7 @@ export class InvalidCursor extends Error {
 
 export class CursorNotMatchingSort extends Error {
   constructor() {
-    super('Cursor doesn\'t match the current sorting method');
+    super("Cursor doesn't match the current sorting method");
     Object.setPrototypeOf(this, CursorNotMatchingSort.prototype);
   }
 }

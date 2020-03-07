@@ -11,7 +11,9 @@ export function generateTokens(user: User) {
   const accessToken = sign(
     { userId: user.id, role: user.role },
     process.env.ACCESS_TOKEN_SECRET!,
-    { expiresIn: process.env.ACCESS_TOKEN_EXP }
+    {
+      expiresIn: process.env.ACCESS_TOKEN_EXP
+    }
   );
 
   return { refreshToken, accessToken };

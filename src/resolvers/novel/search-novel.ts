@@ -32,11 +32,14 @@ export class NovelSearchResolver extends BaseNovelSearchResolver {
   ): Promise<any> {
     const queryBuilder = getRepository(Chapter).createQueryBuilder();
     queryBuilder.andWhere('novel_id = :isvalue', { isvalue: novel.id });
-    return await createCursorConnection({
-      queryBuilder,
-      connArgs,
-      query
-    }, Chapter);
+    return await createCursorConnection(
+      {
+        queryBuilder,
+        connArgs,
+        query
+      },
+      Chapter
+    );
   }
 
   @FieldResolver(returns => BookConnectionType.Connection, {
@@ -51,11 +54,14 @@ export class NovelSearchResolver extends BaseNovelSearchResolver {
   ): Promise<any> {
     const queryBuilder = getRepository(Book).createQueryBuilder();
     queryBuilder.andWhere('novel_id = :isvalue', { isvalue: novel.id });
-    return await createCursorConnection({
-      queryBuilder,
-      connArgs,
-      query
-    }, Book);
+    return await createCursorConnection(
+      {
+        queryBuilder,
+        connArgs,
+        query
+      },
+      Book
+    );
   }
 
   @FieldResolver(returns => ReviewConnectionType.Connection, {
@@ -69,10 +75,13 @@ export class NovelSearchResolver extends BaseNovelSearchResolver {
   ): Promise<any> {
     const queryBuilder = getRepository(Review).createQueryBuilder();
     queryBuilder.andWhere('novel_id = :isvalue', { isvalue: novel.id });
-    return await createCursorConnection({
-      queryBuilder,
-      connArgs,
-      query
-    }, Review);
+    return await createCursorConnection(
+      {
+        queryBuilder,
+        connArgs,
+        query
+      },
+      Review
+    );
   }
 }

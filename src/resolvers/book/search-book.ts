@@ -34,10 +34,13 @@ export class BookSearchResolver extends BaseBookSearchResolver {
   ): Promise<any> {
     const queryBuilder = getRepository(Chapter).createQueryBuilder();
     queryBuilder.andWhere('book_id = :isvalue', { isvalue: book.id });
-    return await createCursorConnection({
-      queryBuilder,
-      connArgs,
-      query
-    }, Chapter);
+    return await createCursorConnection(
+      {
+        queryBuilder,
+        connArgs,
+        query
+      },
+      Chapter
+    );
   }
 }

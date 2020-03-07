@@ -20,7 +20,7 @@ export function parsePagination(connArgs: ConnectionArgs): PagingMeta {
       'When paginating backwards, a "before" argument is required'
     );
 
-  if (paginatingForward) return { type: "forward", after, first };
+  if (paginatingForward) return { type: 'forward', after, first };
   if (paginatingBackward) return { type: 'backward', before, last };
   return { type: 'none' };
 }
