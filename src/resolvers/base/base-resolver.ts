@@ -9,7 +9,7 @@ import {
   Args,
   Ctx
 } from 'type-graphql';
-import { getRepository, DeepPartial } from 'typeorm';
+import { getRepository, DeepPartial, Connection } from 'typeorm';
 import { plural } from 'pluralize';
 
 import { BaseEntity } from '../../entity/entity';

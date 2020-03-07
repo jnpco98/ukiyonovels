@@ -13,7 +13,7 @@ interface CursorConnectionParams<T> {
   query?: WhereAndOrParams;
 }
 
-export async function createCursorConnection<T extends BaseEntity>(
+export async function createCursorConnection<T extends BaseEntity> (
   connParams: CursorConnectionParams<T>,
   EntityType: ClassType<T>
 ) {
@@ -41,8 +41,8 @@ export async function createCursorConnection<T extends BaseEntity>(
   
   return {
     pageInfo: { 
-      hasNextPage: false, 
-      hasPreviousPage: false,
+      hasNextPage: connArgs.first !== undefined ? count > entities.length ? true : false : false ,
+      hasPreviousPage: connArgs.last !== undefined ? count > entities.length ? true : false : false,
       startCursor: entities.length ? generateRelayId(firstEdge, sortKey) : null,
       endCursor: entities.length ? generateRelayId(lastEdge, sortKey) : null,
       count
@@ -54,5 +54,5 @@ export async function createCursorConnection<T extends BaseEntity>(
 }
 
 function generateRelayId(node: any, sortKey?: string) {
-  return base64(JSON.stringify({ def: (node as any)[sortKey || '_'] || node.incrementId, type: sortKey || 'increment_id' }));
+  return base64(JSON.stringify({ def: (node as any)[sortKey || '_'] || node.incrementId, type: sortKey }));
 }
