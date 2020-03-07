@@ -10,6 +10,12 @@ export const novelTypes = [
   'Korean Novel'
 ];
 
+export const novelStatus = [
+  'Complete',
+  'Ongoing',
+  'Hiatus'
+];
+
 @Entity()
 @ObjectType()
 @InputType('NovelInput')
@@ -87,4 +93,13 @@ export class Novel extends BaseEntity implements Partial<Novel> {
   @Field({ description: 'Total Views: (controlled increment)', nullable: true })
   @Column({ type: 'integer', default: 0 })
   views?: number;
+
+  @Field({ nullable: true })
+  @Column({ type: 'integer', nullable: true })
+  year?: number;
+
+  @Field({ description: `Types: [${novelStatus.join(', ')}]`, nullable: true })
+  @Column({ type: 'text', default: novelStatus[0] })
+  @IsIn(novelStatus)
+  status?: string;
 }
