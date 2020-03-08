@@ -2,25 +2,20 @@ import { parsePagination } from './parse-pagination';
 import { ConnectionArgs } from './connection-args';
 import { unBase64 } from '../../utilities/base64/encode';
 import { ClassType } from 'type-graphql';
-import { getConnection, ObjectLiteral } from 'typeorm';
+import { getConnection, ObjectLiteral, SelectQueryBuilder, Brackets } from 'typeorm';
 import { CursorNotMatchingSort, InvalidCursor } from './errors/invalid-cursor';
 import { InvalidSortKey } from './errors/invalid-sort-key';
+import { BaseEntity } from '../../entity/entity';
 
 interface ParsedPagination {
   limit?: number;
   dbSortKey: string;
-  operation?: {
-    ops: string;
-    map: {
-      opval: string;
-    };
-  };
 }
 
-export function getPagination<T>(
+export function getPagination<T extends BaseEntity>(
   connArgs: ConnectionArgs
-): (EntityType: ClassType<T>) => ParsedPagination {
-  return (EntityType: ClassType<T>): ParsedPagination => {
+): (EntityType: ClassType<T>, queryBuilder: SelectQueryBuilder<T>) => ParsedPagination {
+  return (EntityType, queryBuilder): ParsedPagination => {
     const meta = parsePagination(connArgs);
     const connectionProperties = getConnectionProperties(EntityType);
     if (!connArgs.sortKey) connArgs.sortKey = 'incrementId';
@@ -35,12 +30,15 @@ export function getPagination<T>(
         const params = { limit: meta.first, dbSortKey } as ParsedPagination;
         if (meta.after) {
           try {
-            const { def, type } = JSON.parse(unBase64(meta.after));
+            const { primary, secondary, type } = JSON.parse(unBase64(meta.after));
             if (type != connArgs.sortKey) throw new CursorNotMatchingSort();
-            params.operation = {
-              ops: `${dbSortKey} > :opval`,
-              map: { opval: def }
-            };
+
+            queryBuilder.andWhere(`${dbSortKey} >= :secondary`, { secondary })
+              .andWhere(new Brackets(q => 
+                q.where(`increment_id > :primary`, { primary })
+                  .orWhere(`${dbSortKey} > :secondary`, { secondary })
+              ))
+              
           } catch (e) {
             if (e instanceof CursorNotMatchingSort)
               throw new CursorNotMatchingSort();
@@ -53,12 +51,15 @@ export function getPagination<T>(
         const params = { limit: meta.last, dbSortKey } as ParsedPagination;
         if (meta.before) {
           try {
-            const { def, type } = JSON.parse(unBase64(meta.before));
+            const { primary, secondary, type } = JSON.parse(unBase64(meta.before));
             if (type != connArgs.sortKey) throw new CursorNotMatchingSort();
-            params.operation = {
-              ops: `${dbSortKey} < :opval`,
-              map: { opval: def }
-            };
+
+            queryBuilder.andWhere(`${dbSortKey} <= :secondary`, { secondary })
+              .andWhere(new Brackets(q => 
+                q.where(`increment_id < :primary`, { primary })
+                  .orWhere(`${dbSortKey} < :secondary`, { secondary })
+              ))
+
           } catch (e) {
             if (e instanceof CursorNotMatchingSort)
               throw new CursorNotMatchingSort();
