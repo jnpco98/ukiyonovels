@@ -19,12 +19,12 @@ export async function createCursorConnection<T extends BaseEntity>(
 ) {
   const { queryBuilder, connArgs, query } = connParams;
   const { sortKey = 'incrementId', reverse, pagination } = connArgs;
-  const { limit, dbSortKey } = pagination(EntityType, queryBuilder);
-  const order = reverse ? 'DESC' : 'ASC';
+  const { limit, dbSortKey, direction } = pagination(EntityType, queryBuilder);
 
   if (query) filterQuery(queryBuilder, query);
   if (limit) queryBuilder.take(limit);
   
+  const order = direction === 'backward' ? reverse ? 'ASC' : 'DESC' : 'ASC';
   const [entities, count] = await queryBuilder
     .orderBy(dbSortKey, order)
     .addOrderBy('increment_id', order)
@@ -35,6 +35,12 @@ export async function createCursorConnection<T extends BaseEntity>(
 
   if (sortKey && firstEdge && (firstEdge as any)[sortKey || ''] === undefined)
     throw new InvalidSortKey();
+
+  const edges = entities.map(node => ({
+    node, cursor: generateRelayId(node, sortKey)
+  }))
+
+  if(direction === 'backward') edges.reverse();
 
   return {
     pageInfo: {
@@ -54,10 +60,7 @@ export async function createCursorConnection<T extends BaseEntity>(
       endCursor: entities.length ? generateRelayId(lastEdge, sortKey) : null,
       count
     },
-    edges: entities.map(node => ({
-      node,
-      cursor: generateRelayId(node, sortKey)
-    }))
+    edges
   };
 }
 

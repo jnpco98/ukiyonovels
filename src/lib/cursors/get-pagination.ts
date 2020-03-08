@@ -10,6 +10,7 @@ import { BaseEntity } from '../../entity/entity';
 interface ParsedPagination {
   limit?: number;
   dbSortKey: string;
+  direction: 'forward' | 'backward';
 }
 
 export function getPagination<T extends BaseEntity>(
@@ -27,7 +28,7 @@ export function getPagination<T extends BaseEntity>(
 
     switch (meta.type) {
       case 'forward': {
-        const params = { limit: meta.first, dbSortKey } as ParsedPagination;
+        const params = { limit: meta.first, dbSortKey, direction: 'forward' } as ParsedPagination;
         if (meta.after) {
           try {
             const { primary, secondary, type } = JSON.parse(unBase64(meta.after));
@@ -48,7 +49,7 @@ export function getPagination<T extends BaseEntity>(
         return params;
       }
       case 'backward': {
-        const params = { limit: meta.last, dbSortKey } as ParsedPagination;
+        const params = { limit: meta.last, dbSortKey, direction: 'backward' } as ParsedPagination;
         if (meta.before) {
           try {
             const { primary, secondary, type } = JSON.parse(unBase64(meta.before));
@@ -69,7 +70,7 @@ export function getPagination<T extends BaseEntity>(
         return params;
       }
       default:
-        return { dbSortKey };
+        return { dbSortKey, direction: 'forward' };
     }
   };
 }
