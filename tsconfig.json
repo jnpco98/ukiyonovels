@@ -26,5 +26,5 @@
    },
    "exclude": ["node_modules", ".vscode"],
    "include": ["./src/**/*.ts"],
-   "typeRoots": ["./src/@types/"]
+   "typeRoots": ["./src/@types/", "./node_modules/@types"]
  }
