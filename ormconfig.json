@@ -6,7 +6,7 @@
     "port": "5432",
     "username": "postgres",
     "password": "root",
-    "database": "ukiyo",
+    "database": "ukiyo_dev",
     "synchronize": true,
     "logging": false,
     "entities": [
@@ -31,7 +31,7 @@
     "port": "5432",
     "username": "postgres",
     "password": "root",
-    "database": "ukiyo-test",
+    "database": "ukiyo_test",
     "logging": false,
     "synchronize": false,
     "dropSchema": false,

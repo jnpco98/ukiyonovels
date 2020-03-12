@@ -37,3 +37,9 @@
 [x] Create export types
 
 [ ] Dataloader
+
+### Prettier
+---
+```
+prettier --print-width 90 --single-quote --write src/**/*.ts
+```

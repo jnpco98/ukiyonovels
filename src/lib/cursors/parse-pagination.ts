@@ -3,9 +3,8 @@ import { PagingMeta } from './types/paging-meta';
 
 export function parsePagination(connArgs: ConnectionArgs): PagingMeta {
   const { first = 0, last = 0, after, before } = connArgs;
-  
-  if(!first && !last) 
-    throw new Error('You must provide one of first or last');
+
+  if (!first && !last) throw new Error('You must provide one of first or last');
 
   const paginatingForward = !!first || !!after;
   const paginatingBackward = !!last || !!before;
@@ -20,9 +19,7 @@ export function parsePagination(connArgs: ConnectionArgs): PagingMeta {
     throw new Error('Pagination must be positive');
 
   if (last && !before)
-    throw new Error(
-      'When paginating backwards, a "before" argument is required'
-    );
+    throw new Error('When paginating backwards, a "before" argument is required');
 
   if (paginatingForward) return { type: 'forward', after, first };
   if (paginatingBackward) return { type: 'backward', before, last };

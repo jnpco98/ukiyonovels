@@ -3,18 +3,9 @@ import { Entity, Column } from 'typeorm';
 import { BaseEntity } from './entity';
 import { Length, IsOptional, IsIn } from 'class-validator';
 
-export const novelTypes = [
-  'Web Novel',
-  'Light Novel',
-  'Chinese Novel',
-  'Korean Novel'
-];
+export const novelTypes = ['Web Novel', 'Light Novel', 'Chinese Novel', 'Korean Novel'];
 
-export const novelStatus = [
-  'Complete',
-  'Ongoing',
-  'Hiatus'
-];
+export const novelStatus = ['Complete', 'Ongoing', 'Hiatus'];
 
 @Entity()
 @ObjectType()

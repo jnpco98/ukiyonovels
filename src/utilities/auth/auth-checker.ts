@@ -1,10 +1,7 @@
 import { Context } from '../../types/context';
 import ROLES from '../../constants/roles';
 
-export function authChecker(
-  { context }: { context: Context },
-  roles: string[]
-) {
+export function authChecker({ context }: { context: Context }, roles: string[]) {
   /**
    * Roles array values come from @Authorized decorator arguments
    * If it's empty / contains anonymous

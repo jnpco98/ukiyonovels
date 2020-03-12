@@ -3,7 +3,10 @@ import { ConnectionArgs } from './connection-args';
 import { unBase64 } from '../../utilities/base64/encode';
 import { ClassType } from 'type-graphql';
 import { getConnection, ObjectLiteral, SelectQueryBuilder, Brackets } from 'typeorm';
-import { CursorNotMatchingSort as CursorNotMatchingSortError, InvalidCursor } from './errors/invalid-cursor';
+import {
+  CursorNotMatchingSort as CursorNotMatchingSortError,
+  InvalidCursor
+} from './errors/invalid-cursor';
 import { InvalidSortKey } from './errors/invalid-sort-key';
 import { BaseEntity } from '../../entity/entity';
 
@@ -15,14 +18,14 @@ interface ParsedPagination {
 
 interface CursorQueryAugment<T> {
   queryBuilder: SelectQueryBuilder<T>;
-  cursor: string; 
+  cursor: string;
   direction: 'forward' | 'backward';
   sortKey: string;
-  connectionProperties: { 
-    [key: string]: { 
-      dbSortKey: string; 
-    } 
-  }
+  connectionProperties: {
+    [key: string]: {
+      dbSortKey: string;
+    };
+  };
 }
 
 export const DEFAULT_SORT_KEY = 'incrementId';
@@ -32,27 +35,27 @@ function cursorToAugmentedQuery<T>(augment: CursorQueryAugment<T>) {
   const { queryBuilder, cursor, direction, sortKey, connectionProperties } = augment;
   const { dbSortKey } = connectionProperties[sortKey];
 
-  if (!Object.keys(connectionProperties).includes(sortKey))
-    throw new InvalidSortKey();
-  
+  if (!Object.keys(connectionProperties).includes(sortKey)) throw new InvalidSortKey();
+
   const operation = direction === 'backward' ? '<' : '>';
 
   try {
     const { primary, secondary, type } = JSON.parse(unBase64(cursor));
-    if(type !== sortKey) throw new CursorNotMatchingSortError();
+    if (type !== sortKey) throw new CursorNotMatchingSortError();
 
-    queryBuilder.andWhere(`${dbSortKey} ${operation}= :secondary`, { secondary })
-      .andWhere(new Brackets(q => 
-        q.where(`${DEFAULT_DB_SORT_KEY} ${operation} :primary`, { primary })
-          .orWhere(`${dbSortKey} ${operation} :secondary`, { secondary })
-      ))
-
+    queryBuilder
+      .andWhere(`${dbSortKey} ${operation}= :secondary`, { secondary })
+      .andWhere(
+        new Brackets(q =>
+          q
+            .where(`${DEFAULT_DB_SORT_KEY} ${operation} :primary`, { primary })
+            .orWhere(`${dbSortKey} ${operation} :secondary`, { secondary })
+        )
+      );
   } catch (e) {
-    if (e instanceof CursorNotMatchingSortError)
-      throw new CursorNotMatchingSortError();
+    if (e instanceof CursorNotMatchingSortError) throw new CursorNotMatchingSortError();
     throw new InvalidCursor();
   }
-
 }
 
 export function getPagination<T extends BaseEntity>(
@@ -70,12 +73,12 @@ export function getPagination<T extends BaseEntity>(
         const { first, type, after } = meta;
         const params = { limit: first, dbSortKey, direction: type } as ParsedPagination;
         if (after) {
-          cursorToAugmentedQuery({ 
-            queryBuilder, 
-            cursor: after, 
-            direction: type, 
-            connectionProperties, 
-            sortKey 
+          cursorToAugmentedQuery({
+            queryBuilder,
+            cursor: after,
+            direction: type,
+            connectionProperties,
+            sortKey
           });
         }
         return params;
@@ -84,12 +87,12 @@ export function getPagination<T extends BaseEntity>(
         const { last, type, before } = meta;
         const params = { limit: last, dbSortKey, direction: type } as ParsedPagination;
         if (before) {
-          cursorToAugmentedQuery({ 
-            queryBuilder, 
-            cursor: before, 
-            direction: type, 
-            connectionProperties, 
-            sortKey 
+          cursorToAugmentedQuery({
+            queryBuilder,
+            cursor: before,
+            direction: type,
+            connectionProperties,
+            sortKey
           });
         }
         return params;

@@ -49,8 +49,7 @@ export function createBaseResolver<
         where: { id, archived: false }
       });
 
-      if (contextHooks.get && entity) 
-        return contextHooks.get(entity, ctx);
+      if (contextHooks.get && entity) return contextHooks.get(entity, ctx);
 
       return entity;
     }
@@ -72,10 +71,7 @@ export function createBaseResolver<
       query?: WhereAndOrParams
     ) {
       const queryBuilder = getRepository(EntityType).createQueryBuilder();
-      return await createCursorConnection(
-        { queryBuilder, connArgs, query },
-        EntityType
-      );
+      return await createCursorConnection({ queryBuilder, connArgs, query }, EntityType);
     }
   }
 
@@ -87,14 +83,10 @@ export function createBaseResolver<
       name: `${resource}Create`,
       nullable: true
     })
-    async create(
-      @Arg('data', () => MutationInputType) data: U,
-      @Ctx() ctx: Context
-    ) {
+    async create(@Arg('data', () => MutationInputType) data: U, @Ctx() ctx: Context) {
       const entity = getRepository(EntityType).create(data);
 
-      if (ctx.req.auth && ctx.req.auth.userId)
-        entity.creatorId = ctx.req.auth.userId;
+      if (ctx.req.auth && ctx.req.auth.userId) entity.creatorId = ctx.req.auth.userId;
 
       if (contextHooks.create) {
         const hookedEntity = contextHooks.create(entity, ctx);

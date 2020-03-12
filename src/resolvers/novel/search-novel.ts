@@ -4,15 +4,9 @@ import { ConnectionArgs } from '../../lib/cursors/connection-args';
 
 import { BaseNovelSearchResolver } from './novel-base';
 import { createCursorConnection } from '../../lib/relay/create-cursor-connection';
-import {
-  ChapterConnectionType,
-  ChapterWhereInputType
-} from '../chapter/chapter-base';
+import { ChapterConnectionType, ChapterWhereInputType } from '../chapter/chapter-base';
 import { BookConnectionType, BookWhereInputType } from '../book/book-base';
-import {
-  ReviewConnectionType,
-  ReviewWhereInputType
-} from '../review/review-base';
+import { ReviewConnectionType, ReviewWhereInputType } from '../review/review-base';
 import { WhereAndOrParams } from '../../lib/query/types/where-and-or';
 import { getRepository } from 'typeorm';
 import { Chapter } from '../../entity/chapter';
@@ -43,8 +37,7 @@ export class NovelSearchResolver extends BaseNovelSearchResolver {
   }
 
   @FieldResolver(returns => BookConnectionType.Connection, {
-    complexity: ({ childComplexity, args }) =>
-      (args.first || args.last) * childComplexity
+    complexity: ({ childComplexity, args }) => (args.first || args.last) * childComplexity
   })
   async books(
     @Root() novel: Novel,

@@ -10,7 +10,13 @@ export async function createSchema() {
   if (!schema) {
     schema = await buildSchema({
       resolvers: [
-        path.resolve(__dirname, '..', `resolvers/**/!(*.test|*.spec).${process.env.NODE_ENV === 'production' ? 'js' : 'ts'}`)
+        path.resolve(
+          __dirname,
+          '..',
+          `resolvers/**/!(*.test|*.spec).${
+            process.env.NODE_ENV === 'production' ? 'js' : 'ts'
+          }`
+        )
       ],
       authChecker,
       authMode: 'null'

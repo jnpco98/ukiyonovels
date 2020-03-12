@@ -5,11 +5,7 @@ import { User } from '../../entity/user';
 import ROLES from '../../constants/roles';
 import { TokenDecoded } from './types/token-decoded';
 
-export async function authenticateToken(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
+export async function authenticateToken(req: Request, res: Response, next: NextFunction) {
   const authHeader = req.headers.authorization;
   const accessToken = authHeader && authHeader.split(' ')[1];
 

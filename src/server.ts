@@ -45,12 +45,10 @@ async function main() {
                 `Query has a cost of ${complexity} which exceeds the max cost of ${MAX_QUERY_COST}`
               );
             }
-          },
-        }),
+          }
+        })
       }
-    ],
-    introspection: true,
-    playground: true
+    ]
   });
 
   const app = express();

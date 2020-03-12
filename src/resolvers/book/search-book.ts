@@ -1,9 +1,6 @@
 import { Resolver, FieldResolver, Root, Args, Arg } from 'type-graphql';
 import { BaseBookSearchResolver } from './book-base';
-import {
-  ChapterConnectionType,
-  ChapterWhereInputType
-} from '../chapter/chapter-base';
+import { ChapterConnectionType, ChapterWhereInputType } from '../chapter/chapter-base';
 import { Book } from '../../entity/book';
 import { ConnectionArgs } from '../../lib/cursors/connection-args';
 import { WhereAndOrParams } from '../../lib/query/types/where-and-or';
@@ -23,8 +20,7 @@ export class BookSearchResolver extends BaseBookSearchResolver {
   }
 
   @FieldResolver(returns => ChapterConnectionType.Connection, {
-    complexity: ({ childComplexity, args }) =>
-      (args.first || args.last) * childComplexity
+    complexity: ({ childComplexity, args }) => (args.first || args.last) * childComplexity
   })
   async chapters(
     @Root() book: Book,
