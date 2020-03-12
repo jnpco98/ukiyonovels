@@ -31,3 +31,9 @@
 [ ] Declare types so they're not functions
 
 [ ] Error classes
+
+[x] Fix build
+
+[x] Create export types
+
+[ ] Dataloader

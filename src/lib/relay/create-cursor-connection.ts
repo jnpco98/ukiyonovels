@@ -6,6 +6,7 @@ import { filterQuery } from '../query/filter-query';
 import { ClassType } from 'type-graphql';
 import { base64 } from '../../utilities/base64/decode';
 import { InvalidSortKey } from '../cursors/errors/invalid-sort-key';
+import { DEFAULT_DB_SORT_KEY, DEFAULT_SORT_KEY } from '../cursors/get-pagination';
 
 interface CursorConnectionParams<T> {
   queryBuilder: SelectQueryBuilder<T>;
@@ -18,7 +19,7 @@ export async function createCursorConnection<T extends BaseEntity>(
   EntityType: ClassType<T>
 ) {
   const { queryBuilder, connArgs, query } = connParams;
-  const { sortKey = 'incrementId', reverse, pagination } = connArgs;
+  const { sortKey = DEFAULT_SORT_KEY, reverse, pagination } = connArgs;
   const { limit, dbSortKey, direction } = pagination(EntityType, queryBuilder);
 
   if (query) filterQuery(queryBuilder, query);
@@ -27,7 +28,7 @@ export async function createCursorConnection<T extends BaseEntity>(
   const order = direction === 'backward' ? reverse ? 'ASC' : 'DESC' : 'ASC';
   const [entities, count] = await queryBuilder
     .orderBy(dbSortKey, order)
-    .addOrderBy('increment_id', order)
+    .addOrderBy(DEFAULT_DB_SORT_KEY, order)
     .getManyAndCount();
 
   const firstEdge = entities[0];

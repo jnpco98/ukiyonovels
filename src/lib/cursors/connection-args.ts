@@ -1,6 +1,5 @@
 import { ArgsType, Field } from 'type-graphql';
 import { getPagination } from './get-pagination';
-import { parsePagination } from './parse-pagination';
 
 @ArgsType()
 export class ConnectionArgs {
