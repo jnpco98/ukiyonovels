@@ -5,7 +5,7 @@ import { SelectQueryBuilder } from 'typeorm';
 import { filterQuery } from '../query/filter-query';
 import { ClassType } from 'type-graphql';
 import { base64 } from '../../utilities/base64/decode';
-import { InvalidSortKey } from '../cursors/errors/invalid-sort-key';
+import { InvalidSortKeyError } from '../cursors/errors/invalid-sort-key';
 import { DEFAULT_DB_SORT_KEY, DEFAULT_SORT_KEY } from '../cursors/get-pagination';
 
 interface CursorConnectionParams<T> {
@@ -35,7 +35,7 @@ export async function createCursorConnection<T extends BaseEntity>(
   const lastEdge = entities[entities.length - 1];
 
   if (sortKey && firstEdge && (firstEdge as any)[sortKey || ''] === undefined)
-    throw new InvalidSortKey();
+    throw new InvalidSortKeyError();
 
   const edges = entities.map(node => ({
     node,

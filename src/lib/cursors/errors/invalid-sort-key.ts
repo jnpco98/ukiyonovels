@@ -1,6 +1,6 @@
-export class InvalidSortKey extends Error {
+export class InvalidSortKeyError extends Error {
   constructor() {
     super('Invalid sort key');
-    Object.setPrototypeOf(this, InvalidSortKey.prototype);
+    Object.setPrototypeOf(this, InvalidSortKeyError.prototype);
   }
 }

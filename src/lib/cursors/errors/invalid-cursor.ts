@@ -1,13 +1,13 @@
-export class InvalidCursor extends Error {
+export class InvalidCursorError extends Error {
   constructor() {
     super('Invalid cursor');
-    Object.setPrototypeOf(this, InvalidCursor.prototype);
+    Object.setPrototypeOf(this, InvalidCursorError.prototype);
   }
 }
 
-export class CursorNotMatchingSort extends Error {
+export class CursorNotMatchingSortError extends Error {
   constructor() {
     super("Cursor doesn't match the current sorting method");
-    Object.setPrototypeOf(this, CursorNotMatchingSort.prototype);
+    Object.setPrototypeOf(this, CursorNotMatchingSortError.prototype);
   }
 }

@@ -13,12 +13,13 @@ import { authenticateToken } from './middleware/authentication/authenticate-toke
 import { createSchema } from './schema/create-schema';
 import { initializeConnection } from './utilities/connection/initialize-connection';
 import { separateOperations } from 'graphql';
+import { MaxComplexityError } from './lib/cursors/errors/complexity';
 
 async function main() {
   const connection = await initializeConnection();
   await connection.runMigrations();
 
-  const MAX_QUERY_COST = process.env.MAX_QUERY_COST || 1000;
+  const MAX_QUERY_COST = parseInt(process.env.MAX_QUERY_COST || '1000');
 
   const schema = await createSchema();
   const server = new ApolloServer({
@@ -41,9 +42,7 @@ async function main() {
             });
 
             if (complexity >= MAX_QUERY_COST) {
-              throw new Error(
-                `Query has a cost of ${complexity} which exceeds the max cost of ${MAX_QUERY_COST}`
-              );
+              throw new MaxComplexityError(complexity, MAX_QUERY_COST);
             }
           }
         })
