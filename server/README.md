@@ -28,9 +28,9 @@
 
 [ ] Graphql Enums
 
-[ ] Declare types so they're not functions
+[ ] Better types
 
-[ ] Error classes
+[x] Error classes
 
 [x] Fix build
 
@@ -45,6 +45,8 @@
 [ ] JSDOCS
 
 [ ] Logging service
+
+[ ] Deployment
 
 ---
 ```
