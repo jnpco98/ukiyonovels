@@ -18,6 +18,21 @@ import { isDevelopment, isTesting, isProduction, ENV_DEVELOPMENT, ENV_TESTING, E
 import { ArgumentValidationError } from 'type-graphql';
 import { logInternalError } from './utilities/error/log-internal';
 
+import Log from './utilities/log/local-logger';
+
+Log.debug('debug');
+Log.info('info');
+Log.warn('warn');
+Log.error('error');
+Log.fatal('fatal');
+
+/**
+ * Handles and transforms the errors
+ * 
+ * Filters out errors that should 
+ * and shouldn't be shown to the user
+ * @param error 
+ */
 function formatGraphqlError (error: GraphQLError) {
   if(error.originalError instanceof ApolloError) return error;
   if(error.originalError instanceof ArgumentValidationError) {
@@ -28,18 +43,38 @@ function formatGraphqlError (error: GraphQLError) {
   return new GraphQLError(`Internal Server Error: ${logInternalError(error)}`);
 }
 
+/**
+ * Starting point of the server
+ */
 async function main() {
   const connection = await initializeConnection();
 
   /**
-   * NODE_ENV must be setup
+   * NODE_ENV must be set one of the following
    */
   if(!isDevelopment() && !isTesting() && !isProduction()) 
     throw new Error(`NODE_ENV must be ${ENV_DEVELOPMENT} || ${ENV_TESTING} || ${ENV_PRODUCTION}`);
+
+  /**
+   * Authorization and authentication 
+   * requires access and refresh tokens
+   */
+  if(!process.env.REFRESH_TOKEN_SECRET || !process.env.REFRESH_TOKEN_EXP)
+    throw new Error(`Refresh tokens need to be set up`);
+
+  if(!process.env.ACCESS_TOKEN_SECRET || !process.env.ACCESS_TOKEN_EXP)
+    throw new Error(`Access tokens need to be set up`);
+
+
+  if(!process.env.APPLICATION_NAME) 
+    throw new Error(`Application must be set up`);
   
   /**
    * Only run database migrations on production
    * as this might destroy existing data
+   * 
+   * If database is currently in production
+   * this needs to be manually set up
    */
   if(!isProduction) 
     await connection.runMigrations();
@@ -82,7 +117,7 @@ async function main() {
   });
 
   /**
-   * Start up the server
+   * Start up the server and setup middlewares
    */
   const app = express();
   app.use(cookieParser());
