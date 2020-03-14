@@ -1,5 +1,5 @@
 /**
- * Converts string to snake case 
+ * Converts string to snake case
  * for use with database name and fields
  */
 export function snakeCase(s: string) {

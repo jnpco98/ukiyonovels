@@ -8,7 +8,11 @@ export function generateTokens(user: User) {
   const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET!;
   const accessTokenExpiration = process.env.ACCESS_TOKEN_EXP!;
 
-  const refreshToken = sign(userData, refreshTokenSecret, { expiresIn: refreshTokenExpiration });
-  const accessToken = sign(userData, accessTokenSecret, { expiresIn: accessTokenExpiration  });
+  const refreshToken = sign(userData, refreshTokenSecret, {
+    expiresIn: refreshTokenExpiration
+  });
+  const accessToken = sign(userData, accessTokenSecret, {
+    expiresIn: accessTokenExpiration
+  });
   return { refreshToken, accessToken };
 }

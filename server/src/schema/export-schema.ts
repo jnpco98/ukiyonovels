@@ -2,7 +2,6 @@ import { createSchema } from './create-schema';
 import { printSchema } from 'graphql';
 import { writeFile, ensureDir, ensureFile } from 'fs-extra';
 import path from 'path';
-
 (async () => {
   const schema = await createSchema();
   const sdl = printSchema(schema);

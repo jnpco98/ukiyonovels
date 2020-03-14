@@ -12,9 +12,8 @@ let schema: GraphQLSchema;
  */
 export async function createSchema() {
   if (!schema) {
-
     /**
-     * If schema doesn't exist, 
+     * If schema doesn't exist,
      * generate it from the resolvers directory
      */
     schema = await buildSchema({
@@ -22,9 +21,7 @@ export async function createSchema() {
         path.resolve(
           __dirname,
           '..',
-          `resolvers/**/!(*.test|*.spec).${
-            isProduction() ? 'js' : 'ts'
-          }`
+          `resolvers/**/!(*.test|*.spec).${isProduction() ? 'js' : 'ts'}`
         )
       ],
       /**

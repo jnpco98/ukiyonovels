@@ -14,29 +14,30 @@ import { createSchema } from './schema/create-schema';
 import { initializeConnection } from './utilities/connection/initialize-connection';
 import { separateOperations, GraphQLError } from 'graphql';
 import { MaxComplexityError } from './lib/cursors/errors/complexity';
-import { isDevelopment, isTesting, isProduction, ENV_DEVELOPMENT, ENV_TESTING, ENV_PRODUCTION } from './utilities/env/node-env';
+import {
+  isDevelopment,
+  isTesting,
+  isProduction,
+  ENV_DEVELOPMENT,
+  ENV_TESTING,
+  ENV_PRODUCTION
+} from './utilities/env/node-env';
 import { ArgumentValidationError } from 'type-graphql';
-import { logInternalError } from './utilities/error/log-internal';
+import { logInternalError } from './utilities/log/log-internal-error';
 
 import Log from './utilities/log/local-logger';
 
-Log.debug('debug');
-Log.info('info');
-Log.warn('warn');
-Log.error('error');
-Log.fatal('fatal');
-
 /**
  * Handles and transforms the errors
- * 
- * Filters out errors that should 
+ *
+ * Filters out errors that should
  * and shouldn't be shown to the user
- * @param error 
+ * @param error
  */
-function formatGraphqlError (error: GraphQLError) {
-  if(error.originalError instanceof ApolloError) return error;
-  if(error.originalError instanceof ArgumentValidationError) {
-    if(error.extensions) error.extensions.code = 'GRAPHQL_VALIDATION_FAILED';
+function formatGraphqlError(error: GraphQLError) {
+  if (error.originalError instanceof ApolloError) return error;
+  if (error.originalError instanceof ArgumentValidationError) {
+    if (error.extensions) error.extensions.code = 'GRAPHQL_VALIDATION_FAILED';
     return error;
   }
 
@@ -52,32 +53,31 @@ async function main() {
   /**
    * NODE_ENV must be set one of the following
    */
-  if(!isDevelopment() && !isTesting() && !isProduction()) 
-    throw new Error(`NODE_ENV must be ${ENV_DEVELOPMENT} || ${ENV_TESTING} || ${ENV_PRODUCTION}`);
+  if (!isDevelopment() && !isTesting() && !isProduction())
+    throw new Error(
+      `NODE_ENV must be ${ENV_DEVELOPMENT} || ${ENV_TESTING} || ${ENV_PRODUCTION}`
+    );
 
   /**
-   * Authorization and authentication 
+   * Authorization and authentication
    * requires access and refresh tokens
    */
-  if(!process.env.REFRESH_TOKEN_SECRET || !process.env.REFRESH_TOKEN_EXP)
+  if (!process.env.REFRESH_TOKEN_SECRET || !process.env.REFRESH_TOKEN_EXP)
     throw new Error(`Refresh tokens need to be set up`);
 
-  if(!process.env.ACCESS_TOKEN_SECRET || !process.env.ACCESS_TOKEN_EXP)
+  if (!process.env.ACCESS_TOKEN_SECRET || !process.env.ACCESS_TOKEN_EXP)
     throw new Error(`Access tokens need to be set up`);
 
+  if (!process.env.APPLICATION_NAME) throw new Error(`Application must be set up`);
 
-  if(!process.env.APPLICATION_NAME) 
-    throw new Error(`Application must be set up`);
-  
   /**
    * Only run database migrations on production
    * as this might destroy existing data
-   * 
+   *
    * If database is currently in production
    * this needs to be manually set up
    */
-  if(!isProduction) 
-    await connection.runMigrations();
+  if (!isProduction) await connection.runMigrations();
 
   const MAX_QUERY_COST = parseInt(process.env.MAX_QUERY_COST || '1000');
 
@@ -92,7 +92,7 @@ async function main() {
           didResolveOperation: ({ request, document }) => {
             /**
              * Calculate request complexity and set default field cost to 1
-             * 
+             *
              * If cost exceeds specified max query cost
              * throw an error and don't return data
              */
@@ -127,7 +127,7 @@ async function main() {
   server.applyMiddleware({ app });
 
   app.listen(process.env.PORT || 5000, () => {
-    console.log(
+    Log.info(
       `Server ready at http://localhost:${process.env.PORT}${server.graphqlPath} env: ${process.env.NODE_ENV}`
     );
   });

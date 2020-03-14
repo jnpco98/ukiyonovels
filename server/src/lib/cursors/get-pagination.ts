@@ -3,10 +3,7 @@ import { ConnectionArgs } from './connection-args';
 import { unBase64 } from '../../utilities/base64/encode';
 import { ClassType } from 'type-graphql';
 import { getConnection, ObjectLiteral, SelectQueryBuilder, Brackets } from 'typeorm';
-import {
-  CursorNotMatchingSortError as CursorNotMatchingSortError,
-  InvalidCursorError
-} from './errors/invalid-cursor';
+import { CursorNotMatchingSortError, InvalidCursorError } from './errors/invalid-cursor';
 import { InvalidSortKeyError } from './errors/invalid-sort-key';
 import { BaseEntity } from '../../entity/entity';
 
@@ -35,7 +32,8 @@ function cursorToAugmentedQuery<T>(augment: CursorQueryAugment<T>) {
   const { queryBuilder, cursor, direction, sortKey, connectionProperties } = augment;
   const { dbSortKey } = connectionProperties[sortKey];
 
-  if (!Object.keys(connectionProperties).includes(sortKey)) throw new InvalidSortKeyError();
+  if (!Object.keys(connectionProperties).includes(sortKey))
+    throw new InvalidSortKeyError();
 
   const operation = direction === 'backward' ? '<' : '>';
 

@@ -1,4 +1,4 @@
-import { ApolloError } from "apollo-server-express";
+import { ApolloError } from 'apollo-server-express';
 
 const SORT_ERROR_CODE = 'GRAPHQL_SORT_ERROR';
 

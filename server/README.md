@@ -50,5 +50,5 @@
 
 ---
 ```
-prettier --print-width 90 --no-semi true --single-quote --write src/**/*.ts
+prettier --print-width 90 semi true --single-quote --write src/**/*.ts
 ```

@@ -1,4 +1,4 @@
-import { ApolloError } from "apollo-server-express";
+import { ApolloError } from 'apollo-server-express';
 
 const PAGINATION_ERROR_CODE = 'GRAPHQL_PAGINATION_ERROR';
 
