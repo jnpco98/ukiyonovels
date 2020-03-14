@@ -20,6 +20,11 @@ export async function createCursorConnection<T extends BaseEntity>(
 ) {
   const { queryBuilder, connArgs, query } = connParams;
   const { sortKey = DEFAULT_SORT_KEY, reverse, pagination } = connArgs;
+
+  /**
+   * Augments the query and uses the cursor data
+   * to calculate the next page
+   */
   const { limit, dbSortKey, direction } = pagination(EntityType, queryBuilder);
 
   if (query) filterQuery(queryBuilder, query);

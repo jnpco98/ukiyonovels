@@ -38,8 +38,15 @@
 
 [ ] Dataloader
 
-### Prettier
+[ ] CICD
+
+[ ] Testing
+
+[ ] JSDOCS
+
+[ ] Logging service
+
 ---
 ```
-prettier --print-width 90 --single-quote --write src/**/*.ts
+prettier --print-width 90 --no-semi true --single-quote --write src/**/*.ts
 ```
