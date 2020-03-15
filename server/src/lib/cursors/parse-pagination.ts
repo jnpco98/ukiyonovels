@@ -1,11 +1,11 @@
 import { ConnectionArgs } from './connection-args';
-import { PagingMeta } from './types/paging-meta';
+import { PaginationMeta } from './types/pagination-meta';
 import {
   InvalidPaginationError,
   InvalidPaginationArgumentError
 } from './errors/invalid-argument';
 
-export function parsePagination(connArgs: ConnectionArgs): PagingMeta {
+export function parsePagination(connArgs: ConnectionArgs): PaginationMeta {
   const { first = 0, last = 0, after, before } = connArgs;
 
   if (!first && !last)

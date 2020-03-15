@@ -3,6 +3,13 @@ import { BaseEntity } from './entity';
 import { ObjectType, Field } from 'type-graphql';
 import ROLES from '../constants/roles';
 
+/**
+ * Orm User Entity
+ * 
+ * Graphql User Object Type
+ * 
+ * Implements graphql validation
+ */
 @ObjectType()
 @Entity()
 export class User extends BaseEntity {

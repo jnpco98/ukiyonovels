@@ -3,6 +3,16 @@ import { Entity, Column } from 'typeorm';
 import { BaseEntity } from './entity';
 import { IsISBN, IsOptional, Length } from 'class-validator';
 
+/**
+ * ORM Book Entity
+ * 
+ * Graphql Book Object Type
+ * 
+ * Also being used as the mutation input type for 
+ * the Book Object Type
+ * 
+ * Implements graphql validation
+ */
 @Entity()
 @ObjectType()
 @InputType('BookInput')
