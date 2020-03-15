@@ -1,6 +1,10 @@
 import { InputType, Field, ClassType } from 'type-graphql';
 import { WhereAndOrParams } from '../../lib/query/types/where-and-or';
 
+/**
+ * @param name Where input type name to make it unique.
+ * @param ReturnType
+ */
 export function createWhereInputType(
   name: string,
   ReturnType: ClassType<WhereAndOrParams>

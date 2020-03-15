@@ -1,11 +1,12 @@
 import { Field, InputType, ClassType } from 'type-graphql';
+import { WhereFilterParams } from './types/where-filter';
 
 /**
  * Creates a set of input type arguments
  * used for filtering string types
  */
 @InputType()
-export class StringWhere {
+export class StringWhere implements WhereFilterParams {
   @Field(type => String, { nullable: true })
   is?: String;
 
@@ -54,7 +55,7 @@ export class StringWhere {
  * used for filtering number types
  */
 @InputType()
-export class NumberWhere {
+export class NumberWhere implements WhereFilterParams {
   @Field(type => Number, { nullable: true })
   is?: Number;
 

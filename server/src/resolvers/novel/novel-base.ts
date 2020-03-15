@@ -3,7 +3,7 @@ import { Novel } from '../../entity/novel';
 import { InputType, Field } from 'type-graphql';
 
 import ROLES from '../../constants/roles';
-import { StringWhere, NumberWhere } from '../../lib/query/create-type';
+import { StringWhere, NumberWhere } from '../../lib/query/where-type';
 
 @InputType()
 export class NovelQueryableInput {

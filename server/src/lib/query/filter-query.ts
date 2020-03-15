@@ -6,10 +6,12 @@ export function filterQuery<T, U extends WhereAndOrParams>(
   query: SelectQueryBuilder<T>,
   where: U
 ) {
-  if (!where) {
-    return query;
-  }
-
+  if (!where) return query;
+  
+  /**
+   * Filters AND and OR Queries 
+   * and parses them accordingly
+   */
   Object.keys(where).forEach(key => {
     if (key === 'OR') {
       query.andWhere(

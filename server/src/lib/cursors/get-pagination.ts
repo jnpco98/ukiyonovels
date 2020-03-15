@@ -25,6 +25,9 @@ interface CursorQueryAugment<T> {
   };
 }
 
+/**
+ * Default sort keys
+ */
 export const DEFAULT_SORT_KEY = 'incrementId';
 export const DEFAULT_DB_SORT_KEY = 'increment_id';
 
@@ -32,15 +35,33 @@ function cursorToAugmentedQuery<T>(augment: CursorQueryAugment<T>) {
   const { queryBuilder, cursor, direction, sortKey, connectionProperties } = augment;
   const { dbSortKey } = connectionProperties[sortKey];
 
+  /**
+   * If the sortkey isn't a property of the entity
+   * throw error
+   */
   if (!Object.keys(connectionProperties).includes(sortKey))
     throw new InvalidSortKeyError();
 
   const operation = direction === 'backward' ? '<' : '>';
 
   try {
+    /**
+     * Decodes the cursor
+     * 
+     * primary - incrementId value
+     * secondary - sortKey value
+     * type - sortkey property
+     * 
+     * throws an error if the sortkey argument 
+     * isn't equals to the cursor type
+     */
     const { primary, secondary, type } = JSON.parse(unBase64(cursor));
     if (type !== sortKey) throw new CursorNotMatchingSortError();
 
+    /**
+     * Paginates query using the given 
+     * db sort key and the increment id
+     */
     /** prettier-ignore */
     queryBuilder
       .andWhere(`${dbSortKey} ${operation}= :secondary`, { secondary })
@@ -66,6 +87,10 @@ export function getPagination<T extends BaseEntity>(
     const sortKey = connArgs.sortKey || DEFAULT_SORT_KEY;
     const { dbSortKey } = connectionProperties[sortKey];
 
+    /**
+     * Builds query augment depending on the pagination direction
+     * Defaults to forward
+     */
     switch (meta.type) {
       case 'forward': {
         const { first, type, after } = meta;
@@ -101,6 +126,16 @@ export function getPagination<T extends BaseEntity>(
   };
 }
 
+/**
+ * ex:
+ * @Column({ name: 'increment_id' })
+ * incrementId: string;
+ * 
+ * translates to
+ * { incrementId: { dbSortKey: 'increment_id' } }
+ * 
+ * @param EntityType Entity that inherits from BaseEntity
+ */
 export function getConnectionProperties<T>(
   EntityType: ClassType<T>
 ): { [key: string]: { dbSortKey: string } } {

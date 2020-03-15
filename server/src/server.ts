@@ -133,4 +133,4 @@ async function main() {
   });
 }
 
-main();
+main().catch(e => Log.fatal(e));

@@ -2,7 +2,7 @@ import { createBaseResolver } from '../base/base-resolver';
 import { Book } from '../../entity/book';
 import ROLES from '../../constants/roles';
 import { InputType, Field } from 'type-graphql';
-import { StringWhere } from '../../lib/query/create-type';
+import { StringWhere } from '../../lib/query/where-type';
 
 @InputType()
 export class BookQueryableInput {
