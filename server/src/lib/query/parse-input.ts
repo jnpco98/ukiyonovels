@@ -1,6 +1,9 @@
 import { WhereExpression } from 'typeorm';
 import { snakeCase } from '../../utilities/string/snake-case';
 
+/**
+ * Parses the where input to sql operations
+ */
 export function parseInput<T extends { [key: string]: any }>(
   query: WhereExpression,
   where: T,

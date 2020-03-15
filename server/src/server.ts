@@ -25,7 +25,7 @@ import {
 import { ArgumentValidationError } from 'type-graphql';
 import { logInternalError } from './utilities/log/log-internal-error';
 
-import Log from './utilities/log/local-logger';
+import Log from './utilities/log/logger';
 
 /**
  * Handles and transforms the errors

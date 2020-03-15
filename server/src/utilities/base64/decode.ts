@@ -1,3 +1,7 @@
-export function base64(d: string): string {
-  return Buffer.from(d, 'utf8').toString('base64');
+/**
+ * Decode encoded data
+ * @param data encoded string
+ */
+export function unBase64(data: string): string {
+  return Buffer.from(data, 'base64').toString('utf8');
 }

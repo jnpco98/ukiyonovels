@@ -8,6 +8,16 @@ import {
 export function parsePagination(connArgs: ConnectionArgs): PaginationMeta {
   const { first = 0, last = 0, after, before } = connArgs;
 
+  /**
+   * Validates pagination
+   * 
+   * - Pagination should have first or last
+   * - Can't use first with before, last with after
+   * - When paginating backward, last and before is required
+   * 
+   * - Pagination should be either forward or backward
+   * - Pagination must be positive
+   */
   if (!first && !last)
     throw new InvalidPaginationArgumentError('You must provide one of first or last');
 

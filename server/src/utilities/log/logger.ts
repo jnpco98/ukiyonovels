@@ -4,6 +4,11 @@ function getBaseLoggerFilename() {
   return `logs/${process.env.APPLICATION_NAME}/${process.env.NODE_ENV}`;
 }
 
+/**
+ * Logger configuration
+ * Filters log error according to severity
+ * for an easier debugging
+ */
 const appenderOptions = {
   type: 'dateFile',
   pattern: 'yyyy-MM-dd.log',

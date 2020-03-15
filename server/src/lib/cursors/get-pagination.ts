@@ -1,6 +1,6 @@
 import { parsePagination } from './parse-pagination';
 import { ConnectionArgs } from './connection-args';
-import { unBase64 } from '../../utilities/base64/encode';
+import { unBase64 } from '../../utilities/base64/decode';
 import { ClassType } from 'type-graphql';
 import { getConnection, ObjectLiteral, SelectQueryBuilder, Brackets } from 'typeorm';
 import { CursorNotMatchingSortError, InvalidCursorError } from './errors/invalid-cursor';
@@ -41,15 +41,15 @@ function cursorToAugmentedQuery<T>(augment: CursorQueryAugment<T>) {
     const { primary, secondary, type } = JSON.parse(unBase64(cursor));
     if (type !== sortKey) throw new CursorNotMatchingSortError();
 
+    /** prettier-ignore */
     queryBuilder
       .andWhere(`${dbSortKey} ${operation}= :secondary`, { secondary })
-      .andWhere(
-        new Brackets(q =>
-          q
-            .where(`${DEFAULT_DB_SORT_KEY} ${operation} :primary`, { primary })
-            .orWhere(`${dbSortKey} ${operation} :secondary`, { secondary })
-        )
-      );
+        .andWhere(
+          new Brackets(q =>
+            q.where(`${DEFAULT_DB_SORT_KEY} ${operation} :primary`, { primary })
+              .orWhere(`${dbSortKey} ${operation} :secondary`, { secondary })
+          )
+        );
   } catch (e) {
     if (e instanceof CursorNotMatchingSortError) throw new CursorNotMatchingSortError();
     throw new InvalidCursorError();

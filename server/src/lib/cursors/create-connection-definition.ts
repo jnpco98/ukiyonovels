@@ -13,6 +13,11 @@ export function createConnectionDefinition<T extends ClassType<BaseEntity>>(
   resource: string,
   NodeType: T
 ) {
+  /**
+   * Edge definition
+   * Contains the entity node of type T
+   * and it's cursor
+   */
   @ObjectType(`${resource}Edge`)
   class Edge {
     @Field(() => NodeType)
@@ -22,6 +27,10 @@ export function createConnectionDefinition<T extends ClassType<BaseEntity>>(
     cursor: String;
   }
 
+  /**
+   * Connection definition
+   * Contains the edges and the pageinfo
+   */
   @ObjectType(`${resource}Connection`)
   class Connection {
     @Field()
