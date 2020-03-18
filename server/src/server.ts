@@ -35,6 +35,7 @@ import Log from './utilities/log/logger';
  * @param error
  */
 function formatGraphqlError(error: GraphQLError) {
+  if (!isProduction()) return error;
   if (error.originalError instanceof ApolloError) return error;
   if (error.originalError instanceof ArgumentValidationError) {
     if (error.extensions) error.extensions.code = 'GRAPHQL_VALIDATION_FAILED';

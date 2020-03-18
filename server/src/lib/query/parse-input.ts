@@ -4,7 +4,7 @@ import { snakeCase } from '../../utilities/string/snake-case';
 /**
  * Parses the where input to sql operations
  */
-export function parseInput<T extends { [key: string]: any }>(
+export function parseInput<T extends { [key: string]: T | T[] }>(
   query: WhereExpression,
   where: T,
   andOr: 'andWhere' | 'orWhere'
@@ -29,11 +29,11 @@ export function parseInput<T extends { [key: string]: any }>(
           break;
         }
         case 'in': {
-          query[andOr](`${sFieldName} IN :invalue`, { invalue: value });
+          query[andOr](`${sFieldName} IN (:...invalue)`, { invalue: value });
           break;
         }
         case 'notIn': {
-          query[andOr](`${sFieldName} NOT IN :notinvalue`, {
+          query[andOr](`${sFieldName} NOT IN (:...notinvalue)`, {
             notinvalue: value
           });
           break;

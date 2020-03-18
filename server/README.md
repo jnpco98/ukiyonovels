@@ -6,7 +6,7 @@
 
 [x] Implement costs
 
-[ ] Implement complexity for each field / connection / query
+[x] Implement complexity for each field / connection / query
 
 [ ] Implement hourly rates
 
@@ -26,8 +26,6 @@
 
 [ ] Add types for cursors and stuff
 
-[ ] Graphql Enums
-
 [ ] Better types
 
 [x] Error classes
@@ -42,7 +40,7 @@
 
 [ ] Testing
 
-[ ] JSDOCS
+[x] JSDOCS
 
 [ ] Logging service
 
