@@ -14,7 +14,7 @@ import ROLES from '../constants/roles';
 @Entity()
 export class User extends BaseEntity {
   @Field()
-  @Column()
+  @Column({ unique: true })
   username: string;
 
   /**
