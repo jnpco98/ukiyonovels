@@ -6,12 +6,20 @@ import { StringWhere } from '../../lib/query/where-type';
 import { ContextHooks } from '../base/types/context-hooks';
 import { BaseResolverParams } from '../base/types/resolver';
 
+/**
+ * Required parameters to 
+ * create the chapter resource
+ */
 @InputType()
 export class ChapterQueryableInput {
   @Field(type => StringWhere, { nullable: true })
   title?: typeof StringWhere;
 }
 
+/**
+ * Authorization required
+ * to call a chapter action
+ */
 const authorization = {
   get: [ROLES.anonymous],
   paginate: [ROLES.anonymous],
@@ -31,6 +39,9 @@ const resolverConfig: BaseResolverParams<Chapter, ChapterQueryableInput, Chapter
   resource: 'chapter'
 };
 
+/**
+ * Creates the base chapter resolver classes
+ */
 const {
   ConnectionType,
   WhereInputType,

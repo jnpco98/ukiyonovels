@@ -6,12 +6,20 @@ import { StringWhere, NumberWhere } from '../../lib/query/where-type';
 import { ContextHooks } from '../base/types/context-hooks';
 import { BaseResolverParams } from '../base/types/resolver';
 
+/**
+ * Required parameters to 
+ * create the comment resource
+ */
 @InputType()
 export class CommentQueryableInput {
   @Field(type => StringWhere, { nullable: true })
   content?: typeof StringWhere;
 }
 
+/**
+ * Authorization required
+ * to call a comment action
+ */
 const authorization = {
   get: [ROLES.anonymous],
   paginate: [ROLES.anonymous],
@@ -31,6 +39,9 @@ const resolverConfig: BaseResolverParams<Comment, CommentQueryableInput, Comment
   resource: 'comment'
 };
 
+/**
+ * Creates the base comment resolver classes
+ */
 const {
   ConnectionType,
   WhereInputType,

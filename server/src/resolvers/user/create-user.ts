@@ -3,6 +3,10 @@ import bcrypt from 'bcrypt';
 import { User } from '../../entity/user';
 import { Length, IsEmail } from 'class-validator';
 
+/**
+ * Required parameters to 
+ * create the user resource
+ */
 @InputType()
 class CreateUserInput {
   @Field()
@@ -17,6 +21,11 @@ class CreateUserInput {
   password: string;
 }
 
+/**
+ * Creates a new user
+ * with a unique email and username
+ * and a hashed password
+ */
 @Resolver()
 export class CreateUserResolver {
   @Mutation(returns => User, { nullable: true })

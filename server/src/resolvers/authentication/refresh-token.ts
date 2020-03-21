@@ -8,6 +8,14 @@ import { TokenRefreshInput } from './token-base';
 
 @Resolver()
 export class TokenRefreshResolver {
+  /**
+   * Refreshing an access token
+   * 
+   * Validates and authenticates the
+   * user and the refresh token, and
+   * returns an access token with the
+   * appropriate access level permissions
+   */
   @Mutation(returns => AuthTokens, { name: 'tokenRefresh', nullable: true })
   async refreshAccessToken(
     @Arg('data') { password, email, token }: TokenRefreshInput
@@ -23,8 +31,21 @@ export class TokenRefreshResolver {
       }
     });
 
+    /**
+     * If the refresh token is already archived
+     *   which could be done either via a cron,
+     *   expiration, or manually by a mod
+     * then return null
+     */
     if (!authToken || !authToken.refreshToken) return null;
 
+    /**
+     * If refresh token is valid,
+     * return an access token along with it,
+     * 
+     * If it's not valid (expired, compromised),
+     * archive the auth token
+     */
     try {
       verify(token, process.env.REFRESH_TOKEN_SECRET!);
       const { accessToken } = generateTokens(user);

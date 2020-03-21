@@ -7,6 +7,10 @@ import { createTokenContextHook } from './create-token';
 import { BaseResolverParams } from '../base/types/resolver';
 import { ContextHooks } from '../base/types/context-hooks';
 
+/**
+ * Creating an auth token
+ * requires user credentials
+ */
 @InputType()
 export class TokenCreateInput {
   @Field()
@@ -17,6 +21,11 @@ export class TokenCreateInput {
   password: string;
 }
 
+/**
+ * Refreshing an access token
+ * requires user credentials and an
+ * existing refresh token
+ */
 @InputType()
 export class TokenRefreshInput {
   @Field()
@@ -30,6 +39,10 @@ export class TokenRefreshInput {
   token: string;
 }
 
+/**
+ * Authorization required
+ * to call a auth token action
+ */
 const authorization = {
   get: [ROLES.member],
   paginate: [ROLES.owner],
@@ -50,6 +63,9 @@ const resolverConfig: BaseResolverParams<AuthTokens, null, TokenCreateInput> = {
   resource: 'token'
 };
 
+/**
+ * Creates the base token resolver classes
+ */
 const {
   ConnectionType,
   WhereInputType,

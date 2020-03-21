@@ -6,6 +6,10 @@ import { StringWhere } from '../../lib/query/where-type';
 import { ContextHooks } from '../base/types/context-hooks';
 import { BaseResolverParams } from '../base/types/resolver';
 
+/**
+ * Required parameters to 
+ * create the book resource
+ */
 @InputType()
 export class BookQueryableInput {
   @Field(type => StringWhere, { nullable: true })
@@ -18,6 +22,10 @@ export class BookQueryableInput {
   isbn?: typeof StringWhere;
 }
 
+/**
+ * Authorization required
+ * to call a book action
+ */
 const authorization = {
   get: [ROLES.anonymous],
   paginate: [ROLES.anonymous],
@@ -37,6 +45,9 @@ const resolverConfig: BaseResolverParams<Book, BookQueryableInput, Book> = {
   resource: 'book'
 };
 
+/**
+ * Creates the base book resolver classes
+ */
 const {
   ConnectionType,
   WhereInputType,

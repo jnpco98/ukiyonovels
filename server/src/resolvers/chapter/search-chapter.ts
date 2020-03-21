@@ -12,9 +12,16 @@ import { Comment } from '../../entity/comment';
 import { ConnectionArgs } from '../../lib/relay/connection-args';
 import { WhereAndOrParams } from '../../lib/query/types/where-and-or';
 import { createCursorConnection } from '../../lib/relay/create-cursor-connection';
+import { GraphQLObjectType } from 'graphql';
 
 @Resolver(of => Chapter)
 export class ChapterSearchResolver extends BaseChapterSearchResolver {
+  /**
+   * Gets the novel associated
+   * with the chapter entity
+   * 
+   * @param chapter Chapter root object
+   */
   @FieldResolver(returns => Novel)
   async novel(@Root() chapter: Chapter) {
     return await getRepository(Novel).findOne({
@@ -23,6 +30,12 @@ export class ChapterSearchResolver extends BaseChapterSearchResolver {
     });
   }
 
+  /**
+   * Gets the book associated
+   * with the chapter entity
+   * 
+   * @param chapter Chapter root object
+   */
   @FieldResolver(returns => Book)
   async book(@Root() chapter: Chapter) {
     return await getRepository(Book).findOne({
@@ -31,13 +44,17 @@ export class ChapterSearchResolver extends BaseChapterSearchResolver {
     });
   }
 
+  /**
+   * Returns a comment relay connection
+   * for the chapter entity
+   */
   @FieldResolver(returns => ChapterConnectionType.Connection, {
     complexity: ({ childComplexity, args }) => (args.first || args.last) * childComplexity
   })
   async comments(
     @Root() chapter: Chapter,
     @Args() connArgs: ConnectionArgs,
-    @Arg(`where`, () => ChapterWhereInputType, { nullable: true })
+    @Arg(`where`, () => ChapterWhereInputType || GraphQLObjectType, { nullable: true })
     query?: WhereAndOrParams
   ): Promise<any> {
     const queryBuilder = getRepository(Comment).createQueryBuilder();

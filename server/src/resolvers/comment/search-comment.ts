@@ -6,6 +6,12 @@ import { getRepository } from 'typeorm';
 
 @Resolver(of => Comment)
 export class CommentSearchResolver extends BaseCommentSearchResolver {
+  /**
+   * Gets the novel associated
+   * with the comment entity
+   * 
+   * @param comment Comment root object
+   */
   @FieldResolver(returns => Chapter)
   async novel(@Root() comment: Comment) {
     return await getRepository(Chapter).findOne({

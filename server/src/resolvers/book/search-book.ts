@@ -8,9 +8,16 @@ import { getRepository } from 'typeorm';
 import { Chapter } from '../../entity/chapter';
 import { createCursorConnection } from '../../lib/relay/create-cursor-connection';
 import { Novel } from '../../entity/novel';
+import { GraphQLObjectType } from 'graphql';
 
 @Resolver(of => Book)
 export class BookSearchResolver extends BaseBookSearchResolver {
+  /**
+   * Gets the novel associated 
+   * with the book entity
+   * 
+   * @param book Book root object
+   */
   @FieldResolver(returns => Novel)
   async novel(@Root() book: Book) {
     return await getRepository(Novel).findOne({
@@ -19,13 +26,17 @@ export class BookSearchResolver extends BaseBookSearchResolver {
     });
   }
 
+  /**
+   * Returns a chapter relay connection
+   * for the book entity
+   */
   @FieldResolver(returns => ChapterConnectionType.Connection, {
     complexity: ({ childComplexity, args }) => (args.first || args.last) * childComplexity
   })
   async chapters(
     @Root() book: Book,
     @Args() connArgs: ConnectionArgs,
-    @Arg(`where`, () => ChapterWhereInputType, { nullable: true })
+    @Arg(`where`, () => ChapterWhereInputType || GraphQLObjectType, { nullable: true })
     query?: WhereAndOrParams
   ): Promise<any> {
     const queryBuilder = getRepository(Chapter).createQueryBuilder();

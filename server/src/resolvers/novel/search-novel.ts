@@ -12,16 +12,21 @@ import { getRepository } from 'typeorm';
 import { Chapter } from '../../entity/chapter';
 import { Book } from '../../entity/book';
 import { Review } from '../../entity/review';
+import { GraphQLObjectType } from 'graphql';
 
 @Resolver(of => Novel)
 export class NovelSearchResolver extends BaseNovelSearchResolver {
+  /**
+   * Returns a chapter relay connection
+   * for the novel entity
+   */
   @FieldResolver(returns => ChapterConnectionType.Connection, {
     complexity: ({ childComplexity, args }) => args['first'] * childComplexity
   })
   async chapters(
     @Root() novel: Novel,
     @Args() connArgs: ConnectionArgs,
-    @Arg(`where`, () => ChapterWhereInputType, { nullable: true })
+    @Arg(`where`, () => ChapterWhereInputType || GraphQLObjectType, { nullable: true })
     query?: WhereAndOrParams
   ): Promise<any> {
     const queryBuilder = getRepository(Chapter).createQueryBuilder();
@@ -36,13 +41,17 @@ export class NovelSearchResolver extends BaseNovelSearchResolver {
     );
   }
 
+  /**
+   * Returns a book relay connection
+   * for the novel entity
+   */
   @FieldResolver(returns => BookConnectionType.Connection, {
     complexity: ({ childComplexity, args }) => (args.first || args.last) * childComplexity
   })
   async books(
     @Root() novel: Novel,
     @Args() connArgs: ConnectionArgs,
-    @Arg(`where`, () => BookWhereInputType, { nullable: true })
+    @Arg(`where`, () => BookWhereInputType || GraphQLObjectType, { nullable: true })
     query?: WhereAndOrParams
   ): Promise<any> {
     const queryBuilder = getRepository(Book).createQueryBuilder();
@@ -57,13 +66,17 @@ export class NovelSearchResolver extends BaseNovelSearchResolver {
     );
   }
 
+  /**
+   * Returns a review relay connection
+   * for the novel entity
+   */
   @FieldResolver(returns => ReviewConnectionType.Connection, {
     complexity: ({ childComplexity, args }) => args['first'] * childComplexity
   })
   async reviews(
     @Root() novel: Novel,
     @Args() connArgs: ConnectionArgs,
-    @Arg(`where`, () => ReviewWhereInputType, { nullable: true })
+    @Arg(`where`, () => ReviewWhereInputType || GraphQLObjectType, { nullable: true })
     query?: WhereAndOrParams
   ): Promise<any> {
     const queryBuilder = getRepository(Review).createQueryBuilder();

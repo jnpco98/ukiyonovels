@@ -7,6 +7,10 @@ import { StringWhere, NumberWhere } from '../../lib/query/where-type';
 import { ContextHooks } from '../base/types/context-hooks';
 import { BaseResolverParams } from '../base/types/resolver';
 
+/**
+ * Required parameters to 
+ * create the novel resource
+ */
 @InputType()
 export class NovelQueryableInput {
   @Field(type => StringWhere, { nullable: true })
@@ -46,6 +50,10 @@ export class NovelQueryableInput {
   views?: typeof NumberWhere;
 }
 
+/**
+ * Authorization required
+ * to call a novel action
+ */
 const authorization = {
   get: [ROLES.anonymous],
   paginate: [ROLES.anonymous],
@@ -65,6 +73,9 @@ const resolverConfig: BaseResolverParams<Novel, NovelQueryableInput, Novel> = {
   resource: 'novel'
 };
 
+/**
+ * Creates the novel chapter resolver classes
+ */
 const {
   ConnectionType,
   WhereInputType,

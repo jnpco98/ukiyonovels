@@ -2,6 +2,11 @@ import { Resolver, Query, Ctx, Authorized } from 'type-graphql';
 import { User } from '../../entity/user';
 import { Context } from '../../lib/resolver/context';
 
+/**
+ * Gets the user's profile
+ * Can currently only get accessed
+ * by the logged in user
+ */
 @Resolver()
 export class ProfileResolver {
   @Query(returns => User, { nullable: true })

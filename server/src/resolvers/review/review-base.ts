@@ -6,6 +6,10 @@ import { StringWhere, NumberWhere } from '../../lib/query/where-type';
 import { ContextHooks } from '../base/types/context-hooks';
 import { BaseResolverParams } from '../base/types/resolver';
 
+/**
+ * Required parameters to 
+ * create the review resource
+ */
 @InputType()
 export class ReviewQueryableInput {
   @Field(type => StringWhere, { nullable: true })
@@ -15,6 +19,10 @@ export class ReviewQueryableInput {
   rating: number;
 }
 
+/**
+ * Authorization required
+ * to call a review action
+ */
 const authorization = {
   get: [ROLES.anonymous],
   paginate: [ROLES.anonymous],
@@ -34,6 +42,9 @@ const resolverConfig: BaseResolverParams<Review, ReviewQueryableInput, Review> =
   resource: 'review'
 };
 
+/**
+ * Creates the base review resolver classes
+ */
 const {
   ConnectionType,
   WhereInputType,
