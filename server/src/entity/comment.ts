@@ -5,12 +5,12 @@ import { Length } from 'class-validator';
 
 /**
  * ORM Comment Entity
- * 
+ *
  * Graphql Comment Object Type
- * 
+ *
  * Also being used as the mutation input type for
  * the Comment Object Type
- * 
+ *
  * Implements graphql validation
  */
 @Entity()

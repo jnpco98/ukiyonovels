@@ -49,13 +49,13 @@ export class ConnectionArgs {
 
   /**
    * Reverses the sorting of elements
-   * 
-   * ex: 
+   *
+   * ex:
    * In a set of 10 [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
    * params:
    *  - first 2 after 5 will return 6 & 7
    *  - reverse will return 7 & 6
-   *  
+   *
    *  - last 2 before 5 will return 4 & 3
    *  - reverse wil return 3 & 4
    */

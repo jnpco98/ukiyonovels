@@ -5,13 +5,13 @@ import { Min, Max, IsOptional, Length } from 'class-validator';
 
 /**
  * ORM Review Entity
- * 
+ *
  * Graphql Review Object Type
- * 
- * Also being used as the mutation type for 
+ *
+ * Also being used as the mutation type for
  * the Review Object Type
- * 
- * Implements graphql validation 
+ *
+ * Implements graphql validation
  */
 @Entity()
 @ObjectType()

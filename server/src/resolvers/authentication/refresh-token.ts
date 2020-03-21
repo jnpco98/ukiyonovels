@@ -31,9 +31,9 @@ export class TokenRefreshResolver {
       authToken.accessToken = accessToken;
       return authToken;
     } catch (e) {
-      const tokens = AuthTokens.create(authToken);
-      tokens.archived = true;
-      await tokens.save();
+      const expiredAuthToken = AuthTokens.create(authToken);
+      expiredAuthToken.archived = true;
+      await expiredAuthToken.save();
 
       return e;
     }

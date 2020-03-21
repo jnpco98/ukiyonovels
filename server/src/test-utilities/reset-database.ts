@@ -4,7 +4,7 @@ import Log from '../utilities/log/logger';
 /**
  * Resets the test database
  * Useful to get generate clean dataset on tests
- * 
+ *
  * WARNING: This will destroy all the data in the database
  * Only use for testing
  */

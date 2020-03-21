@@ -5,7 +5,7 @@ import { Length, IsOptional, IsIn } from 'class-validator';
 
 /**
  * Valid novel types, checked in validation
- * 
+ *
  * Will be moved to a database
  * to support expansion
  */
@@ -13,7 +13,7 @@ export const novelTypes = ['Web Novel', 'Light Novel', 'Chinese Novel', 'Korean 
 
 /**
  * Valid novel status, checked in validation
- * 
+ *
  * Will be moved to a database
  * to support expansion
  */
@@ -21,12 +21,12 @@ export const novelStatus = ['Complete', 'Ongoing', 'Hiatus'];
 
 /**
  * ORM Novel Entity
- * 
+ *
  * Graphql Novel Object Type
- * 
+ *
  * Also being used as the mutation type for
  * the Book Object Type
- * 
+ *
  * Implements graphql validation
  */
 @Entity()
@@ -47,7 +47,7 @@ export class Novel extends BaseEntity implements Partial<Novel> {
   description?: string;
 
   /**
-   * Value should be one of the values 
+   * Value should be one of the values
    * specified above {novelTypes}
    */
   @Field({ description: `Types: [${novelTypes.join(', ')}]`, nullable: true })
@@ -117,7 +117,7 @@ export class Novel extends BaseEntity implements Partial<Novel> {
   @Column({ name: 'associated_names', type: 'text', nullable: true })
   @IsOptional()
   associatedNames?: string;
-  
+
   /**
    * Comma separated media gallery
    * Novel image collection
@@ -127,7 +127,7 @@ export class Novel extends BaseEntity implements Partial<Novel> {
   @Column({ name: 'media_gallery', type: 'text', nullable: true })
   @IsOptional()
   mediaGallery?: string;
-  
+
   /**
    * Featured image
    * ex: "Imageurl"
@@ -150,7 +150,7 @@ export class Novel extends BaseEntity implements Partial<Novel> {
   /**
    * Controller number of views
    * Not auto incremented
-   * 
+   *
    * Implementation is based on the frontend
    */
   @Field({ description: 'Total Views: (controlled increment)', nullable: true })
@@ -166,7 +166,7 @@ export class Novel extends BaseEntity implements Partial<Novel> {
   year?: number;
 
   /**
-   * Value should be one of the values 
+   * Value should be one of the values
    * specified above {novelStatus}
    */
   @Field({ description: `Types: [${novelStatus.join(', ')}]`, nullable: true })

@@ -7,9 +7,9 @@ export function filterQuery<T, U extends WhereAndOrParams>(
   where: U
 ) {
   if (!where) return query;
-  
+
   /**
-   * Filters AND and OR Queries 
+   * Filters AND and OR Queries
    * and parses them accordingly
    */
   Object.keys(where).forEach(key => {

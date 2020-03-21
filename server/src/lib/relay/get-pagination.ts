@@ -1,11 +1,11 @@
 import { parsePagination } from './parse-pagination';
 import { ConnectionArgs } from './connection-args';
-import { unBase64 } from '../../utilities/base64/decode';
 import { ClassType } from 'type-graphql';
 import { getConnection, ObjectLiteral, SelectQueryBuilder, Brackets } from 'typeorm';
 import { CursorNotMatchingSortError, InvalidCursorError } from './errors/invalid-cursor';
 import { InvalidSortKeyError } from './errors/invalid-sort-key';
 import { BaseEntity } from '../../entity/entity';
+import { decodeCursor } from './create-cursor-connection';
 
 interface ParsedPagination {
   limit?: number;
@@ -47,30 +47,31 @@ function cursorToAugmentedQuery<T>(augment: CursorQueryAugment<T>) {
   try {
     /**
      * Decodes the cursor
-     * 
+     *
      * primary - incrementId value
      * secondary - sortKey value
      * type - sortkey property
-     * 
-     * throws an error if the sortkey argument 
+     *
+     * throws an error if the sortkey argument
      * isn't equals to the cursor type
      */
-    const { primary, secondary, type } = JSON.parse(unBase64(cursor));
+    const { primary, secondary, type } = decodeCursor(cursor);
     if (type !== sortKey) throw new CursorNotMatchingSortError();
 
     /**
-     * Paginates query using the given 
+     * Paginates query using the given
      * db sort key and the increment id
      */
     /** prettier-ignore */
     queryBuilder
       .andWhere(`${dbSortKey} ${operation}= :secondary`, { secondary })
-        .andWhere(
-          new Brackets(q =>
-            q.where(`${DEFAULT_DB_SORT_KEY} ${operation} :primary`, { primary })
-              .orWhere(`${dbSortKey} ${operation} :secondary`, { secondary })
-          )
-        );
+      .andWhere(
+        new Brackets(q =>
+          q
+            .where(`${DEFAULT_DB_SORT_KEY} ${operation} :primary`, { primary })
+            .orWhere(`${dbSortKey} ${operation} :secondary`, { secondary })
+        )
+      );
   } catch (e) {
     if (e instanceof CursorNotMatchingSortError) throw new CursorNotMatchingSortError();
     throw new InvalidCursorError();
@@ -130,10 +131,10 @@ export function getPagination<T extends BaseEntity>(
  * ex:
  * @Column({ name: 'increment_id' })
  * incrementId: string;
- * 
+ *
  * translates to
  * { incrementId: { dbSortKey: 'increment_id' } }
- * 
+ *
  * @param EntityType Entity that inherits from BaseEntity
  */
 export function getConnectionProperties<T>(

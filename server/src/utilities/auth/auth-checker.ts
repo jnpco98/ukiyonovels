@@ -1,4 +1,4 @@
-import { Context } from '../../types/context';
+import { Context } from '../../lib/resolver/context';
 import ROLES from '../../constants/roles';
 
 export function authChecker({ context }: { context: Context }, roles: string[]) {

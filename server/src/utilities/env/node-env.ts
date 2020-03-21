@@ -3,7 +3,7 @@ export const ENV_TESTING = 'testing';
 export const ENV_PRODUCTION = 'production';
 
 /**
- * Returns true if environment 
+ * Returns true if environment
  * is set to development
  */
 export function isDevelopment() {
@@ -11,7 +11,7 @@ export function isDevelopment() {
 }
 
 /**
- * Returns true if environment 
+ * Returns true if environment
  * is set to testing
  */
 export function isTesting() {
@@ -19,7 +19,7 @@ export function isTesting() {
 }
 
 /**
- * Returns true if environment 
+ * Returns true if environment
  * is set to production
  */
 export function isProduction() {

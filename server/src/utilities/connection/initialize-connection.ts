@@ -5,7 +5,7 @@ export async function initializeConnection(
   dropDatabaseGuardOptions: DropDatabaseGuardOptions = {}
 ) {
   /**
-   * Gets the database configuration 
+   * Gets the database configuration
    * from the environment
    */
   const { drop, databaseToDrop } = dropDatabaseGuardOptions;

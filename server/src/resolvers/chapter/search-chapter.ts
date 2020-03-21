@@ -9,7 +9,7 @@ import { Novel } from '../../entity/novel';
 import { getRepository } from 'typeorm';
 import { Book } from '../../entity/book';
 import { Comment } from '../../entity/comment';
-import { ConnectionArgs } from '../../lib/cursors/connection-args';
+import { ConnectionArgs } from '../../lib/relay/connection-args';
 import { WhereAndOrParams } from '../../lib/query/types/where-and-or';
 import { createCursorConnection } from '../../lib/relay/create-cursor-connection';
 

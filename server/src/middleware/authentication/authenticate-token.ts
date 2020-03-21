@@ -7,7 +7,7 @@ import { TokenDecoded } from './types/token-decoded';
 
 /**
  * Creates the request auth object
- * 
+ *
  * @param req Express Request
  * @param res Express Response
  * @param next Express Middleware Next
@@ -22,9 +22,9 @@ export async function authenticateToken(req: Request, res: Response, next: NextF
 
   /**
    * Sets the default authorization
-   * Overrides existing auth which might 
+   * Overrides existing auth which might
    * not have come from a whitelisted resource
-   * 
+   *
    * The token is the only source of truth
    */
   req.auth = { ...req.auth, role: ROLES.anonymous, userId: null };
@@ -32,7 +32,7 @@ export async function authenticateToken(req: Request, res: Response, next: NextF
   /**
    * If an access token is passed,
    * verify the user and the user's role
-   * 
+   *
    * If verified, attach the appropriate auth to the user
    */
   if (accessToken) {

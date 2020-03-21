@@ -13,7 +13,7 @@ import { authenticateToken } from './middleware/authentication/authenticate-toke
 import { createSchema } from './schema/create-schema';
 import { initializeConnection } from './utilities/connection/initialize-connection';
 import { separateOperations, GraphQLError } from 'graphql';
-import { MaxComplexityError } from './lib/cursors/errors/complexity';
+import { MaxComplexityError } from './lib/relay/errors/complexity';
 import {
   isDevelopment,
   isTesting,

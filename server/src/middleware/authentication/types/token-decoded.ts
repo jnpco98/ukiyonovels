@@ -1,5 +1,5 @@
 /**
- * Data contained in the 
+ * Data contained in the
  * access and refresh tokens
  */
 export interface TokenDecoded {

@@ -3,6 +3,8 @@ import { createBaseResolver } from '../base/base-resolver';
 import { Review } from '../../entity/review';
 import ROLES from '../../constants/roles';
 import { StringWhere, NumberWhere } from '../../lib/query/where-type';
+import { ContextHooks } from '../base/types/context-hooks';
+import { BaseResolverParams } from '../base/types/resolver';
 
 @InputType()
 export class ReviewQueryableInput {
@@ -13,6 +15,25 @@ export class ReviewQueryableInput {
   rating: number;
 }
 
+const authorization = {
+  get: [ROLES.anonymous],
+  paginate: [ROLES.anonymous],
+  create: [ROLES.member],
+  update: [ROLES.member],
+  delete: [ROLES.member]
+};
+
+const contextHooks: ContextHooks<Review> = {};
+
+const resolverConfig: BaseResolverParams<Review, ReviewQueryableInput, Review> = {
+  EntityType: Review,
+  QueryableInputType: ReviewQueryableInput,
+  MutationInputType: Review,
+  authorization,
+  contextHooks,
+  resource: 'review'
+};
+
 const {
   ConnectionType,
   WhereInputType,
@@ -21,19 +42,7 @@ const {
   BaseCreateResolver,
   BaseUpdateResolver,
   BaseDeleteResolver
-} = createBaseResolver({
-  EntityType: Review,
-  QueryableInputType: ReviewQueryableInput,
-  MutationInputType: Review,
-  authorization: {
-    get: [ROLES.anonymous],
-    paginate: [ROLES.anonymous],
-    create: [ROLES.member],
-    update: [ROLES.member],
-    delete: [ROLES.member]
-  },
-  resource: 'review'
-});
+} = createBaseResolver(resolverConfig);
 
 export {
   ConnectionType as ReviewConnectionType,

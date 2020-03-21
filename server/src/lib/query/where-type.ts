@@ -29,7 +29,7 @@ export class StringWhere implements WhereFilterParams {
   gt?: String;
 
   @Field(type => String, { nullable: true })
-  gte?:String;
+  gte?: String;
 
   @Field(type => String, { nullable: true })
   contains?: String;
@@ -78,5 +78,5 @@ export class NumberWhere implements WhereFilterParams {
   gt?: Number;
 
   @Field(type => Number, { nullable: true })
-  gte?:Number;
+  gte?: Number;
 }

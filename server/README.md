@@ -46,6 +46,8 @@
 
 [ ] Deployment
 
+[ ] Update Base{Entity}{Action}Resolver to be a function that could accept a context hook 
+
 ---
 ### Prettier config
 ```

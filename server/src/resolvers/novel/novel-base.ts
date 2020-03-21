@@ -4,6 +4,8 @@ import { InputType, Field } from 'type-graphql';
 
 import ROLES from '../../constants/roles';
 import { StringWhere, NumberWhere } from '../../lib/query/where-type';
+import { ContextHooks } from '../base/types/context-hooks';
+import { BaseResolverParams } from '../base/types/resolver';
 
 @InputType()
 export class NovelQueryableInput {
@@ -44,6 +46,25 @@ export class NovelQueryableInput {
   views?: typeof NumberWhere;
 }
 
+const authorization = {
+  get: [ROLES.anonymous],
+  paginate: [ROLES.anonymous],
+  create: [ROLES.owner],
+  update: [ROLES.owner],
+  delete: [ROLES.owner]
+};
+
+const contextHooks: ContextHooks<Novel> = {};
+
+const resolverConfig: BaseResolverParams<Novel, NovelQueryableInput, Novel> = {
+  EntityType: Novel,
+  QueryableInputType: NovelQueryableInput,
+  MutationInputType: Novel,
+  authorization,
+  contextHooks,
+  resource: 'novel'
+};
+
 const {
   ConnectionType,
   WhereInputType,
@@ -52,19 +73,7 @@ const {
   BaseCreateResolver,
   BaseUpdateResolver,
   BaseDeleteResolver
-} = createBaseResolver({
-  EntityType: Novel,
-  QueryableInputType: NovelQueryableInput,
-  MutationInputType: Novel,
-  authorization: {
-    get: [ROLES.anonymous],
-    paginate: [ROLES.anonymous],
-    create: [ROLES.owner],
-    update: [ROLES.owner],
-    delete: [ROLES.owner]
-  },
-  resource: 'novel'
-});
+} = createBaseResolver(resolverConfig);
 
 export {
   ConnectionType as NovelConnectionType,

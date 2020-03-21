@@ -13,12 +13,12 @@ import nanoid from 'nanoid';
 /**
  * Base Entity
  * All orm entities must inherit form this class
- * 
+ *
  * Base Graphql Object Type
  * All object types must inherit from this class
- * 
+ *
  * Contains the base orm and object type properties
- * 
+ *
  * Implements graphql validation
  */
 @ObjectType({ isAbstract: true })
@@ -49,7 +49,7 @@ export abstract class BaseEntity extends ActiveRecordBaseEntity {
   /**
    * Id of the resource creator
    * Depends on the context
-   * 
+   *
    * Could be the novel uploader,
    * or the thread moderator,
    * or the comment/reviewer
@@ -61,7 +61,7 @@ export abstract class BaseEntity extends ActiveRecordBaseEntity {
   archived: boolean;
 
   /**
-   * Before inserting the entity into the 
+   * Before inserting the entity into the
    * database, generate a nanoid
    */
   @BeforeInsert()

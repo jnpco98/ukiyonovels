@@ -12,12 +12,12 @@ export class InvalidPaginationError extends ApolloError {
 }
 
 /**
- * Thrown when a pagination 
+ * Thrown when a pagination
  * required argument wasn't provided
- * 
- * ex: 
+ *
+ * ex:
  * Connection first or last wasn't provided
- * Before wasn't provided with last   
+ * Before wasn't provided with last
  */
 export class InvalidPaginationArgumentError extends InvalidPaginationError {
   constructor(message: string) {

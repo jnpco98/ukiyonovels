@@ -1,6 +1,6 @@
 /**
  * Returns true if the passed datatype is numeric
- * 
+ *
  * @param field Accepts a database datatype
  */
 export function dbFieldIsNumeric(field: string) {

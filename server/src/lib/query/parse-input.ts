@@ -21,7 +21,7 @@ export function parseInput<T extends { [key: string]: T | T[] }>(
 
       switch (operation) {
         /**
-         * Query for records where the 
+         * Query for records where the
          * field value is equals the query value
          */
         case 'is': {
@@ -31,7 +31,7 @@ export function parseInput<T extends { [key: string]: T | T[] }>(
 
         /**
          * Query for records where the
-         * field value is not equals the query value 
+         * field value is not equals the query value
          */
         case 'not': {
           query[andOr](`${sFieldName} != :notvalue`, { notvalue: value });
@@ -39,7 +39,7 @@ export function parseInput<T extends { [key: string]: T | T[] }>(
         }
 
         /**
-         * Query for records where the 
+         * Query for records where the
          * field value is in the query set
          */
         case 'in': {
@@ -48,7 +48,7 @@ export function parseInput<T extends { [key: string]: T | T[] }>(
         }
 
         /**
-         * Query for records where the 
+         * Query for records where the
          * field value is not in the query set
          */
         case 'notIn': {
@@ -97,8 +97,8 @@ export function parseInput<T extends { [key: string]: T | T[] }>(
         /**
          * Query for records where the
          * field value contains the query value
-         * 
-         * Field value and query value 
+         *
+         * Field value and query value
          * should both be of type string
          */
         case 'contains': {
@@ -107,12 +107,12 @@ export function parseInput<T extends { [key: string]: T | T[] }>(
           });
           break;
         }
-        
+
         /**
          * Query for records where the
          * field value doesn't contain the query value
-         * 
-         * Field value and query value 
+         *
+         * Field value and query value
          * should both be of type string
          */
         case 'notContains': {
@@ -122,12 +122,11 @@ export function parseInput<T extends { [key: string]: T | T[] }>(
           break;
         }
 
-        
         /**
          * Query for records where the
          * field value starts with the query value
-         * 
-         * Field value and query value 
+         *
+         * Field value and query value
          * should both be of type string
          */
         case 'startsWith': {
@@ -140,8 +139,8 @@ export function parseInput<T extends { [key: string]: T | T[] }>(
         /**
          * Query for records where the
          * field value doesn't start with the query value
-         * 
-         * Field value and query value 
+         *
+         * Field value and query value
          * should both be of type string
          */
         case 'notStartsWith': {
@@ -150,12 +149,12 @@ export function parseInput<T extends { [key: string]: T | T[] }>(
           });
           break;
         }
-        
+
         /**
          * Query for records where the
          * field value ends with the query value
-         * 
-         * Field value and query value 
+         *
+         * Field value and query value
          * should both be of type string
          */
         case 'endsWith': {
@@ -168,8 +167,8 @@ export function parseInput<T extends { [key: string]: T | T[] }>(
         /**
          * Query for records where the
          * field value doesn't end with the query value
-         * 
-         * Field value and query value 
+         *
+         * Field value and query value
          * should both be of type string
          */
         case 'notEndsWith': {

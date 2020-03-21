@@ -5,7 +5,7 @@ import { BaseEntity } from '../../entity/entity';
 
 /**
  * Creates the connection and edge definitions
- * 
+ *
  * @param resource Unique name for the resource type. ex: Novel Entity -> novel
  * @param NodeType Access a classtype argument that inherits from the BaseEntity
  */

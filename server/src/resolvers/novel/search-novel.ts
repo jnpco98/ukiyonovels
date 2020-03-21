@@ -1,6 +1,6 @@
 import { Resolver, FieldResolver, Root, Args, Arg } from 'type-graphql';
 import { Novel } from '../../entity/novel';
-import { ConnectionArgs } from '../../lib/cursors/connection-args';
+import { ConnectionArgs } from '../../lib/relay/connection-args';
 
 import { BaseNovelSearchResolver } from './novel-base';
 import { createCursorConnection } from '../../lib/relay/create-cursor-connection';

@@ -4,9 +4,9 @@ import { BaseEntity } from './entity';
 
 /**
  * ORM Refresh Token Entity
- * 
+ *
  * Graphql Auth tokens Object Type
- * 
+ *
  * Refresh tokens are stored in the database
  * and is used to generate access tokens
  */

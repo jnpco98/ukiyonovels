@@ -1,40 +1,43 @@
-import { Resolver, Mutation, Arg } from 'type-graphql';
 import bcrypt from 'bcrypt';
 import { User } from '../../entity/user';
 import { generateTokens } from '../../utilities/auth/token';
 import { AuthTokens } from '../../entity/token';
-import { TokenCreateInput } from './token-base';
+import { TokenCreateInput, BaseTokenCreateResolver } from './token-base';
+import { Context } from '../../lib/resolver/context';
+import { Resolver } from 'type-graphql';
 
 @Resolver()
-export class TokenCreateResolver {
-  @Mutation(returns => AuthTokens, { name: 'tokenCreate', nullable: true })
-  async createToken(
-    @Arg('data') { password, email }: TokenCreateInput
-  ): Promise<AuthTokens | null> {
-    const user = await User.findOne({ where: { email } });
-    const userIsValid = await bcrypt.compare(password, user?.password || '');
-    if (!user || !user.confirmed || !userIsValid) return null;
+export class TokenCreateResolver extends BaseTokenCreateResolver {}
 
-    const existingRefreshToken = await AuthTokens.findOne({
-      where: {
-        creatorId: user.id,
-        archived: false
-      }
-    });
+export async function createTokenContextHook(
+  entity: AuthTokens,
+  ctx: Context | undefined,
+  data: any
+) {
+  const { email, password } = data as TokenCreateInput;
+  const user = await User.findOne({ where: { email } });
+  const userIsValid = await bcrypt.compare(password, user?.password || '');
+  if (!user || !user.confirmed || !userIsValid) return null;
 
-    const { refreshToken, accessToken } = generateTokens(user);
-
-    if (existingRefreshToken) {
-      const tokens = AuthTokens.create(existingRefreshToken);
-      tokens.accessToken = accessToken;
-      return tokens;
+  const existingRefreshToken = await AuthTokens.findOne({
+    where: {
+      creatorId: user.id,
+      archived: false
     }
+  });
 
-    const tokens = new AuthTokens();
-    tokens.refreshToken = refreshToken;
+  const { refreshToken, accessToken } = generateTokens(user);
+
+  if (existingRefreshToken) {
+    const tokens = AuthTokens.create(existingRefreshToken);
     tokens.accessToken = accessToken;
-    tokens.creatorId = user.id;
-
-    return await tokens.save();
+    return tokens;
   }
+
+  const tokens = new AuthTokens();
+  tokens.refreshToken = refreshToken;
+  tokens.accessToken = accessToken;
+  tokens.creatorId = user.id;
+
+  return await tokens.save();
 }

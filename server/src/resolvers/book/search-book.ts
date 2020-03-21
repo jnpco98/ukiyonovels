@@ -2,7 +2,7 @@ import { Resolver, FieldResolver, Root, Args, Arg } from 'type-graphql';
 import { BaseBookSearchResolver } from './book-base';
 import { ChapterConnectionType, ChapterWhereInputType } from '../chapter/chapter-base';
 import { Book } from '../../entity/book';
-import { ConnectionArgs } from '../../lib/cursors/connection-args';
+import { ConnectionArgs } from '../../lib/relay/connection-args';
 import { WhereAndOrParams } from '../../lib/query/types/where-and-or';
 import { getRepository } from 'typeorm';
 import { Chapter } from '../../entity/chapter';

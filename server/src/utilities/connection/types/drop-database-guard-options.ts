@@ -1,8 +1,8 @@
 /**
- * Params guard that is 
+ * Params guard that is
  * required when dropping a database
- * 
- * Additional security to 
+ *
+ * Additional security to
  * avoid deleting the database
  */
 export interface DropDatabaseGuardOptions {

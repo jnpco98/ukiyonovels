@@ -1,6 +1,6 @@
 /**
  * Access control roles
- * 
+ *
  * Will be moved to a database
  * to support expansion
  */

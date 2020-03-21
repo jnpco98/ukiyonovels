@@ -3,6 +3,8 @@ import { Book } from '../../entity/book';
 import ROLES from '../../constants/roles';
 import { InputType, Field } from 'type-graphql';
 import { StringWhere } from '../../lib/query/where-type';
+import { ContextHooks } from '../base/types/context-hooks';
+import { BaseResolverParams } from '../base/types/resolver';
 
 @InputType()
 export class BookQueryableInput {
@@ -16,6 +18,25 @@ export class BookQueryableInput {
   isbn?: typeof StringWhere;
 }
 
+const authorization = {
+  get: [ROLES.anonymous],
+  paginate: [ROLES.anonymous],
+  create: [ROLES.owner],
+  update: [ROLES.owner],
+  delete: [ROLES.owner]
+};
+
+const contextHooks: ContextHooks<Book> = {};
+
+const resolverConfig: BaseResolverParams<Book, BookQueryableInput, Book> = {
+  EntityType: Book,
+  QueryableInputType: BookQueryableInput,
+  MutationInputType: Book,
+  authorization,
+  contextHooks,
+  resource: 'book'
+};
+
 const {
   ConnectionType,
   WhereInputType,
@@ -24,19 +45,7 @@ const {
   BaseCreateResolver,
   BaseUpdateResolver,
   BaseDeleteResolver
-} = createBaseResolver({
-  EntityType: Book,
-  QueryableInputType: BookQueryableInput,
-  MutationInputType: Book,
-  authorization: {
-    get: [ROLES.anonymous],
-    paginate: [ROLES.anonymous],
-    create: [ROLES.owner],
-    update: [ROLES.owner],
-    delete: [ROLES.owner]
-  },
-  resource: 'book'
-});
+} = createBaseResolver(resolverConfig);
 
 export {
   ConnectionType as BookConnectionType,

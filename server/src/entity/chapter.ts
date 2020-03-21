@@ -5,12 +5,12 @@ import { Length, IsOptional, MinLength } from 'class-validator';
 
 /**
  * ORM Chapter Entity
- * 
+ *
  * Graphql Chapter Object Type
- * 
+ *
  * Also being used as the mutation type for
  * the Chapter Object Type
- * 
+ *
  * Implements graphql validation
  */
 @Entity()

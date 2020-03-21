@@ -9,23 +9,22 @@ import {
   Args,
   Ctx
 } from 'type-graphql';
-import { getRepository, DeepPartial } from 'typeorm';
+import { getRepository } from 'typeorm';
 import { plural } from 'pluralize';
 
 import { BaseEntity } from '../../entity/entity';
-import { createConnectionDefinition } from '../../lib/cursors/create-connection-definition';
-import { ConnectionArgs } from '../../lib/cursors/connection-args';
+import { createConnectionDefinition } from '../../lib/relay/create-connection-definition';
+import { ConnectionArgs } from '../../lib/relay/connection-args';
 import { createWhereInputType } from '../../lib/query/create-input-type';
 import { WhereAndOrParams } from '../../lib/query/types/where-and-or';
 import { BaseResolverParams } from './types/resolver';
-import { Context } from '../../types/context';
+import { Context } from '../../lib/resolver/context';
 import { createCursorConnection } from '../../lib/relay/create-cursor-connection';
+import { GraphQLObjectType } from 'graphql';
 
-export function createBaseResolver<
-  T extends BaseEntity,
-  V extends any,
-  U extends DeepPartial<T>
->(params: BaseResolverParams<T, V, U>) {
+export function createBaseResolver<T extends BaseEntity, V extends any, U extends any>(
+  params: BaseResolverParams<T, V, U>
+) {
   const {
     EntityType,
     QueryableInputType,
@@ -37,7 +36,9 @@ export function createBaseResolver<
   } = params;
 
   const ConnectionType = createConnectionDefinition(resource, EntityType);
-  const WhereInputType = createWhereInputType(resource, QueryableInputType);
+  const WhereInputType = QueryableInputType
+    ? createWhereInputType(resource, QueryableInputType)
+    : null;
 
   @Resolver({ isAbstract: true })
   abstract class BaseGetResolver {
@@ -49,7 +50,7 @@ export function createBaseResolver<
         where: { id, archived: false }
       });
 
-      if (contextHooks.get && entity) return contextHooks.get(entity, ctx);
+      if (contextHooks.get && entity) return contextHooks.get(entity, ctx, { id });
 
       return entity;
     }
@@ -67,7 +68,7 @@ export function createBaseResolver<
     })
     async paginate(
       @Args() connArgs: ConnectionArgs,
-      @Arg(`where`, () => WhereInputType, { nullable: true })
+      @Arg(`where`, () => WhereInputType || GraphQLObjectType, { nullable: true })
       query?: WhereAndOrParams
     ) {
       const queryBuilder = getRepository(EntityType).createQueryBuilder();
@@ -88,10 +89,7 @@ export function createBaseResolver<
 
       if (ctx.req.auth && ctx.req.auth.userId) entity.creatorId = ctx.req.auth.userId;
 
-      if (contextHooks.create) {
-        const hookedEntity = contextHooks.create(entity, ctx);
-        return hookedEntity ? await hookedEntity.save() : null;
-      }
+      if (contextHooks.create) return contextHooks.create(entity, ctx, data);
 
       return await entity.save();
     }
@@ -118,10 +116,7 @@ export function createBaseResolver<
         const entity = getRepository(EntityType).merge(existing, data);
         entity.id = id;
 
-        if (contextHooks.update) {
-          const hookedEntity = contextHooks.update(entity, ctx);
-          return hookedEntity ? await hookedEntity.save() : null;
-        }
+        if (contextHooks.update) return contextHooks.update(entity, ctx, data);
 
         return await entity.save();
       }
@@ -146,10 +141,7 @@ export function createBaseResolver<
         const entity = getRepository(EntityType).merge(existing);
         entity.archived = true;
 
-        if (contextHooks.delete) {
-          const hookedEntity = contextHooks.delete(entity, ctx);
-          return hookedEntity ? await hookedEntity.save() : null;
-        }
+        if (contextHooks.delete) return contextHooks.delete(entity, ctx, { id });
 
         return await entity.save();
       }

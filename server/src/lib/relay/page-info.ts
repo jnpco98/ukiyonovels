@@ -1,7 +1,7 @@
 import { ObjectType, Field } from 'type-graphql';
 
 /**
- * Describes current page in accordance to 
+ * Describes current page in accordance to
  * the graphql spec
  */
 @ObjectType()

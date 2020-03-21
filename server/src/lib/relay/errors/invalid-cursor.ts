@@ -5,7 +5,7 @@ const CURSOR_ERROR_CODE = 'GRAPHQL_CURSOR_ERROR';
 /**
  * Base Cursor Error
  * Thrown when the cursor is invalid
- * 
+ *
  * ex:
  * Passed cursor can't be decoded (not a valid json)
  * Cursor doesn't contain the required properties
@@ -17,7 +17,7 @@ export class InvalidCursorError extends ApolloError {
 }
 
 /**
- * Thrown when the cursor properties 
+ * Thrown when the cursor properties
  * doesn't match the sort key
  */
 export class CursorNotMatchingSortError extends ApolloError {

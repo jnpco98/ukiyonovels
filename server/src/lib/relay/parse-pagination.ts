@@ -10,11 +10,11 @@ export function parsePagination(connArgs: ConnectionArgs): PaginationMeta {
 
   /**
    * Validates pagination
-   * 
+   *
    * - Pagination should have first or last
    * - Can't use first with before, last with after
    * - When paginating backward, last and before is required
-   * 
+   *
    * - Pagination should be either forward or backward
    * - Pagination must be positive
    */

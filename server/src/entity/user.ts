@@ -5,9 +5,9 @@ import ROLES from '../constants/roles';
 
 /**
  * Orm User Entity
- * 
+ *
  * Graphql User Object Type
- * 
+ *
  * Implements graphql validation
  */
 @ObjectType()
@@ -28,7 +28,7 @@ export class User extends BaseEntity {
   email: string;
 
   /**
-   * Decides what information and action 
+   * Decides what information and action
    * is accessible to the user
    */
   @Column({ default: ROLES.member })
