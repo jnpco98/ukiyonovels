@@ -3,7 +3,7 @@ import { BaseNovelDeleteResolver } from './novel-base';
 
 /**
  * Novel Delete Resolver
- * 
+ *
  * Archives/Mark for deletion the selected resource
  */
 @Resolver()

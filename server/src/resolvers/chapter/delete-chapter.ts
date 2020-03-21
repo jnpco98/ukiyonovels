@@ -3,7 +3,7 @@ import { BaseChapterDeleteResolver } from './chapter-base';
 
 /**
  * Chapter Delete Resolver
- * 
+ *
  * Archives/Mark for deletion the selected resource
  */
 @Resolver()

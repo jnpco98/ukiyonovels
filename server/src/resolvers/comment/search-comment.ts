@@ -9,7 +9,7 @@ export class CommentSearchResolver extends BaseCommentSearchResolver {
   /**
    * Gets the novel associated
    * with the comment entity
-   * 
+   *
    * @param comment Comment root object
    */
   @FieldResolver(returns => Chapter)

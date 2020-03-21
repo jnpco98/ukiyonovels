@@ -10,7 +10,7 @@ import { TokenRefreshInput } from './token-base';
 export class TokenRefreshResolver {
   /**
    * Refreshing an access token
-   * 
+   *
    * Validates and authenticates the
    * user and the refresh token, and
    * returns an access token with the
@@ -42,7 +42,7 @@ export class TokenRefreshResolver {
     /**
      * If refresh token is valid,
      * return an access token along with it,
-     * 
+     *
      * If it's not valid (expired, compromised),
      * archive the auth token
      */

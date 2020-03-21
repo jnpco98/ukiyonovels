@@ -13,9 +13,9 @@ import { GraphQLObjectType } from 'graphql';
 @Resolver(of => Book)
 export class BookSearchResolver extends BaseBookSearchResolver {
   /**
-   * Gets the novel associated 
+   * Gets the novel associated
    * with the book entity
-   * 
+   *
    * @param book Book root object
    */
   @FieldResolver(returns => Novel)

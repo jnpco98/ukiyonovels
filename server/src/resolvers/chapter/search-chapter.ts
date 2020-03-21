@@ -19,7 +19,7 @@ export class ChapterSearchResolver extends BaseChapterSearchResolver {
   /**
    * Gets the novel associated
    * with the chapter entity
-   * 
+   *
    * @param chapter Chapter root object
    */
   @FieldResolver(returns => Novel)
@@ -33,7 +33,7 @@ export class ChapterSearchResolver extends BaseChapterSearchResolver {
   /**
    * Gets the book associated
    * with the chapter entity
-   * 
+   *
    * @param chapter Chapter root object
    */
   @FieldResolver(returns => Book)

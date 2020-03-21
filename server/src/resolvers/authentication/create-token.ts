@@ -11,7 +11,7 @@ export class TokenCreateResolver extends BaseTokenCreateResolver {}
 
 /**
  * Context hooks for creating the resource
- * 
+ *
  * Contains the logic for authenticating
  * and validating users
  */
@@ -26,7 +26,7 @@ export async function createTokenContextHook(
   if (!user || !user.confirmed || !userIsValid) return null;
 
   /**
-   * Each user can only have one 
+   * Each user can only have one
    * valid/active refresh token at once
    */
   const existingRefreshToken = await AuthTokens.findOne({
@@ -40,8 +40,8 @@ export async function createTokenContextHook(
 
   /**
    * If a refresh token already exists,
-   * just return the existing refresh token 
-   * along with a newly created access token 
+   * just return the existing refresh token
+   * along with a newly created access token
    */
   if (existingRefreshToken) {
     const tokens = AuthTokens.create(existingRefreshToken);

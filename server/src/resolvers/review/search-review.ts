@@ -9,7 +9,7 @@ export class ReviewSearchResolver extends BaseReviewSearchResolver {
   /**
    * Gets the novel associated
    * with the review entity
-   * 
+   *
    * @param review Review root object
    */
   @FieldResolver(returns => Novel)

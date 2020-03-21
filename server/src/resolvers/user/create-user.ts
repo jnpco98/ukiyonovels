@@ -4,7 +4,7 @@ import { User } from '../../entity/user';
 import { Length, IsEmail } from 'class-validator';
 
 /**
- * Required parameters to 
+ * Required parameters to
  * create the user resource
  */
 @InputType()

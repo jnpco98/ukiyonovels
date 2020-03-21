@@ -3,7 +3,7 @@ import { BaseBookDeleteResolver } from './book-base';
 
 /**
  * Book Delete Resolver
- * 
+ *
  * Archives/Mark for deletion the selected resource
  */
 @Resolver()

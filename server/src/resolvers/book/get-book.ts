@@ -3,7 +3,7 @@ import { BaseBookGetResolver } from './book-base';
 
 /**
  * Book Get Resolver
- * 
+ *
  * Gets a single resource using the resource id
  */
 @Resolver()

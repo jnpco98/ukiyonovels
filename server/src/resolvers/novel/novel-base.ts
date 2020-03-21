@@ -8,7 +8,7 @@ import { ContextHooks } from '../base/types/context-hooks';
 import { BaseResolverParams } from '../base/types/resolver';
 
 /**
- * Required parameters to 
+ * Required parameters to
  * create the novel resource
  */
 @InputType()
