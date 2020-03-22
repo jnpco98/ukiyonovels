@@ -1,31 +1,31 @@
 import 'reflect-metadata';
-import { ApolloServer, ApolloError } from 'apollo-server-express';
-import express from 'express';
-import cors from 'cors';
-import cookieParser from 'cookie-parser';
+
+import { ApolloError, ApolloServer } from 'apollo-server-express';
 import {
-  getComplexity,
+  ENV_DEVELOPMENT,
+  ENV_PRODUCTION,
+  ENV_TESTING,
+  isDevelopment,
+  isProduction,
+  isTesting
+} from './utilities/env/node-env';
+import { GraphQLError, separateOperations } from 'graphql';
+import {
   fieldConfigEstimator,
+  getComplexity,
   simpleEstimator
 } from 'graphql-query-complexity';
 
-import { authenticateToken } from './middleware/authentication/authenticate-token';
-import { createSchema } from './schema/create-schema';
-import { initializeConnection } from './utilities/connection/initialize-connection';
-import { separateOperations, GraphQLError } from 'graphql';
-import { MaxComplexityError } from './lib/relay/errors/complexity';
-import {
-  isDevelopment,
-  isTesting,
-  isProduction,
-  ENV_DEVELOPMENT,
-  ENV_TESTING,
-  ENV_PRODUCTION
-} from './utilities/env/node-env';
 import { ArgumentValidationError } from 'type-graphql';
-import { logInternalError } from './utilities/log/log-internal-error';
-
 import Log from './utilities/log/logger';
+import { MaxComplexityError } from './lib/relay/errors/complexity';
+import { authenticateToken } from './middleware/authentication/authenticate-token';
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
+import { createSchema } from './schema/create-schema';
+import express from 'express';
+import { initializeConnection } from './utilities/connection/initialize-connection';
+import { logInternalError } from './utilities/log/log-internal-error';
 
 /**
  * Handles and transforms the errors
@@ -108,7 +108,7 @@ async function main() {
                 simpleEstimator({ defaultComplexity: 1 })
               ]
             });
-            if (complexity >= MAX_QUERY_COST) {
+            if (complexity > MAX_QUERY_COST) {
               throw new MaxComplexityError(complexity, MAX_QUERY_COST);
             }
           }

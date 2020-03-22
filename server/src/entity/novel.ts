@@ -1,7 +1,8 @@
-import { Field, ObjectType, InputType, ID } from 'type-graphql';
-import { Entity, Column } from 'typeorm';
+import { Column, Entity } from 'typeorm';
+import { Field, ID, InputType, ObjectType } from 'type-graphql';
+import { IsIn, IsOptional, Length } from 'class-validator';
+
 import { BaseEntity } from './entity';
-import { Length, IsOptional, IsIn } from 'class-validator';
 
 /**
  * Valid novel types, checked in validation
@@ -9,7 +10,8 @@ import { Length, IsOptional, IsIn } from 'class-validator';
  * Will be moved to a database
  * to support expansion
  */
-export const novelTypes = ['Web Novel', 'Light Novel', 'Chinese Novel', 'Korean Novel'];
+const origins = ['Web', 'Light', 'Chinese', 'Filipino', 'Korean', 'Thai', 'Malaysian', 'Indonesia', 'Vietnamese']
+export const novelTypes = origins.map(origin => `${origin} Novel`);
 
 /**
  * Valid novel status, checked in validation
@@ -17,7 +19,7 @@ export const novelTypes = ['Web Novel', 'Light Novel', 'Chinese Novel', 'Korean 
  * Will be moved to a database
  * to support expansion
  */
-export const novelStatus = ['Complete', 'Ongoing', 'Hiatus'];
+export const novelStatus = ['Completed', 'Ongoing', 'Hiatus'];
 
 /**
  * ORM Novel Entity
@@ -35,13 +37,12 @@ export const novelStatus = ['Complete', 'Ongoing', 'Hiatus'];
 export class Novel extends BaseEntity implements Partial<Novel> {
   @Field({ nullable: true })
   @Column({ type: 'text' })
-  @Length(5, 150, { message: 'Title should be between 5-150 characters' })
   title: string;
 
   @Field({ nullable: true })
   @Column({ type: 'text', nullable: true })
-  @Length(20, 1000, {
-    message: 'Description should be between 20-1000 characters'
+  @Length(20, 10000, {
+    message: 'Description should be between 20-10000 characters'
   })
   @IsOptional()
   description?: string;
@@ -117,6 +118,15 @@ export class Novel extends BaseEntity implements Partial<Novel> {
   @Column({ name: 'associated_names', type: 'text', nullable: true })
   @IsOptional()
   associatedNames?: string;
+
+  /**
+   * Comma separated associated names
+   * ex: "\"Alternative1\", \"Alternative2 with space\""
+   */
+  @Field(returns => String, { nullable: true })
+  @Column({ name: 'alternative_names', type: 'text', nullable: true })
+  @IsOptional()
+  alternativeNames?: string;
 
   /**
    * Comma separated media gallery

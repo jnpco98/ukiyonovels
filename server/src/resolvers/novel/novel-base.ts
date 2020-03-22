@@ -1,11 +1,11 @@
-import { createBaseResolver } from '../base/base-resolver';
-import { Novel } from '../../entity/novel';
-import { InputType, Field } from 'type-graphql';
+import { Field, InputType } from 'type-graphql';
+import { NumberWhere, StringWhere } from '../../lib/query/where-type';
 
-import ROLES from '../../constants/roles';
-import { StringWhere, NumberWhere } from '../../lib/query/where-type';
-import { ContextHooks } from '../base/types/context-hooks';
 import { BaseResolverParams } from '../base/types/resolver';
+import { ContextHooks } from '../base/types/context-hooks';
+import { Novel } from '../../entity/novel';
+import ROLES from '../../constants/roles';
+import { createBaseResolver } from '../base/base-resolver';
 
 /**
  * Required parameters to
@@ -42,6 +42,15 @@ export class NovelQueryableInput {
 
   @Field(type => StringWhere, { nullable: true })
   associatedNames?: typeof StringWhere;
+
+  @Field(type => StringWhere, { nullable: true })
+  alternativeNames?: typeof StringWhere;
+
+  @Field(type => StringWhere, { nullable: true })
+  status?: typeof StringWhere;
+
+  @Field(type => NumberWhere, { nullable: true })
+  year?: typeof NumberWhere;
 
   @Field(type => NumberWhere, { nullable: true })
   likes?: typeof NumberWhere;
