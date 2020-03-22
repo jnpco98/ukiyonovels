@@ -22,6 +22,10 @@ import { Context } from '../../lib/resolver/context';
 import { createCursorConnection } from '../../lib/relay/create-cursor-connection';
 import { GraphQLObjectType } from 'graphql';
 
+/**
+ * Creates base resolvers for the ff.
+ * - get, paginate, create, update, and delete
+ */
 export function createBaseResolver<T extends BaseEntity, V extends any, U extends any>(
   params: BaseResolverParams<T, V, U>
 ) {
@@ -35,11 +39,28 @@ export function createBaseResolver<T extends BaseEntity, V extends any, U extend
     contextHooks = {}
   } = params;
 
+  /**
+   * Creates a an entity 
+   * connection and edge definition
+   */
   const ConnectionType = createConnectionDefinition(resource, EntityType);
+
+  /**
+   * Dynamic filtering definition
+   */
   const WhereInputType = QueryableInputType
     ? createWhereInputType(resource, QueryableInputType)
     : null;
 
+  /**
+   * Gets an entity using an id
+   * 
+   * Resolver that inherits this, can provide the following overrides
+   * - Authorization - roles that have access to this resource
+   * - Middleware - modifies the response before and after returning it to the client
+   * - ContextHooks - acts like a middleware, 
+   * but is more involved, in that it lets you access the response in the middle of the method
+   */
   @Resolver({ isAbstract: true })
   abstract class BaseGetResolver {
     @Authorized(authorization.get || [])
@@ -56,6 +77,16 @@ export function createBaseResolver<T extends BaseEntity, V extends any, U extend
     }
   }
 
+  /**
+   * Gets an entity connection
+   * A query param may / not be provided
+   * 
+   * Resolver that inherits this, can provide the following overrides
+   * - Authorization - roles that have access to this resource
+   * - Middleware - modifies the response before and after returning it to the client
+   * - ContextHooks - acts like a middleware, 
+   * but is more involved, in that it lets you access the response in the middle of the method
+   */
   @Resolver({ isAbstract: true })
   abstract class BaseSearchResolver {
     @Authorized(authorization.paginate || [])
@@ -76,6 +107,15 @@ export function createBaseResolver<T extends BaseEntity, V extends any, U extend
     }
   }
 
+  /**
+   * Creates an entity using the arguments
+   * 
+   * Resolver that inherits this, can provide the following overrides
+   * - Authorization - roles that have access to this resource
+   * - Middleware - modifies the response before and after returning it to the client
+   * - ContextHooks - acts like a middleware, 
+   * but is more involved, in that it lets you access the response in the middle of the method
+   */
   @Resolver({ isAbstract: true })
   abstract class BaseCreateResolver {
     @Authorized(authorization.create || [])
@@ -95,6 +135,15 @@ export function createBaseResolver<T extends BaseEntity, V extends any, U extend
     }
   }
 
+  /**
+   * Updates an entity using an id and a set of arguments
+   * 
+   * Resolver that inherits this, can provide the following overrides
+   * - Authorization - roles that have access to this resource
+   * - Middleware - modifies the response before and after returning it to the client
+   * - ContextHooks - acts like a middleware, 
+   * but is more involved, in that it lets you access the response in the middle of the method
+   */
   @Resolver({ isAbstract: true })
   abstract class BaseUpdateResolver {
     @Authorized(authorization.update || [])
@@ -124,6 +173,14 @@ export function createBaseResolver<T extends BaseEntity, V extends any, U extend
     }
   }
 
+  /**
+   * Archives / Marks an entity for deleting using an id
+   * Resolver that inherits this, can provide the following overrides
+   * - Authorization - roles that have access to this resource
+   * - Middleware - modifies the response before and after returning it to the client
+   * - ContextHooks - acts like a middleware, 
+   * but is more involved, in that it lets you access the response in the middle of the method
+   */
   @Resolver({ isAbstract: true })
   abstract class BaseDeleteResolver {
     @Authorized(authorization.delete || [])
