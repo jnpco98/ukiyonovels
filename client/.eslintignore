@@ -1,0 +1,16 @@
+# Disable linting for all styled components
+**/style.ts
+**/mixins.ts
+
+# Disable linting for css resets
+**/reset.ts
+**/trumps.ts
+
+# CRA auto generated code
+src/serviceWorker.ts
+
+# Styled plugin macros config
+babel-plugin-macros.config.js
+
+# JSON Files
+*.json

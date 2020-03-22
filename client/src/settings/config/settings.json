@@ -1,0 +1,284 @@
+{
+  "navigation": {
+    "mainMenu": [
+      {
+        "label": "<svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" viewBox=\"0 0 512 512\"><path d=\"M447.615 64.386C406.095 22.866 350.892 0 292.175 0s-113.92 22.866-155.439 64.386C95.217 105.905 72.35 161.108 72.35 219.824c0 53.683 19.124 104.421 54.132 144.458L4.399 486.366c-5.864 5.864-5.864 15.371 0 21.236C7.331 510.533 11.174 512 15.016 512s7.686-1.466 10.617-4.399l122.084-122.083c40.037 35.007 90.775 54.132 144.458 54.132 58.718 0 113.919-22.866 155.439-64.386 41.519-41.519 64.385-96.722 64.385-155.439s-22.865-113.92-64.384-155.439zm-21.236 289.643c-74.001 74-194.406 74-268.407 0-74-74-74-194.407 0-268.407 37.004-37.004 85.596-55.5 134.204-55.5 48.596 0 97.208 18.505 134.204 55.5 73.998 73.999 73.998 194.406-.001 268.407z\"\/><\/svg>",
+        "link": "#!",
+        "key": "search",
+        "icon": true
+      },
+      {
+        "label": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 512\"><path d=\"M437.02 330.98c-27.883-27.882-61.071-48.523-97.281-61.018C378.521 243.251 404 198.548 404 148 404 66.393 337.607 0 256 0S108 66.393 108 148c0 50.548 25.479 95.251 64.262 121.962-36.21 12.495-69.398 33.136-97.281 61.018C26.629 379.333 0 443.62 0 512h40c0-119.103 96.897-216 216-216s216 96.897 216 216h40c0-68.38-26.629-132.667-74.98-181.02zM256 256c-59.551 0-108-48.448-108-108S196.449 40 256 40s108 48.448 108 108-48.449 108-108 108z\"/></svg>",
+        "link": "#!",
+        "key": "account",
+        "icon": true
+      },
+      {
+        "label": "<svg height=\"512pt\" viewBox=\"0 0 512 512\" width=\"512pt\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\"><path d=\"M256 133.61c-67.484 0-122.39 54.906-122.39 122.39S188.515 378.39 256 378.39 378.39 323.485 378.39 256 323.485 133.61 256 133.61zm0 214.183c-50.613 0-91.793-41.18-91.793-91.793s41.18-91.793 91.793-91.793 91.793 41.18 91.793 91.793-41.18 91.793-91.793 91.793zm0 0\"\/><path d=\"M499.953 197.703l-39.351-8.555a214.162 214.162 0 00-12.664-30.539l21.785-33.886a15.302 15.302 0 00-2.051-19.09l-61.305-61.305a15.302 15.302 0 00-19.09-2.05l-33.886 21.785a214.162 214.162 0 00-30.54-12.665l-8.554-39.351A15.298 15.298 0 00299.347 0h-86.695a15.298 15.298 0 00-14.949 12.047l-8.555 39.351a214.162 214.162 0 00-30.539 12.664l-33.886-21.785a15.302 15.302 0 00-19.09 2.051l-61.305 61.305a15.302 15.302 0 00-2.05 19.09l21.785 33.886a214.162 214.162 0 00-12.665 30.54l-39.351 8.554A15.301 15.301 0 000 212.653v86.695a15.301 15.301 0 0012.047 14.949l39.351 8.555a214.162 214.162 0 0012.665 30.539l-21.786 33.886a15.302 15.302 0 002.051 19.09l61.305 61.305a15.302 15.302 0 0019.09 2.05l33.886-21.785a214.162 214.162 0 0030.54 12.665l8.554 39.351A15.298 15.298 0 00212.653 512h86.695a15.298 15.298 0 0014.949-12.047l8.555-39.351a214.162 214.162 0 0030.539-12.665l33.886 21.786a15.297 15.297 0 0019.09-2.051l61.305-61.305a15.302 15.302 0 002.05-19.09l-21.784-33.886a214.162 214.162 0 0012.664-30.54l39.351-8.554A15.301 15.301 0 00512 299.347v-86.695a15.301 15.301 0 00-12.047-14.949zm-18.55 89.313l-36.083 7.843a15.307 15.307 0 00-11.488 10.84 183.563 183.563 0 01-16.95 40.88 15.294 15.294 0 00.454 15.792l19.98 31.078-43.863 43.867-31.082-19.98a15.287 15.287 0 00-15.789-.453 183.67 183.67 0 01-40.883 16.949 15.307 15.307 0 00-10.84 11.488l-7.843 36.082h-62.032l-7.843-36.082a15.307 15.307 0 00-10.84-11.488 183.563 183.563 0 01-40.88-16.95 15.303 15.303 0 00-15.792.454l-31.078 19.98-43.864-43.867 19.977-31.078a15.294 15.294 0 00.457-15.793A183.76 183.76 0 0178.168 305.7a15.302 15.302 0 00-11.484-10.84l-36.086-7.843v-62.032l36.082-7.843a15.307 15.307 0 0011.488-10.84 183.563 183.563 0 0116.95-40.88 15.294 15.294 0 00-.454-15.792l-19.98-31.078 43.863-43.867 31.082 19.98a15.287 15.287 0 0015.789.453 183.67 183.67 0 0140.883-16.949 15.307 15.307 0 0010.84-11.488l7.843-36.082h62.032l7.843 36.082a15.307 15.307 0 0010.84 11.488 183.563 183.563 0 0140.88 16.95 15.303 15.303 0 0015.792-.454l31.078-19.98 43.863 43.867-19.976 31.078a15.294 15.294 0 00-.457 15.793 183.576 183.576 0 0116.953 40.879 15.302 15.302 0 0011.484 10.84l36.086 7.843zm0 0\"\/><\/svg>",
+        "link": "#!",
+        "key": "settings",
+        "icon": true
+      }
+    ],
+    "sidenavMenu": [
+      {
+        "label": "Homepage",
+        "link": "/",
+        "key": "homepage"
+      },
+      {
+        "label": "Novel List",
+        "link": "/novels",
+        "key": "novel-list"
+      },
+      {
+        "label": "Latest Update",
+        "link": "/latest-updates",
+        "key": "latest-update"
+      },
+      {
+        "label": "Top Novels",
+        "link": "/top-novels",
+        "key": "top-novels"
+      },
+      {
+        "label": "Advanced Search",
+        "link": "/advanced-search",
+        "key": "advanced-search"
+      },
+      {
+        "label": "Terms and conditions",
+        "link": "/terms-and-conditions",
+        "key": "terms-and-conditions"
+      },
+      {
+        "label": "Privacy policy",
+        "link": "/privacy-policy",
+        "key": "privacy-policy"
+      },
+      {
+        "label": "Copyright",
+        "link": "/copyright",
+        "key": "copyright"
+      }
+    ]
+  },
+  "homepage": {
+    "heroBanner": [
+      {
+        "mobileImage": "",
+        "desktopImage": "",
+        "headingText": "Demon Slayer: Kimetsu no Yaiba",
+        "description": "In Taishō-era Japan, Tanjirō Kamado is a kindhearted and intelligent boy who lives with his family. He has become his family's sole source of income after the passing of his father. Everything changes when his family is attacked and slaughtered by a demon. Tanjirō and his sister Nezuko are the sole survivors of the incident, with Nezuko being transformed into a demon, but still surprisingly showing signs of human emotion and thought. After an encounter with Giyu Tomioka, a demon slayer, Tanjirō is recruited by Giyu to also become a demon slayer to help his sister turn human again and avenge the deaths of the rest of his family.",
+        "buttonText": "Read now",
+        "link": "#!"
+      },
+      {
+        "mobileImage": "",
+        "desktopImage": "",
+        "headingText": "Demon Slayer: Kimetsu no Yaiba",
+        "description": "In Taishō-era Japan, Tanjirō Kamado is a kindhearted and intelligent boy who lives with his family. He has become his family's sole source of income after the passing of his father. Everything changes when his family is attacked and slaughtered by a demon. Tanjirō and his sister Nezuko are the sole survivors of the incident, with Nezuko being transformed into a demon, but still surprisingly showing signs of human emotion and thought. After an encounter with Giyu Tomioka, a demon slayer, Tanjirō is recruited by Giyu to also become a demon slayer to help his sister turn human again and avenge the deaths of the rest of his family.",
+        "buttonText": "Read now",
+        "link": "#!"
+      },
+      {
+        "mobileImage": "",
+        "desktopImage": "",
+        "headingText": "Demon Slayer: Kimetsu no Yaiba",
+        "description": "In Taishō-era Japan, Tanjirō Kamado is a kindhearted and intelligent boy who lives with his family. He has become his family's sole source of income after the passing of his father. Everything changes when his family is attacked and slaughtered by a demon. Tanjirō and his sister Nezuko are the sole survivors of the incident, with Nezuko being transformed into a demon, but still surprisingly showing signs of human emotion and thought. After an encounter with Giyu Tomioka, a demon slayer, Tanjirō is recruited by Giyu to also become a demon slayer to help his sister turn human again and avenge the deaths of the rest of his family.",
+        "buttonText": "Read now",
+        "link": "#!"
+      }
+    ],
+    "featuredNovels": {
+      "headingText": "Featured Novels"
+    },
+    "latestRelease": {
+      "headingText": "Latest Release",
+      "actionButtonText": "Continue reading"
+    }
+  },
+  "sidePanel": {
+    "popularNovels": {
+      "headingText": "Popular Novels"
+    },
+    "genres": {
+      "headingText": "Search by genre",
+      "contents": [
+        { "title": "Action", "id": "action", "link": "/category/action" },
+        { "title": "Adventure", "id": "adventure", "link": "/category/adventure" },
+        { "title": "Celebrity", "id": "celebrity", "link": "/category/celebrity" },
+        { "title": "Comedy", "id": "comedy", "link": "/category/comedy" },
+        { "title": "Drama", "id": "drama", "link": "/category/drama" },
+        { "title": "Ecchi", "id": "ecchi", "link": "/category/ecchi" },
+        { "title": "Fantasy", "id": "fantasy", "link": "/category/fantasy" },
+        { "title": "Gender Bender", "id": "gender-bender", "link": "/category/gender bender" },
+        { "title": "Harem", "id": "harem", "link": "/category/harem" },
+        { "title": "Historical", "id": "historical", "link": "/category/historical" },
+        { "title": "Horror", "id": "horror", "link": "/category/horror" },
+        { "title": "Josei", "id": "josei", "link": "/category/josei" },
+        { "title": "Martial Arts", "id": "martial-arts", "link": "/category/martial arts" },
+        { "title": "Mature", "id": "mature", "link": "/category/mature" },
+        { "title": "Mecha", "id": "mecha", "link": "/category/mecha" },
+        { "title": "Mystery", "id": "mystery", "link": "/category/mystery" },
+        { "title": "Psychological", "id": "psychological", "link": "/category/psychological" },
+        { "title": "Romance", "id": "romance", "link": "/category/romance" },
+        { "title": "School Life", "id": "school Life", "link": "/category/school life" },
+        { "title": "Sci-fi", "id": "sci-fi", "link": "/category/sci fi" },
+        { "title": "Seinen", "id": "seinen", "link": "/category/seinen" },
+        { "title": "Shotacon", "id": "shotacon", "link": "/category/shotacon" },
+        { "title": "Shoujo", "id": "shoujo", "link": "/category/shoujo" },
+        { "title": "Shoujo Ai", "id": "shoujo-ai", "link": "/category/shoujo ai" },
+        { "title": "Shounen", "id": "shounen", "link": "/category/shounen" },
+        { "title": "Shounen Ai", "id": "shounen-ai", "link": "/category/shounen ai" },
+        { "title": "Slice of Life", "id": "slice-of-life", "link": "/category/slice of life" },
+        { "title": "Smut", "id": "smut", "link": "/category/smut" },
+        { "title": "Sports", "id": "sports", "link": "/category/sports" },
+        { "title": "Supernatural", "id": "supernatural", "link": "/category/supernatural" },
+        { "title": "Tragedy", "id": "tragedy", "link": "/category/tragedy" },
+        { "title": "Wuxia", "id": "wuxia", "link": "/category/wuxia" },
+        { "title": "Xianxia", "id": "xianxia", "link": "/category/xianxia" },
+        { "title": "Xuanhuan", "id": "xuanhuan", "link": "/category/xuanhuan" },
+        { "title": "Yaoi", "id": "yaoi", "link": "/category/yaoi" },
+        { "title": "Yuri", "id": "yuri", "link": "/category/yuri" }
+      ]
+    },
+    "type": {
+      "headingText": "Search by type",
+      "contents": [
+        { "title": "Web novel", "id": "web-novel", "link": "/type/web novel" },
+        { "title": "Light novel", "id": "light-novel", "link": "/type/light novel" },
+        { "title": "Chinese novel", "id": "chinese-novel", "link": "/type/chinese novel" },
+        { "title": "Korean novel", "id": "korean-novel", "link": "/type/korean novel" }
+      ]
+    }
+  },
+  "novel":{
+    "heading": {
+      "type": "type",
+      "genre": "genre",
+      "tags": "tags",
+      "language": "language",
+      "author": "author",
+      "artist": "artist",
+      "year": "year",
+      "status": "status",
+      "description": "description",
+      "alternativeNames": "alternative names",
+      "relatedSeries": "related series",
+      "recommendations": "You may also like",
+      "downloads": "Download links"
+    }
+  },
+  "novelList": {
+    "headingText": "Novel List"
+  },
+  "latestUpdates": {
+    "headingText": "Latest Updates"
+  },
+  "searchResults": {
+    "headingText": "Search Results"
+  },
+  "contact": {
+    "pageHeading": "Contact us",
+    "pageText": "<p>Have a question, feature/novel request, or found a bug you want to report? Fill up the form and we'll see what we can do. You should get a reply within 48 hrs.</p>",
+    "fields": [
+      {
+        "label": "Name",
+        "displayName": "User",
+        "required": true,
+        "placeholder": "Name",
+        "multi": false,
+        "pattern": ""
+      },
+      {
+        "label": "Email",
+        "displayName": "Email",
+        "required": true,
+        "placeholder": "Email",
+        "multi": false,
+        "pattern": "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+      },
+      {
+        "label": "Subject",
+        "displayName": "Subject",
+        "required": true,
+        "placeholder": "Subject",
+        "multi": false,
+        "pattern": ""
+      },
+      {
+        "label": "Message",
+        "displayName": "Message",
+        "required": true,
+        "placeholder": "",
+        "multi": true,
+        "pattern": ""
+      }
+    ],
+    "submitText": "Submit"
+  },
+  "copyright": {
+    "pageHeading": "DMCA",
+    "pageText": "<p>Readlightnovel.com is in compliance with 17 U.S.C. \u00A7 512 and the Digital Millennium Copyright Act (\"DMCA\"). It is our policy to respond to any infringement notices and take appropriate actions under the Digital Millennium Copyright Act (\"DMCA\") and other applicable intellectual property laws.\r\n<\/p>\r\n<p>If your copyrighted material has been posted on Readlightnovel.com or if links to your copyrighted material are returned through our search engine and you want this material removed, you must provide a written communication that details the information listed in the following section. Please be aware that you will be liable for damages (including costs and attorneys' fees) if you misrepresent information listed on our site that is infringing on your copyrights. We suggest that you first contact an attorney for legal assistance on this matter.\r\n<\/p>\r\n<p>The following elements must be included in your copyright infringement claim:\r\n<\/p>\r\n<ul>\r\n<li>\r\n<p>Provide evidence of the authorized person to act on behalf of the owner of an exclusive right that is allegedly infringed.<\/p>\r\n<\/li>\r\n<li>\r\n<p>Provide sufficient contact information so that we may contact you. You must also include a valid email address.<\/p>\r\n<\/li>\r\n<li>\r\n<p>You must identify in sufficient detail the copyrighted work claimed to have been infringed and including at least one search term under which the material appears in Readlightnovel.com' search results.\r\n<\/p>\r\n<\/li>\r\n<li>\r\n<p>A statement that the complaining party has a good faith belief that use of the material in the manner complained of is not authorized by the copyright owner, its agent, or the law.<\/p>\r\n<\/li>\r\n<li>\r\n<p>A statement that the information in the notification is accurate, and under penalty of perjury, that the complaining party is authorized to act on behalf of the owner of an exclusive right that is allegedly infringed.<\/p>\r\n<\/li>\r\n<li>\r\n<p>Must be signed by the authorized person to act on behalf of the owner of an exclusive right that is allegedly being infringed.<\/p>\r\n<\/li>\r\n<\/ul>\r\n<p>Send the written infringement notice to the following address and an email notifcation to dmca@readlightnovel.com\r\n<\/p>\r\n<p>Note: Post mail is not accepted, send email instead. Don't send PDF or Scanned PDF, we filtered all attachments.\r\n<\/p>\r\n<p>Please allow 1-2 business days for an email response. Note that emailing your complaint to other parties such as our Internet Service Provider will not expedite your request and may result in a delayed response due the complaint not properly being filed.\r\n<\/p>"
+  },
+  "privacy": {
+    "pageHeading": "Privacy",
+    "pageText": "<p>Readlightnovel.com is in compliance with 17 U.S.C. \u00A7 512 and the Digital Millennium Copyright Act (\"DMCA\"). It is our policy to respond to any infringement notices and take appropriate actions under the Digital Millennium Copyright Act (\"DMCA\") and other applicable intellectual property laws.\r\n<\/p>\r\n<p>If your copyrighted material has been posted on Readlightnovel.com or if links to your copyrighted material are returned through our search engine and you want this material removed, you must provide a written communication that details the information listed in the following section. Please be aware that you will be liable for damages (including costs and attorneys' fees) if you misrepresent information listed on our site that is infringing on your copyrights. We suggest that you first contact an attorney for legal assistance on this matter.\r\n<\/p>\r\n<p>The following elements must be included in your copyright infringement claim:\r\n<\/p>\r\n<ul>\r\n<li>\r\n<p>Provide evidence of the authorized person to act on behalf of the owner of an exclusive right that is allegedly infringed.<\/p>\r\n<\/li>\r\n<li>\r\n<p>Provide sufficient contact information so that we may contact you. You must also include a valid email address.<\/p>\r\n<\/li>\r\n<li>\r\n<p>You must identify in sufficient detail the copyrighted work claimed to have been infringed and including at least one search term under which the material appears in Readlightnovel.com' search results.\r\n<\/p>\r\n<\/li>\r\n<li>\r\n<p>A statement that the complaining party has a good faith belief that use of the material in the manner complained of is not authorized by the copyright owner, its agent, or the law.<\/p>\r\n<\/li>\r\n<li>\r\n<p>A statement that the information in the notification is accurate, and under penalty of perjury, that the complaining party is authorized to act on behalf of the owner of an exclusive right that is allegedly infringed.<\/p>\r\n<\/li>\r\n<li>\r\n<p>Must be signed by the authorized person to act on behalf of the owner of an exclusive right that is allegedly being infringed.<\/p>\r\n<\/li>\r\n<\/ul>\r\n<p>Send the written infringement notice to the following address and an email notifcation to dmca@readlightnovel.com\r\n<\/p>\r\n<p>Note: Post mail is not accepted, send email instead. Don't send PDF or Scanned PDF, we filtered all attachments.\r\n<\/p>\r\n<p>Please allow 1-2 business days for an email response. Note that emailing your complaint to other parties such as our Internet Service Provider will not expedite your request and may result in a delayed response due the complaint not properly being filed.\r\n<\/p>",
+    "contents": [
+      {
+        "heading": "Your Acceptance",
+        "text": "<p>Readlightnovel.com is in compliance with 17 U.S.C. \u00A7 512 and the Digital Millennium Copyright Act (\"DMCA\"). It is our policy to respond to any infringement notices and take appropriate actions under the Digital Millennium Copyright Act (\"DMCA\") and other applicable intellectual property laws.\r\n<\/p>\r\n<p>If your copyrighted material has been posted on Readlightnovel.com or if links to your copyrighted material are returned through our search engine and you want this material removed, you must provide a written communication that details the information listed in the following section. Please be aware that you will be liable for damages (including costs and attorneys' fees) if you misrepresent information listed on our site that is infringing on your copyrights. We suggest that you first contact an attorney for legal assistance on this matter.\r\n<\/p>\r\n<p>The following elements must be included in your copyright infringement claim:\r\n<\/p>\r\n<ul>\r\n<li>\r\n<p>Provide evidence of the authorized person to act on behalf of the owner of an exclusive right that is allegedly infringed.<\/p>\r\n<\/li>\r\n<li>\r\n<p>Provide sufficient contact information so that we may contact you. You must also include a valid email address.<\/p>\r\n<\/li>\r\n<li>\r\n<p>You must identify in sufficient detail the copyrighted work claimed to have been infringed and including at least one search term under which the material appears in Readlightnovel.com' search results.\r\n<\/p>\r\n<\/li>\r\n<li>\r\n<p>A statement that the complaining party has a good faith belief that use of the material in the manner complained of is not authorized by the copyright owner, its agent, or the law.<\/p>\r\n<\/li>\r\n<li>\r\n<p>A statement that the information in the notification is accurate, and under penalty of perjury, that the complaining party is authorized to act on behalf of the owner of an exclusive right that is allegedly infringed.<\/p>\r\n<\/li>\r\n<li>\r\n<p>Must be signed by the authorized person to act on behalf of the owner of an exclusive right that is allegedly being infringed.<\/p>\r\n<\/li>\r\n<\/ul>\r\n<p>Send the written infringement notice to the following address and an email notifcation to dmca@readlightnovel.com\r\n<\/p>\r\n<p>Note: Post mail is not accepted, send email instead. Don't send PDF or Scanned PDF, we filtered all attachments.\r\n<\/p>\r\n<p>Please allow 1-2 business days for an email response. Note that emailing your complaint to other parties such as our Internet Service Provider will not expedite your request and may result in a delayed response due the complaint not properly being filed.\r\n<\/p>"
+      },
+      {
+        "heading": "Readlightnovel Website",
+        "text": "<p>Readlightnovel.com is in compliance with 17 U.S.C. \u00A7 512 and the Digital Millennium Copyright Act (\"DMCA\"). It is our policy to respond to any infringement notices and take appropriate actions under the Digital Millennium Copyright Act (\"DMCA\") and other applicable intellectual property laws.\r\n<\/p>\r\n<p>If your copyrighted material has been posted on Readlightnovel.com or if links to your copyrighted material are returned through our search engine and you want this material removed, you must provide a written communication that details the information listed in the following section. Please be aware that you will be liable for damages (including costs and attorneys' fees) if you misrepresent information listed on our site that is infringing on your copyrights. We suggest that you first contact an attorney for legal assistance on this matter.\r\n<\/p>\r\n<p>The following elements must be included in your copyright infringement claim:\r\n<\/p>\r\n<ul>\r\n<li>\r\n<p>Provide evidence of the authorized person to act on behalf of the owner of an exclusive right that is allegedly infringed.<\/p>\r\n<\/li>\r\n<li>\r\n<p>Provide sufficient contact information so that we may contact you. You must also include a valid email address.<\/p>\r\n<\/li>\r\n<li>\r\n<p>You must identify in sufficient detail the copyrighted work claimed to have been infringed and including at least one search term under which the material appears in Readlightnovel.com' search results.\r\n<\/p>\r\n<\/li>\r\n<li>\r\n<p>A statement that the complaining party has a good faith belief that use of the material in the manner complained of is not authorized by the copyright owner, its agent, or the law.<\/p>\r\n<\/li>\r\n<li>\r\n<p>A statement that the information in the notification is accurate, and under penalty of perjury, that the complaining party is authorized to act on behalf of the owner of an exclusive right that is allegedly infringed.<\/p>\r\n<\/li>\r\n<li>\r\n<p>Must be signed by the authorized person to act on behalf of the owner of an exclusive right that is allegedly being infringed.<\/p>\r\n<\/li>\r\n<\/ul>\r\n<p>Send the written infringement notice to the following address and an email notifcation to dmca@readlightnovel.com\r\n<\/p>\r\n<p>Note: Post mail is not accepted, send email instead. Don't send PDF or Scanned PDF, we filtered all attachments.\r\n<\/p>\r\n<p>Please allow 1-2 business days for an email response. Note that emailing your complaint to other parties such as our Internet Service Provider will not expedite your request and may result in a delayed response due the complaint not properly being filed.\r\n<\/p>"
+      },
+      {
+        "heading": "Website Access",
+        "text": "<p>Readlightnovel.com is in compliance with 17 U.S.C. \u00A7 512 and the Digital Millennium Copyright Act (\"DMCA\"). It is our policy to respond to any infringement notices and take appropriate actions under the Digital Millennium Copyright Act (\"DMCA\") and other applicable intellectual property laws.\r\n<\/p>\r\n<p>If your copyrighted material has been posted on Readlightnovel.com or if links to your copyrighted material are returned through our search engine and you want this material removed, you must provide a written communication that details the information listed in the following section. Please be aware that you will be liable for damages (including costs and attorneys' fees) if you misrepresent information listed on our site that is infringing on your copyrights. We suggest that you first contact an attorney for legal assistance on this matter.\r\n<\/p>\r\n<p>The following elements must be included in your copyright infringement claim:\r\n<\/p>\r\n<ul>\r\n<li>\r\n<p>Provide evidence of the authorized person to act on behalf of the owner of an exclusive right that is allegedly infringed.<\/p>\r\n<\/li>\r\n<li>\r\n<p>Provide sufficient contact information so that we may contact you. You must also include a valid email address.<\/p>\r\n<\/li>\r\n<li>\r\n<p>You must identify in sufficient detail the copyrighted work claimed to have been infringed and including at least one search term under which the material appears in Readlightnovel.com' search results.\r\n<\/p>\r\n<\/li>\r\n<li>\r\n<p>A statement that the complaining party has a good faith belief that use of the material in the manner complained of is not authorized by the copyright owner, its agent, or the law.<\/p>\r\n<\/li>\r\n<li>\r\n<p>A statement that the information in the notification is accurate, and under penalty of perjury, that the complaining party is authorized to act on behalf of the owner of an exclusive right that is allegedly infringed.<\/p>\r\n<\/li>\r\n<li>\r\n<p>Must be signed by the authorized person to act on behalf of the owner of an exclusive right that is allegedly being infringed.<\/p>\r\n<\/li>\r\n<\/ul>\r\n<p>Send the written infringement notice to the following address and an email notifcation to dmca@readlightnovel.com\r\n<\/p>\r\n<p>Note: Post mail is not accepted, send email instead. Don't send PDF or Scanned PDF, we filtered all attachments.\r\n<\/p>\r\n<p>Please allow 1-2 business days for an email response. Note that emailing your complaint to other parties such as our Internet Service Provider will not expedite your request and may result in a delayed response due the complaint not properly being filed.\r\n<\/p>"
+      },
+      {
+        "heading": "User Submissions",
+        "text": "<p>Readlightnovel.com is in compliance with 17 U.S.C. \u00A7 512 and the Digital Millennium Copyright Act (\"DMCA\"). It is our policy to respond to any infringement notices and take appropriate actions under the Digital Millennium Copyright Act (\"DMCA\") and other applicable intellectual property laws.\r\n<\/p>\r\n<p>If your copyrighted material has been posted on Readlightnovel.com or if links to your copyrighted material are returned through our search engine and you want this material removed, you must provide a written communication that details the information listed in the following section. Please be aware that you will be liable for damages (including costs and attorneys' fees) if you misrepresent information listed on our site that is infringing on your copyrights. We suggest that you first contact an attorney for legal assistance on this matter.\r\n<\/p>\r\n<p>The following elements must be included in your copyright infringement claim:\r\n<\/p>\r\n<ul>\r\n<li>\r\n<p>Provide evidence of the authorized person to act on behalf of the owner of an exclusive right that is allegedly infringed.<\/p>\r\n<\/li>\r\n<li>\r\n<p>Provide sufficient contact information so that we may contact you. You must also include a valid email address.<\/p>\r\n<\/li>\r\n<li>\r\n<p>You must identify in sufficient detail the copyrighted work claimed to have been infringed and including at least one search term under which the material appears in Readlightnovel.com' search results.\r\n<\/p>\r\n<\/li>\r\n<li>\r\n<p>A statement that the complaining party has a good faith belief that use of the material in the manner complained of is not authorized by the copyright owner, its agent, or the law.<\/p>\r\n<\/li>\r\n<li>\r\n<p>A statement that the information in the notification is accurate, and under penalty of perjury, that the complaining party is authorized to act on behalf of the owner of an exclusive right that is allegedly infringed.<\/p>\r\n<\/li>\r\n<li>\r\n<p>Must be signed by the authorized person to act on behalf of the owner of an exclusive right that is allegedly being infringed.<\/p>\r\n<\/li>\r\n<\/ul>\r\n<p>Send the written infringement notice to the following address and an email notifcation to dmca@readlightnovel.com\r\n<\/p>\r\n<p>Note: Post mail is not accepted, send email instead. Don't send PDF or Scanned PDF, we filtered all attachments.\r\n<\/p>\r\n<p>Please allow 1-2 business days for an email response. Note that emailing your complaint to other parties such as our Internet Service Provider will not expedite your request and may result in a delayed response due the complaint not properly being filed.\r\n<\/p>"
+      }
+    ]
+  },
+  "termsOfService": {
+    "pageHeading": "Terms of service",
+    "pageText": "<p>Readlightnovel.com is in compliance with 17 U.S.C. \u00A7 512 and the Digital Millennium Copyright Act (\"DMCA\"). It is our policy to respond to any infringement notices and take appropriate actions under the Digital Millennium Copyright Act (\"DMCA\") and other applicable intellectual property laws.\r\n<\/p>\r\n<p>If your copyrighted material has been posted on Readlightnovel.com or if links to your copyrighted material are returned through our search engine and you want this material removed, you must provide a written communication that details the information listed in the following section. Please be aware that you will be liable for damages (including costs and attorneys' fees) if you misrepresent information listed on our site that is infringing on your copyrights. We suggest that you first contact an attorney for legal assistance on this matter.\r\n<\/p>\r\n<p>The following elements must be included in your copyright infringement claim:\r\n<\/p>\r\n<ul>\r\n<li>\r\n<p>Provide evidence of the authorized person to act on behalf of the owner of an exclusive right that is allegedly infringed.<\/p>\r\n<\/li>\r\n<li>\r\n<p>Provide sufficient contact information so that we may contact you. You must also include a valid email address.<\/p>\r\n<\/li>\r\n<li>\r\n<p>You must identify in sufficient detail the copyrighted work claimed to have been infringed and including at least one search term under which the material appears in Readlightnovel.com' search results.\r\n<\/p>\r\n<\/li>\r\n<li>\r\n<p>A statement that the complaining party has a good faith belief that use of the material in the manner complained of is not authorized by the copyright owner, its agent, or the law.<\/p>\r\n<\/li>\r\n<li>\r\n<p>A statement that the information in the notification is accurate, and under penalty of perjury, that the complaining party is authorized to act on behalf of the owner of an exclusive right that is allegedly infringed.<\/p>\r\n<\/li>\r\n<li>\r\n<p>Must be signed by the authorized person to act on behalf of the owner of an exclusive right that is allegedly being infringed.<\/p>\r\n<\/li>\r\n<\/ul>\r\n<p>Send the written infringement notice to the following address and an email notifcation to dmca@readlightnovel.com\r\n<\/p>\r\n<p>Note: Post mail is not accepted, send email instead. Don't send PDF or Scanned PDF, we filtered all attachments.\r\n<\/p>\r\n<p>Please allow 1-2 business days for an email response. Note that emailing your complaint to other parties such as our Internet Service Provider will not expedite your request and may result in a delayed response due the complaint not properly being filed.\r\n<\/p>",
+    "contents": [
+      {
+        "heading": "1. Your Acceptance",
+        "text": "<p>Readlightnovel.com is in compliance with 17 U.S.C. \u00A7 512 and the Digital Millennium Copyright Act (\"DMCA\"). It is our policy to respond to any infringement notices and take appropriate actions under the Digital Millennium Copyright Act (\"DMCA\") and other applicable intellectual property laws.\r\n<\/p>\r\n<p>If your copyrighted material has been posted on Readlightnovel.com or if links to your copyrighted material are returned through our search engine and you want this material removed, you must provide a written communication that details the information listed in the following section. Please be aware that you will be liable for damages (including costs and attorneys' fees) if you misrepresent information listed on our site that is infringing on your copyrights. We suggest that you first contact an attorney for legal assistance on this matter.\r\n<\/p>\r\n<p>The following elements must be included in your copyright infringement claim:\r\n<\/p>\r\n<ul>\r\n<li>\r\n<p>Provide evidence of the authorized person to act on behalf of the owner of an exclusive right that is allegedly infringed.<\/p>\r\n<\/li>\r\n<li>\r\n<p>Provide sufficient contact information so that we may contact you. You must also include a valid email address.<\/p>\r\n<\/li>\r\n<li>\r\n<p>You must identify in sufficient detail the copyrighted work claimed to have been infringed and including at least one search term under which the material appears in Readlightnovel.com' search results.\r\n<\/p>\r\n<\/li>\r\n<li>\r\n<p>A statement that the complaining party has a good faith belief that use of the material in the manner complained of is not authorized by the copyright owner, its agent, or the law.<\/p>\r\n<\/li>\r\n<li>\r\n<p>A statement that the information in the notification is accurate, and under penalty of perjury, that the complaining party is authorized to act on behalf of the owner of an exclusive right that is allegedly infringed.<\/p>\r\n<\/li>\r\n<li>\r\n<p>Must be signed by the authorized person to act on behalf of the owner of an exclusive right that is allegedly being infringed.<\/p>\r\n<\/li>\r\n<\/ul>\r\n<p>Send the written infringement notice to the following address and an email notifcation to dmca@readlightnovel.com\r\n<\/p>\r\n<p>Note: Post mail is not accepted, send email instead. Don't send PDF or Scanned PDF, we filtered all attachments.\r\n<\/p>\r\n<p>Please allow 1-2 business days for an email response. Note that emailing your complaint to other parties such as our Internet Service Provider will not expedite your request and may result in a delayed response due the complaint not properly being filed.\r\n<\/p>"
+      },
+      {
+        "heading": "2. Readlightnovel Website",
+        "text": "<p>Readlightnovel.com is in compliance with 17 U.S.C. \u00A7 512 and the Digital Millennium Copyright Act (\"DMCA\"). It is our policy to respond to any infringement notices and take appropriate actions under the Digital Millennium Copyright Act (\"DMCA\") and other applicable intellectual property laws.\r\n<\/p>\r\n<p>If your copyrighted material has been posted on Readlightnovel.com or if links to your copyrighted material are returned through our search engine and you want this material removed, you must provide a written communication that details the information listed in the following section. Please be aware that you will be liable for damages (including costs and attorneys' fees) if you misrepresent information listed on our site that is infringing on your copyrights. We suggest that you first contact an attorney for legal assistance on this matter.\r\n<\/p>\r\n<p>The following elements must be included in your copyright infringement claim:\r\n<\/p>\r\n<ul>\r\n<li>\r\n<p>Provide evidence of the authorized person to act on behalf of the owner of an exclusive right that is allegedly infringed.<\/p>\r\n<\/li>\r\n<li>\r\n<p>Provide sufficient contact information so that we may contact you. You must also include a valid email address.<\/p>\r\n<\/li>\r\n<li>\r\n<p>You must identify in sufficient detail the copyrighted work claimed to have been infringed and including at least one search term under which the material appears in Readlightnovel.com' search results.\r\n<\/p>\r\n<\/li>\r\n<li>\r\n<p>A statement that the complaining party has a good faith belief that use of the material in the manner complained of is not authorized by the copyright owner, its agent, or the law.<\/p>\r\n<\/li>\r\n<li>\r\n<p>A statement that the information in the notification is accurate, and under penalty of perjury, that the complaining party is authorized to act on behalf of the owner of an exclusive right that is allegedly infringed.<\/p>\r\n<\/li>\r\n<li>\r\n<p>Must be signed by the authorized person to act on behalf of the owner of an exclusive right that is allegedly being infringed.<\/p>\r\n<\/li>\r\n<\/ul>\r\n<p>Send the written infringement notice to the following address and an email notifcation to dmca@readlightnovel.com\r\n<\/p>\r\n<p>Note: Post mail is not accepted, send email instead. Don't send PDF or Scanned PDF, we filtered all attachments.\r\n<\/p>\r\n<p>Please allow 1-2 business days for an email response. Note that emailing your complaint to other parties such as our Internet Service Provider will not expedite your request and may result in a delayed response due the complaint not properly being filed.\r\n<\/p>"
+      },
+      {
+        "heading": "3. Website Access",
+        "text": "<p>Readlightnovel.com is in compliance with 17 U.S.C. \u00A7 512 and the Digital Millennium Copyright Act (\"DMCA\"). It is our policy to respond to any infringement notices and take appropriate actions under the Digital Millennium Copyright Act (\"DMCA\") and other applicable intellectual property laws.\r\n<\/p>\r\n<p>If your copyrighted material has been posted on Readlightnovel.com or if links to your copyrighted material are returned through our search engine and you want this material removed, you must provide a written communication that details the information listed in the following section. Please be aware that you will be liable for damages (including costs and attorneys' fees) if you misrepresent information listed on our site that is infringing on your copyrights. We suggest that you first contact an attorney for legal assistance on this matter.\r\n<\/p>\r\n<p>The following elements must be included in your copyright infringement claim:\r\n<\/p>\r\n<ul>\r\n<li>\r\n<p>Provide evidence of the authorized person to act on behalf of the owner of an exclusive right that is allegedly infringed.<\/p>\r\n<\/li>\r\n<li>\r\n<p>Provide sufficient contact information so that we may contact you. You must also include a valid email address.<\/p>\r\n<\/li>\r\n<li>\r\n<p>You must identify in sufficient detail the copyrighted work claimed to have been infringed and including at least one search term under which the material appears in Readlightnovel.com' search results.\r\n<\/p>\r\n<\/li>\r\n<li>\r\n<p>A statement that the complaining party has a good faith belief that use of the material in the manner complained of is not authorized by the copyright owner, its agent, or the law.<\/p>\r\n<\/li>\r\n<li>\r\n<p>A statement that the information in the notification is accurate, and under penalty of perjury, that the complaining party is authorized to act on behalf of the owner of an exclusive right that is allegedly infringed.<\/p>\r\n<\/li>\r\n<li>\r\n<p>Must be signed by the authorized person to act on behalf of the owner of an exclusive right that is allegedly being infringed.<\/p>\r\n<\/li>\r\n<\/ul>\r\n<p>Send the written infringement notice to the following address and an email notifcation to dmca@readlightnovel.com\r\n<\/p>\r\n<p>Note: Post mail is not accepted, send email instead. Don't send PDF or Scanned PDF, we filtered all attachments.\r\n<\/p>\r\n<p>Please allow 1-2 business days for an email response. Note that emailing your complaint to other parties such as our Internet Service Provider will not expedite your request and may result in a delayed response due the complaint not properly being filed.\r\n<\/p>"
+      },
+      {
+        "heading": "4. User Submissions",
+        "text": "<p>Readlightnovel.com is in compliance with 17 U.S.C. \u00A7 512 and the Digital Millennium Copyright Act (\"DMCA\"). It is our policy to respond to any infringement notices and take appropriate actions under the Digital Millennium Copyright Act (\"DMCA\") and other applicable intellectual property laws.\r\n<\/p>\r\n<p>If your copyrighted material has been posted on Readlightnovel.com or if links to your copyrighted material are returned through our search engine and you want this material removed, you must provide a written communication that details the information listed in the following section. Please be aware that you will be liable for damages (including costs and attorneys' fees) if you misrepresent information listed on our site that is infringing on your copyrights. We suggest that you first contact an attorney for legal assistance on this matter.\r\n<\/p>\r\n<p>The following elements must be included in your copyright infringement claim:\r\n<\/p>\r\n<ul>\r\n<li>\r\n<p>Provide evidence of the authorized person to act on behalf of the owner of an exclusive right that is allegedly infringed.<\/p>\r\n<\/li>\r\n<li>\r\n<p>Provide sufficient contact information so that we may contact you. You must also include a valid email address.<\/p>\r\n<\/li>\r\n<li>\r\n<p>You must identify in sufficient detail the copyrighted work claimed to have been infringed and including at least one search term under which the material appears in Readlightnovel.com' search results.\r\n<\/p>\r\n<\/li>\r\n<li>\r\n<p>A statement that the complaining party has a good faith belief that use of the material in the manner complained of is not authorized by the copyright owner, its agent, or the law.<\/p>\r\n<\/li>\r\n<li>\r\n<p>A statement that the information in the notification is accurate, and under penalty of perjury, that the complaining party is authorized to act on behalf of the owner of an exclusive right that is allegedly infringed.<\/p>\r\n<\/li>\r\n<li>\r\n<p>Must be signed by the authorized person to act on behalf of the owner of an exclusive right that is allegedly being infringed.<\/p>\r\n<\/li>\r\n<\/ul>\r\n<p>Send the written infringement notice to the following address and an email notifcation to dmca@readlightnovel.com\r\n<\/p>\r\n<p>Note: Post mail is not accepted, send email instead. Don't send PDF or Scanned PDF, we filtered all attachments.\r\n<\/p>\r\n<p>Please allow 1-2 business days for an email response. Note that emailing your complaint to other parties such as our Internet Service Provider will not expedite your request and may result in a delayed response due the complaint not properly being filed.\r\n<\/p>"
+      }
+    ]
+  },
+  "pageNotFound": {
+    "headingText": "oops",
+    "subtitleText": "404 - The page can't be found"
+  },
+  "footer": {
+    "contact": {
+      "headingText": "Contact",
+      "subtitle": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eius neque quibusdam tempore saepe pariatur voluptates, ut eligendi! Autem doloribus deleniti harum neque, quidem ea commodi voluptates, cupiditate quia explicabo hic ullam? Dolor impedit facilis modi veritatis dolore deleniti cupiditate rem iure id ex temporibus provident expedita, tempore enim nisi animi aperiam aliquam voluptatem suscipit!"
+    },
+    "heading": {
+      "genre": "genre",
+      "status": "status",
+      "novelType": "novel type"
+    }
+  }
+}
