@@ -9,47 +9,130 @@ const reset = css`
     overflow: hidden;
   }
 
-  body, html {
+  body,
+  html {
     height: 100%;
   }
 
-  html, body, div, span, applet, object, iframe,
-  h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-  a, abbr, acronym, address, big, cite, code,
-  del, dfn, em, img, ins, kbd, q, s, samp,
-  small, strike, strong, sub, sup, tt, var,
-  b, u, i, center, dl, dt, dd, ol, ul, li,
-  fieldset, form, label, legend, table, 
-  caption, tbody, tfoot, thead, tr, th, td,
-  article, aside, canvas, details, embed,
-  figure, figcaption, footer, header, hgroup,
-  main, menu, nav, output, ruby, section, summary,
-  time, mark, audio, video, textarea, input {
+  html,
+  body,
+  div,
+  span,
+  applet,
+  object,
+  iframe,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  blockquote,
+  pre,
+  a,
+  abbr,
+  acronym,
+  address,
+  big,
+  cite,
+  code,
+  del,
+  dfn,
+  em,
+  img,
+  ins,
+  kbd,
+  q,
+  s,
+  samp,
+  small,
+  strike,
+  strong,
+  sub,
+  sup,
+  tt,
+  var,
+  b,
+  u,
+  i,
+  center,
+  dl,
+  dt,
+  dd,
+  ol,
+  ul,
+  li,
+  fieldset,
+  form,
+  label,
+  legend,
+  table,
+  caption,
+  tbody,
+  tfoot,
+  thead,
+  tr,
+  th,
+  td,
+  article,
+  aside,
+  canvas,
+  details,
+  embed,
+  figure,
+  figcaption,
+  footer,
+  header,
+  hgroup,
+  main,
+  menu,
+  nav,
+  output,
+  ruby,
+  section,
+  summary,
+  time,
+  mark,
+  audio,
+  video,
+  textarea,
+  input {
     margin: 0;
     padding: 0;
     border: 0;
     font-size: 100%;
     font: inherit;
     vertical-align: baseline;
-    font-family: "Nunito Sans", Sans-Serif;
+    font-family: 'Nunito Sans', Sans-Serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 
     &::selection {
-      color: #EEE;
+      color: #eee;
       background: #7d7d7d;
     }
   }
 
-  article, aside, details, figcaption, figure,
-  footer, header, hgroup, main, menu, nav, section {
+  article,
+  aside,
+  details,
+  figcaption,
+  figure,
+  footer,
+  header,
+  hgroup,
+  main,
+  menu,
+  nav,
+  section {
     display: block;
   }
 
   *[hidden] {
-      display: none;
+    display: none;
   }
-  
+
   img {
     display: block;
   }
@@ -59,18 +142,22 @@ const reset = css`
     flex-direction: column;
     align-items: center;
   }
-  
-  ol, ul {
+
+  ol,
+  ul {
     list-style: none;
-    font-family: "Roboto", Sans-Serif;
+    font-family: 'Roboto', Sans-Serif;
   }
 
-  blockquote, q {
+  blockquote,
+  q {
     quotes: none;
   }
 
-  blockquote:before, blockquote:after,
-  q:before, q:after {
+  blockquote:before,
+  blockquote:after,
+  q:before,
+  q:after {
     content: '';
   }
 
@@ -90,12 +177,13 @@ const reset = css`
   }
 
   button {
-    font-family: "Roboto", Sans-Serif;
+    font-family: 'Roboto', Sans-Serif;
     outline: none;
     cursor: pointer;
   }
 
-  input, textarea {
+  input,
+  textarea {
     background: transparent;
     outline: none;
   }

@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import purifyHTML from '../../../utilities/purifyHtml';
+import purifyHTML from '../../../utilities/purify-html';
 import * as S from './style';
 
 type Props = {

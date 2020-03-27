@@ -1,13 +1,13 @@
-export const isMobile = (): boolean => {
-    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+export function isMobile() {
+  const userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
-    if (
-        /windows phone/i.test(userAgent) ||
-        /android/i.test(userAgent) ||
-        (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream)
-    ) {
-        return true;
-    }
+  if (
+    /windows phone/i.test(userAgent) ||
+    /android/i.test(userAgent) ||
+    (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream)
+  ) {
+    return true;
+  }
 
-    return false;
-};
+  return false;
+}
