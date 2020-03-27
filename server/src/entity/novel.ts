@@ -1,8 +1,9 @@
 import { Column, Entity } from 'typeorm';
-import { Field, ID, InputType, ObjectType } from 'type-graphql';
+import { Field, ID, InputType, ObjectType, FieldResolver, Root } from 'type-graphql';
 import { IsIn, IsOptional, Length } from 'class-validator';
 
 import { BaseEntity } from './entity';
+import { slugify } from '../utilities/string/slugify';
 
 /**
  * Valid novel types, checked in validation
@@ -10,7 +11,17 @@ import { BaseEntity } from './entity';
  * Will be moved to a database
  * to support expansion
  */
-const origins = ['Web', 'Light', 'Chinese', 'Filipino', 'Korean', 'Thai', 'Malaysian', 'Indonesia', 'Vietnamese']
+const origins = [
+  'Web',
+  'Light',
+  'Chinese',
+  'Filipino',
+  'Korean',
+  'Thai',
+  'Malaysian',
+  'Indonesia',
+  'Vietnamese'
+];
 export const novelTypes = origins.map(origin => `${origin} Novel`);
 
 /**
@@ -38,6 +49,11 @@ export class Novel extends BaseEntity implements Partial<Novel> {
   @Field({ nullable: true })
   @Column({ type: 'text' })
   title: string;
+
+  @Field(type => String)
+  get slug() {
+    return slugify(this.title);
+  }
 
   @Field({ nullable: true })
   @Column({ type: 'text', nullable: true })

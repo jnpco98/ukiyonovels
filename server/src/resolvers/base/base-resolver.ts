@@ -40,7 +40,7 @@ export function createBaseResolver<T extends BaseEntity, V extends any, U extend
   } = params;
 
   /**
-   * Creates a an entity 
+   * Creates a an entity
    * connection and edge definition
    */
   const ConnectionType = createConnectionDefinition(resource, EntityType);
@@ -54,11 +54,11 @@ export function createBaseResolver<T extends BaseEntity, V extends any, U extend
 
   /**
    * Gets an entity using an id
-   * 
+   *
    * Resolver that inherits this, can provide the following overrides
    * - Authorization - roles that have access to this resource
    * - Middleware - modifies the response before and after returning it to the client
-   * - ContextHooks - acts like a middleware, 
+   * - ContextHooks - acts like a middleware,
    * but is more involved, in that it lets you access the response in the middle of the method
    */
   @Resolver({ isAbstract: true })
@@ -80,11 +80,11 @@ export function createBaseResolver<T extends BaseEntity, V extends any, U extend
   /**
    * Gets an entity connection
    * A query param may / not be provided
-   * 
+   *
    * Resolver that inherits this, can provide the following overrides
    * - Authorization - roles that have access to this resource
    * - Middleware - modifies the response before and after returning it to the client
-   * - ContextHooks - acts like a middleware, 
+   * - ContextHooks - acts like a middleware,
    * but is more involved, in that it lets you access the response in the middle of the method
    */
   @Resolver({ isAbstract: true })
@@ -109,11 +109,11 @@ export function createBaseResolver<T extends BaseEntity, V extends any, U extend
 
   /**
    * Creates an entity using the arguments
-   * 
+   *
    * Resolver that inherits this, can provide the following overrides
    * - Authorization - roles that have access to this resource
    * - Middleware - modifies the response before and after returning it to the client
-   * - ContextHooks - acts like a middleware, 
+   * - ContextHooks - acts like a middleware,
    * but is more involved, in that it lets you access the response in the middle of the method
    */
   @Resolver({ isAbstract: true })
@@ -137,11 +137,11 @@ export function createBaseResolver<T extends BaseEntity, V extends any, U extend
 
   /**
    * Updates an entity using an id and a set of arguments
-   * 
+   *
    * Resolver that inherits this, can provide the following overrides
    * - Authorization - roles that have access to this resource
    * - Middleware - modifies the response before and after returning it to the client
-   * - ContextHooks - acts like a middleware, 
+   * - ContextHooks - acts like a middleware,
    * but is more involved, in that it lets you access the response in the middle of the method
    */
   @Resolver({ isAbstract: true })
@@ -178,7 +178,7 @@ export function createBaseResolver<T extends BaseEntity, V extends any, U extend
    * Resolver that inherits this, can provide the following overrides
    * - Authorization - roles that have access to this resource
    * - Middleware - modifies the response before and after returning it to the client
-   * - ContextHooks - acts like a middleware, 
+   * - ContextHooks - acts like a middleware,
    * but is more involved, in that it lets you access the response in the middle of the method
    */
   @Resolver({ isAbstract: true })
