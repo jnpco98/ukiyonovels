@@ -7,7 +7,7 @@ import {
   PrimaryColumn,
   Generated
 } from 'typeorm';
-import { ObjectType, Field, ID } from 'type-graphql';
+import { ObjectType, Field, ID, Int } from 'type-graphql';
 import nanoid from 'nanoid';
 
 /**
@@ -40,9 +40,11 @@ export abstract class BaseEntity extends ActiveRecordBaseEntity {
    * Cannot be modified after it's been added
    * to the database
    */
+  @Field()
   @CreateDateColumn({ name: 'created_at', type: 'timestamp', update: false })
   createdAt: Date;
 
+  @Field()
   @UpdateDateColumn({ name: 'last_modified', type: 'timestamp' })
   lastModified: Date;
 

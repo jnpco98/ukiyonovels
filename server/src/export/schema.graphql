@@ -1,11 +1,15 @@
 type AuthTokens {
   id: ID!
+  createdAt: DateTime!
+  lastModified: DateTime!
   accessToken: String!
   refreshToken: String!
 }
 
 type Book {
   id: ID!
+  createdAt: DateTime!
+  lastModified: DateTime!
   title: String!
   description: String
   isbn: String
@@ -64,6 +68,8 @@ input bookWhere {
 
 type Chapter {
   id: ID!
+  createdAt: DateTime!
+  lastModified: DateTime!
   title: String!
   content: String
   novelId: ID!
@@ -121,6 +127,8 @@ input chapterWhere {
 
 type Comment {
   id: ID!
+  createdAt: DateTime!
+  lastModified: DateTime!
   content: String!
   chapterId: ID!
   novel: Chapter!
@@ -156,6 +164,11 @@ input CreateUserInput {
   password: String!
 }
 
+"""
+The javascript `Date` as string. Type represents date and time as the ISO Date string.
+"""
+scalar DateTime
+
 type Mutation {
   reviewUpdate(data: ReviewInput!, id: ID!): Review
   reviewDelete(id: ID!): Review
@@ -179,10 +192,16 @@ type Mutation {
 
 type Novel {
   id: ID!
+  createdAt: DateTime!
+  lastModified: DateTime!
   title: String
+  slug: String!
   description: String
 
-  """Types: [Web Novel, Light Novel, Chinese Novel, Korean Novel]"""
+  """
+  Types: [Web Novel, Light Novel, Chinese Novel, Filipino Novel, Korean Novel,
+  Thai Novel, Malaysian Novel, Indonesia Novel, Vietnamese Novel]
+  """
   type: String
   tags: String
   genres: String
@@ -191,6 +210,7 @@ type Novel {
   artists: String
   relatedNovels: String
   associatedNames: String
+  alternativeNames: String
   mediaGallery: String
   coverImage: String
 
@@ -201,7 +221,7 @@ type Novel {
   views: Float
   year: Float
 
-  """Types: [Complete, Ongoing, Hiatus]"""
+  """Types: [Completed, Ongoing, Hiatus]"""
   status: String
   chapters(
     where: chapterWhere
@@ -280,9 +300,13 @@ type novelEdge {
 
 input NovelInput {
   title: String
+  slug: String = ""
   description: String
 
-  """Types: [Web Novel, Light Novel, Chinese Novel, Korean Novel]"""
+  """
+  Types: [Web Novel, Light Novel, Chinese Novel, Filipino Novel, Korean Novel,
+  Thai Novel, Malaysian Novel, Indonesia Novel, Vietnamese Novel]
+  """
   type: String
   tags: String
   genres: String
@@ -291,6 +315,7 @@ input NovelInput {
   artists: String
   relatedNovels: String
   associatedNames: String
+  alternativeNames: String
   mediaGallery: String
   coverImage: String
 
@@ -301,7 +326,7 @@ input NovelInput {
   views: Float
   year: Float
 
-  """Types: [Complete, Ongoing, Hiatus]"""
+  """Types: [Completed, Ongoing, Hiatus]"""
   status: String
 }
 
@@ -316,6 +341,9 @@ input NovelQueryableInput {
   artists: StringWhere
   relatedNovels: StringWhere
   associatedNames: StringWhere
+  alternativeNames: StringWhere
+  status: StringWhere
+  year: NumberWhere
   likes: NumberWhere
   views: NumberWhere
 }
@@ -334,12 +362,6 @@ input NumberWhere {
   lte: Float
   gt: Float
   gte: Float
-  contains: Float
-  notContains: Float
-  startsWith: Float
-  notStartsWith: Float
-  endsWith: Float
-  notEndsWith: Float
 }
 
 type PageInfo {
@@ -466,6 +488,8 @@ type Query {
 
 type Review {
   id: ID!
+  createdAt: DateTime!
+  lastModified: DateTime!
   content: String
 
   """Rating: [0 - 1]"""
@@ -519,9 +543,19 @@ input StringWhere {
   notEndsWith: String
 }
 
+type tokenConnection {
+  pageInfo: PageInfo!
+  edges: [tokenEdge!]!
+}
+
 input TokenCreateInput {
   email: String!
   password: String!
+}
+
+type tokenEdge {
+  node: AuthTokens!
+  cursor: String!
 }
 
 input TokenRefreshInput {
@@ -532,6 +566,8 @@ input TokenRefreshInput {
 
 type User {
   id: ID!
+  createdAt: DateTime!
+  lastModified: DateTime!
   username: String!
   email: String!
 }
