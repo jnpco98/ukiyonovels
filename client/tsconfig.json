@@ -27,7 +27,7 @@
     "isolatedModules": true
   },
   "include": [
-    "./src/**/*"
+    "./src/**/*", "config-overrides.js"
   ],
   "exclude": [
     "node_modules",

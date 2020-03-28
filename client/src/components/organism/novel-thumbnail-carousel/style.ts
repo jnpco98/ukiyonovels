@@ -2,12 +2,10 @@ import styled from 'styled-components/macro';
 import SlickArrow from '../../atom/slick-arrow';
 import Slick from 'react-slick';
 import * as M from '../../../settings/media';
-import InfoThumbnail from '../../molecule/info-thumbnail';
-import { math, margin } from 'polished';
-import { InfoThumbnailGenre, InfoThumbnailHeading, InfoThumbnailSubtitle, InfoThumbnailReadIcon } from '../../molecule/info-thumbnail/style';
-import { cardDimRatio } from '../../atom/thumbnail/style';
+import NovelThumbnail from '../../molecule/novel-thumbnail';
+import { margin } from 'polished';
 
-export const InfoThumbnailCarouselContainer = styled.div`
+export const NovelThumbnailCarouselContainer = styled.div`
   width: 100%;
   position: relative;
   margin: 0.65rem 0;
@@ -29,7 +27,7 @@ export const InfoThumbnailCarouselContainer = styled.div`
   }
 `;
 
-export const InfoThumbnailCarouselItem = styled(InfoThumbnail)`
+export const NovelThumbnailCarouselItem = styled(NovelThumbnail)`
   margin-right: 0.65rem;
 
   ${M.MEDIA_XXSMALL} {
@@ -45,7 +43,7 @@ export const InfoThumbnailCarouselItem = styled(InfoThumbnail)`
   }
 `;
 
-export const InfoThumbnailCarouselSlider = styled(Slick)`  
+export const NovelThumbnailCarouselSlider = styled(Slick)`  
   .slick-dots {
     left: 0;
     bottom: -2rem;

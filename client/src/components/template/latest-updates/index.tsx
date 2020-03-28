@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import InfoCardList from '../../organism/info-card-list';
+import NovelCardList from '../../organism/novel-card-list';
 import * as S from './style';
 
 const infoCardContent = [

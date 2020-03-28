@@ -1,5 +1,5 @@
 import { createAsyncAction, ActionType } from "typesafe-actions";
-import Novel, { NovelQuery } from "../models/entities/Novel";
+import Novel, { NovelQuery } from "../models/entities/novel";
 import { BaseQuery } from "../models/entities/Entity";
 
 export const fetchNovelAsync = createAsyncAction(

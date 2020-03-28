@@ -2,7 +2,7 @@ import styled from 'styled-components/macro';
 import * as M from '../../../settings/media';
 import SidePanel from '../../organism/side-panel';
 import { gutter, GUTTER_LEFT, GUTTER_RIGHT, GUTTER_BOTTOM } from '../../../utilities/mixins';
-import InfoThumbnailCarousel from '../../organism/info-thumbnail-carousel';
+import NovelThumbnailCarousel from '../../organism/novel-thumbnail-carousel';
 import ImageCarousel from '../../organism/image-carousel';
 import { ImageCarouselSliderItem, ImageCarouselContent } from '../../organism/image-carousel/style';
 
@@ -30,8 +30,7 @@ export const HomeBanner = styled(ImageCarousel)`
     }
 
     ${M.MEDIA_LARGE} {
-      min-height: 80vh;
-    }
+      min-height: 80vh; 
   }
 
   ${ImageCarouselContent} {
@@ -79,7 +78,7 @@ export const HomeSidePanel = styled(SidePanel)`
   }
 `;
 
-export const HomeInfoThumbnailCarousel = styled(InfoThumbnailCarousel)`
+export const HomeNovelThumbnailCarousel = styled(NovelThumbnailCarousel)`
   margin-bottom: 2rem;
   transition: all 0.5s ease;
 `;

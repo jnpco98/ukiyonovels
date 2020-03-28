@@ -6,7 +6,5 @@ export interface BaseQuery {
 }
 
 export default interface Entity {
-    id: string;
-    createdAt: Date;
-    lastModified: Date;
+    lastModified: number;
 }

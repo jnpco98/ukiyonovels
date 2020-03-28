@@ -2,7 +2,7 @@ import React, { ReactElement, useRef } from 'react';
 import * as S from './style';
 import DynamicHTML from '../../molecule/dynamic-html';
 import { contact } from '../../../settings/config/settings.json';
-import { jsonFormData } from '../../../utilities/formdata';
+import { jsonFormData } from '../../../utilities/form-data';
 import { AnyStyledComponent } from 'styled-components';
 
 const Contact: React.FC = (): ReactElement => {

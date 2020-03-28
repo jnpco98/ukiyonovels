@@ -1,5 +1,5 @@
 import { put, call, takeLatest } from 'redux-saga/effects';
-import Novel from "../models/entities/Novel";
+import Novel from "../models/entities/novel";
 import axios from 'axios';
 import queryString from 'query-string';
 import { fetchNovelAsync, fetchNovelsPaginatedAsync, searchNovelsAsync, addNovelAsync, updateNovelAsync, deleteNovelAsync } from './action';

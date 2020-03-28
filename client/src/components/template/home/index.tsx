@@ -1,44 +1,64 @@
-import React, { ReactElement, useEffect, useState } from 'react';
-import InfoCardList from '../../organism/info-card-list';
-import { homepage } from '../../../settings/config/settings.json';
+import React from 'react';
+
+import { graphql } from 'babel-plugin-relay/macro';
+import { useFragment } from 'relay-hooks';
+
+import { home_root$key } from '../../../__generated__/home_root.graphql';
+
+import NovelCardList from '../../organism/novel-card-list';
 import * as S from './style';
-import { useSelector } from '../../../store';
-import { useDispatch } from 'react-redux';
-import { searchNovelsAsync } from '../../../store/novel/action';
-import Novel from '../../../store/models/entities/Novel';
-import Loader, { LoaderType } from '../../atom/loaders';
 
-const Home: React.FC = (): ReactElement => {
-    const { data, error, loading } = useSelector(state => state.novels);
-    const dispatch = useDispatch();
-    
-    const featuredNovels: Novel[] = (Object.values(data) as Novel[]).sort((a, b) => new Date(b.lastModified).getTime() - new Date(a.lastModified).getTime());
+import { homepage } from '../../../settings/config/settings.json';
 
+const fragmentSpec = graphql`
+  fragment home_root on Query {
+    featured: novels(first: 20, sortKey: "lastModified")
+      @connection(key: "home_featured") {
+      ...novelThumbnailCarousel_novels
+      edges {
+        node {
+          slug
+        }
+      }
+    }
+    latestReleases: novels(first: 20, sortKey: "lastModified")
+      @connection(key: "home_latestReleases") {
+      ...novelCardList_novels
+      edges {
+        node {
+          slug
+        }
+      }
+    }
+  }
+`;
 
-    const [fetchPage, setFetchPage] = useState(1);
-
-    useEffect(() => {
-        dispatch(searchNovelsAsync.request({ query: { count: 25, page: fetchPage, order: 'asc', sort: 'title' } }));
-        dispatch(searchNovelsAsync.request({ query: { count: 25, page: fetchPage, order: 'desc', sort: 'lastmodified' } }));
-    }, [fetchPage]);
-
-    return (
-        <>
-            <S.HomeBanner contents={homepage.heroBanner} />
-            <S.HomeContainer>
-                <S.HomeWrapper>
-                    {
-                        loading || error ? <Loader type={LoaderType.Ring} /> :
-                        <>
-                            <S.HomeInfoThumbnailCarousel content={featuredNovels} headingText={homepage.featuredNovels.headingText} />
-                            <InfoCardList content={featuredNovels} headingText={homepage.latestRelease.headingText} buttonText={homepage.latestRelease.actionButtonText} />
-                        </>
-                    }
-                </S.HomeWrapper>
-                <S.HomeSidePanel/>
-            </S.HomeContainer>
-        </>
-    );
+type Props = {
+  root: home_root$key;
 };
+
+function Home(props: Props) {
+  const { featured, latestReleases } = useFragment(fragmentSpec, props.root);
+
+  return (
+    <>
+      <S.HomeBanner contents={homepage.heroBanner} />
+      <S.HomeContainer>
+        <S.HomeWrapper>
+          <S.HomeNovelThumbnailCarousel
+            headingText={homepage.featuredNovels.headingText}
+            novels={featured}
+          />
+          <NovelCardList
+            headingText={homepage.latestRelease.headingText}
+            buttonText={homepage.latestRelease.actionButtonText}
+            novels={latestReleases}
+          />
+        </S.HomeWrapper>
+        <S.HomeSidePanel />
+      </S.HomeContainer>
+    </>
+  );
+}
 
 export default Home;

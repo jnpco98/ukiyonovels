@@ -1,10 +1,9 @@
 import styled from 'styled-components/macro';
-import InfoCard from '../../molecule/info-card';
+import NovelCard from '../../molecule/novel-card';
 import * as M from '../../../settings/media';
 import { margin } from 'polished';
-import Text, { TextType } from '../../atom/text';
 
-export const CardListContainer = styled.div`
+export const NovelCardListContainer = styled.div`
   margin: 0.65rem 0;
 
   ${M.MEDIA_XSMALL} {
@@ -24,7 +23,7 @@ export const CardListContainer = styled.div`
   }
 `;
 
-export const CardListItem = styled(InfoCard)`
+export const NovelCardListItem = styled(NovelCard)`
   margin-bottom: 2rem;
   position: relative;
 

@@ -8,7 +8,7 @@ import { fadeInTextHover, center, CENTER_BOTH, FLEX_ALIGN_BOTH } from '../../../
 import { transparentize } from 'polished';
 import { cardDimRatio } from '../../atom/thumbnail/style';
 
-export const InfoThumbnailContainer = styled.div`
+export const NovelThumbnailContainer = styled.div`
   display: flex;
   position: relative;
   overflow: hidden;
@@ -48,7 +48,7 @@ export const InfoThumbnailContainer = styled.div`
   }
 `;
 
-export const InfoThumbnailContent = styled.div`
+export const NovelThumbnailContent = styled.div`
   ${center(FLEX_ALIGN_BOTH)};
   flex-direction: column;
   text-align: center;
@@ -62,14 +62,14 @@ export const InfoThumbnailContent = styled.div`
   transform: translateY(35%);
   transition: transform 0.3s ease;
   
-  ${InfoThumbnailContainer}:hover & {
+  ${NovelThumbnailContainer}:hover & {
     background: linear-gradient(to bottom, rgba(22, 22, 34, 0.5) 0%, rgba(22, 22, 34, 1) 100%);
     transform: translateY(0%);
     justify-content: space-around;
   }
 `;
 
-export const InfoThumbnailImage = styled.img`
+export const NovelThumbnailImage = styled.img`
   position: absolute;
   top: 0;
   left: 0;
@@ -78,17 +78,17 @@ export const InfoThumbnailImage = styled.img`
   cursor: pointer;
   object-fit: cover;
   
-  ${InfoThumbnailContainer}:hover & {
+  ${NovelThumbnailContainer}:hover & {
     filter: blur(1px);
   }
 `;
 
-export const InfoThumbnailHeading = styled(SubsectionTitle)`
+export const NovelThumbnailHeading = styled(SubsectionTitle)`
   color: ${({ theme, ...props }) => theme.colors.white};
   padding: 0 0.5rem;
   font-size: 0.5rem;
 
-  ${InfoThumbnailContainer}:hover & {
+  ${NovelThumbnailContainer}:hover & {
     margin: 0.2rem 0.3rem;
   }
 
@@ -98,7 +98,7 @@ export const InfoThumbnailHeading = styled(SubsectionTitle)`
   
   ${M.MEDIA_SMALL} {
     font-size: 0.7rem;
-    ${InfoThumbnailContainer}:hover & {
+    ${NovelThumbnailContainer}:hover & {
       margin-bottom: 0;
     }
   }
@@ -108,11 +108,11 @@ export const InfoThumbnailHeading = styled(SubsectionTitle)`
   }
 `;
 
-export const InfoThumbnailSubtitle = styled(Paragraph)`
+export const NovelThumbnailSubtitle = styled(Paragraph)`
 	color: ${({ theme, ...props }) => theme.colors.white};
-  ${fadeInTextHover(InfoThumbnailContainer)};
+  ${fadeInTextHover(NovelThumbnailContainer)};
 
-  ${InfoThumbnailContainer}:hover & {
+  ${NovelThumbnailContainer}:hover & {
     margin: 1rem 0.3rem;
     margin-bottom: 0;
   }
@@ -132,12 +132,12 @@ export const InfoThumbnailSubtitle = styled(Paragraph)`
   }
 `;
 
-export const InfoThumbnailGenre = styled(Span)`
+export const NovelThumbnailGenre = styled(Span)`
 	color: ${({ theme, ...props }) => theme.colors.white};
-  ${fadeInTextHover(InfoThumbnailContainer)};
+  ${fadeInTextHover(NovelThumbnailContainer)};
   font-size: 0.5rem;
 
-  ${InfoThumbnailContainer}:hover & {
+  ${NovelThumbnailContainer}:hover & {
     margin-bottom: 1rem;
   }
 
@@ -154,7 +154,7 @@ export const InfoThumbnailGenre = styled(Span)`
   }
 `;
 
-export const InfoThumbnailReadIconLink = styled.a`
+export const NovelThumbnailReadIconLink = styled.a`
   display: none;
   margin: 1rem 0.5rem 0.5rem;
   border-radius: 50%;
@@ -168,7 +168,7 @@ export const InfoThumbnailReadIconLink = styled.a`
     border-color: ${({ theme, ...props }) => theme.colors.white};
   }
 
-  ${InfoThumbnailContainer}:hover & {
+  ${NovelThumbnailContainer}:hover & {
     display: block;
   }
 
@@ -181,14 +181,14 @@ export const InfoThumbnailReadIconLink = styled.a`
   }
 `;
 
-export const InfoThumbnailIconWrapper = styled.div`
+export const NovelThumbnailIconWrapper = styled.div`
   ${center(CENTER_BOTH)};
   transform: translate(-50%, -46%);
 `;
 
-export const InfoThumbnailReadIcon = styled(FontAwesomeIcon).attrs({ icon: faBookOpen })`
+export const NovelThumbnailReadIcon = styled(FontAwesomeIcon).attrs({ icon: faBookOpen })`
   color: ${({ theme, ...props }) => theme.colors.white};
-  ${fadeInTextHover(InfoThumbnailContainer)};
+  ${fadeInTextHover(NovelThumbnailContainer)};
 
   font-size: 0.9rem;
 

@@ -1,5 +1,5 @@
 import { createReducer } from "typesafe-actions";
-import Novel from "../models/entities/Novel";
+import Novel from "../models/entities/novel";
 import { fetchNovelAsync, fetchNovelsPaginatedAsync, searchNovelsAsync, addNovelAsync, updateNovelAsync, deleteNovelAsync } from "./action";
 import { combineReducers } from "redux";
 
@@ -18,8 +18,8 @@ const errorReducer = createReducer(null)
     ], (state, action) => action.payload);
 
 const dataReducer = createReducer({})
-    .handleAction([fetchNovelAsync.success, addNovelAsync.success, updateNovelAsync.success, deleteNovelAsync.success], (state, action) => ({ ...state,  [action.payload.handle]: action.payload }))
-    .handleAction([fetchNovelsPaginatedAsync.success, searchNovelsAsync.success], (state, action) => ({ ...state, ...action.payload.reduce((acc, curr) => ((acc[curr.handle] = curr), acc), {} as { [key: string]: Novel }) }));
+    .handleAction([fetchNovelAsync.success, addNovelAsync.success, updateNovelAsync.success, deleteNovelAsync.success], (state, action) => ({ ...state,  [action.payload.slug]: action.payload }))
+    .handleAction([fetchNovelsPaginatedAsync.success, searchNovelsAsync.success], (state, action) => ({ ...state, ...action.payload.reduce((acc, curr) => ((acc[curr.slug] = curr), acc), {} as { [key: string]: Novel }) }));
 
 const novelsReducer = combineReducers({
     loading: loadingReducer,

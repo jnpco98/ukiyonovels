@@ -1,3 +1,3 @@
-import { NovelFilter } from "./Novel";
+import { NovelFilter } from "./novel";
 
 export default interface Genre extends NovelFilter {}

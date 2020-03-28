@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 import * as S from './style';
-import InfoCardList from '../../organism/info-card-list';
+import NovelCardList from '../../organism/novel-card-list';
 
 const infoCardContent = [
     {
