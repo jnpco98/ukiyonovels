@@ -42,7 +42,7 @@ const resolverConfig: BaseResolverParams<Book, BookQueryableInput, Book> = {
   MutationInputType: Book,
   authorization,
   contextHooks,
-  resource: 'book'
+  resource: 'Book'
 };
 
 /**

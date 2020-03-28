@@ -21,6 +21,7 @@ import { BaseResolverParams } from './types/resolver';
 import { Context } from '../../lib/resolver/context';
 import { createCursorConnection } from '../../lib/relay/create-cursor-connection';
 import { GraphQLObjectType } from 'graphql';
+import { capitalize } from '../../utilities/string/format';
 
 /**
  * Creates base resolvers for the ff.
@@ -43,13 +44,13 @@ export function createBaseResolver<T extends BaseEntity, V extends any, U extend
    * Creates a an entity
    * connection and edge definition
    */
-  const ConnectionType = createConnectionDefinition(resource, EntityType);
+  const ConnectionType = createConnectionDefinition(capitalize(resource), EntityType);
 
   /**
    * Dynamic filtering definition
    */
   const WhereInputType = QueryableInputType
-    ? createWhereInputType(resource, QueryableInputType)
+    ? createWhereInputType(capitalize(resource), QueryableInputType)
     : null;
 
   /**
