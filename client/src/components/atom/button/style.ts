@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components/macro';
 import { ButtonType } from './index';
 import { center, FLEX_ALIGN_MAIN } from '../../../utilities/mixins';
 import * as M from '../../../settings/media';
+import { Link } from 'react-router-dom';
 
 type ButtonProps = {
   buttonType?: ButtonType;
@@ -37,7 +38,7 @@ const Danger = css`
   }
 `;
 
-export const ButtonContainer = styled.a<ButtonProps>`
+export const ButtonContainer = styled(Link)<ButtonProps>`
   ${center(FLEX_ALIGN_MAIN)};
   color: ${({ theme }) => theme.colors.infoCompliment};
   background-color: ${({ theme }) => theme.colors.info};

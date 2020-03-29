@@ -7,7 +7,7 @@ import { BaseTheme } from '../settings/theme';
 import { graphql } from 'babel-plugin-relay/macro';
 import { useQuery, RenderProps } from 'relay-hooks';
 
-import { appQuery } from '../__generated__/appQuery.graphql';
+import { appQuery, appQueryVariables } from '../__generated__/appQuery.graphql';
 import { home_root$key } from '../__generated__/home_root.graphql';
 
 import * as S from './style';
@@ -19,14 +19,16 @@ import { navigation } from '../settings/config/settings.json';
 import Novel from '../components/template/novel';
 import { novel_root$key } from '../__generated__/novel_root.graphql';
 
-const query = graphql`
-  query appQuery {
+export const appRootQuery = graphql`
+  query appQuery(
+    $novelBySlug: NovelWhere
+  ) {
     ...home_root
     ...novel_root
   }
 `;
 
-const variables = {};
+const variables: appQueryVariables = { novelBySlug: { AND: [ { slug: { is: "" } } ] } }
 
 function render({ props: root, error, retry }: RenderProps<appQuery>) {
   if (error) {
@@ -45,7 +47,7 @@ function render({ props: root, error, retry }: RenderProps<appQuery>) {
 }
 
 function App() {
-  const renderProps = useQuery<appQuery>(query, variables);
+  const renderProps = useQuery<appQuery>(appRootQuery, variables);
 
   return (
     <ThemeProvider theme={BaseTheme}>

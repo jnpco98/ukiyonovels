@@ -50,13 +50,13 @@ function renderMetadata({
           </S.InfoCardText>
         </>
       )}
-      {likes && (
+      {(likes || likes == 0) && (
         <>
           <S.InfoCardLikesIcon />
           <S.InfoCardText>{truncateNumber(likes, 1)}</S.InfoCardText>
         </>
       )}
-      {views && (
+      {(views || views == 0) && (
         <>
           <S.InfoCardViewsIcon />
           <S.InfoCardText>{truncateNumber(views, 1)}</S.InfoCardText>
@@ -101,7 +101,7 @@ function NovelCard(props: Props) {
         <S.InfoCardMetaWrapper>
           {renderMetadata({ lastModified, likes, views })}
           {buttonText && (
-            <S.InfoCardButtonContinue href={novelUrl}>
+            <S.InfoCardButtonContinue to={novelUrl}>
               {buttonText || 'Continue reading'}
             </S.InfoCardButtonContinue>
           )}

@@ -52,24 +52,24 @@ const node: ReaderFragment = ({
             }
         ]
     },
-    "argumentDefinitions": [],
+    "argumentDefinitions": [
+        {
+            "kind": "RootArgument",
+            "name": "novelBySlug",
+            "type": "NovelWhere"
+        }
+    ],
     "selections": [
         {
             "kind": "LinkedField",
             "alias": "novel",
             "name": "__novel_novel_connection",
-            "storageKey": "__novel_novel_connection(where:{\"AND\":{\"slug\":{\"is\":\"um-sorry-ive-been-reincarnated\"}}})",
+            "storageKey": null,
             "args": [
                 {
-                    "kind": "Literal",
+                    "kind": "Variable",
                     "name": "where",
-                    "value": {
-                        "AND": {
-                            "slug": {
-                                "is": "um-sorry-ive-been-reincarnated"
-                            }
-                        }
-                    }
+                    "variableName": "novelBySlug"
                 }
             ],
             "concreteType": "NovelConnection",
@@ -250,5 +250,5 @@ const node: ReaderFragment = ({
         }
     ]
 } as any);
-(node as any).hash = '6f25577b25ed0ce7b8a428bdef5e4209';
+(node as any).hash = '283cc1b7f5fe8bf51e8093d08eb6922e';
 export default node;

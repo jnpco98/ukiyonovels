@@ -7,6 +7,7 @@ import { math } from 'polished';
 import { fadeInTextHover, center, CENTER_BOTH, FLEX_ALIGN_BOTH } from '../../../utilities/mixins';
 import { transparentize } from 'polished';
 import { cardDimRatio } from '../../atom/thumbnail/style';
+import { Link } from 'react-router-dom';
 
 export const NovelThumbnailContainer = styled.div`
   display: flex;
@@ -154,7 +155,7 @@ export const NovelThumbnailGenre = styled(Span)`
   }
 `;
 
-export const NovelThumbnailReadIconLink = styled.a`
+export const NovelThumbnailReadIconLink = styled(Link)`
   display: none;
   margin: 1rem 0.5rem 0.5rem;
   border-radius: 50%;

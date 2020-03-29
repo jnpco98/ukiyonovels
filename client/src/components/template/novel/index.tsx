@@ -1,18 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { graphql } from 'babel-plugin-relay/macro';
 import Classifications from '../../molecule/classifications';
+import { appRootQuery } from '../../../app';
 import * as S from './style';
 import DynamicHTML from '../../molecule/dynamic-html';
 import Accordion from '../../molecule/accordion';
 import { novel_root$key } from '../../../__generated__/novel_root.graphql';
-import { useFragment } from 'relay-hooks';
+import { useRefetch } from 'relay-hooks';
 import { slugify } from '../../../utilities/string';
+import { RouteComponentProps } from 'react-router-dom';
+import { appQueryVariables } from '../../../__generated__/appQuery.graphql';
+import Loader, { LoaderType } from '../../atom/loaders';
 
 const fragmentSpec = graphql`
   fragment novel_root on Query {
     novel: novels(
       first: 1
-      where: { AND: { slug: { is: "mahouka-koukou-no-rettousei" } } }
+      where: $novelBySlug
     ) @connection(key: "novel_novel") {
       ...novelThumbnailCarousel_novels
       edges {
@@ -40,7 +44,7 @@ const fragmentSpec = graphql`
 
 type Props = {
   root: novel_root$key;
-};
+} & RouteComponentProps<{ slug: string }>;
 
 function createNovelQuery(query: string[], path: string, isLink: boolean) {
   return query.map(q => ({ name: q, link: isLink ? `${path}/${slugify(q)}` : '#!' }));
@@ -92,7 +96,19 @@ function renderClassification({
 }
 
 function Novel(props: Props) {
-  const { novel: result } = useFragment(fragmentSpec, props.root);
+  const [ { novel: result }, refetch ] = useRefetch(fragmentSpec, props.root);
+  const { slug } = props.match.params;
+  const variables: appQueryVariables = { novelBySlug: { AND: [ { slug: { is: slug } } ] } }
+
+  useEffect(() => {
+    const response = refetch(appRootQuery, variables, null, null, { force: true });
+    return () => response.dispose();
+  }, [slug]);
+
+  if(!result.edges.length) {
+    return <Loader type={LoaderType.Ring} />;
+  }
+
   const {
     title,
     description,

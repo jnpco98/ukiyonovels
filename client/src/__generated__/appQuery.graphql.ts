@@ -1,10 +1,60 @@
 /* tslint:disable */
 /* eslint-disable */
-/* @relayHash 6d66c2ac40804bb6f4ab7cfab853e7a9 */
+/* @relayHash ff23d46249d553e795abe0a542d7c338 */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
-export type appQueryVariables = {};
+export type NovelWhere = {
+    AND?: Array<NovelQueryableInput> | null;
+    OR?: Array<NovelQueryableInput> | null;
+};
+export type NovelQueryableInput = {
+    title?: StringWhere | null;
+    slug?: StringWhere | null;
+    description?: StringWhere | null;
+    type?: StringWhere | null;
+    tags?: StringWhere | null;
+    genres?: StringWhere | null;
+    origins?: StringWhere | null;
+    authors?: StringWhere | null;
+    artists?: StringWhere | null;
+    relatedNovels?: StringWhere | null;
+    associatedNames?: StringWhere | null;
+    alternativeNames?: StringWhere | null;
+    status?: StringWhere | null;
+    year?: NumberWhere | null;
+    likes?: NumberWhere | null;
+    views?: NumberWhere | null;
+};
+export type StringWhere = {
+    is?: string | null;
+    not?: string | null;
+    in?: Array<string> | null;
+    notIn?: Array<string> | null;
+    lt?: string | null;
+    lte?: string | null;
+    gt?: string | null;
+    gte?: string | null;
+    contains?: string | null;
+    notContains?: string | null;
+    startsWith?: string | null;
+    notStartsWith?: string | null;
+    endsWith?: string | null;
+    notEndsWith?: string | null;
+};
+export type NumberWhere = {
+    is?: number | null;
+    not?: number | null;
+    in?: Array<number> | null;
+    notIn?: Array<number> | null;
+    lt?: number | null;
+    lte?: number | null;
+    gt?: number | null;
+    gte?: number | null;
+};
+export type appQueryVariables = {
+    novelBySlug?: NovelWhere | null;
+};
 export type appQueryResponse = {
     readonly " $fragmentRefs": FragmentRefs<"home_root" | "novel_root">;
 };
@@ -16,7 +66,9 @@ export type appQuery = {
 
 
 /*
-query appQuery {
+query appQuery(
+  $novelBySlug: NovelWhere
+) {
   ...home_root
   ...novel_root
 }
@@ -92,7 +144,7 @@ fragment novelThumbnail_novel on Novel {
 }
 
 fragment novel_root on Query {
-  novel: novels(first: 1, where: {AND: {slug: {is: "um-sorry-ive-been-reincarnated"}}}) {
+  novel: novels(first: 1, where: $novelBySlug) {
     ...novelThumbnailCarousel_novels
     edges {
       node {
@@ -127,6 +179,13 @@ fragment novel_root on Query {
 const node: ConcreteRequest = (function () {
     var v0 = [
         ({
+            "kind": "LocalArgument",
+            "name": "novelBySlug",
+            "type": "NovelWhere",
+            "defaultValue": null
+        } as any)
+    ], v1 = [
+        ({
             "kind": "Literal",
             "name": "first",
             "value": 20
@@ -136,55 +195,55 @@ const node: ConcreteRequest = (function () {
             "name": "sortKey",
             "value": "lastModified"
         } as any)
-    ], v1 = ({
+    ], v2 = ({
         "kind": "ScalarField",
         "alias": null,
         "name": "id",
         "args": null,
         "storageKey": null
-    } as any), v2 = ({
+    } as any), v3 = ({
         "kind": "ScalarField",
         "alias": null,
         "name": "slug",
         "args": null,
         "storageKey": null
-    } as any), v3 = ({
+    } as any), v4 = ({
         "kind": "ScalarField",
         "alias": null,
         "name": "title",
         "args": null,
         "storageKey": null
-    } as any), v4 = ({
+    } as any), v5 = ({
         "kind": "ScalarField",
         "alias": null,
         "name": "genres",
         "args": null,
         "storageKey": null
-    } as any), v5 = ({
+    } as any), v6 = ({
         "kind": "ScalarField",
         "alias": null,
         "name": "coverImage",
         "args": null,
         "storageKey": null
-    } as any), v6 = ({
+    } as any), v7 = ({
         "kind": "ScalarField",
         "alias": null,
         "name": "type",
         "args": null,
         "storageKey": null
-    } as any), v7 = ({
+    } as any), v8 = ({
         "kind": "ScalarField",
         "alias": null,
         "name": "__typename",
         "args": null,
         "storageKey": null
-    } as any), v8 = ({
+    } as any), v9 = ({
         "kind": "ScalarField",
         "alias": null,
         "name": "cursor",
         "args": null,
         "storageKey": null
-    } as any), v9 = ({
+    } as any), v10 = ({
         "kind": "LinkedField",
         "alias": null,
         "name": "pageInfo",
@@ -208,30 +267,24 @@ const node: ConcreteRequest = (function () {
                 "storageKey": null
             }
         ]
-    } as any), v10 = [
+    } as any), v11 = [
         "sortKey"
-    ], v11 = ({
+    ], v12 = ({
         "kind": "ScalarField",
         "alias": null,
         "name": "description",
         "args": null,
         "storageKey": null
-    } as any), v12 = [
+    } as any), v13 = [
         ({
             "kind": "Literal",
             "name": "first",
             "value": 1
         } as any),
         ({
-            "kind": "Literal",
+            "kind": "Variable",
             "name": "where",
-            "value": {
-                "AND": {
-                    "slug": {
-                        "is": "um-sorry-ive-been-reincarnated"
-                    }
-                }
-            }
+            "variableName": "novelBySlug"
         } as any)
     ];
     return {
@@ -241,7 +294,7 @@ const node: ConcreteRequest = (function () {
             "name": "appQuery",
             "type": "Query",
             "metadata": null,
-            "argumentDefinitions": [],
+            "argumentDefinitions": (v0 /*: any*/),
             "selections": [
                 {
                     "kind": "FragmentSpread",
@@ -258,14 +311,14 @@ const node: ConcreteRequest = (function () {
         "operation": {
             "kind": "Operation",
             "name": "appQuery",
-            "argumentDefinitions": [],
+            "argumentDefinitions": (v0 /*: any*/),
             "selections": [
                 {
                     "kind": "LinkedField",
                     "alias": "featured",
                     "name": "novels",
                     "storageKey": "novels(first:20,sortKey:\"lastModified\")",
-                    "args": (v0 /*: any*/),
+                    "args": (v1 /*: any*/),
                     "concreteType": "NovelConnection",
                     "plural": false,
                     "selections": [
@@ -287,36 +340,36 @@ const node: ConcreteRequest = (function () {
                                     "concreteType": "Novel",
                                     "plural": false,
                                     "selections": [
-                                        (v1 /*: any*/),
                                         (v2 /*: any*/),
                                         (v3 /*: any*/),
                                         (v4 /*: any*/),
                                         (v5 /*: any*/),
                                         (v6 /*: any*/),
-                                        (v7 /*: any*/)
+                                        (v7 /*: any*/),
+                                        (v8 /*: any*/)
                                     ]
                                 },
-                                (v8 /*: any*/)
+                                (v9 /*: any*/)
                             ]
                         },
-                        (v9 /*: any*/)
+                        (v10 /*: any*/)
                     ]
                 },
                 {
                     "kind": "LinkedHandle",
                     "alias": "featured",
                     "name": "novels",
-                    "args": (v0 /*: any*/),
+                    "args": (v1 /*: any*/),
                     "handle": "connection",
                     "key": "home_featured",
-                    "filters": (v10 /*: any*/)
+                    "filters": (v11 /*: any*/)
                 },
                 {
                     "kind": "LinkedField",
                     "alias": "latestReleases",
                     "name": "novels",
                     "storageKey": "novels(first:20,sortKey:\"lastModified\")",
-                    "args": (v0 /*: any*/),
+                    "args": (v1 /*: any*/),
                     "concreteType": "NovelConnection",
                     "plural": false,
                     "selections": [
@@ -338,12 +391,12 @@ const node: ConcreteRequest = (function () {
                                     "concreteType": "Novel",
                                     "plural": false,
                                     "selections": [
-                                        (v1 /*: any*/),
                                         (v2 /*: any*/),
                                         (v3 /*: any*/),
-                                        (v11 /*: any*/),
-                                        (v5 /*: any*/),
+                                        (v4 /*: any*/),
+                                        (v12 /*: any*/),
                                         (v6 /*: any*/),
+                                        (v7 /*: any*/),
                                         {
                                             "kind": "ScalarField",
                                             "alias": null,
@@ -365,30 +418,30 @@ const node: ConcreteRequest = (function () {
                                             "args": null,
                                             "storageKey": null
                                         },
-                                        (v7 /*: any*/)
+                                        (v8 /*: any*/)
                                     ]
                                 },
-                                (v8 /*: any*/)
+                                (v9 /*: any*/)
                             ]
                         },
-                        (v9 /*: any*/)
+                        (v10 /*: any*/)
                     ]
                 },
                 {
                     "kind": "LinkedHandle",
                     "alias": "latestReleases",
                     "name": "novels",
-                    "args": (v0 /*: any*/),
+                    "args": (v1 /*: any*/),
                     "handle": "connection",
                     "key": "home_latestReleases",
-                    "filters": (v10 /*: any*/)
+                    "filters": (v11 /*: any*/)
                 },
                 {
                     "kind": "LinkedField",
                     "alias": "novel",
                     "name": "novels",
-                    "storageKey": "novels(first:1,where:{\"AND\":{\"slug\":{\"is\":\"um-sorry-ive-been-reincarnated\"}}})",
-                    "args": (v12 /*: any*/),
+                    "storageKey": null,
+                    "args": (v13 /*: any*/),
                     "concreteType": "NovelConnection",
                     "plural": false,
                     "selections": [
@@ -410,13 +463,13 @@ const node: ConcreteRequest = (function () {
                                     "concreteType": "Novel",
                                     "plural": false,
                                     "selections": [
-                                        (v1 /*: any*/),
                                         (v2 /*: any*/),
                                         (v3 /*: any*/),
                                         (v4 /*: any*/),
                                         (v5 /*: any*/),
                                         (v6 /*: any*/),
-                                        (v11 /*: any*/),
+                                        (v7 /*: any*/),
+                                        (v12 /*: any*/),
                                         {
                                             "kind": "ScalarField",
                                             "alias": null,
@@ -480,20 +533,20 @@ const node: ConcreteRequest = (function () {
                                             "args": null,
                                             "storageKey": null
                                         },
-                                        (v7 /*: any*/)
+                                        (v8 /*: any*/)
                                     ]
                                 },
-                                (v8 /*: any*/)
+                                (v9 /*: any*/)
                             ]
                         },
-                        (v9 /*: any*/)
+                        (v10 /*: any*/)
                     ]
                 },
                 {
                     "kind": "LinkedHandle",
                     "alias": "novel",
                     "name": "novels",
-                    "args": (v12 /*: any*/),
+                    "args": (v13 /*: any*/),
                     "handle": "connection",
                     "key": "novel_novel",
                     "filters": [
@@ -506,10 +559,10 @@ const node: ConcreteRequest = (function () {
             "operationKind": "query",
             "name": "appQuery",
             "id": null,
-            "text": "query appQuery {\n  ...home_root\n  ...novel_root\n}\n\nfragment home_root on Query {\n  featured: novels(first: 20, sortKey: \"lastModified\") {\n    ...novelThumbnailCarousel_novels\n    edges {\n      node {\n        slug\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  latestReleases: novels(first: 20, sortKey: \"lastModified\") {\n    ...novelCardList_novels\n    edges {\n      node {\n        slug\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment novelCardList_novels on NovelConnection {\n  edges {\n    node {\n      id\n      ...novelCard_novel\n    }\n  }\n}\n\nfragment novelCard_novel on Novel {\n  slug\n  title\n  description\n  coverImage\n  type\n  likes\n  views\n  lastModified\n}\n\nfragment novelThumbnailCarousel_novels on NovelConnection {\n  edges {\n    node {\n      id\n      ...novelThumbnail_novel\n    }\n  }\n}\n\nfragment novelThumbnail_novel on Novel {\n  slug\n  title\n  genres\n  coverImage\n  type\n}\n\nfragment novel_root on Query {\n  novel: novels(first: 1, where: {AND: {slug: {is: \"um-sorry-ive-been-reincarnated\"}}}) {\n    ...novelThumbnailCarousel_novels\n    edges {\n      node {\n        slug\n        title\n        description\n        type\n        genres\n        tags\n        origins\n        authors\n        artists\n        year\n        status\n        alternativeNames\n        relatedNovels\n        recommendedNovels\n        coverImage\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n",
+            "text": "query appQuery(\n  $novelBySlug: NovelWhere\n) {\n  ...home_root\n  ...novel_root\n}\n\nfragment home_root on Query {\n  featured: novels(first: 20, sortKey: \"lastModified\") {\n    ...novelThumbnailCarousel_novels\n    edges {\n      node {\n        slug\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  latestReleases: novels(first: 20, sortKey: \"lastModified\") {\n    ...novelCardList_novels\n    edges {\n      node {\n        slug\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment novelCardList_novels on NovelConnection {\n  edges {\n    node {\n      id\n      ...novelCard_novel\n    }\n  }\n}\n\nfragment novelCard_novel on Novel {\n  slug\n  title\n  description\n  coverImage\n  type\n  likes\n  views\n  lastModified\n}\n\nfragment novelThumbnailCarousel_novels on NovelConnection {\n  edges {\n    node {\n      id\n      ...novelThumbnail_novel\n    }\n  }\n}\n\nfragment novelThumbnail_novel on Novel {\n  slug\n  title\n  genres\n  coverImage\n  type\n}\n\nfragment novel_root on Query {\n  novel: novels(first: 1, where: $novelBySlug) {\n    ...novelThumbnailCarousel_novels\n    edges {\n      node {\n        slug\n        title\n        description\n        type\n        genres\n        tags\n        origins\n        authors\n        artists\n        year\n        status\n        alternativeNames\n        relatedNovels\n        recommendedNovels\n        coverImage\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n",
             "metadata": {}
         }
     } as any;
 })();
-(node as any).hash = 'cef69e8c990d86d4e409fb8c4900ba30';
+(node as any).hash = 'f2fc173a3969825935bf02ec0d16873d';
 export default node;

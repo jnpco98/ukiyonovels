@@ -10,6 +10,7 @@ import * as S from './style';
 import { useMediaQuery } from 'react-responsive';
 import { truncate } from '../../../utilities/string';
 import { SMALL, MEDIUM } from '../../../settings/media';
+import { Link } from 'react-router-dom';
 
 const fragmentSpec = graphql`
   fragment novelThumbnail_novel on Novel {
@@ -48,12 +49,12 @@ function NovelThumbnail(props: Props) {
 
   return (
     <S.NovelThumbnailContainer className={className}>
-      <a href={novelUrl}>
+      <Link to={novelUrl}>
         <S.NovelThumbnailImage src={coverImage} alt={title} />
-      </a>
+      </Link>
       <S.NovelThumbnailContent>
         <S.NovelThumbnailSubtitle>{type}</S.NovelThumbnailSubtitle>
-        <S.NovelThumbnailReadIconLink href={novelUrl}>
+        <S.NovelThumbnailReadIconLink to={novelUrl}>
           <S.NovelThumbnailIconWrapper>
             <S.NovelThumbnailReadIcon />
           </S.NovelThumbnailIconWrapper>

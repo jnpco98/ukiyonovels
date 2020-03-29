@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components/macro';
 import { rgba, math } from 'polished';
 import * as M from '../../../settings/media';
+import { Link } from 'react-router-dom';
 
 export const cardDimRatio = 1.5;
 
@@ -23,7 +24,7 @@ export const ThumbnailImage = styled.img`
   object-position: center;
 `;
 
-export const ThumbnailContainer = styled.a`
+export const ThumbnailContainer = styled(Link)`
   position: relative;
   width: 6.2rem;
   height: ${math(`6.2rem * ${cardDimRatio}`)};
