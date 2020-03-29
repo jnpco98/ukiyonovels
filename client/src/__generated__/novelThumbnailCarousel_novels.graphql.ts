@@ -4,12 +4,15 @@
 import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type novelThumbnailCarousel_novels = {
-    readonly edges: ReadonlyArray<{
-        readonly node: {
-            readonly id: string;
-            readonly " $fragmentRefs": FragmentRefs<"novelThumbnail_novel">;
-        };
-    }>;
+    readonly novels: {
+        readonly edges: ReadonlyArray<{
+            readonly node: {
+                readonly id: string;
+                readonly slug: string | null;
+                readonly " $fragmentRefs": FragmentRefs<"novelThumbnail_novel">;
+            };
+        }>;
+    } | null;
     readonly " $refType": "novelThumbnailCarousel_novels";
 };
 export type novelThumbnailCarousel_novels$data = novelThumbnailCarousel_novels;
@@ -23,39 +26,119 @@ export type novelThumbnailCarousel_novels$key = {
 const node: ReaderFragment = ({
     "kind": "Fragment",
     "name": "novelThumbnailCarousel_novels",
-    "type": "NovelConnection",
-    "metadata": null,
-    "argumentDefinitions": [],
+    "type": "Query",
+    "metadata": {
+        "connection": [
+            {
+                "count": null,
+                "cursor": null,
+                "direction": "forward",
+                "path": [
+                    "novels"
+                ]
+            }
+        ]
+    },
+    "argumentDefinitions": [
+        {
+            "kind": "RootArgument",
+            "name": "featuredCarouselSort",
+            "type": "String"
+        }
+    ],
     "selections": [
         {
             "kind": "LinkedField",
-            "alias": null,
-            "name": "edges",
+            "alias": "novels",
+            "name": "__novelThumbnailCarousel_novels_connection",
             "storageKey": null,
-            "args": null,
-            "concreteType": "NovelEdge",
-            "plural": true,
+            "args": [
+                {
+                    "kind": "Variable",
+                    "name": "sortKey",
+                    "variableName": "featuredCarouselSort"
+                }
+            ],
+            "concreteType": "NovelConnection",
+            "plural": false,
             "selections": [
                 {
                     "kind": "LinkedField",
                     "alias": null,
-                    "name": "node",
+                    "name": "edges",
                     "storageKey": null,
                     "args": null,
-                    "concreteType": "Novel",
+                    "concreteType": "NovelEdge",
+                    "plural": true,
+                    "selections": [
+                        {
+                            "kind": "LinkedField",
+                            "alias": null,
+                            "name": "node",
+                            "storageKey": null,
+                            "args": null,
+                            "concreteType": "Novel",
+                            "plural": false,
+                            "selections": [
+                                {
+                                    "kind": "ScalarField",
+                                    "alias": null,
+                                    "name": "id",
+                                    "args": null,
+                                    "storageKey": null
+                                },
+                                {
+                                    "kind": "ScalarField",
+                                    "alias": null,
+                                    "name": "slug",
+                                    "args": null,
+                                    "storageKey": null
+                                },
+                                {
+                                    "kind": "ScalarField",
+                                    "alias": null,
+                                    "name": "__typename",
+                                    "args": null,
+                                    "storageKey": null
+                                },
+                                {
+                                    "kind": "FragmentSpread",
+                                    "name": "novelThumbnail_novel",
+                                    "args": null
+                                }
+                            ]
+                        },
+                        {
+                            "kind": "ScalarField",
+                            "alias": null,
+                            "name": "cursor",
+                            "args": null,
+                            "storageKey": null
+                        }
+                    ]
+                },
+                {
+                    "kind": "LinkedField",
+                    "alias": null,
+                    "name": "pageInfo",
+                    "storageKey": null,
+                    "args": null,
+                    "concreteType": "PageInfo",
                     "plural": false,
                     "selections": [
                         {
                             "kind": "ScalarField",
                             "alias": null,
-                            "name": "id",
+                            "name": "endCursor",
                             "args": null,
                             "storageKey": null
                         },
                         {
-                            "kind": "FragmentSpread",
-                            "name": "novelThumbnail_novel",
-                            "args": null
+                            "kind": "ScalarField",
+                            "alias": null,
+                            "name": "hasNextPage",
+                            "args": null,
+                            "storageKey": null
                         }
                     ]
                 }
@@ -63,5 +146,5 @@ const node: ReaderFragment = ({
         }
     ]
 } as any);
-(node as any).hash = 'aad860ee623e5d28d0208a6894f8c7cb';
+(node as any).hash = '2e6ed95ea15a6f47e90c66992ac27edc';
 export default node;

@@ -1,24 +1,21 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { graphql } from 'babel-plugin-relay/macro';
 import Classifications from '../../molecule/classifications';
-import { appRootQuery } from '../../../app';
 import * as S from './style';
 import DynamicHTML from '../../molecule/dynamic-html';
 import Accordion from '../../molecule/accordion';
-import { novel_root$key } from '../../../__generated__/novel_root.graphql';
-import { useRefetch } from 'relay-hooks';
+import { useRefetch, useQuery } from 'relay-hooks';
 import { slugify } from '../../../utilities/string';
 import { RouteComponentProps } from 'react-router-dom';
-import { appQueryVariables } from '../../../__generated__/appQuery.graphql';
 import Loader, { LoaderType } from '../../atom/loaders';
+import { novelQuery, novelQueryResponse, novelQueryVariables } from '../../../__generated__/novelQuery.graphql';
 
-const fragmentSpec = graphql`
-  fragment novel_root on Query {
-    novel: novels(
+const novelRelayQuery = graphql`
+  query novelQuery($novelBySlug: NovelWhere) {
+    result: novels (
       first: 1
       where: $novelBySlug
-    ) @connection(key: "novel_novel") {
-      ...novelThumbnailCarousel_novels
+    ) @connection(key: "novels_result") {
       edges {
         node {
           slug
@@ -42,9 +39,7 @@ const fragmentSpec = graphql`
   }
 `;
 
-type Props = {
-  root: novel_root$key;
-} & RouteComponentProps<{ slug: string }>;
+type Props = {} & RouteComponentProps<{ slug: string }>;
 
 function createNovelQuery(query: string[], path: string, isLink: boolean) {
   return query.map(q => ({ name: q, link: isLink ? `${path}/${slugify(q)}` : '#!' }));
@@ -95,20 +90,7 @@ function renderClassification({
   );
 }
 
-function Novel(props: Props) {
-  const [ { novel: result }, refetch ] = useRefetch(fragmentSpec, props.root);
-  const { slug } = props.match.params;
-  const variables: appQueryVariables = { novelBySlug: { AND: [ { slug: { is: slug } } ] } }
-
-  useEffect(() => {
-    const response = refetch(appRootQuery, variables, null, null, { force: true });
-    return () => response.dispose();
-  }, [slug]);
-
-  if(!result.edges.length) {
-    return <Loader type={LoaderType.Ring} />;
-  }
-
+function renderNovel({ result }: novelQueryResponse) {
   const {
     title,
     description,
@@ -223,6 +205,22 @@ function Novel(props: Props) {
       <S.NovelSidePanel />
     </S.NovelContainer>
   );
+}
+
+function Novel(props: Props) {
+  const { slug } = props.match.params;
+  const variables: novelQueryVariables = { novelBySlug: { AND: [ { slug: { is: slug } } ] } };
+
+  const { props: relayProps, error, retry } =  useQuery<novelQuery>(novelRelayQuery, variables);
+
+  if(error) return <div>{error.message}</div>
+  if(relayProps) {
+    const { result } = relayProps;
+    if(!result.edges.length) return <div>404</div>
+    return renderNovel(relayProps);
+  }
+
+  return <Loader type={LoaderType.Ring}/>
 }
 
 export default Novel;
