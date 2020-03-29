@@ -12,7 +12,10 @@ import { homepage } from '../../../settings/config/settings.json';
 
 const fragmentSpec = graphql`
   fragment home_root on Query {
-    featured: novels(first: 20, sortKey: "lastModified")
+    featured: novels(
+        first: 20
+        sortKey: "lastModified"
+      )
       @connection(key: "home_featured") {
       ...novelThumbnailCarousel_novels
       edges {
@@ -21,7 +24,10 @@ const fragmentSpec = graphql`
         }
       }
     }
-    latestReleases: novels(first: 20, sortKey: "lastModified")
+    latestReleases: novels(
+        first: 20
+        sortKey: "lastModified"
+      )
       @connection(key: "home_latestReleases") {
       ...novelCardList_novels
       edges {

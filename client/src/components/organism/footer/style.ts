@@ -76,7 +76,7 @@ export const FooterContactWrapper = styled.div`
 	}
 `;
 
-export const FooterLinks = styled(Text).attrs({ textType: TextType.Anchor })`
+export const FooterLinks = styled(Text).attrs({ textType: TextType.Link })`
     font-family: ${({ theme }) => theme.font.secondary };
 	font-weight: ${({ theme }) => theme.font.weightBold };
 	text-transform: uppercase;

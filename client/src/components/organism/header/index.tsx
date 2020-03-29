@@ -51,7 +51,7 @@ const Header: React.FC<Props> = (props: Props): ReactElement => {
                     menuItem.key === 'search' ? setSearchOverlayActive(true) : handleSelect(menuItem.key);
                 }} 
             >
-                <S.HeaderMenuItemLink href={menuItem.link}>
+                <S.HeaderMenuItemLink to={menuItem.link}>
                     {menuItem.icon ? <DynamicIcon SVGString={menuItem.label} /> : menuItem.label}
                 </S.HeaderMenuItemLink>
             </S.HeaderMenuItem>

@@ -1,5 +1,5 @@
-import { Column, Entity } from 'typeorm';
-import { Field, ID, InputType, ObjectType, FieldResolver, Root } from 'type-graphql';
+import { Column, Entity, BeforeInsert } from 'typeorm';
+import { Field, ID, InputType, ObjectType } from 'type-graphql';
 import { IsIn, IsOptional, Length } from 'class-validator';
 
 import { BaseEntity } from './entity';
@@ -50,10 +50,9 @@ export class Novel extends BaseEntity implements Partial<Novel> {
   @Column({ type: 'text' })
   title: string;
 
-  @Field(type => String)
-  get slug() {
-    return slugify(this.title);
-  }
+  @Field({ nullable: true })
+  @Column({ type: 'text', unique: true })
+  slug: string;
 
   @Field({ nullable: true })
   @Column({ type: 'text', nullable: true })
@@ -119,6 +118,7 @@ export class Novel extends BaseEntity implements Partial<Novel> {
 
   /**
    * Comma separated related novels
+   * - prequel, sequel, related universe
    * ex: "\"Related1\", \"Related2 with space\""
    */
   @Field(returns => String, { nullable: true })
@@ -128,15 +128,16 @@ export class Novel extends BaseEntity implements Partial<Novel> {
 
   /**
    * Comma separated associated names
-   * ex: "\"Associated1\", \"Associcated2 with space\""
+   * ex: "\"Recommended1\", \"Recommended2 with space\""
    */
   @Field(returns => String, { nullable: true })
-  @Column({ name: 'associated_names', type: 'text', nullable: true })
+  @Column({ name: 'recommended_novels', type: 'text', nullable: true })
   @IsOptional()
-  associatedNames?: string;
+  recommendedNovels?: string;
 
   /**
    * Comma separated associated names
+   * - name in different languages, published name
    * ex: "\"Alternative1\", \"Alternative2 with space\""
    */
   @Field(returns => String, { nullable: true })
@@ -199,4 +200,12 @@ export class Novel extends BaseEntity implements Partial<Novel> {
   @Column({ type: 'text', default: novelStatus[0] })
   @IsIn(novelStatus)
   status?: string;
+
+  /**
+   * Create slug on novel create
+   */
+  @BeforeInsert()
+  createSlug() {
+    this.slug = slugify(this.title);
+  }
 }

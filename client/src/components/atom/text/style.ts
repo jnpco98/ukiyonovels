@@ -3,6 +3,7 @@ import { pageTitleFontSize, sectionFontSize, subsectionFontSize, regularFontSize
 import * as M from '../../../settings/media';
 import { margin } from 'polished';
 import TextAreaAutoResize from 'react-autosize-textarea';
+import { Link as RouterLink } from 'react-router-dom';
 
 type HeadingStyleProps = {
   clearDecoration?: boolean;
@@ -79,6 +80,16 @@ export const Paragraph = styled.p`
 `;
 
 export const Span = styled.span`
+  ${regularFontSize};
+
+  ${margin('0.2rem', null, '0.2rem', null)};
+
+  ${M.MEDIA_MEDIUM} {
+    ${margin('0.4rem', null, '0.4rem', null)};
+  }
+`;
+
+export const Link = styled(RouterLink)`
   ${regularFontSize};
 
   ${margin('0.2rem', null, '0.2rem', null)};

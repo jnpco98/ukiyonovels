@@ -8,6 +8,7 @@ export enum TextType {
     SubsectionTitle,
     Paragraph,
     Span,
+    Link,
     Anchor,
     Label
 }
@@ -16,10 +17,10 @@ type Props = {
     className?: string;
     children?: React.ReactNode;
     textType?: TextType;
-} & React.HTMLProps<HTMLAnchorElement>;
+} & React.HTMLProps<HTMLAnchorElement> & { to?: string };
 
 const Text: React.FC<Props> = (props: Props): ReactElement => {
-    const { children = '', className = '', textType, href, onClick } = props;
+    const { children = '', className = '', textType, href, to, onClick } = props;
 
     let StyledText: AnyStyledComponent;
 
@@ -40,6 +41,9 @@ const Text: React.FC<Props> = (props: Props): ReactElement => {
         case TextType.Span:
             StyledText = S.Span;
             break;
+        case TextType.Link:
+            StyledText = S.Link;
+            break;
         case TextType.Anchor:
             StyledText = S.Anchor;
             break;
@@ -49,7 +53,7 @@ const Text: React.FC<Props> = (props: Props): ReactElement => {
     }
 
     return (
-        <StyledText href={href} className={className} onClick={onClick} >
+        <StyledText href={href} to={to} className={className} onClick={onClick}>
             {children}
         </StyledText>
     );

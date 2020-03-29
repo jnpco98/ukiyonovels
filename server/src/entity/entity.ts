@@ -7,7 +7,7 @@ import {
   PrimaryColumn,
   Generated
 } from 'typeorm';
-import { ObjectType, Field, ID, Int } from 'type-graphql';
+import { ObjectType, Field, ID } from 'type-graphql';
 import nanoid from 'nanoid';
 
 /**

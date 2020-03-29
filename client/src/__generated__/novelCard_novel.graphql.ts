@@ -4,7 +4,7 @@
 import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type novelCard_novel = {
-    readonly slug: string;
+    readonly slug: string | null;
     readonly title: string | null;
     readonly description: string | null;
     readonly coverImage: string | null;

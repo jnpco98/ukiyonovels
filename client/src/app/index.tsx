@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import { ThemeProvider } from 'styled-components/macro';
 import { BaseTheme } from '../settings/theme';
@@ -9,27 +10,34 @@ import { useQuery, RenderProps } from 'relay-hooks';
 import { appQuery } from '../__generated__/appQuery.graphql';
 import { home_root$key } from '../__generated__/home_root.graphql';
 
-import { AppContainer } from './style';
+import * as S from './style';
+import Header from '../components/organism/header';
 import Home from '../components/template/home';
 import Loader, { LoaderType } from '../components/atom/loaders';
+
+import { navigation } from '../settings/config/settings.json';
+import Novel from '../components/template/novel';
+import { novel_root$key } from '../__generated__/novel_root.graphql';
 
 const query = graphql`
   query appQuery {
     ...home_root
+    ...novel_root
   }
 `;
 
 const variables = {};
 
-function render({ props, error, retry }: RenderProps<appQuery>) {
+function render({ props: root, error, retry }: RenderProps<appQuery>) {
   if (error) {
     return <div><button onClick={() => retry()}>{error.message}</button></div>;
   }
-  if (props) {
+  if (root) {
     return (
-      <AppContainer>
-        <Home root={props as home_root$key} />
-      </AppContainer>
+      <Switch>
+        <Route exact path='/' render={props => <Home root={root as home_root$key} {...props}/>}/>
+        <Route exact path='/novel/:slug' render={props => <Novel root={root as novel_root$key} {...props}/>}/>
+      </Switch>
     );
   }
 
@@ -39,7 +47,19 @@ function render({ props, error, retry }: RenderProps<appQuery>) {
 function App() {
   const renderProps = useQuery<appQuery>(query, variables);
 
-  return <ThemeProvider theme={BaseTheme}>{render(renderProps)}</ThemeProvider>;
+  return (
+    <ThemeProvider theme={BaseTheme}>
+      <S.AppContainer>
+          <Router>
+            <Header
+              mainMenuItems={navigation.mainMenu}
+              sideMenuItems={navigation.sidenavMenu}
+            />
+            {render(renderProps)}
+        </Router>
+      </S.AppContainer>
+    </ThemeProvider>
+  );
 }
 
 export default App;

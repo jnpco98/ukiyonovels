@@ -7,7 +7,7 @@ export type home_root = {
     readonly featured: {
         readonly edges: ReadonlyArray<{
             readonly node: {
-                readonly slug: string;
+                readonly slug: string | null;
             };
         }>;
         readonly " $fragmentRefs": FragmentRefs<"novelThumbnailCarousel_novels">;
@@ -15,7 +15,7 @@ export type home_root = {
     readonly latestReleases: {
         readonly edges: ReadonlyArray<{
             readonly node: {
-                readonly slug: string;
+                readonly slug: string | null;
             };
         }>;
         readonly " $fragmentRefs": FragmentRefs<"novelCardList_novels">;

@@ -22,7 +22,7 @@ const Classifications: React.FC<Props> = (props: Props): ReactElement => {
             {
                 classifications.map(c => 
                     <S.ClassificationsItem>
-                        <Text textType={TextType.Anchor} href={c.link}>{c.name}</Text>
+                        <Text textType={TextType.Link} to={c.link}>{c.name}</Text>
                     </S.ClassificationsItem>
                 )
             }

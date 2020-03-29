@@ -1,7 +1,8 @@
 import { Field, ObjectType, InputType, ID } from 'type-graphql';
-import { Entity, Column } from 'typeorm';
+import { Entity, Column, BeforeInsert } from 'typeorm';
 import { BaseEntity } from './entity';
 import { IsISBN, IsOptional, Length } from 'class-validator';
+import { slugify } from '../utilities/string/slugify';
 
 /**
  * ORM Book Entity
@@ -21,6 +22,10 @@ export class Book extends BaseEntity implements Partial<Book> {
   @Column({ type: 'text' })
   @Length(10, 50, { message: 'Title should be between 10-50 characters' })
   title: string;
+  
+  @Field({ nullable: true })
+  @Column({ type: 'text', unique: true })
+  slug: string;
 
   @Field({ nullable: true })
   @Column({ type: 'text', nullable: true })
@@ -37,4 +42,12 @@ export class Book extends BaseEntity implements Partial<Book> {
   @Field(() => ID)
   @Column({ name: 'novel_id' })
   novelId: string;
+
+  /**
+   * Create slug on book create
+   */
+  @BeforeInsert()
+  createSlug() {
+    this.slug = slugify(this.title);
+  }
 }

@@ -11,6 +11,7 @@ type Book {
   createdAt: DateTime!
   lastModified: DateTime!
   title: String!
+  slug: String
   description: String
   isbn: String
   novelId: ID!
@@ -50,6 +51,7 @@ type BookEdge {
 
 input BookInput {
   title: String!
+  slug: String
   description: String
   isbn: String
   novelId: ID!
@@ -71,6 +73,7 @@ type Chapter {
   createdAt: DateTime!
   lastModified: DateTime!
   title: String!
+  slug: String
   content: String
   novelId: ID!
   bookId: ID
@@ -111,6 +114,7 @@ type ChapterEdge {
 
 input ChapterInput {
   title: String!
+  slug: String
   content: String
   novelId: ID!
   bookId: ID
@@ -195,7 +199,7 @@ type Novel {
   createdAt: DateTime!
   lastModified: DateTime!
   title: String
-  slug: String!
+  slug: String
   description: String
 
   """
@@ -209,7 +213,7 @@ type Novel {
   authors: String
   artists: String
   relatedNovels: String
-  associatedNames: String
+  recommendedNovels: String
   alternativeNames: String
   mediaGallery: String
   coverImage: String
@@ -300,7 +304,7 @@ type NovelEdge {
 
 input NovelInput {
   title: String
-  slug: String = ""
+  slug: String
   description: String
 
   """
@@ -314,7 +318,7 @@ input NovelInput {
   authors: String
   artists: String
   relatedNovels: String
-  associatedNames: String
+  recommendedNovels: String
   alternativeNames: String
   mediaGallery: String
   coverImage: String
@@ -332,6 +336,7 @@ input NovelInput {
 
 input NovelQueryableInput {
   title: StringWhere
+  slug: StringWhere
   description: StringWhere
   type: StringWhere
   tags: StringWhere

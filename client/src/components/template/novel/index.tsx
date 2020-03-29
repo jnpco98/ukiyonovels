@@ -1,71 +1,212 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
+import { graphql } from 'babel-plugin-relay/macro';
 import Classifications from '../../molecule/classifications';
 import * as S from './style';
 import DynamicHTML from '../../molecule/dynamic-html';
 import Accordion from '../../molecule/accordion';
-import SidePanel from '../../organism/side-panel';
+import { novel_root$key } from '../../../__generated__/novel_root.graphql';
+import { useFragment } from 'relay-hooks';
+import { slugify } from '../../../utilities/string';
 
-const title = "Martial God Asura";
-const type = ["Chinese Novel"];
-const genre = ["Adventure", "Action", "Ecchi", "Fantasy", "Harem", "Martial Arts", "Mature", "Romance", "Seinen", "Supernatural", "Xianxia"];
-const tags = ["Battle Academy", "Bullying", "Comedic Undertone", "Fearless Male Lead", "Hot-blooded Male Lead", "Orphans", "Ranked by Strength", "Revenge", "Ruthless Male lead", "Special Abilities", "Strong Female Lead", "Strong Female Side Characters", "Strong Male Lead", "Sudden Power Growth", "Training", "Underestimated Male Lead", "Wars", "Weak to Strong"];
-const language = ["Chinese"];
-const author = ["Kindhearted Bee", "Shan Liang de Mi Feng"]
-const artist = ["Kindhearted Bee", "Shan Liang de Mi Feng"];
-const year = ["2002"];
-const status = ["Ongoing"];
-const altNames = ["Tu La Vũ Thần", "Xiuluo Wushen", "修罗武神", "修羅武神"];
-const relatedSeries = ["A Martial Odyssey", "A Mistaken Marriage Match – A Generation of Military Counselor", "Absolute Duo", "Arifureta", "AntiMagic Academy “The 35th Test Platoon”"]
-const description = "<p>Even if you have potential, it does not mean you are a genius. You can learn mysterious martial arts, and you can learn without a teacher.</p><p>Even if you have strength, despite having numerous precious treasures, you may not be able to defeat my spirit army.</p><p>Who am I? Every living thing in the world views me as Asura, but I didn’t know, so I became a martial god as Asura.</p>";
+const fragmentSpec = graphql`
+  fragment novel_root on Query {
+    novel: novels(
+      first: 1
+      where: { AND: { slug: { is: "mahouka-koukou-no-rettousei" } } }
+    ) @connection(key: "novel_novel") {
+      ...novelThumbnailCarousel_novels
+      edges {
+        node {
+          slug
+          title
+          description
+          type
+          genres
+          tags
+          origins
+          authors
+          artists
+          year
+          status
+          alternativeNames
+          relatedNovels
+          recommendedNovels
+          coverImage
+        }
+      }
+    }
+  }
+`;
 
-// #region Start placeholder
-const generateClassification = (strs: string[]) => strs.map(str => ({ name: str, link: '#' }));
+type Props = {
+  root: novel_root$key;
+};
 
-const content = [
-    { heading: "Download Links", content: <Classifications classifications={generateClassification(tags)}/> }
-]
-// #endregion Start placeholder
+function createNovelQuery(query: string[], path: string, isLink: boolean) {
+  return query.map(q => ({ name: q, link: isLink ? `${path}/${slugify(q)}` : '#!' }));
+}
 
-const Novel: React.FC = (): ReactElement => {
-    return(
-        <S.NovelContainer>
-            <S.NovelWrapper>
-                <S.NovelTitleWrapper>
-                    <S.NovelTitle>{title}</S.NovelTitle>
-                </S.NovelTitleWrapper>
+interface NovelClassificationParams {
+  heading: string;
+  classification: string;
 
-                <S.NovelContentWrapper>
-                    <S.NovelContent>
-                        <S.NovelPortraitWrapper>
-                            <S.NovelPortrait src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/wirofBlPHzaENMu5RCxx9T2gNjB.jpg"/>
-                        </S.NovelPortraitWrapper>
+  path: string;
+  isLink?: boolean;
+  isArrStr?: boolean;
 
-                        <Classifications headingText="Type" classifications={generateClassification(type)} inline/>
-                        <Classifications headingText="Genre" classifications={generateClassification(genre)} inline/>
-                        <Classifications headingText="Tags" classifications={generateClassification(tags)} inline/>
-                        <Classifications headingText="Language" classifications={generateClassification(language)}/>
-                        <Classifications headingText="Author(s)" classifications={generateClassification(author)}/>
-                        <Classifications headingText="Artist(s)" classifications={generateClassification(artist)}/>
-                        <Classifications headingText="Year" classifications={generateClassification(year)}/>
-                        <Classifications headingText="Status" classifications={generateClassification(status)}/>
-                    </S.NovelContent>
+  inline?: boolean;
+}
 
-                    <S.NovelContent>
-                        <S.NovelDescriptionHeading>Description</S.NovelDescriptionHeading>
-                        {description && <DynamicHTML HTMLString={description}/>}
+function renderClassification({
+  heading,
+  classification,
+  path,
+  isLink = true,
+  isArrStr = false,
+  inline = false
+}: NovelClassificationParams) {
+  let parsedClassifications: string[] = [];
 
-                        <Classifications headingText="Alternative Names" classifications={generateClassification(altNames)}/>
-                        <Classifications headingText="Related Series" classifications={generateClassification(relatedSeries)}/>
-                        <Classifications headingText="You May Also Like" classifications={generateClassification(relatedSeries)}/>
-                        <Accordion accordionContent={content} />
-                    </S.NovelContent>      
-                </S.NovelContentWrapper>
-            </S.NovelWrapper>
-            
-            <S.NovelSidePanel/>
-            
-        </S.NovelContainer>
-    );
+  if (!classification) {
+    parsedClassifications = [];
+  } else if (isArrStr) {
+    try {
+      parsedClassifications = JSON.parse(classification) as string[];
+    } catch (e) {
+      parsedClassifications = [];
+    }
+  } else {
+    parsedClassifications = [classification];
+  }
+
+  parsedClassifications = parsedClassifications.filter(
+    (c, idx, arr) => c && arr.indexOf(c) === idx
+  );
+  return (
+    <Classifications
+      headingText={heading}
+      classifications={createNovelQuery(parsedClassifications, path, isLink)}
+      inline={inline}
+    />
+  );
+}
+
+function Novel(props: Props) {
+  const { novel: result } = useFragment(fragmentSpec, props.root);
+  const {
+    title,
+    description,
+    type,
+    genres,
+    tags,
+    origins,
+    authors,
+    artists,
+    year,
+    status,
+    alternativeNames,
+    relatedNovels,
+    recommendedNovels,
+    coverImage
+  } = result.edges[0].node;
+
+  return (
+    <S.NovelContainer>
+      <S.NovelWrapper>
+        <S.NovelTitleWrapper>
+          <S.NovelTitle>{title}</S.NovelTitle>
+        </S.NovelTitleWrapper>
+
+        <S.NovelContentWrapper>
+          <S.NovelContent>
+            <S.NovelPortraitWrapper>
+              <S.NovelPortrait src={coverImage} />
+            </S.NovelPortraitWrapper>
+
+            {renderClassification({
+              heading: 'Type',
+              path: '/type',
+              classification: type,
+              inline: true
+            })}
+            {renderClassification({
+              heading: 'Genre',
+              path: '/genre',
+              classification: genres,
+              inline: true,
+              isArrStr: true
+            })}
+            {renderClassification({
+              heading: 'Tags',
+              path: '/tag',
+              classification: tags,
+              inline: true,
+              isArrStr: true
+            })}
+            {renderClassification({
+              heading: 'Language',
+              path: '/language',
+              classification: origins,
+              isArrStr: true
+            })}
+            {renderClassification({
+              heading: 'Author(s)',
+              path: '/author',
+              classification: authors,
+              isArrStr: true
+            })}
+            {renderClassification({
+              heading: 'Artist(s)',
+              path: '/artist',
+              classification: artists,
+              isArrStr: true
+            })}
+            {renderClassification({
+              heading: 'Year',
+              path: '/year',
+              classification: (year || '').toString()
+            })}
+            {renderClassification({
+              heading: 'Status',
+              path: '/status',
+              classification: status
+            })}
+          </S.NovelContent>
+
+          <S.NovelContent>
+            <S.NovelDescriptionHeading>Description</S.NovelDescriptionHeading>
+            <DynamicHTML HTMLString={description || `<p></p>`} />
+
+            {renderClassification({
+              heading: 'Alternative Names',
+              path: '/novel',
+              classification: alternativeNames,
+              isArrStr: true,
+              isLink: false
+            })}
+            {renderClassification({
+              heading: 'Related Series',
+              path: '/novel',
+              classification: relatedNovels,
+              isArrStr: true
+            })}
+            {renderClassification({
+              heading: 'You May Also Like',
+              path: '/novel',
+              classification: recommendedNovels,
+              isArrStr: true
+            })}
+
+            <Accordion
+              accordionContent={[{ content: <p></p>, heading: 'Download novel' }]}
+            />
+          </S.NovelContent>
+        </S.NovelContentWrapper>
+      </S.NovelWrapper>
+
+      <S.NovelSidePanel />
+    </S.NovelContainer>
+  );
 }
 
 export default Novel;

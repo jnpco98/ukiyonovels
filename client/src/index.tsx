@@ -9,15 +9,16 @@ import Reset from './utilities/reset';
 
 import { Provider } from 'react-redux';
 import store from './store';
+
 import { RelayEnvironmentProvider } from 'relay-hooks';
 import { environment } from './environment';
 
 ReactDOM.render(
-    <Provider store={store}>
-        <RelayEnvironmentProvider environment={environment}>
-            <Reset />
-            <App />
-        </RelayEnvironmentProvider>
-    </Provider>,
-    document.getElementById('root')
+  <Provider store={store}>
+    <RelayEnvironmentProvider environment={environment}>
+      <Reset />
+      <App />
+    </RelayEnvironmentProvider>
+  </Provider>,
+  document.getElementById('root')
 );

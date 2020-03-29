@@ -34,7 +34,7 @@ export const HeaderRightMenu = styled.ul`
 export const HeaderSideDrawerMenu = styled.ul`
 `;
 
-export const HeaderMenuItemLink = styled(Text).attrs({ textType: TextType.Anchor })`
+export const HeaderMenuItemLink = styled(Text).attrs({ textType: TextType.Link })`
   overflow: hidden;
 
   &:after {

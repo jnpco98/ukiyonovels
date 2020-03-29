@@ -17,6 +17,9 @@ export class NovelQueryableInput {
   title?: typeof StringWhere;
 
   @Field(type => StringWhere, { nullable: true })
+  slug?: typeof StringWhere;
+
+  @Field(type => StringWhere, { nullable: true })
   description?: typeof StringWhere;
 
   @Field(type => StringWhere, { nullable: true })

@@ -83,7 +83,7 @@ function extractNovelInfo(html, title) {
   return output;
 }
 
-const accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1OVBxbm1LY1VMaUdnQUxYQlBoSjAiLCJyb2xlIjoiT1dORVIiLCJpYXQiOjE1ODQ4NjI0ODYsImV4cCI6MTU4NTEyMTY4Nn0.39DwvjErPDAlUzcvvHlW5i5EhxNXPD1lFoF76tql5_k';
+const accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1OVBxbm1LY1VMaUdnQUxYQlBoSjAiLCJyb2xlIjoiT1dORVIiLCJpYXQiOjE1ODU0Mzc2NjgsImV4cCI6MTU4NTY5Njg2OH0.lSJF5q8E-yQsI5qI0AKa57D0gk-9Xe_OsBz5a3cj-1c';
 const endpoint = 'http://localhost:5000/graphql';
 
 const query = `
@@ -95,7 +95,7 @@ const query = `
   }
 `;
 
-const IMPORT_NOVEL = false;
+const IMPORT_NOVEL = true;
 
 async function main() {
   const novelDirs = getDirectories('data');
