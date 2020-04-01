@@ -4,12 +4,15 @@
 import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type novelCardList_novels = {
-    readonly edges: ReadonlyArray<{
-        readonly node: {
-            readonly id: string;
-            readonly " $fragmentRefs": FragmentRefs<"novelCard_novel">;
-        };
-    }>;
+    readonly novelCardList: {
+        readonly edges: ReadonlyArray<{
+            readonly node: {
+                readonly id: string;
+                readonly slug: string | null;
+                readonly " $fragmentRefs": FragmentRefs<"novelCard_novel">;
+            };
+        }>;
+    } | null;
     readonly " $refType": "novelCardList_novels";
 };
 export type novelCardList_novels$data = novelCardList_novels;
@@ -23,39 +26,113 @@ export type novelCardList_novels$key = {
 const node: ReaderFragment = ({
     "kind": "Fragment",
     "name": "novelCardList_novels",
-    "type": "NovelConnection",
-    "metadata": null,
+    "type": "Query",
+    "metadata": {
+        "connection": [
+            {
+                "count": null,
+                "cursor": null,
+                "direction": "forward",
+                "path": [
+                    "novelCardList"
+                ]
+            }
+        ]
+    },
     "argumentDefinitions": [],
     "selections": [
         {
             "kind": "LinkedField",
-            "alias": null,
-            "name": "edges",
-            "storageKey": null,
-            "args": null,
-            "concreteType": "NovelEdge",
-            "plural": true,
+            "alias": "novelCardList",
+            "name": "__novel_novelCardList_connection",
+            "storageKey": "__novel_novelCardList_connection(sortKey:\"lastModified\")",
+            "args": [
+                {
+                    "kind": "Literal",
+                    "name": "sortKey",
+                    "value": "lastModified"
+                }
+            ],
+            "concreteType": "NovelConnection",
+            "plural": false,
             "selections": [
                 {
                     "kind": "LinkedField",
                     "alias": null,
-                    "name": "node",
+                    "name": "edges",
                     "storageKey": null,
                     "args": null,
-                    "concreteType": "Novel",
+                    "concreteType": "NovelEdge",
+                    "plural": true,
+                    "selections": [
+                        {
+                            "kind": "LinkedField",
+                            "alias": null,
+                            "name": "node",
+                            "storageKey": null,
+                            "args": null,
+                            "concreteType": "Novel",
+                            "plural": false,
+                            "selections": [
+                                {
+                                    "kind": "ScalarField",
+                                    "alias": null,
+                                    "name": "id",
+                                    "args": null,
+                                    "storageKey": null
+                                },
+                                {
+                                    "kind": "ScalarField",
+                                    "alias": null,
+                                    "name": "slug",
+                                    "args": null,
+                                    "storageKey": null
+                                },
+                                {
+                                    "kind": "ScalarField",
+                                    "alias": null,
+                                    "name": "__typename",
+                                    "args": null,
+                                    "storageKey": null
+                                },
+                                {
+                                    "kind": "FragmentSpread",
+                                    "name": "novelCard_novel",
+                                    "args": null
+                                }
+                            ]
+                        },
+                        {
+                            "kind": "ScalarField",
+                            "alias": null,
+                            "name": "cursor",
+                            "args": null,
+                            "storageKey": null
+                        }
+                    ]
+                },
+                {
+                    "kind": "LinkedField",
+                    "alias": null,
+                    "name": "pageInfo",
+                    "storageKey": null,
+                    "args": null,
+                    "concreteType": "PageInfo",
                     "plural": false,
                     "selections": [
                         {
                             "kind": "ScalarField",
                             "alias": null,
-                            "name": "id",
+                            "name": "endCursor",
                             "args": null,
                             "storageKey": null
                         },
                         {
-                            "kind": "FragmentSpread",
-                            "name": "novelCard_novel",
-                            "args": null
+                            "kind": "ScalarField",
+                            "alias": null,
+                            "name": "hasNextPage",
+                            "args": null,
+                            "storageKey": null
                         }
                     ]
                 }
@@ -63,5 +140,5 @@ const node: ReaderFragment = ({
         }
     ]
 } as any);
-(node as any).hash = '4eaf703ff1f9a7efb8c64f352a04f0ec';
+(node as any).hash = 'fe8e4d4de412fddcd4d6cccdc3010f01';
 export default node;

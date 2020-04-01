@@ -18,17 +18,7 @@ export const homeRelayQuery = graphql`
     $novelThumbnailCarouselCount: Float
   ) {
     ...novelThumbnailCarousel_novels
-    latestReleases: novels(
-      first: 20
-      sortKey: "lastModified"
-    ) @connection(key: "home_latestReleases") {
-      ...novelCardList_novels
-      edges {
-        node {
-          slug
-        }
-      }
-    }
+    ...novelCardList_novels
   }
 `;
 
@@ -41,10 +31,8 @@ type Props = {} & RouteComponentProps;
 function Home(props: Props) {
   const { props: relayProps, error, retry } =  useQuery<homeQuery>(homeRelayQuery, defaultVariables);
 
-  if(error) return <div>{(() => { console.error(error) ;return error.message})()}</div>
+  if(error) return <div>{error.message}</div>
   if(relayProps) {
-    const { latestReleases } = relayProps;
-
     return (
       <>
         <S.HomeBanner contents={homepage.heroBanner} />
@@ -52,12 +40,12 @@ function Home(props: Props) {
           <S.HomeWrapper>
             <S.HomeNovelThumbnailCarousel
               headingText={homepage.featuredNovels.headingText}
-              novels={relayProps as any}
+              novelThumbnailCarousel={relayProps as any}
             />
             <NovelCardList
               headingText={homepage.latestRelease.headingText}
               buttonText={homepage.latestRelease.actionButtonText}
-              novels={latestReleases as any}
+              novelCardList={relayProps as any}
             />
           </S.HomeWrapper>
           <S.HomeSidePanel />

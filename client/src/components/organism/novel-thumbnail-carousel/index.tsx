@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { graphql } from 'babel-plugin-relay/macro';
-import { useFragment, useRefetch } from 'relay-hooks';
+import { useFragment } from 'relay-hooks';
 
 import { novelThumbnailCarousel_novels$key } from '../../../__generated__/novelThumbnailCarousel_novels.graphql';
 
@@ -10,22 +10,13 @@ import Text, { TextType } from '../../atom/text';
 
 import { Settings } from 'react-slick';
 import { DEFAULT_SLIDER_SETTINGS } from '../../../utilities/slider';
-import { homeRelayQuery } from '../../template/home';
-
-const DEFAULT_SORT = 'lastModified';
-const DEFAULT_COUNT = 5;
-
-export const DEFAULT_NOVEL_THUMBNAIL_CAROUSEL_VARIABLES = {
-  novelThumbnailCarouselSort: DEFAULT_SORT, 
-  novelThumbnailCarouselCount: DEFAULT_COUNT
-}
 
 const fragmentSpec = graphql`
   fragment novelThumbnailCarousel_novels on Query {
-    novels (
+    novelThumbnailCarousel: novels(
       first: $novelThumbnailCarouselCount
       sortKey: $novelThumbnailCarouselSort
-    ) @connection(key: "novelThumbnailCarousel_novels") {
+    ) @connection(key: "novel_novelThumbnailCarousel") {
       edges {
         node {
           id
@@ -37,12 +28,6 @@ const fragmentSpec = graphql`
   }
 `;
 
-type Props = {
-  novels: novelThumbnailCarousel_novels$key;
-  className?: string;
-  headingText?: string;
-};
-
 const sliderOptions: Settings = {
   ...DEFAULT_SLIDER_SETTINGS,
   swipeToSlide: true,
@@ -52,29 +37,39 @@ const sliderOptions: Settings = {
   centerMode: false
 };
 
+const DEFAULT_SORT = 'lastModified';
+const DEFAULT_COUNT = 20;
+
+interface NovelThumbnailCarouselVariables {
+  novelThumbnailCarouselSort: string;
+  novelThumbnailCarouselCount: number;
+}
+
+export const DEFAULT_NOVEL_THUMBNAIL_CAROUSEL_VARIABLES: NovelThumbnailCarouselVariables = {
+  novelThumbnailCarouselSort: DEFAULT_SORT, 
+  novelThumbnailCarouselCount: DEFAULT_COUNT
+}
+
+type Props = {
+  novelThumbnailCarousel: novelThumbnailCarousel_novels$key;
+  className?: string;
+  headingText?: string;
+};
+
 function NovelThumbnailCarousel(props: Props) {
   const { className, headingText } = props;
-  const [{ novels }, refetch] = useRefetch(fragmentSpec, props.novels);
+  const { novelThumbnailCarousel } = useFragment(fragmentSpec, props.novelThumbnailCarousel);
   
-  const refetchHandler = () => {
-    refetch(homeRelayQuery, { 
-      novelThumbnailCarouselSort: 'lastModified', novelThumbnailCarouselCount: 20 
-    }, null, null);
-  }
-  
-  /* eslint-disable react/jsx-props-no-spreading */
   return (
     <S.NovelThumbnailCarouselContainer className={className}>
       {headingText && <Text textType={TextType.SectionTitle}>{headingText}</Text>}
-      <button onClick={refetchHandler}>REFRESH CAROUSEL</button>
       <S.NovelThumbnailCarouselSlider {...sliderOptions}>
-        {novels.edges.map(({ node }) => (
+        {novelThumbnailCarousel.edges.map(({ node }) => (
           <S.NovelThumbnailCarouselItem key={node.id} novel={node} />
         ))}
       </S.NovelThumbnailCarouselSlider>
     </S.NovelThumbnailCarouselContainer>
   );
-  /* eslint-enable react/jsx-props-no-spreading */
 }
 
 export default NovelThumbnailCarousel;

@@ -4,7 +4,7 @@
 import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type novelThumbnailCarousel_novels = {
-    readonly novels: {
+    readonly novelThumbnailCarousel: {
         readonly edges: ReadonlyArray<{
             readonly node: {
                 readonly id: string;
@@ -34,7 +34,7 @@ const node: ReaderFragment = ({
                 "cursor": null,
                 "direction": "forward",
                 "path": [
-                    "novels"
+                    "novelThumbnailCarousel"
                 ]
             }
         ]
@@ -54,8 +54,8 @@ const node: ReaderFragment = ({
     "selections": [
         {
             "kind": "LinkedField",
-            "alias": "novels",
-            "name": "__novelThumbnailCarousel_novels_connection",
+            "alias": "novelThumbnailCarousel",
+            "name": "__novel_novelThumbnailCarousel_connection",
             "storageKey": null,
             "args": [
                 {
@@ -151,5 +151,5 @@ const node: ReaderFragment = ({
         }
     ]
 } as any);
-(node as any).hash = '4f22729edd350b2d5090420aba33cda0';
+(node as any).hash = 'f2abcb7a12a1a2703c7575f56c9e86c8';
 export default node;
