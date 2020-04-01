@@ -30,7 +30,7 @@ const node: ReaderFragment = ({
     "metadata": {
         "connection": [
             {
-                "count": null,
+                "count": "novelThumbnailCarouselCount",
                 "cursor": null,
                 "direction": "forward",
                 "path": [
@@ -42,7 +42,12 @@ const node: ReaderFragment = ({
     "argumentDefinitions": [
         {
             "kind": "RootArgument",
-            "name": "featuredCarouselSort",
+            "name": "novelThumbnailCarouselCount",
+            "type": "Float"
+        },
+        {
+            "kind": "RootArgument",
+            "name": "novelThumbnailCarouselSort",
             "type": "String"
         }
     ],
@@ -56,7 +61,7 @@ const node: ReaderFragment = ({
                 {
                     "kind": "Variable",
                     "name": "sortKey",
-                    "variableName": "featuredCarouselSort"
+                    "variableName": "novelThumbnailCarouselSort"
                 }
             ],
             "concreteType": "NovelConnection",
@@ -146,5 +151,5 @@ const node: ReaderFragment = ({
         }
     ]
 } as any);
-(node as any).hash = '2e6ed95ea15a6f47e90c66992ac27edc';
+(node as any).hash = '4f22729edd350b2d5090420aba33cda0';
 export default node;

@@ -12,14 +12,20 @@ import { Settings } from 'react-slick';
 import { DEFAULT_SLIDER_SETTINGS } from '../../../utilities/slider';
 import { homeRelayQuery } from '../../template/home';
 
-// Only connection can be refetched
+const DEFAULT_SORT = 'lastModified';
+const DEFAULT_COUNT = 5;
+
+export const DEFAULT_NOVEL_THUMBNAIL_CAROUSEL_VARIABLES = {
+  novelThumbnailCarouselSort: DEFAULT_SORT, 
+  novelThumbnailCarouselCount: DEFAULT_COUNT
+}
+
 const fragmentSpec = graphql`
   fragment novelThumbnailCarousel_novels on Query {
     novels (
-      first: 20
-      sortKey: $featuredCarouselSort
+      first: $novelThumbnailCarouselCount
+      sortKey: $novelThumbnailCarouselSort
     ) @connection(key: "novelThumbnailCarousel_novels") {
-      # ...novelThumbnailCarousel_novels
       edges {
         node {
           id
@@ -28,13 +34,6 @@ const fragmentSpec = graphql`
         }
       }
     }
-    # edges {
-    #   node {
-    #     id
-    #     title
-    #     ...novelThumbnail_novel
-    #   }
-    # }
   }
 `;
 
@@ -54,18 +53,16 @@ const sliderOptions: Settings = {
 };
 
 function NovelThumbnailCarousel(props: Props) {
-  // const { edges } = useFragment(fragmentSpec, props.novels);
   const { className, headingText } = props;
   const [{ novels }, refetch] = useRefetch(fragmentSpec, props.novels);
-  console.log('refetcheddata', novels)
-  /* eslint-disable react/jsx-props-no-spreading */
-
   
   const refetchHandler = () => {
-    const response = refetch(homeRelayQuery, { featuredCarouselSort: 'year' }, null, null, { force: true, fetchPolicy: "network-only" });
-    // response.dispose();
+    refetch(homeRelayQuery, { 
+      novelThumbnailCarouselSort: 'lastModified', novelThumbnailCarouselCount: 20 
+    }, null, null);
   }
   
+  /* eslint-disable react/jsx-props-no-spreading */
   return (
     <S.NovelThumbnailCarouselContainer className={className}>
       {headingText && <Text textType={TextType.SectionTitle}>{headingText}</Text>}
