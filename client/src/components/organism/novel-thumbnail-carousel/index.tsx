@@ -3,7 +3,8 @@ import React from 'react';
 import { graphql } from 'babel-plugin-relay/macro';
 import { useFragment } from 'relay-hooks';
 
-import { novelThumbnailCarousel_novels$key } from '../../../__generated__/novelThumbnailCarousel_novels.graphql';
+import { novelThumbnailCarousel_default$key } from '../../../__generated__/novelThumbnailCarousel_default.graphql';
+import { novelThumbnailCarousel_latest$key } from '../../../__generated__/novelThumbnailCarousel_latest.graphql';
 
 import * as S from './style';
 import Text, { TextType } from '../../atom/text';
@@ -11,12 +12,29 @@ import Text, { TextType } from '../../atom/text';
 import { Settings } from 'react-slick';
 import { DEFAULT_SLIDER_SETTINGS } from '../../../utilities/slider';
 
-const fragmentSpec = graphql`
-  fragment novelThumbnailCarousel_novels on Query {
+export const defaultNovelThumbnailCarouselFragmentSpec = graphql`
+  fragment novelThumbnailCarousel_default on Query {
     novelThumbnailCarousel: novels(
       first: $novelThumbnailCarouselCount
       sortKey: $novelThumbnailCarouselSort
     ) @connection(key: "novel_novelThumbnailCarousel") {
+      edges {
+        node {
+          id
+          slug
+          ...novelThumbnail_novel
+        }
+      }
+    }
+  }
+`;
+
+export const latestNovelThumbnailCarouselFragmentSpec = graphql`
+  fragment novelThumbnailCarousel_latest on Query {
+    latestNovelThumbnailCarousel: novels(
+      first: 20
+      sortKey: "year"
+    ) @connection(key: "novel_latestNovelThumbnailCarousel") {
       edges {
         node {
           id
@@ -51,22 +69,38 @@ export const DEFAULT_NOVEL_THUMBNAIL_CAROUSEL_VARIABLES: NovelThumbnailCarouselV
 }
 
 type Props = {
-  novelThumbnailCarousel: novelThumbnailCarousel_novels$key;
   className?: string;
   headingText?: string;
+  type: 'latest' | 'featured';
+  novels: novelThumbnailCarousel_latest$key | novelThumbnailCarousel_default$key;
 };
 
 function NovelThumbnailCarousel(props: Props) {
-  const { className, headingText } = props;
-  const { novelThumbnailCarousel } = useFragment(fragmentSpec, props.novelThumbnailCarousel);
-  
+  const { className, headingText, type } = props;
+  const fragment = useFragment(
+    props.type === 'latest' ? 
+      latestNovelThumbnailCarouselFragmentSpec : defaultNovelThumbnailCarouselFragmentSpec, 
+    props.novels
+  );
   return (
     <S.NovelThumbnailCarouselContainer className={className}>
       {headingText && <Text textType={TextType.SectionTitle}>{headingText}</Text>}
+
       <S.NovelThumbnailCarouselSlider {...sliderOptions}>
-        {novelThumbnailCarousel.edges.map(({ node }) => (
-          <S.NovelThumbnailCarouselItem key={node.id} novel={node} />
-        ))}
+        {
+          'latestNovelThumbnailCarousel' in fragment ? 
+            fragment.latestNovelThumbnailCarousel.edges.map(({ node }) => (
+              <S.NovelThumbnailCarouselItem key={node.id} novel={node} />
+            )) :''
+        }
+        {
+          'novelThumbnailCarousel' in fragment ?
+            fragment.novelThumbnailCarousel.edges.map(({ node }) => (
+              <S.NovelThumbnailCarouselItem key={node.id} novel={node} />
+            )) :''
+        }
+
+
       </S.NovelThumbnailCarouselSlider>
     </S.NovelThumbnailCarouselContainer>
   );

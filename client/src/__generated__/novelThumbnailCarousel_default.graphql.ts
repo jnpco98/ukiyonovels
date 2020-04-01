@@ -3,7 +3,7 @@
 
 import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
-export type novelThumbnailCarousel_novels = {
+export type novelThumbnailCarousel_default = {
     readonly novelThumbnailCarousel: {
         readonly edges: ReadonlyArray<{
             readonly node: {
@@ -13,19 +13,19 @@ export type novelThumbnailCarousel_novels = {
             };
         }>;
     } | null;
-    readonly " $refType": "novelThumbnailCarousel_novels";
+    readonly " $refType": "novelThumbnailCarousel_default";
 };
-export type novelThumbnailCarousel_novels$data = novelThumbnailCarousel_novels;
-export type novelThumbnailCarousel_novels$key = {
-    readonly " $data"?: novelThumbnailCarousel_novels$data;
-    readonly " $fragmentRefs": FragmentRefs<"novelThumbnailCarousel_novels">;
+export type novelThumbnailCarousel_default$data = novelThumbnailCarousel_default;
+export type novelThumbnailCarousel_default$key = {
+    readonly " $data"?: novelThumbnailCarousel_default$data;
+    readonly " $fragmentRefs": FragmentRefs<"novelThumbnailCarousel_default">;
 };
 
 
 
 const node: ReaderFragment = ({
     "kind": "Fragment",
-    "name": "novelThumbnailCarousel_novels",
+    "name": "novelThumbnailCarousel_default",
     "type": "Query",
     "metadata": {
         "connection": [
@@ -151,5 +151,5 @@ const node: ReaderFragment = ({
         }
     ]
 } as any);
-(node as any).hash = 'f2abcb7a12a1a2703c7575f56c9e86c8';
+(node as any).hash = 'eac9760d44f3ec58d74c9c9b03c70eb6';
 export default node;

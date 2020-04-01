@@ -17,7 +17,8 @@ export const homeRelayQuery = graphql`
     $novelThumbnailCarouselSort: String
     $novelThumbnailCarouselCount: Float
   ) {
-    ...novelThumbnailCarousel_novels
+    ...novelThumbnailCarousel_default
+    ...novelThumbnailCarousel_latest
     ...novelCardList_novels
   }
 `;
@@ -40,7 +41,13 @@ function Home(props: Props) {
           <S.HomeWrapper>
             <S.HomeNovelThumbnailCarousel
               headingText={homepage.featuredNovels.headingText}
-              novelThumbnailCarousel={relayProps as any}
+              type="latest"
+              novels={relayProps as any}
+            />
+            <S.HomeNovelThumbnailCarousel
+              headingText={homepage.featuredNovels.headingText}
+              type="featured"
+              novels={relayProps as any}
             />
             <NovelCardList
               headingText={homepage.latestRelease.headingText}
