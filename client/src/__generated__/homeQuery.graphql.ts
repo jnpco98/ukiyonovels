@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-/* @relayHash 5e1a9c31403910fd7eda9a8578b8d6ce */
+/* @relayHash d91ae2153bd584ec4ea5d433252aef7c */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -29,7 +29,7 @@ query homeQuery(
 }
 
 fragment novelCardList_novels on Query {
-  novelCardList: novels(first: 20, sortKey: "lastModified") {
+  novelCardList: novels(first: 10, sortKey: "lastModified") {
     edges {
       node {
         id
@@ -76,7 +76,7 @@ fragment novelThumbnailCarousel_default on Query {
 }
 
 fragment novelThumbnailCarousel_latest on Query {
-  latestNovelThumbnailCarousel: novels(first: 20, sortKey: "year") {
+  latestNovelThumbnailCarousel: novels(first: 10, sortKey: "year") {
     edges {
       node {
         id
@@ -236,7 +236,7 @@ const node: ConcreteRequest = (function () {
     ], v12 = ({
         "kind": "Literal",
         "name": "first",
-        "value": 20
+        "value": 10
     } as any), v13 = [
         (v12 /*: any*/),
         ({
@@ -306,7 +306,7 @@ const node: ConcreteRequest = (function () {
                     "kind": "LinkedField",
                     "alias": "latestNovelThumbnailCarousel",
                     "name": "novels",
-                    "storageKey": "novels(first:20,sortKey:\"year\")",
+                    "storageKey": "novels(first:10,sortKey:\"year\")",
                     "args": (v13 /*: any*/),
                     "concreteType": "NovelConnection",
                     "plural": false,
@@ -325,7 +325,7 @@ const node: ConcreteRequest = (function () {
                     "kind": "LinkedField",
                     "alias": "novelCardList",
                     "name": "novels",
-                    "storageKey": "novels(first:20,sortKey:\"lastModified\")",
+                    "storageKey": "novels(first:10,sortKey:\"lastModified\")",
                     "args": (v14 /*: any*/),
                     "concreteType": "NovelConnection",
                     "plural": false,
@@ -405,7 +405,7 @@ const node: ConcreteRequest = (function () {
             "operationKind": "query",
             "name": "homeQuery",
             "id": null,
-            "text": "query homeQuery(\n  $novelThumbnailCarouselSort: String\n  $novelThumbnailCarouselCount: Float\n) {\n  ...novelThumbnailCarousel_default\n  ...novelThumbnailCarousel_latest\n  ...novelCardList_novels\n}\n\nfragment novelCardList_novels on Query {\n  novelCardList: novels(first: 20, sortKey: \"lastModified\") {\n    edges {\n      node {\n        id\n        slug\n        ...novelCard_novel\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment novelCard_novel on Novel {\n  slug\n  title\n  description\n  coverImage\n  type\n  likes\n  views\n  lastModified\n}\n\nfragment novelThumbnailCarousel_default on Query {\n  novelThumbnailCarousel: novels(first: $novelThumbnailCarouselCount, sortKey: $novelThumbnailCarouselSort) {\n    edges {\n      node {\n        id\n        slug\n        ...novelThumbnail_novel\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment novelThumbnailCarousel_latest on Query {\n  latestNovelThumbnailCarousel: novels(first: 20, sortKey: \"year\") {\n    edges {\n      node {\n        id\n        slug\n        ...novelThumbnail_novel\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment novelThumbnail_novel on Novel {\n  slug\n  title\n  genres\n  coverImage\n  type\n}\n",
+            "text": "query homeQuery(\n  $novelThumbnailCarouselSort: String\n  $novelThumbnailCarouselCount: Float\n) {\n  ...novelThumbnailCarousel_default\n  ...novelThumbnailCarousel_latest\n  ...novelCardList_novels\n}\n\nfragment novelCardList_novels on Query {\n  novelCardList: novels(first: 10, sortKey: \"lastModified\") {\n    edges {\n      node {\n        id\n        slug\n        ...novelCard_novel\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment novelCard_novel on Novel {\n  slug\n  title\n  description\n  coverImage\n  type\n  likes\n  views\n  lastModified\n}\n\nfragment novelThumbnailCarousel_default on Query {\n  novelThumbnailCarousel: novels(first: $novelThumbnailCarouselCount, sortKey: $novelThumbnailCarouselSort) {\n    edges {\n      node {\n        id\n        slug\n        ...novelThumbnail_novel\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment novelThumbnailCarousel_latest on Query {\n  latestNovelThumbnailCarousel: novels(first: 10, sortKey: \"year\") {\n    edges {\n      node {\n        id\n        slug\n        ...novelThumbnail_novel\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment novelThumbnail_novel on Novel {\n  slug\n  title\n  genres\n  coverImage\n  type\n}\n",
             "metadata": {}
         }
     } as any;

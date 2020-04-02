@@ -4,8 +4,11 @@ import DynamicHTML from '../../molecule/dynamic-html';
 import { contact } from '../../../settings/config/settings.json';
 import { jsonFormData } from '../../../utilities/form-data';
 import { AnyStyledComponent } from 'styled-components';
+import { RouteComponentProps } from 'react-router-dom';
 
-const Contact: React.FC = (): ReactElement => {
+type Props = RouteComponentProps;
+
+function Contact(props: Props) {
     const { pageHeading, pageText, fields, submitText } = contact;
     const inputRef = useRef(document.createElement('input'));
 

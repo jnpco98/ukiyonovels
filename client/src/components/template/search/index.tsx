@@ -1,210 +1,69 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
+import { graphql } from 'babel-plugin-relay/macro';
+import { useQuery, RenderProps } from 'relay-hooks';
+
 import * as S from './style';
-import NovelCardList from '../../organism/novel-card-list';
+import { RouteComponentProps } from 'react-router-dom';
+import qs from 'qs';
+import { searchQuery, searchQueryVariables } from '../../../__generated__/searchQuery.graphql';
+import Loader, { LoaderType } from '../../atom/loaders';
+import NovelThumbnail from '../../molecule/novel-thumbnail';
 
-const infoCardContent = [
-    {
-        title: 'Death March to the Parallel World Rhapsody',
-        link: '#',
-        imgSrc:
-            'https://vignette.wikia.nocookie.net/deathmarch/images/6/68/Arisa2.jpg/revision/latest?cb=20191211193108',
-        description: `
-        In Taishō-era Japan, Tanjirō Kamado is a kindhearted and intelligent boy who lives with his family.
-        He has become his family's sole source of income after the passing of his father. Everything
-        changes when his family is attacked and slaughtered by a demon. Tanjirō and his sister Nezuko are
-        the sole survivors of the incident, with Nezuko being transformed into a demon, but still
-        surprisingly showing signs of human emotion and thought. After an encounter with Giyu Tomioka, a
-        demon slayer, Tanjirō is recruited by Giyu to also become a demon slayer to help his sister turn
-        human again and avenge the deaths of the rest of his family.`,
-        meta: {
-            updatedOn: `45 mins ago`,
-            likesCount: `2.5k`,
-            viewsCount: `12k`
-        }
-    },
-    {
-        title: 'Death March to the Parallel World Rhapsody',
-        link: '#',
-        imgSrc:
-            'https://vignette.wikia.nocookie.net/deathmarch/images/6/68/Arisa2.jpg/revision/latest?cb=20191211193108',
-        description: `
-        In Taishō-era Japan, Tanjirō Kamado is a kindhearted and intelligent boy who lives with his family.
-        He has become his family's sole source of income after the passing of his father. Everything
-        changes when his family is attacked and slaughtered by a demon. Tanjirō and his sister Nezuko are
-        the sole survivors of the incident, with Nezuko being transformed into a demon, but still
-        surprisingly showing signs of human emotion and thought. After an encounter with Giyu Tomioka, a
-        demon slayer, Tanjirō is recruited by Giyu to also become a demon slayer to help his sister turn
-        human again and avenge the deaths of the rest of his family.`,
-        meta: {
-            updatedOn: `45 mins ago`,
-            likesCount: `2.5k`,
-            viewsCount: `12k`
-        }
-    },
-    {
-        title: 'Death March to the Parallel World Rhapsody',
-        link: '#',
-        imgSrc:
-            'https://vignette.wikia.nocookie.net/deathmarch/images/6/68/Arisa2.jpg/revision/latest?cb=20191211193108',
-        description: `
-        In Taishō-era Japan, Tanjirō Kamado is a kindhearted and intelligent boy who lives with his family.
-        He has become his family's sole source of income after the passing of his father. Everything
-        changes when his family is attacked and slaughtered by a demon. Tanjirō and his sister Nezuko are
-        the sole survivors of the incident, with Nezuko being transformed into a demon, but still
-        surprisingly showing signs of human emotion and thought. After an encounter with Giyu Tomioka, a
-        demon slayer, Tanjirō is recruited by Giyu to also become a demon slayer to help his sister turn
-        human again and avenge the deaths of the rest of his family.`,
-        meta: {
-            updatedOn: `45 mins ago`,
-            likesCount: `2.5k`,
-            viewsCount: `12k`
-        }
-    },
-    {
-        title: 'Death March to the Parallel World Rhapsody',
-        link: '#',
-        imgSrc:
-            'https://vignette.wikia.nocookie.net/deathmarch/images/6/68/Arisa2.jpg/revision/latest?cb=20191211193108',
-        description: `
-        In Taishō-era Japan, Tanjirō Kamado is a kindhearted and intelligent boy who lives with his family.
-        He has become his family's sole source of income after the passing of his father. Everything
-        changes when his family is attacked and slaughtered by a demon. Tanjirō and his sister Nezuko are
-        the sole survivors of the incident, with Nezuko being transformed into a demon, but still
-        surprisingly showing signs of human emotion and thought. After an encounter with Giyu Tomioka, a
-        demon slayer, Tanjirō is recruited by Giyu to also become a demon slayer to help his sister turn
-        human again and avenge the deaths of the rest of his family.`,
-        meta: {
-            updatedOn: `45 mins ago`,
-            likesCount: `2.5k`,
-            viewsCount: `12k`
-        }
-    },
-    {
-        title: 'Death March to the Parallel World Rhapsody',
-        link: '#',
-        imgSrc:
-            'https://vignette.wikia.nocookie.net/deathmarch/images/6/68/Arisa2.jpg/revision/latest?cb=20191211193108',
-        description: `
-        In Taishō-era Japan, Tanjirō Kamado is a kindhearted and intelligent boy who lives with his family.
-        He has become his family's sole source of income after the passing of his father. Everything
-        changes when his family is attacked and slaughtered by a demon. Tanjirō and his sister Nezuko are
-        the sole survivors of the incident, with Nezuko being transformed into a demon, but still
-        surprisingly showing signs of human emotion and thought. After an encounter with Giyu Tomioka, a
-        demon slayer, Tanjirō is recruited by Giyu to also become a demon slayer to help his sister turn
-        human again and avenge the deaths of the rest of his family.`,
-        meta: {
-            updatedOn: `45 mins ago`,
-            likesCount: `2.5k`,
-            viewsCount: `12k`
-        }
-    },
-    {
-        title: 'Death March to the Parallel World Rhapsody',
-        link: '#',
-        imgSrc:
-            'https://vignette.wikia.nocookie.net/deathmarch/images/6/68/Arisa2.jpg/revision/latest?cb=20191211193108',
-        description: `
-        In Taishō-era Japan, Tanjirō Kamado is a kindhearted and intelligent boy who lives with his family.
-        He has become his family's sole source of income after the passing of his father. Everything
-        changes when his family is attacked and slaughtered by a demon. Tanjirō and his sister Nezuko are
-        the sole survivors of the incident, with Nezuko being transformed into a demon, but still
-        surprisingly showing signs of human emotion and thought. After an encounter with Giyu Tomioka, a
-        demon slayer, Tanjirō is recruited by Giyu to also become a demon slayer to help his sister turn
-        human again and avenge the deaths of the rest of his family.`,
-        meta: {
-            updatedOn: `45 mins ago`,
-            likesCount: `2.5k`,
-            viewsCount: `12k`
-        }
-    },
-    {
-        title: 'Death March to the Parallel World Rhapsody',
-        link: '#',
-        imgSrc:
-            'https://vignette.wikia.nocookie.net/deathmarch/images/6/68/Arisa2.jpg/revision/latest?cb=20191211193108',
-        description: `
-        In Taishō-era Japan, Tanjirō Kamado is a kindhearted and intelligent boy who lives with his family.
-        He has become his family's sole source of income after the passing of his father. Everything
-        changes when his family is attacked and slaughtered by a demon. Tanjirō and his sister Nezuko are
-        the sole survivors of the incident, with Nezuko being transformed into a demon, but still
-        surprisingly showing signs of human emotion and thought. After an encounter with Giyu Tomioka, a
-        demon slayer, Tanjirō is recruited by Giyu to also become a demon slayer to help his sister turn
-        human again and avenge the deaths of the rest of his family.`,
-        meta: {
-            updatedOn: `45 mins ago`,
-            likesCount: `2.5k`,
-            viewsCount: `12k`
-        }
-    },
-    {
-        title: 'Death March to the Parallel World Rhapsody',
-        link: '#',
-        imgSrc:
-            'https://vignette.wikia.nocookie.net/deathmarch/images/6/68/Arisa2.jpg/revision/latest?cb=20191211193108',
-        description: `
-        In Taishō-era Japan, Tanjirō Kamado is a kindhearted and intelligent boy who lives with his family.
-        He has become his family's sole source of income after the passing of his father. Everything
-        changes when his family is attacked and slaughtered by a demon. Tanjirō and his sister Nezuko are
-        the sole survivors of the incident, with Nezuko being transformed into a demon, but still
-        surprisingly showing signs of human emotion and thought. After an encounter with Giyu Tomioka, a
-        demon slayer, Tanjirō is recruited by Giyu to also become a demon slayer to help his sister turn
-        human again and avenge the deaths of the rest of his family.`,
-        meta: {
-            updatedOn: `45 mins ago`,
-            likesCount: `2.5k`,
-            viewsCount: `12k`
-        }
-    },
-    {
-        title: 'Death March to the Parallel World Rhapsody',
-        link: '#',
-        imgSrc:
-            'https://vignette.wikia.nocookie.net/deathmarch/images/6/68/Arisa2.jpg/revision/latest?cb=20191211193108',
-        description: `
-        In Taishō-era Japan, Tanjirō Kamado is a kindhearted and intelligent boy who lives with his family.
-        He has become his family's sole source of income after the passing of his father. Everything
-        changes when his family is attacked and slaughtered by a demon. Tanjirō and his sister Nezuko are
-        the sole survivors of the incident, with Nezuko being transformed into a demon, but still
-        surprisingly showing signs of human emotion and thought. After an encounter with Giyu Tomioka, a
-        demon slayer, Tanjirō is recruited by Giyu to also become a demon slayer to help his sister turn
-        human again and avenge the deaths of the rest of his family.`,
-        meta: {
-            updatedOn: `45 mins ago`,
-            likesCount: `2.5k`,
-            viewsCount: `12k`
-        }
-    },
-    {
-        title: 'Death March to the Parallel World Rhapsody',
-        link: '#',
-        imgSrc:
-            'https://vignette.wikia.nocookie.net/deathmarch/images/6/68/Arisa2.jpg/revision/latest?cb=20191211193108',
-        description: `
-        In Taishō-era Japan, Tanjirō Kamado is a kindhearted and intelligent boy who lives with his family.
-        He has become his family's sole source of income after the passing of his father. Everything
-        changes when his family is attacked and slaughtered by a demon. Tanjirō and his sister Nezuko are
-        the sole survivors of the incident, with Nezuko being transformed into a demon, but still
-        surprisingly showing signs of human emotion and thought. After an encounter with Giyu Tomioka, a
-        demon slayer, Tanjirō is recruited by Giyu to also become a demon slayer to help his sister turn
-        human again and avenge the deaths of the rest of his family.`,
-        meta: {
-            updatedOn: `45 mins ago`,
-            likesCount: `2.5k`,
-            viewsCount: `12k`
-        }
+export const searchRelayQuery = graphql`
+  query searchQuery(
+    $novelWhere: NovelWhere
+    $novelSearchCount: Float
+  ) {
+    search: novels (
+        where: $novelWhere
+        first: $novelSearchCount
+    ) @connection(key: "novels_search") {
+      edges {
+          node {
+              id
+            ...novelThumbnail_novel
+          }
+      }
     }
-];
+  }
+`;
 
-const SearchPage: React.FC = (): ReactElement => {
+function renderNovels(renderProps: RenderProps<searchQuery>) {
+    const { props: relayProps, error, retry } = renderProps;
+    if(error) return <div>{error.message}</div>
+    if(relayProps) {
+        const { search } = relayProps;
+        return <div style={{ display: 'flex', width: '100%', flexWrap: 'wrap' }}>
+            { search.edges.map(({ node }) => <NovelThumbnail key={node.id} novel={node}/>) }
+        </div>
+    }
+    return <Loader type={LoaderType.Ring}/>
+}
+
+type Props = RouteComponentProps;
+
+function Search (props: Props) {
+    const { query } =  qs.parse(props.location.search, { ignoreQueryPrefix: true }) as { query?: string };
+
+    const variables: searchQueryVariables = { 
+        novelSearchCount: 40, 
+        novelWhere: { OR: [
+            { title: { contains: query } },
+            { description: { contains: query } } 
+        ] } 
+    };
+    const queryResult = useQuery<searchQuery>(searchRelayQuery, variables);
     return (
         <S.SearchContainer>
             <S.SearchWrapper>
                 <S.SearchTitle>Search Results</S.SearchTitle>
-                {/* <InfoCardList content={infoCardContent} /> */}
+                    {query && typeof query === 'string' ?
+                        renderNovels(queryResult)  : <p>No results found</p>
+                    }
             </S.SearchWrapper>
             <S.SearchSidePanel/>
         </S.SearchContainer>
     );
 };
 
-export default SearchPage;
+export default Search;

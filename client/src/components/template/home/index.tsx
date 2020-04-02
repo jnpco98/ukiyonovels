@@ -12,6 +12,7 @@ import { homeQuery } from '../../../__generated__/homeQuery.graphql';
 import Loader, { LoaderType } from '../../atom/loaders';
 import { DEFAULT_NOVEL_THUMBNAIL_CAROUSEL_VARIABLES } from '../../organism/novel-thumbnail-carousel';
 
+//primary secondary tertiary for graphql with just argument diff
 export const homeRelayQuery = graphql`
   query homeQuery(
     $novelThumbnailCarouselSort: String

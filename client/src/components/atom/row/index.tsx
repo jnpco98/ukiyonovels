@@ -14,7 +14,7 @@ const Row: React.FC<Props> = (props: Props): ReactElement => {
 
     return (
         <S.RowContainer className={className} onClick={onClick}>
-            <S.RowTitle href={link}>{title}</S.RowTitle>
+            <S.RowTitle to={link}>{title}</S.RowTitle>
             {count && <S.RowCount>{Math.floor(count)}</S.RowCount>}
         </S.RowContainer>
     );

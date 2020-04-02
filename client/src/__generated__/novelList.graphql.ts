@@ -3,54 +3,65 @@
 
 import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
-export type novelCardList_novels = {
-    readonly novelCardList: {
+export type novelList = {
+    readonly novels: {
         readonly edges: ReadonlyArray<{
             readonly node: {
                 readonly id: string;
                 readonly slug: string | null;
-                readonly " $fragmentRefs": FragmentRefs<"novelCard_novel">;
+                readonly title: string | null;
             };
         }>;
     } | null;
-    readonly " $refType": "novelCardList_novels";
+    readonly " $refType": "novelList";
 };
-export type novelCardList_novels$data = novelCardList_novels;
-export type novelCardList_novels$key = {
-    readonly " $data"?: novelCardList_novels$data;
-    readonly " $fragmentRefs": FragmentRefs<"novelCardList_novels">;
+export type novelList$data = novelList;
+export type novelList$key = {
+    readonly " $data"?: novelList$data;
+    readonly " $fragmentRefs": FragmentRefs<"novelList">;
 };
 
 
 
 const node: ReaderFragment = ({
     "kind": "Fragment",
-    "name": "novelCardList_novels",
+    "name": "novelList",
     "type": "Query",
     "metadata": {
         "connection": [
             {
-                "count": null,
+                "count": "novelsCount",
                 "cursor": null,
                 "direction": "forward",
                 "path": [
-                    "novelCardList"
+                    "novels"
                 ]
             }
         ]
     },
-    "argumentDefinitions": [],
+    "argumentDefinitions": [
+        {
+            "kind": "RootArgument",
+            "name": "novelsCount",
+            "type": "Float"
+        },
+        {
+            "kind": "RootArgument",
+            "name": "novelsSort",
+            "type": "String"
+        }
+    ],
     "selections": [
         {
             "kind": "LinkedField",
-            "alias": "novelCardList",
-            "name": "__novel_novelCardList_connection",
-            "storageKey": "__novel_novelCardList_connection(sortKey:\"lastModified\")",
+            "alias": "novels",
+            "name": "__novel_novels_connection",
+            "storageKey": null,
             "args": [
                 {
-                    "kind": "Literal",
+                    "kind": "Variable",
                     "name": "sortKey",
-                    "value": "lastModified"
+                    "variableName": "novelsSort"
                 }
             ],
             "concreteType": "NovelConnection",
@@ -91,14 +102,16 @@ const node: ReaderFragment = ({
                                 {
                                     "kind": "ScalarField",
                                     "alias": null,
-                                    "name": "__typename",
+                                    "name": "title",
                                     "args": null,
                                     "storageKey": null
                                 },
                                 {
-                                    "kind": "FragmentSpread",
-                                    "name": "novelCard_novel",
-                                    "args": null
+                                    "kind": "ScalarField",
+                                    "alias": null,
+                                    "name": "__typename",
+                                    "args": null,
+                                    "storageKey": null
                                 }
                             ]
                         },
@@ -140,5 +153,5 @@ const node: ReaderFragment = ({
         }
     ]
 } as any);
-(node as any).hash = 'd73591b2c7bc1c388744aacdcd3e85c5';
+(node as any).hash = 'b9ffdeded3e733ca99fa33d522c5289f';
 export default node;

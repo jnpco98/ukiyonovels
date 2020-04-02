@@ -3,22 +3,24 @@ import Backdrop from '../../atom/backdrop';
 import SearchOverlay from '../search-overlay';
 import DynamicIcon from '../../molecule/dynamic-icon';
 import * as S from './style';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 type MenuItem = {
     label: string;
-    link: string;
     key: string;
+    link?: string;
     icon?: boolean;
+    button?: boolean;
 }
 
 type Props = {
     mainMenuItems: MenuItem[];
     sideMenuItems: MenuItem[];
     onSelect?: Function;
-};
+} & RouteComponentProps;
 
-const Header: React.FC<Props> = (props: Props): ReactElement => {
-    const { mainMenuItems, sideMenuItems, onSelect } = props;
+function Header (props: Props) {
+    const { mainMenuItems, sideMenuItems, onSelect, history } = props;
 
     const [activeMenuItem, setActiveMenuItem] = useState(sideMenuItems[0].key);
     const [floating, setFloating] = useState(false);
@@ -51,9 +53,13 @@ const Header: React.FC<Props> = (props: Props): ReactElement => {
                     menuItem.key === 'search' ? setSearchOverlayActive(true) : handleSelect(menuItem.key);
                 }} 
             >
-                <S.HeaderMenuItemLink to={menuItem.link}>
-                    {menuItem.icon ? <DynamicIcon SVGString={menuItem.label} /> : menuItem.label}
-                </S.HeaderMenuItemLink>
+                {
+                    menuItem.button ?
+                        <S.HeaderMenuItemButton>{menuItem.icon ? <DynamicIcon SVGString={menuItem.label} /> : menuItem.label}</S.HeaderMenuItemButton> :
+                        <S.HeaderMenuItemLink to={menuItem.link}>
+                            {menuItem.icon ? <DynamicIcon SVGString={menuItem.label} /> : menuItem.label}
+                        </S.HeaderMenuItemLink>
+                }
             </S.HeaderMenuItem>
         )
     }
@@ -77,10 +83,10 @@ const Header: React.FC<Props> = (props: Props): ReactElement => {
             <Backdrop active={drawerActive} onClick={(): void => setDrawerActive(false)} /> 
             
             <SearchOverlay active={searchOverlayActive} 
-                setActive={setSearchOverlayActive} onSearchSubmit={() => console.log('call api submit')}
+                setActive={setSearchOverlayActive} onSearchSubmit={(query: string) => history.push(`/search?query=${query}`)}
             />
         </S.HeaderContainer>
     );
 };
 
-export default Header;
+export default withRouter(Header);

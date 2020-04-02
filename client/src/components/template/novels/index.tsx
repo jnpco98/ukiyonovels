@@ -1,27 +1,40 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
+
+import { graphql } from 'babel-plugin-relay/macro';
+import { useQuery } from 'relay-hooks';
+
 import NovelList from '../../organism/novel-list';
 import * as S from './style';
+import { RouteComponentProps } from 'react-router-dom';
+import Loader, { LoaderType } from '../../atom/loaders';
+import { novelsQuery } from '../../../__generated__/novelsQuery.graphql';
 
-const novels = [
-    { title: 'A Goblin\'s Evolution', link: '/' },
-    { title: 'A Goblin\'s Evolution', link: '/' },
-    { title: 'A Goblin\'s Evolution', link: '/' },
-    { title: 'A Goblin\'s Evolution', link: '/' },
-    { title: 'A Goblin\'s Evolution', link: '/' },
-    { title: 'A Goblin\'s Evolution', link: '/' },
-    { title: 'A Goblin\'s Evolution', link: '/' },
-]
+export const novelsRelayQuery = graphql`
+    query novelsQuery(
+        $novelsSort: String
+        $novelsCount: Float
+    ) {
+        ...novelList
+    }
+`;
 
-const List: React.FC = (): ReactElement => {
-    return (
+type Props = {} & RouteComponentProps;
+
+function List(props: Props) {
+    const { props: relayProps, error, retry } =  useQuery<novelsQuery>(novelsRelayQuery, { novelsSort: 'title', novelsCount: 50 });
+  
+    if(error) return <div>{error.message}</div>
+    if(relayProps) return (
         <S.NovelsContainer>
             <S.NovelsWrapper>
                 <S.NovelTitle>Novel List</S.NovelTitle>
-                <NovelList contents={[...novels, ...novels, ...novels]}/>
+                <NovelList novels={relayProps}/>
             </S.NovelsWrapper>
             <S.NovelsSidePanel/>
         </S.NovelsContainer>
     );
+    
+    return <Loader type={LoaderType.Ring}/>
 };
 
 export default List;

@@ -32,7 +32,7 @@ export const defaultNovelThumbnailCarouselFragmentSpec = graphql`
 export const latestNovelThumbnailCarouselFragmentSpec = graphql`
   fragment novelThumbnailCarousel_latest on Query {
     latestNovelThumbnailCarousel: novels(
-      first: 20
+      first: 10
       sortKey: "year"
     ) @connection(key: "novel_latestNovelThumbnailCarousel") {
       edges {
@@ -56,7 +56,7 @@ const sliderOptions: Settings = {
 };
 
 const DEFAULT_SORT = 'lastModified';
-const DEFAULT_COUNT = 20;
+const DEFAULT_COUNT = 10;
 
 interface NovelThumbnailCarouselVariables {
   novelThumbnailCarouselSort: string;

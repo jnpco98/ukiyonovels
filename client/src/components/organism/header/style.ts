@@ -42,6 +42,14 @@ export const HeaderMenuItemLink = styled(Text).attrs({ textType: TextType.Link }
   }
 `;
 
+export const HeaderMenuItemButton = styled(Text).attrs({ textType: TextType.Span })`
+  overflow: hidden;
+
+  &:after {
+    transition: all 0.3s ease; 
+  }
+`;
+
 export const HeaderMenuItem = styled.li<HeaderMenuItemProps>`
   ${center(FLEX_ALIGN_MAIN)};
 

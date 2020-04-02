@@ -1,9 +1,12 @@
 import styled from 'styled-components/macro';
-import { Paragraph, Anchor } from '../text/style';
+import { Paragraph, Link } from '../text/style';
+import { regularFontSize } from '../../../utilities/mixins';
 
-export const RowTitle = styled(Anchor)`
+export const RowTitle = styled(Link)`
   font-family: ${({ theme }) => theme.font.secondary};
   position: relative;
+
+  ${regularFontSize()}
 
   &.is-bulleted {
     margin-left: 0.7rem;
