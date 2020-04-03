@@ -32,6 +32,15 @@ export const novelTypes = origins.map(origin => `${origin} Novel`);
  */
 export const novelStatus = ['Completed', 'Ongoing', 'Hiatus'];
 
+@ObjectType()
+export class NovelAggregate {
+  @Field({ description: 'Consolidate novel fields', nullable: true })
+  field: string;
+
+  @Field({ description: 'Aggregating consolidated novel field count' })
+  count: number;
+}
+
 /**
  * ORM Novel Entity
  *
