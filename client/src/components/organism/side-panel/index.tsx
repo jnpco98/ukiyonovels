@@ -14,11 +14,11 @@ const SidePanel: React.FC<Props> = (props: Props) => {
       {/* <S.SidePanelRatings headingText={sidePanel.popularNovels.headingText} contents={ratings} /> */}
       <S.SidePanelQuickSearch
         headingText={sidePanel.genres.headingText}
-        contents={sidePanel.genres.contents.map(c => ({ title: c.title, link: c.link }))}
+        contents={sidePanel.genres.contents.map(c => ({ title: c.title, link: `/novels/genre${c.link}` }))}
       />
       <S.SidePanelQuickSearch
         headingText={sidePanel.type.headingText}
-        contents={sidePanel.type.contents.map(t => ({ title: t.title, link: t.link }))}
+        contents={sidePanel.type.contents.map(t => ({ title: t.title, link: `/novels/type${t.link}` }))}
       />
     </S.SidePanelContainer>
   );

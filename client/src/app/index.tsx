@@ -27,7 +27,7 @@ function App(): ReactElement {
           <Switch>
             <Route exact path="/" render={(props): ReactElement => <Home {...props} />} />
             <Route exact path="/novel/:slug" render={(props): ReactElement => <Novel {...props} />} />
-            <Route exact path="/novels" render={(props): ReactElement => <Novels {...props} />} />
+            <Route exact path="/novels/:type?/:key?" render={(props): ReactElement => <Novels {...props} />} />
             <Route exact path="/search" render={(props): ReactElement => <Search {...props} />} />
             <Route
               exact
