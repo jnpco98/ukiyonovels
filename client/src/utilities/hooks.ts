@@ -23,10 +23,7 @@ export function useInterval(callback: Function, delay: number) {
 export function useOnClickOutside(ref: MutableRefObject<Node>, handler: Function) {
   useEffect(() => {
     const listener = (event: Event): void => {
-      if (
-        !ref.current ||
-        (event.target instanceof Node && ref.current.contains(event.target))
-      ) {
+      if (!ref.current || (event.target instanceof Node && ref.current.contains(event.target))) {
         return;
       }
       handler(event);

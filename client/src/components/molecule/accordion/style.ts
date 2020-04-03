@@ -9,7 +9,7 @@ import { padding } from 'polished';
 export const AccordionTabs = styled.div`
   border-radius: 0.3rem;
   overflow: hidden;
-  box-shadow: 0 4px 4px -2px rgba(0,0,0,0.5);
+  box-shadow: 0 4px 4px -2px rgba(0, 0, 0, 0.5);
 `;
 
 export const AccordionTab = styled.div`
@@ -20,7 +20,7 @@ export const AccordionTab = styled.div`
 
 type LabelStyleProps = {
   for: string;
-}
+};
 
 export const AccordionTabLabel = styled.label<LabelStyleProps>`
   display: flex;
@@ -66,7 +66,7 @@ export const AccordionContent = styled.div`
   max-height: 0;
   color: black;
   background: ${({ theme, ...props }) => theme.colors.white};
-  transition: all .25s;
+  transition: all 0.25s;
   overflow: hidden;
   opacity: 0;
 `;
@@ -91,7 +91,7 @@ export const AccordionTabTrigger = styled.input`
       opacity: 1;
     }
   }
-  
+
   ${M.MEDIA_LARGE} {
     &:checked {
       ~ ${AccordionContent} {
@@ -103,13 +103,14 @@ export const AccordionTabTrigger = styled.input`
 
 type AccordionStyleProps = {
   flat?: boolean;
-}
+};
 
 export const AccordionContainer = styled.div<AccordionStyleProps>`
   width: 100%;
-  
-  ${({ theme, ...props }) => 
-    props.flat && css`
+
+  ${({ theme, ...props }) =>
+    props.flat &&
+    css`
       ${AccordionTabs} {
         box-shadow: none;
         border-radius: 0;
@@ -137,6 +138,5 @@ export const AccordionContainer = styled.div<AccordionStyleProps>`
           ${padding(null, 0)};
         }
       }
-    `
-  };
+    `};
 `;

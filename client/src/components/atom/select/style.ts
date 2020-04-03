@@ -7,24 +7,23 @@ import { faCaretRight } from '@fortawesome/free-solid-svg-icons';
 
 type IconStyleProps = {
   active?: boolean;
-}
+};
 
 export const SelectIcon = styled(FontAwesomeIcon).attrs({ icon: faCaretRight })<IconStyleProps>`
   ${center(CENTER_VERTICAL)};
   right: 0.5rem;
   transition: all 0.2s ease-in;
-  
+
   ${props =>
     props.active &&
-      css`
-        transform: translateY(-50%) rotate(90deg);
-      `
-    }
+    css`
+      transform: translateY(-50%) rotate(90deg);
+    `}
 `;
 
 type ContainerStyleProps = {
   width?: string;
-}
+};
 
 export const SelectContainer = styled.div<ContainerStyleProps>`
   display: flex;
@@ -37,7 +36,7 @@ type OptionsContainerStyleProps = {
   active?: boolean;
   height?: string;
   autoHide?: boolean;
-}
+};
 
 export const SelectOptionsContainer = styled(Simplebar)<OptionsContainerStyleProps>`
   width: 100%;
@@ -53,13 +52,12 @@ export const SelectOptionsContainer = styled(Simplebar)<OptionsContainerStylePro
   top: 100%;
 
   ${props =>
-    props.active && 
-      css`
-        opacity: 1;
-        max-height: ${props.height || `15rem`};
-        overflow-y: visible;
-      `
-    }
+    props.active &&
+    css`
+      opacity: 1;
+      max-height: ${props.height || `15rem`};
+      overflow-y: visible;
+    `}
 `;
 
 export const SelectOptionSelected = styled.div`
@@ -74,7 +72,7 @@ export const SelectOptionSelected = styled.div`
   margin-bottom: 0.3rem;
 `;
 
-export const SelectOptionInput = styled.input.attrs({ type: "radio", hidden: true })`
+export const SelectOptionInput = styled.input.attrs({ type: 'radio', hidden: true })`
   cursor: pointer;
 `;
 
@@ -84,12 +82,12 @@ export const SelectOptionLabel = styled.label`
 
 type OptionStyleProps = {
   selected?: boolean;
-}
+};
 
 export const SelectOption = styled.div<OptionStyleProps>`
   padding: 0.7rem 1.3rem;
   cursor: pointer;
-  
+
   &:hover {
     background: ${({ theme, ...props }) => lighten(0.05, theme.colors.accent)};
     ${SelectOptionLabel} {
@@ -99,11 +97,10 @@ export const SelectOption = styled.div<OptionStyleProps>`
 
   ${props =>
     props.selected &&
-      css`
-        background: ${({ theme, ...props }) => lighten(0.05, theme.colors.accent)};
-        ${SelectOptionLabel} {
-          color: ${({ theme, ...props }) => theme.colors.backgroundAlternate};
-        }
-      `
-    }
+    css`
+      background: ${({ theme, ...props }) => lighten(0.05, theme.colors.accent)};
+      ${SelectOptionLabel} {
+        color: ${({ theme, ...props }) => theme.colors.backgroundAlternate};
+      }
+    `}
 `;

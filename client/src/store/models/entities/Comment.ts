@@ -1,6 +1,6 @@
-import Entity from "./Entity";
+import Entity from './Entity';
 
 export interface Comment extends Entity {
-    message: string;
-    chapter: string;
+  message: string;
+  chapter: string;
 }

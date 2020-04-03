@@ -3,47 +3,43 @@ import { AnyStyledComponent } from 'styled-components/macro';
 import * as S from './style';
 
 export enum LoaderType {
-    Ring,
-    DualRing,
-    Ellipsis
+  Ring,
+  DualRing,
+  Ellipsis
 }
 
 type Props = {
-    type?: LoaderType;
-}
+  type?: LoaderType;
+};
 
 const Loader: React.FC<Props> = (props: Props): ReactElement => {
-    const { type } = props;
+  const { type } = props;
 
-    const generateDiv = (count: number): ReactElement[] => 
-        Array(count)
-            .fill(null)
-            .map((_, idx) => <div key={idx}></div>)
-    
-    let StyledLoader: AnyStyledComponent;
-    let divCount: number;
+  const generateDiv = (count: number): ReactElement[] =>
+    Array(count)
+      .fill(null)
+      .map((_, idx) => <div key={idx}></div>);
 
-    switch (type) {
-        default:
-        case LoaderType.Ring:
-            StyledLoader = S.Ring;
-            divCount = 4;
-            break;
-        case LoaderType.DualRing:
-            StyledLoader = S.DualRing;
-            divCount = 0;
-            break;
-        case LoaderType.Ellipsis:
-            StyledLoader = S.Ellipsis;
-            divCount = 4;
-            break;
-    }
+  let StyledLoader: AnyStyledComponent;
+  let divCount: number;
 
-    return (
-        <StyledLoader>
-            {generateDiv(divCount)}
-        </StyledLoader>
-    );
+  switch (type) {
+    default:
+    case LoaderType.Ring:
+      StyledLoader = S.Ring;
+      divCount = 4;
+      break;
+    case LoaderType.DualRing:
+      StyledLoader = S.DualRing;
+      divCount = 0;
+      break;
+    case LoaderType.Ellipsis:
+      StyledLoader = S.Ellipsis;
+      divCount = 4;
+      break;
+  }
+
+  return <StyledLoader>{generateDiv(divCount)}</StyledLoader>;
 };
 
 export default Loader;

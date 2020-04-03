@@ -6,7 +6,14 @@ import * as M from '../../../settings/media';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookOpen } from '@fortawesome/free-solid-svg-icons';
 import { Paragraph, SubsectionTitle } from '../../atom/text/style';
-import { center, FLEX_ALIGN_CROSS, gutter, GUTTER_LEFT, pageTitleFontSize, GUTTER_RIGHT } from '../../../utilities/mixins';
+import {
+  center,
+  FLEX_ALIGN_CROSS,
+  gutter,
+  GUTTER_LEFT,
+  pageTitleFontSize,
+  GUTTER_RIGHT
+} from '../../../utilities/mixins';
 
 export const ImageCarouselContainer = styled.div`
   width: 100%;
@@ -24,7 +31,7 @@ export const ImageCarouselContainer = styled.div`
   ${M.MEDIA_MEDIUM} {
     margin-bottom: 2rem;
   }
-  
+
   ${M.MEDIA_LARGE} {
     margin-bottom: 2.5rem;
   }
@@ -106,8 +113,7 @@ export const ImageCarouselContent = styled.div`
   flex-direction: column;
 `;
 
-export const Arrow = styled(SlickArrow)`
-`;
+export const Arrow = styled(SlickArrow)``;
 
 export const ImageCarouselHeading = styled(SubsectionTitle)`
   color: ${({ theme, ...props }) => theme.colors.white};

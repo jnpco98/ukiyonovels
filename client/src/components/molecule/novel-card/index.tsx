@@ -31,23 +31,13 @@ type Props = {
   novel: novelCard_novel$key;
 };
 
-function renderMetadata({
-  lastModified,
-  likes,
-  views
-}: {
-  lastModified: unknown;
-  likes: number;
-  views: number;
-}) {
+function renderMetadata({ lastModified, likes, views }: { lastModified: unknown; likes: number; views: number }) {
   return lastModified || likes || views ? (
     <S.InfoCardMeta>
       {lastModified && (
         <>
           <S.InfoCardCalendarIcon />
-          <S.InfoCardText>
-            {new Date(lastModified as string).toDateString()}
-          </S.InfoCardText>
+          <S.InfoCardText>{new Date(lastModified as string).toDateString()}</S.InfoCardText>
         </>
       )}
       {(likes || likes == 0) && (
@@ -69,16 +59,10 @@ function renderMetadata({
 }
 
 function NovelCard(props: Props) {
-  const {
-    slug,
-    title,
-    description,
-    coverImage,
-    type,
-    likes,
-    views,
-    lastModified
-  } = useFragment(fragmentSpec, props.novel);
+  const { slug, title, description, coverImage, type, likes, views, lastModified } = useFragment(
+    fragmentSpec,
+    props.novel
+  );
   const { className, buttonText } = props;
 
   const isXXSmallScreen = useMediaQuery({ minWidth: XXSMALL });
@@ -101,9 +85,7 @@ function NovelCard(props: Props) {
         <S.InfoCardMetaWrapper>
           {renderMetadata({ lastModified, likes, views })}
           {buttonText && (
-            <S.InfoCardButtonContinue to={novelUrl}>
-              {buttonText || 'Continue reading'}
-            </S.InfoCardButtonContinue>
+            <S.InfoCardButtonContinue to={novelUrl}>{buttonText || 'Continue reading'}</S.InfoCardButtonContinue>
           )}
         </S.InfoCardMetaWrapper>
       </S.InfoCardContent>

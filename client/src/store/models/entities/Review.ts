@@ -1,7 +1,7 @@
-import Entity from "./Entity";
+import Entity from './Entity';
 
 export interface Review extends Entity {
-    message: string;
-    rating: number;
-    novel: string;
+  message: string;
+  rating: number;
+  novel: string;
 }

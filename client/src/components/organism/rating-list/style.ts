@@ -8,17 +8,17 @@ import Text, { TextType } from '../../atom/text';
 
 export const RatingListContainer = styled.div`
   width: 100%;
-  
+
   ${BarContainer} {
     margin-bottom: 0.5rem;
   }
 
-  ${M.MEDIA_XSMALL} {    
+  ${M.MEDIA_XSMALL} {
     ${BarContainer} {
       margin-bottom: 0.8rem;
     }
   }
-  
+
   ${M.MEDIA_LARGE} {
     ${BarContainer} {
       margin-bottom: 1rem;
@@ -33,16 +33,16 @@ export const RatingListHeading = styled(Text).attrs({ textType: TextType.Subsect
   width: 100%;
   overflow: hidden;
 
-  ${M.MEDIA_XSMALL} { 
+  ${M.MEDIA_XSMALL} {
     margin-bottom: 0.8rem;
   }
 
-  ${M.MEDIA_MEDIUM} { 
+  ${M.MEDIA_MEDIUM} {
     margin-bottom: 1.2rem;
     margin-top: 2rem;
   }
-  
+
   ${M.MEDIA_LARGE} {
     margin-bottom: 1.5rem;
   }
-`
+`;

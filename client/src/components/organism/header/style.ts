@@ -7,11 +7,11 @@ import * as M from '../../../settings/media';
 
 type HeaderMenuProps = {
   floating: boolean;
-}
+};
 
 type HeaderMenuItemProps = {
   active: boolean;
-}
+};
 
 export const HeaderLeftMenu = styled.ul`
   ${M.MEDIA_XXSMALL} {
@@ -25,20 +25,19 @@ export const HeaderLeftMenu = styled.ul`
 
 export const HeaderRightMenu = styled.ul`
   margin-right: 1rem;
-  
+
   ${M.MEDIA_XSMALL} {
     margin-right: 2rem;
   }
 `;
 
-export const HeaderSideDrawerMenu = styled.ul`
-`;
+export const HeaderSideDrawerMenu = styled.ul``;
 
 export const HeaderMenuItemLink = styled(Text).attrs({ textType: TextType.Link })`
   overflow: hidden;
 
   &:after {
-    transition: all 0.3s ease; 
+    transition: all 0.3s ease;
   }
 `;
 
@@ -46,7 +45,7 @@ export const HeaderMenuItemButton = styled(Text).attrs({ textType: TextType.Span
   overflow: hidden;
 
   &:after {
-    transition: all 0.3s ease; 
+    transition: all 0.3s ease;
   }
 `;
 
@@ -73,7 +72,7 @@ export const HeaderMenuItem = styled.li<HeaderMenuItemProps>`
         content: none;
       }
     }
-  } 
+  }
 
   ${M.MEDIA_XXSMALL} {
     margin: 0 2rem;
@@ -106,19 +105,20 @@ export const HeaderMenuItem = styled.li<HeaderMenuItemProps>`
 
   &:hover {
     ${HeaderMenuItemLink}:after {
-      transform: translateX(0); 
+      transform: translateX(0);
     }
   }
 
-  ${props => props.active && css`
-    ${HeaderMenuItemLink}:after {
-      transform: translateX(0); 
-    }
-  `};
+  ${props =>
+    props.active &&
+    css`
+      ${HeaderMenuItemLink}:after {
+        transform: translateX(0);
+      }
+    `};
 `;
 
-export const HeaderHamburger = styled.li`
-`;
+export const HeaderHamburger = styled.li``;
 
 export const HeaderHamburgerIcon = styled(Hamburger)`
   transition: transform 0.3s ease;
@@ -139,13 +139,15 @@ export const HeaderContainer = styled.header<HeaderMenuProps>`
     display: flex;
   }
 
-  ${props => props.floating && css`
-    font-size: 0.9rem;
-    position: fixed;
-    background: ${({ theme }) => theme.colors.background};
-    box-shadow: 0px 10px 13px -9px rgba(0,0,0,0.75);
-  `};
-    
+  ${props =>
+    props.floating &&
+    css`
+      font-size: 0.9rem;
+      position: fixed;
+      background: ${({ theme }) => theme.colors.background};
+      box-shadow: 0px 10px 13px -9px rgba(0, 0, 0, 0.75);
+    `};
+
   ${M.MEDIA_XLARGE} {
     height: 6rem;
   }
@@ -167,7 +169,7 @@ export const HeaderSideDrawer = styled(SideDrawer)`
       margin-top: 4.5rem;
     }
   }
-  
+
   ${M.MEDIA_XSMALL} {
     width: 28rem;
 

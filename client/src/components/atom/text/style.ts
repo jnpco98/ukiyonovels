@@ -1,5 +1,11 @@
 import styled, { css } from 'styled-components/macro';
-import { pageTitleFontSize, sectionFontSize, subsectionFontSize, regularFontSize, headingDecoration } from '../../../utilities/mixins';
+import {
+  pageTitleFontSize,
+  sectionFontSize,
+  subsectionFontSize,
+  regularFontSize,
+  headingDecoration
+} from '../../../utilities/mixins';
 import * as M from '../../../settings/media';
 import { margin } from 'polished';
 import TextAreaAutoResize from 'react-autosize-textarea';
@@ -7,7 +13,7 @@ import { Link as RouterLink } from 'react-router-dom';
 
 type HeadingStyleProps = {
   clearDecoration?: boolean;
-}
+};
 
 export const PageTitle = styled.h1<HeadingStyleProps>`
   ${pageTitleFontSize};
@@ -25,10 +31,7 @@ export const PageTitle = styled.h1<HeadingStyleProps>`
     ${margin('2rem', null, '2rem', null)};
   }
 
-  ${props => 
-    !props.clearDecoration 
-      && headingDecoration 
-    };
+  ${props => !props.clearDecoration && headingDecoration};
 `;
 
 export const SectionTitle = styled.h2<HeadingStyleProps>`
@@ -47,10 +50,7 @@ export const SectionTitle = styled.h2<HeadingStyleProps>`
     ${margin('2rem', null, '2rem', null)};
   }
 
-  ${props => 
-    !props.clearDecoration 
-      && headingDecoration 
-    };
+  ${props => !props.clearDecoration && headingDecoration};
 `;
 
 export const SubsectionTitle = styled.h3`

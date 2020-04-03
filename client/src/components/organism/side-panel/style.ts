@@ -21,7 +21,7 @@ export const SidePanelRatings = styled(RatingList)`
 
 export const SidePanelQuickSearch = styled(QuickSearch)`
   margin-bottom: 1.5rem;
-  
+
   ${M.MEDIA_XXSMALL} {
     margin-bottom: 2rem;
   }

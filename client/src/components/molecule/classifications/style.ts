@@ -18,18 +18,18 @@ export const ClassificationsHeading = styled(SubsectionTitle)`
 
 type ListStyleProps = {
   inline?: boolean;
-}
+};
 
 export const ClassificationsList = styled.ul<ListStyleProps>`
   display: flex;
-  ${props => 
-    props.inline ?
-      css`
-        flex-wrap: wrap;
-      `:
-      css`
-        flex-direction: column;
-      `}
+  ${props =>
+    props.inline
+      ? css`
+          flex-wrap: wrap;
+        `
+      : css`
+          flex-direction: column;
+        `}
 `;
 
 export const ClassificationsItem = styled.li`

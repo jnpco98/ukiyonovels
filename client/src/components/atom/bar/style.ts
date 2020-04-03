@@ -4,7 +4,7 @@ import * as M from '../../../settings/media';
 
 type BarFillProps = {
   rating: number;
-}
+};
 
 export const BarTextWrapper = styled.div`
   display: flex;
@@ -50,8 +50,7 @@ export const BarFill = styled.div<BarFillProps>`
       background-image: linear-gradient(90deg, ${theme.colors.black}, ${theme.colors.black});
       background-size: ${props.rating * 100}% 100%;
       background-repeat: no-repeat;
-    `   
-  }
+    `}
 `;
 
 export const BarContainer = styled.div`

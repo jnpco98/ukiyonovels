@@ -5,7 +5,8 @@ export const SlickArrowContainer = styled.div`
   font-size: 1rem;
   z-index: 10;
 
-  &:before, &:after {
+  &:before,
+  &:after {
     transition: all 0.3s ease;
   }
 
@@ -16,11 +17,11 @@ export const SlickArrowContainer = styled.div`
   &.slick-next {
     right: 0.5rem;
   }
-  
+
   ${M.MEDIA_MEDIUM} {
     width: 1.8rem;
     height: 1.8rem;
-    
+
     &:before {
       font-size: 1.8rem;
     }

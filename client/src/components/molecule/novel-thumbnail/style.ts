@@ -15,7 +15,7 @@ export const NovelThumbnailContainer = styled.div`
   overflow: hidden;
   margin: auto;
   border-radius: 0.5rem;
-  
+
   &:after {
     content: '';
     position: absolute;
@@ -62,7 +62,7 @@ export const NovelThumbnailContent = styled.div`
   display: flex;
   transform: translateY(35%);
   transition: transform 0.3s ease;
-  
+
   ${NovelThumbnailContainer}:hover & {
     background: linear-gradient(to bottom, rgba(22, 22, 34, 0.5) 0%, rgba(22, 22, 34, 1) 100%);
     transform: translateY(0%);
@@ -78,7 +78,7 @@ export const NovelThumbnailImage = styled.img`
   height: 100%;
   cursor: pointer;
   object-fit: cover;
-  
+
   ${NovelThumbnailContainer}:hover & {
     filter: blur(1px);
   }
@@ -96,7 +96,7 @@ export const NovelThumbnailHeading = styled(SubsectionTitle)`
   ${M.MEDIA_XSMALL} {
     font-size: 0.5rem;
   }
-  
+
   ${M.MEDIA_SMALL} {
     font-size: 0.7rem;
     ${NovelThumbnailContainer}:hover & {
@@ -110,7 +110,7 @@ export const NovelThumbnailHeading = styled(SubsectionTitle)`
 `;
 
 export const NovelThumbnailSubtitle = styled(Paragraph)`
-	color: ${({ theme, ...props }) => theme.colors.white};
+  color: ${({ theme, ...props }) => theme.colors.white};
   ${fadeInTextHover(NovelThumbnailContainer)};
 
   ${NovelThumbnailContainer}:hover & {
@@ -123,7 +123,7 @@ export const NovelThumbnailSubtitle = styled(Paragraph)`
   ${M.MEDIA_XSMALL} {
     font-size: 0.5rem;
   }
-  
+
   ${M.MEDIA_SMALL} {
     font-size: 0.6rem;
   }
@@ -134,7 +134,7 @@ export const NovelThumbnailSubtitle = styled(Paragraph)`
 `;
 
 export const NovelThumbnailGenre = styled(Span)`
-	color: ${({ theme, ...props }) => theme.colors.white};
+  color: ${({ theme, ...props }) => theme.colors.white};
   ${fadeInTextHover(NovelThumbnailContainer)};
   font-size: 0.5rem;
 
@@ -149,7 +149,7 @@ export const NovelThumbnailGenre = styled(Span)`
   ${M.MEDIA_SMALL} {
     font-size: 0.6rem;
   }
-  
+
   ${M.MEDIA_MEDIUM} {
     font-size: 0.7rem;
   }

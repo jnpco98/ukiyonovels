@@ -14,10 +14,7 @@ import { DEFAULT_NOVEL_THUMBNAIL_CAROUSEL_VARIABLES } from '../../organism/novel
 
 //primary secondary tertiary for graphql with just argument diff
 export const homeRelayQuery = graphql`
-  query homeQuery(
-    $novelThumbnailCarouselSort: String
-    $novelThumbnailCarouselCount: Float
-  ) {
+  query homeQuery($novelThumbnailCarouselSort: String, $novelThumbnailCarouselCount: Float) {
     ...novelThumbnailCarousel_default
     ...novelThumbnailCarousel_latest
     ...novelCardList_novels
@@ -31,10 +28,10 @@ const defaultVariables = {
 type Props = {} & RouteComponentProps;
 
 function Home(props: Props) {
-  const { props: relayProps, error, retry } =  useQuery<homeQuery>(homeRelayQuery, defaultVariables);
+  const { props: relayProps, error, retry } = useQuery<homeQuery>(homeRelayQuery, defaultVariables);
 
-  if(error) return <div>{error.message}</div>
-  if(relayProps) {
+  if (error) return <div>{error.message}</div>;
+  if (relayProps) {
     return (
       <>
         <S.HomeBanner contents={homepage.heroBanner} />
@@ -62,8 +59,7 @@ function Home(props: Props) {
     );
   }
 
-  return <Loader type={LoaderType.Ring}/>
-
+  return <Loader type={LoaderType.Ring} />;
 }
 
 export default Home;

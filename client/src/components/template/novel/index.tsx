@@ -12,10 +12,7 @@ import { novelQuery, novelQueryResponse, novelQueryVariables } from '../../../__
 
 const novelRelayQuery = graphql`
   query novelQuery($novelBySlug: NovelWhere) {
-    result: novels (
-      first: 1
-      where: $novelBySlug
-    ) @connection(key: "novels_result") {
+    result: novels(first: 1, where: $novelBySlug) @connection(key: "novels_result") {
       edges {
         node {
           slug
@@ -78,9 +75,7 @@ function renderClassification({
     parsedClassifications = [classification];
   }
 
-  parsedClassifications = parsedClassifications.filter(
-    (c, idx, arr) => c && arr.indexOf(c) === idx
-  );
+  parsedClassifications = parsedClassifications.filter((c, idx, arr) => c && arr.indexOf(c) === idx);
   return (
     <Classifications
       headingText={heading}
@@ -195,9 +190,7 @@ function renderNovel({ result }: novelQueryResponse) {
               isArrStr: true
             })}
 
-            <Accordion
-              accordionContent={[{ content: <p></p>, heading: 'Download novel' }]}
-            />
+            <Accordion accordionContent={[{ content: <p></p>, heading: 'Download novel' }]} />
           </S.NovelContent>
         </S.NovelContentWrapper>
       </S.NovelWrapper>
@@ -209,18 +202,18 @@ function renderNovel({ result }: novelQueryResponse) {
 
 function Novel(props: Props) {
   const { slug } = props.match.params;
-  const variables: novelQueryVariables = { novelBySlug: { AND: [ { slug: { is: slug } } ] } };
+  const variables: novelQueryVariables = { novelBySlug: { AND: [{ slug: { is: slug } }] } };
 
-  const { props: relayProps, error, retry } =  useQuery<novelQuery>(novelRelayQuery, variables);
+  const { props: relayProps, error, retry } = useQuery<novelQuery>(novelRelayQuery, variables);
 
-  if(error) return <div>{error.message}</div>
-  if(relayProps) {
+  if (error) return <div>{error.message}</div>;
+  if (relayProps) {
     const { result } = relayProps;
-    if(!result.edges.length) return <div>404</div>
+    if (!result.edges.length) return <div>404</div>;
     return renderNovel(relayProps);
   }
 
-  return <Loader type={LoaderType.Ring}/>
+  return <Loader type={LoaderType.Ring} />;
 }
 
 export default Novel;

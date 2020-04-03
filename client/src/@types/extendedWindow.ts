@@ -1,8 +1,8 @@
 export {};
 
 declare global {
-    interface Window {
-        opera: string;
-        devToolsExtension: Function;
-    }
+  interface Window {
+    opera: string;
+    devToolsExtension: Function;
+  }
 }

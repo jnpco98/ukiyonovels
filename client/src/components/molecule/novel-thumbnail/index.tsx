@@ -28,10 +28,7 @@ type Props = {
 };
 
 function NovelThumbnail(props: Props) {
-  const { slug, title, genres, coverImage, type } = useFragment(
-    fragmentSpec,
-    props.novel
-  );
+  const { slug, title, genres, coverImage, type } = useFragment(fragmentSpec, props.novel);
   const { className } = props;
 
   const isSmallScreen = useMediaQuery({ minWidth: SMALL });

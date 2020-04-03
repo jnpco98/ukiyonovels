@@ -8,8 +8,7 @@ export function truncate(str: string, length: number) {
 
 export function truncateNumber(num: number, places: number) {
   const suffix = 'k';
-  const truncated =
-    num > 999 ? `${(num / 1000).toFixed(places)}${suffix}` : num.toString();
+  const truncated = num > 999 ? `${(num / 1000).toFixed(places)}${suffix}` : num.toString();
   const lastDigit = truncated.slice(-2);
 
   if (lastDigit === `0${suffix}` && places === 1) {
@@ -97,26 +96,7 @@ export function slugify(str: string = '') {
     ],
     b: ['б', 'β', 'ب', 'ဗ', 'ბ', 'ｂ'],
     c: ['ç', 'ć', 'č', 'ĉ', 'ċ', 'ｃ'],
-    d: [
-      'ď',
-      'ð',
-      'đ',
-      'ƌ',
-      'ȡ',
-      'ɖ',
-      'ɗ',
-      'ᵭ',
-      'ᶁ',
-      'ᶑ',
-      'д',
-      'δ',
-      'د',
-      'ض',
-      'ဍ',
-      'ဒ',
-      'დ',
-      'ｄ'
-    ],
+    d: ['ď', 'ð', 'đ', 'ƌ', 'ȡ', 'ɖ', 'ɗ', 'ᵭ', 'ᶁ', 'ᶑ', 'д', 'δ', 'د', 'ض', 'ဍ', 'ဒ', 'დ', 'ｄ'],
     e: [
       'é',
       'è',
@@ -558,11 +538,7 @@ export function slugify(str: string = '') {
     Zh: ['Ж']
   };
 
-  Object.keys(swaps).forEach(swap => 
-    swaps[swap].forEach(s => 
-      str = str.replace(new RegExp(s, 'g'), swap)
-    )
-  );
+  Object.keys(swaps).forEach(swap => swaps[swap].forEach(s => (str = str.replace(new RegExp(s, 'g'), swap))));
 
   return str
     .replace(/[^a-z0-9 -]/g, '')

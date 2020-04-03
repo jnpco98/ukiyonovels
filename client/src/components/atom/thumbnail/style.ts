@@ -37,7 +37,7 @@ export const ThumbnailContainer = styled(Link)`
 
     ${ThumbnailContent} {
       transform: translateY(0);
-    }  
+    }
   }
 
   ${M.MEDIA_SMALL} {

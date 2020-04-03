@@ -14,10 +14,8 @@ import { DEFAULT_SLIDER_SETTINGS } from '../../../utilities/slider';
 
 export const defaultNovelThumbnailCarouselFragmentSpec = graphql`
   fragment novelThumbnailCarousel_default on Query {
-    novelThumbnailCarousel: novels(
-      first: $novelThumbnailCarouselCount
-      sortKey: $novelThumbnailCarouselSort
-    ) @connection(key: "novel_novelThumbnailCarousel") {
+    novelThumbnailCarousel: novels(first: $novelThumbnailCarouselCount, sortKey: $novelThumbnailCarouselSort)
+      @connection(key: "novel_novelThumbnailCarousel") {
       edges {
         node {
           id
@@ -31,10 +29,8 @@ export const defaultNovelThumbnailCarouselFragmentSpec = graphql`
 
 export const latestNovelThumbnailCarouselFragmentSpec = graphql`
   fragment novelThumbnailCarousel_latest on Query {
-    latestNovelThumbnailCarousel: novels(
-      first: 10
-      sortKey: "year"
-    ) @connection(key: "novel_latestNovelThumbnailCarousel") {
+    latestNovelThumbnailCarousel: novels(first: 10, sortKey: "year")
+      @connection(key: "novel_latestNovelThumbnailCarousel") {
       edges {
         node {
           id
@@ -64,9 +60,9 @@ interface NovelThumbnailCarouselVariables {
 }
 
 export const DEFAULT_NOVEL_THUMBNAIL_CAROUSEL_VARIABLES: NovelThumbnailCarouselVariables = {
-  novelThumbnailCarouselSort: DEFAULT_SORT, 
+  novelThumbnailCarouselSort: DEFAULT_SORT,
   novelThumbnailCarouselCount: DEFAULT_COUNT
-}
+};
 
 type Props = {
   className?: string;
@@ -78,8 +74,7 @@ type Props = {
 function NovelThumbnailCarousel(props: Props) {
   const { className, headingText, type } = props;
   const fragment = useFragment(
-    props.type === 'latest' ? 
-      latestNovelThumbnailCarouselFragmentSpec : defaultNovelThumbnailCarouselFragmentSpec, 
+    props.type === 'latest' ? latestNovelThumbnailCarouselFragmentSpec : defaultNovelThumbnailCarouselFragmentSpec,
     props.novels
   );
   return (
@@ -87,20 +82,16 @@ function NovelThumbnailCarousel(props: Props) {
       {headingText && <Text textType={TextType.SectionTitle}>{headingText}</Text>}
 
       <S.NovelThumbnailCarouselSlider {...sliderOptions}>
-        {
-          'latestNovelThumbnailCarousel' in fragment ? 
-            fragment.latestNovelThumbnailCarousel.edges.map(({ node }) => (
+        {'latestNovelThumbnailCarousel' in fragment
+          ? fragment.latestNovelThumbnailCarousel.edges.map(({ node }) => (
               <S.NovelThumbnailCarouselItem key={node.id} novel={node} />
-            )) :''
-        }
-        {
-          'novelThumbnailCarousel' in fragment ?
-            fragment.novelThumbnailCarousel.edges.map(({ node }) => (
+            ))
+          : ''}
+        {'novelThumbnailCarousel' in fragment
+          ? fragment.novelThumbnailCarousel.edges.map(({ node }) => (
               <S.NovelThumbnailCarouselItem key={node.id} novel={node} />
-            )) :''
-        }
-
-
+            ))
+          : ''}
       </S.NovelThumbnailCarouselSlider>
     </S.NovelThumbnailCarouselContainer>
   );

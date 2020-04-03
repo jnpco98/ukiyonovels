@@ -216,7 +216,7 @@
         "label": "Message",
         "displayName": "Message",
         "required": true,
-        "placeholder": "",
+        "placeholder": "Your message...",
         "multi": true,
         "pattern": ""
       }

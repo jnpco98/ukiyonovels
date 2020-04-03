@@ -7,7 +7,7 @@ import { center, CENTER_BOTH, pageTitleFontSize, sectionFontSize } from '../../.
 
 type SearchContainerStyleProps = {
   active?: boolean;
-}
+};
 
 export const SearchContainer = styled.div<SearchContainerStyleProps>`
   position: fixed;
@@ -16,9 +16,9 @@ export const SearchContainer = styled.div<SearchContainerStyleProps>`
 
   ${props =>
     props.active &&
-      css`
-        display: block;
-      `}
+    css`
+      display: block;
+    `}
 `;
 
 export const SearchContent = styled.form`
@@ -37,7 +37,7 @@ export const SearchButton = styled.button.attrs({ type: 'submit' })`
   cursor: pointer;
 `;
 
-export const SearchButtonIcon = styled(FontAwesomeIcon).attrs({ icon: faSearch })` 
+export const SearchButtonIcon = styled(FontAwesomeIcon).attrs({ icon: faSearch })`
   ${sectionFontSize};
   color: ${({ theme, ...props }) => theme.colors.white};
   transition: all 0.5s ease;
@@ -62,7 +62,7 @@ export const SearchInput = styled.input.attrs({ type: 'text' })`
   ${M.MEDIA_SMALL} {
     width: 20rem;
   }
-  
+
   ${M.MEDIA_LARGE} {
     width: 30rem;
   }
@@ -74,7 +74,6 @@ export const SearchInput = styled.input.attrs({ type: 'text' })`
   ${M.MEDIA_XXLARGE} {
     width: 50rem;
   }
-  
 `;
 
 export const SearchSubtitle = styled(Text).attrs({ textType: TextType.Paragraph })``;

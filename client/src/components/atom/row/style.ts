@@ -10,9 +10,9 @@ export const RowTitle = styled(Link)`
 
   &.is-bulleted {
     margin-left: 0.7rem;
-    
+
     &:before {
-      content: "";
+      content: '';
       position: absolute;
       width: 5px;
       height: 5px;

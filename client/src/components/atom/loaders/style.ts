@@ -46,7 +46,7 @@ export const DualRing = styled.div`
   height: 80px;
 
   &:after {
-    content: " ";
+    content: ' ';
     display: block;
     width: 64px;
     height: 64px;
@@ -84,7 +84,6 @@ const EllipsisEndKeyFrames = keyframes`
     transform: scale(0);
   }
 `;
-
 
 export const Ellipsis = styled.div`
   display: inline-block;

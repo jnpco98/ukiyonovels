@@ -1,9 +1,4 @@
-import {
-  css,
-  keyframes,
-  StyledComponent,
-  AnyStyledComponent
-} from 'styled-components/macro';
+import { css, keyframes, StyledComponent, AnyStyledComponent } from 'styled-components/macro';
 import { math, margin, padding } from 'polished';
 import * as M from '../settings/media';
 

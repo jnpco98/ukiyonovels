@@ -2,7 +2,6 @@ import styled from 'styled-components/macro';
 import { PageTitle, SubsectionTitle } from '../../atom/text/style';
 import { gutter, GUTTER_TOP, GUTTER_BOTTOM } from '../../../utilities/mixins';
 
-
 export const PageNotFoundContainer = styled.div`
   width: 100vw;
   height: 100vh;

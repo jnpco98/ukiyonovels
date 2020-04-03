@@ -29,7 +29,7 @@ export const ContactPageContainer = styled.div`
 
 export const ContactPageContent = styled.div`
   margin-bottom: 2rem;
-  
+
   & + & {
     margin-top: 3rem;
   }
@@ -53,11 +53,11 @@ type ContactPageFieldStyleProps = {
   placeholder?: string;
   required?: boolean;
   pattern?: string;
-}
+};
 
 export const ContactPageFormInput = styled(Input).attrs({ inputType: InputType.Single })<ContactPageFieldStyleProps>`
   ${ContactPageFormText};
-  
+
   height: 2.5rem;
 
   ${M.MEDIA_LARGE} {
@@ -69,7 +69,7 @@ export const ContactPageFormTextBox = styled(Input).attrs({ inputType: InputType
   ${ContactPageFormText};
   resize: none;
   min-height: 10rem;
-  
+
   ${M.MEDIA_LARGE} {
     min-height: 12rem;
   }

@@ -17,7 +17,7 @@ export const NovelCardListContainer = styled.div`
   ${M.MEDIA_MEDIUM} {
     ${margin('2rem', null, '2rem', null)};
   }
-  
+
   ${M.MEDIA_LARGE} {
     ${margin('2.5rem', null, '2.5rem', null)};
   }
@@ -32,7 +32,7 @@ export const NovelCardListItem = styled(NovelCard)`
       content: '';
       width: 100%;
       height: 1px;
-      background:  ${({ theme, ...props }) => theme.colors.primary};
+      background: ${({ theme, ...props }) => theme.colors.primary};
       position: absolute;
       bottom: -1rem;
       left: 0;

@@ -9,7 +9,7 @@ export const NovelThumbnailCarouselContainer = styled.div`
   width: 100%;
   position: relative;
   margin: 0.65rem 0;
-  
+
   ${M.MEDIA_XSMALL} {
     ${margin('1rem', null, '1rem', null)};
   }
@@ -21,7 +21,7 @@ export const NovelThumbnailCarouselContainer = styled.div`
   ${M.MEDIA_MEDIUM} {
     ${margin('2rem', null, '2rem', null)};
   }
-  
+
   ${M.MEDIA_LARGE} {
     ${margin('2.5rem', null, '2.5rem', null)};
   }
@@ -43,7 +43,7 @@ export const NovelThumbnailCarouselItem = styled(NovelThumbnail)`
   }
 `;
 
-export const NovelThumbnailCarouselSlider = styled(Slick)`  
+export const NovelThumbnailCarouselSlider = styled(Slick)`
   .slick-dots {
     left: 0;
     bottom: -2rem;
@@ -58,11 +58,11 @@ export const NovelThumbnailCarouselSlider = styled(Slick)`
   }
 
   ${M.MEDIA_SMALL} {
-    &:before, &:after {
+    &:before,
+    &:after {
       width: 14%;
     }
   }
 `;
 
-export const InfoThumbnailCarouselArrow = styled(SlickArrow)`
-`;
+export const InfoThumbnailCarouselArrow = styled(SlickArrow)``;

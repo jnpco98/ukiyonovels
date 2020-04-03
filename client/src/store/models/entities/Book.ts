@@ -1,7 +1,7 @@
-import Entity from "./Entity";
+import Entity from './Entity';
 
 export interface Book extends Entity {
-    title: string;
-    description: string;
-    novel: string;
+  title: string;
+  description: string;
+  novel: string;
 }

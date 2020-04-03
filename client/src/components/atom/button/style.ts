@@ -6,22 +6,22 @@ import { Link } from 'react-router-dom';
 
 type ButtonProps = {
   buttonType?: ButtonType;
-}
+};
 
 const Success = css`
   color: ${({ theme }) => theme.colors.successCompliment};
-  background-color: ${({ theme  }) => theme.colors.success};
-  
+  background-color: ${({ theme }) => theme.colors.success};
+
   &:hover {
     color: ${({ theme }) => theme.colors.success};
-    background-color: ${({ theme  }) => theme.colors.successCompliment};
+    background-color: ${({ theme }) => theme.colors.successCompliment};
   }
 `;
 
 const Warning = css`
   color: ${({ theme }) => theme.colors.warningCompliment};
   background-color: ${({ theme }) => theme.colors.warning};
-  
+
   &:hover {
     color: ${({ theme }) => theme.colors.warning};
     background-color: ${({ theme }) => theme.colors.warningCompliment};
@@ -31,7 +31,7 @@ const Warning = css`
 const Danger = css`
   color: ${({ theme }) => theme.colors.errorCompliment};
   background-color: ${({ theme }) => theme.colors.error};
-  
+
   &:hover {
     color: ${({ theme }) => theme.colors.error};
     background-color: ${({ theme }) => theme.colors.errorCompliment};
@@ -58,11 +58,11 @@ export const ButtonContainer = styled(Link)<ButtonProps>`
   ${props => props.buttonType === ButtonType.Success && Success};
   ${props => props.buttonType === ButtonType.Warning && Warning};
   ${props => props.buttonType === ButtonType.Error && Danger};
-  
+
   &.is-flat {
     border: none;
   }
-  
+
   ${M.MEDIA_SMALL} {
     padding: 0.7rem 1.5rem;
     font-size: 0.75rem;

@@ -10,10 +10,7 @@ import Text, { TextType } from '../../atom/text';
 
 const fragmentSpec = graphql`
   fragment novelCardList_novels on Query {
-    novelCardList: novels(
-      first: 10
-      sortKey: "lastModified"
-    ) @connection(key: "novel_novelCardList") {
+    novelCardList: novels(first: 10, sortKey: "lastModified") @connection(key: "novel_novelCardList") {
       edges {
         node {
           id

@@ -35,11 +35,11 @@ export const InfoCardTitle = styled(SubsectionTitle)`
   margin: 0 0 0.2rem;
 
   ${M.MEDIA_SMALL} {
-  margin: 0 0 0.4rem;
+    margin: 0 0 0.4rem;
   }
 
   ${M.MEDIA_MEDIUM} {
-  margin: 0 0 0.5rem;
+    margin: 0 0 0.5rem;
   }
 `;
 
@@ -62,7 +62,7 @@ export const InfoCardButtonContinue = styled(Button)`
 `;
 
 export const InfoCardMeta = styled.div`
-  margin: 0 0 0.4rem ;
+  margin: 0 0 0.4rem;
 
   ${M.MEDIA_MEDIUM} {
     margin: 0 0 0.5rem;

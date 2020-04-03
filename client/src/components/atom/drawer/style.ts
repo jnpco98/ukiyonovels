@@ -3,7 +3,7 @@ import * as M from '../../../settings/media';
 
 type DrawerProps = {
   sidenavActive: boolean;
-}
+};
 
 export const SideDrawerContainer = styled.div<DrawerProps>`
   position: fixed;
@@ -21,22 +21,22 @@ export const SideDrawerContainer = styled.div<DrawerProps>`
   li {
     white-space: nowrap;
   }
-  
-  ${props => props.sidenavActive ?
-    css`
-      opacity: 1;
-      transform: translateX(0);
-    ` :
-    css`
-      opacity: 0;
-      transform: translateX(-100%);
-    `
-  };
+
+  ${props =>
+    props.sidenavActive
+      ? css`
+          opacity: 1;
+          transform: translateX(0);
+        `
+      : css`
+          opacity: 0;
+          transform: translateX(-100%);
+        `};
 
   ${M.MEDIA_XXSMALL} {
     max-width: 23rem;
   }
-  
+
   ${M.MEDIA_XSMALL} {
     max-width: 28rem;
   }

@@ -1,16 +1,24 @@
-import { regularFontSize, gutter, GUTTER_RIGHT, GUTTER_LEFT, ratioImage, GUTTER_TOP, GUTTER_BOTTOM } from "../../../utilities/mixins";
-import styled from "styled-components/macro";
-import { SubsectionTitle, SectionTitle, PageTitle } from "../../atom/text/style";
+import {
+  regularFontSize,
+  gutter,
+  GUTTER_RIGHT,
+  GUTTER_LEFT,
+  ratioImage,
+  GUTTER_TOP,
+  GUTTER_BOTTOM
+} from '../../../utilities/mixins';
+import styled from 'styled-components/macro';
+import { SubsectionTitle, SectionTitle, PageTitle } from '../../atom/text/style';
 import * as M from '../../../settings/media';
-import { ClassificationsContainer } from "../../molecule/classifications/style";
-import { DynamicHTMLContainer } from "../../molecule/dynamic-html/style";
-import { AccordionContainer } from "../../molecule/accordion/style";
-import SidePanel from "../../organism/side-panel";
+import { ClassificationsContainer } from '../../molecule/classifications/style';
+import { DynamicHTMLContainer } from '../../molecule/dynamic-html/style';
+import { AccordionContainer } from '../../molecule/accordion/style';
+import SidePanel from '../../organism/side-panel';
 
 export const NovelContainer = styled.div`
   ${gutter(GUTTER_TOP)};
   ${gutter(GUTTER_BOTTOM)};
-  
+
   ${M.MEDIA_MEDIUM} {
     display: flex;
   }
@@ -39,8 +47,7 @@ export const NovelTitle = styled(PageTitle)`
   }
 `;
 
-export const NovelPortrait = styled.img`
-`;
+export const NovelPortrait = styled.img``;
 
 export const NovelPortraitWrapper = styled.div`
   ${ratioImage(NovelPortrait, '100%', '150%')};
@@ -139,9 +146,9 @@ export const NovelSidePanel = styled(SidePanel)`
   ${M.MEDIA_LARGE} {
     padding-left: 4rem;
   }
-  
+
   ${M.MEDIA_XXLARGE} {
     flex: 0.3;
     padding-left: 8rem;
   }
-`
+`;

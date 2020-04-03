@@ -4,7 +4,7 @@ import { transparentize } from 'polished';
 
 type BackdropProps = {
   active: boolean;
-}
+};
 
 export const BackdropContainer = styled.div<BackdropProps>`
   top: 0;
@@ -20,13 +20,15 @@ export const BackdropContainer = styled.div<BackdropProps>`
   &.is-transparent {
     background: transparent;
   }
-  
+
   &.is-content-centered {
     ${center(FLEX_ALIGN_BOTH)};
   }
 
-  ${props => props.active && css`
-    transform: translateX(0);
-    opacity: 1;
-  `}
+  ${props =>
+    props.active &&
+    css`
+      transform: translateX(0);
+      opacity: 1;
+    `}
 `;

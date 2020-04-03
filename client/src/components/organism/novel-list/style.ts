@@ -14,7 +14,7 @@ export const NovelListContainer = styled.div`
     &:nth-child(even) {
       background: ${({ theme, ...props }) => theme.colors.subdued};
     }
-    
+
     &:hover {
       color: ${({ theme, ...props }) => theme.colors.white};
       background: ${({ theme, ...props }) => theme.colors.accent};

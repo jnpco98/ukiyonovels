@@ -11,7 +11,7 @@ export const HomeContainer = styled.div`
   ${gutter(GUTTER_LEFT)};
   ${gutter(GUTTER_RIGHT)};
   ${gutter(GUTTER_BOTTOM)};
-  
+
   ${M.MEDIA_MEDIUM} {
     display: flex;
   }
