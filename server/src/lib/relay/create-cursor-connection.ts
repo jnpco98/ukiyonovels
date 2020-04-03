@@ -42,7 +42,7 @@ export async function createCursorConnection<T extends BaseEntity>(
   /**
    * Gets the entities and it's count
    */
-  const order = direction === 'backward' ? (reverse ? 'ASC' : 'DESC') : 'ASC';
+  const order = direction === 'backward' ? (reverse ? 'ASC' : 'DESC') : reverse ? 'DESC' : 'ASC';
   const [entities, count] = await queryBuilder
     .orderBy(dbSortKey, order)
     .addOrderBy(DEFAULT_DB_SORT_KEY, order)
