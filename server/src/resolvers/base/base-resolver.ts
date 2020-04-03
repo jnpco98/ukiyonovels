@@ -9,7 +9,7 @@ import {
   Args,
   Ctx
 } from 'type-graphql';
-import { getRepository } from 'typeorm';
+import { getRepository, Brackets } from 'typeorm';
 import { plural } from 'pluralize';
 
 import { BaseEntity } from '../../entity/entity';
@@ -104,6 +104,7 @@ export function createBaseResolver<T extends BaseEntity, V extends any, U extend
       query?: WhereAndOrParams
     ) {
       const queryBuilder = getRepository(EntityType).createQueryBuilder();
+      queryBuilder.andWhere(new Brackets(qb => qb.andWhere(`archived = :isvalue`, { isvalue: false })));
       return await createCursorConnection({ queryBuilder, connArgs, query }, EntityType);
     }
   }

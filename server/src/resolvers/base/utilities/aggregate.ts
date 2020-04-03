@@ -1,4 +1,4 @@
-import { SelectQueryBuilder, getRepository } from "typeorm";
+import { getRepository } from "typeorm";
 import { BaseEntity } from "../../../entity/entity";
 import { ClassType } from "type-graphql";
 import { getConnectionProperties } from "../../../lib/relay/get-pagination";
@@ -14,7 +14,7 @@ export function consolidateAndAggregateQuery<T extends BaseEntity>(params: Aggre
   const { EntityType, field, array, order } = params;
   
   const dbField = getConnectionProperties(EntityType)[field].dbSortKey;
-  
+
   return getRepository(EntityType)
     .createQueryBuilder() 
     .select(`${dbField} as field`)
