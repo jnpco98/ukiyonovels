@@ -20,7 +20,7 @@ const SearchOverlay: React.FC<Props> = (props: Props): ReactElement => {
   };
 
   return (
-    <S.SearchOverlayContainer active={active} className={`is-content-centered`} onClick={event => handleClick(event)}>
+    <S.SearchOverlayContainer active={active} className="is-content-centered" onClick={event => handleClick(event)}>
       <Search
         ref={searchRef}
         active={active}

@@ -8,15 +8,15 @@ export function getItemFromStorage(key: string) {
   }
 
   try {
-    JSON.parse(localStorage.getItem(key));
-    return true;
+    return JSON.parse(localStorage.getItem(key));
   } catch (err) {
+    // eslint-disable-next-line no-console
     console.error(`Error getting item ${key} from localstorage`, err);
     return false;
   }
 }
 
-export function storeItem(key: string, item: object) {
+export function storeItem(key: string, item: object | string) {
   if (!key && !key.trim().length) {
     return false;
   }
@@ -25,6 +25,7 @@ export function storeItem(key: string, item: object) {
     localStorage.setItem(key, JSON.stringify(item));
     return true;
   } catch (err) {
+    // eslint-disable-next-line no-console
     console.error(`Error storing item ${key} to localStorage`, err);
     return false;
   }
@@ -39,6 +40,7 @@ export function removeItemFromStorage(key: string) {
     localStorage.removeItem(key);
     return true;
   } catch (err) {
+    // eslint-disable-next-line no-console
     console.error(`Error removing item ${key} from localstorage`, err);
     return false;
   }

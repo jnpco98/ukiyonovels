@@ -1,4 +1,4 @@
-import React, { ReactElement, useState, forwardRef } from 'react';
+import React, { useState, forwardRef } from 'react';
 import * as S from './style';
 
 type Props = {
@@ -7,7 +7,7 @@ type Props = {
   placeholder?: string;
 };
 
-const Search: React.FC<Props> = (props: Props, ref: React.RefObject<HTMLDivElement>): ReactElement => {
+function Search(props: Props, ref: React.RefObject<HTMLDivElement>) {
   const { onSubmit, active, placeholder } = props;
 
   const [searchInput, setSearchInput] = useState('');
@@ -16,7 +16,7 @@ const Search: React.FC<Props> = (props: Props, ref: React.RefObject<HTMLDivEleme
     e.preventDefault();
 
     if (!searchInput.length) return;
-    onSubmit && onSubmit(searchInput);
+    if (onSubmit) onSubmit(searchInput);
     setSearchInput('');
   };
 
@@ -34,6 +34,6 @@ const Search: React.FC<Props> = (props: Props, ref: React.RefObject<HTMLDivEleme
       </S.SearchContent>
     </S.SearchContainer>
   );
-};
+}
 
-export default forwardRef(Search);
+export default forwardRef(Search as React.FC<Props>);

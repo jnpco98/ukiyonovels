@@ -1,9 +1,10 @@
 import React, { useState, ReactElement, useEffect, useRef } from 'react';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import Backdrop from '../../atom/backdrop';
 import SearchOverlay from '../search-overlay';
 import DynamicIcon from '../../molecule/dynamic-icon';
 import * as S from './style';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
+import SettingsOverlay from '../settings-overlay';
 
 type MenuItem = {
   label: string;
@@ -26,6 +27,7 @@ function Header(props: Props) {
   const [floating, setFloating] = useState(false);
   const [drawerActive, setDrawerActive] = useState(false);
   const [searchOverlayActive, setSearchOverlayActive] = useState(false);
+  const [settingsOverlayActive, setSettingsOverlayActive] = useState(false);
 
   const containerRef = useRef(document.createElement('div'));
 
@@ -50,7 +52,9 @@ function Header(props: Props) {
         active={menuItem.key === activeMenuItem}
         className={`${menuItem.icon && 'is-icon'}`}
         onClick={() => {
-          menuItem.key === 'search' ? setSearchOverlayActive(true) : handleSelect(menuItem.key);
+          if (menuItem.key === 'search') setSearchOverlayActive(true);
+          if (menuItem.key === 'settings') setSettingsOverlayActive(true);
+          else handleSelect(menuItem.key);
         }}
       >
         {menuItem.button ? (
@@ -85,6 +89,7 @@ function Header(props: Props) {
         setActive={setSearchOverlayActive}
         onSearchSubmit={(query: string) => history.push(`/search?query=${query}`)}
       />
+      <SettingsOverlay active={settingsOverlayActive} setActive={setSettingsOverlayActive} />
     </S.HeaderContainer>
   );
 }
