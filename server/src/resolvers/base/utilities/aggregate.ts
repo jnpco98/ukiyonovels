@@ -5,7 +5,7 @@ import { getConnectionProperties } from "../../../lib/relay/get-pagination";
 
 interface AggregateParams<T> {
   EntityType: ClassType<T>;
-  field: keyof T & string; 
+  field: keyof T & string;
   array?: boolean;
   order?: 'ASC' | 'DESC';
 }
@@ -38,5 +38,6 @@ export function consolidateAndAggregateQuery<T extends BaseEntity>(params: Aggre
     .andWhere(new Brackets(qb => qb.andWhere(`archived = :isvalue`, { isvalue: false })))
     .groupBy('field')
     .orderBy('count', order || 'ASC')
+    .addOrderBy('field', 'ASC')
     .getRawMany();
 }

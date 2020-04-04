@@ -104,7 +104,7 @@ export function createBaseResolver<T extends BaseEntity, V extends any, U extend
       query?: WhereAndOrParams
     ) {
       const queryBuilder = getRepository(EntityType).createQueryBuilder();
-      queryBuilder.andWhere(new Brackets(qb => qb.andWhere(`archived = :isvalue`, { isvalue: false })));
+      queryBuilder.andWhere(new Brackets(qb => qb.andWhere(`archived = :archived`, { archived: false })));
       return await createCursorConnection({ queryBuilder, connArgs, query }, EntityType);
     }
   }
