@@ -1,7 +1,7 @@
 import { WhereAndOrParams } from '../query/types/where-and-or';
 import { ConnectionArgs } from './connection-args';
 import { BaseEntity } from '../../entity/entity';
-import { SelectQueryBuilder } from 'typeorm';
+import { SelectQueryBuilder, Brackets } from 'typeorm';
 import { filterQuery } from '../query/filter-query';
 import { ClassType } from 'type-graphql';
 import { base64 } from '../../utilities/base64/encode';
@@ -29,6 +29,8 @@ export async function createCursorConnection<T extends BaseEntity>(
 ) {
   const { queryBuilder, connArgs, query } = connParams;
   const { sortKey = DEFAULT_SORT_KEY, reverse, pagination } = connArgs;
+  
+  queryBuilder.andWhere(new Brackets(qb => qb.andWhere(`archived = :archived`, { archived: false })));
 
   /**
    * Augments the query and uses the cursor data
