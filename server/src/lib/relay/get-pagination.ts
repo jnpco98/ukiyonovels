@@ -86,7 +86,8 @@ export function getPagination<T extends BaseEntity>(
     const connectionProperties = getConnectionProperties(EntityType);
 
     const sortKey = connArgs.sortKey || DEFAULT_SORT_KEY;
-    const { dbSortKey } = connectionProperties[sortKey];
+    const { dbSortKey } = connectionProperties[sortKey] || {};
+    if(!dbSortKey) throw new InvalidSortKeyError();
 
     /**
      * Builds query augment depending on the pagination direction

@@ -6,7 +6,7 @@ import ROLES from "../../constants/roles";
 
 @Resolver()
 export class NovelUtilsResolver {
-  @Query(returns => [NovelAggregate], { name: `novelTypes`, defaultValue: [] })
+  @Query(returns => [NovelAggregate], { name: `novelAggregateTypes`, defaultValue: [] })
   async novelAggregateTypes(
     @Arg(`reverse`, () => Boolean, { nullable: true }) reverse?: boolean,
     @Arg(`orderCount`, () => Boolean, { nullable: true }) orderCount?: boolean
@@ -19,7 +19,7 @@ export class NovelUtilsResolver {
     });
   }
 
-  @Query(returns => [NovelAggregate], { name: `novelStatus`, defaultValue: [] })
+  @Query(returns => [NovelAggregate], { name: `novelAggregateStatus`, defaultValue: [] })
   async novelAggregateStatus(
     @Arg(`reverse`, () => Boolean, { nullable: true }) reverse?: boolean,
     @Arg(`orderCount`, () => Boolean, { nullable: true }) orderCount?: boolean
@@ -32,7 +32,7 @@ export class NovelUtilsResolver {
     });
   }
 
-  @Query(returns => [NovelAggregate], { name: `novelGenres`, defaultValue: [] })
+  @Query(returns => [NovelAggregate], { name: `novelAggregateGenres`, defaultValue: [] })
   async novelAggregateGenres(
     @Arg(`reverse`, () => Boolean, { nullable: true }) reverse?: boolean,
     @Arg(`orderCount`, () => Boolean, { nullable: true }) orderCount?: boolean
@@ -46,7 +46,7 @@ export class NovelUtilsResolver {
     });
   }
 
-  @Query(returns => [NovelAggregate], { name: `novelTags`, defaultValue: [] })
+  @Query(returns => [NovelAggregate], { name: `novelAggregateTags`, defaultValue: [] })
   async novelAggregateTags(
     @Arg(`reverse`, () => Boolean, { nullable: true }) reverse?: boolean,
     @Arg(`orderCount`, () => Boolean, { nullable: true }) orderCount?: boolean

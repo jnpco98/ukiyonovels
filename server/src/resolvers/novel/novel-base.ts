@@ -60,6 +60,9 @@ export class NovelQueryableInput {
 
   @Field(type => NumberWhere, { nullable: true })
   views?: typeof NumberWhere;
+
+  @Field(type => NumberWhere, { nullable: true })
+  rating?: typeof NumberWhere;
 }
 
 /**

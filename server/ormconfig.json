@@ -8,7 +8,7 @@
     "password": "root",
     "database": "ukiyo_dev",
     "synchronize": true,
-    "logging": false,
+    "logging": true,
     "entities": [
       "src/entity/**/*.ts"
     ],
