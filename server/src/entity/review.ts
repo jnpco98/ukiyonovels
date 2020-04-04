@@ -19,12 +19,13 @@ import { Min, Max, IsOptional, Length } from 'class-validator';
 export class Review extends BaseEntity implements Partial<Review> {
   @Field({ nullable: true })
   @Column({ type: 'text', nullable: true })
-  @Length(20, 1000, { message: 'Content should be between 20-1000 characters' })
+  @Length(20, 4000, { message: 'Content should be between 20-4000 characters' })
   @IsOptional()
   content?: string;
 
-  @Field({ description: 'Rating: [0 - 1]' })
-  @Column({ type: 'decimal', default: 1 })
+  @Field({ description: 'Rating: [0 - 1]', nullable: true })
+  @Column({ type: 'decimal', nullable: true })
+  @IsOptional()
   @Min(0)
   @Max(1)
   rating: number;

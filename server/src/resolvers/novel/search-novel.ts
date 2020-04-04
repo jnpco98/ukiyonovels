@@ -1,9 +1,10 @@
-import { Resolver, FieldResolver, Root, Args, Arg } from 'type-graphql';
+import { Resolver, FieldResolver, Root, Args, Arg, Float } from 'type-graphql';
 import { Novel } from '../../entity/novel';
 import { ConnectionArgs } from '../../lib/relay/connection-args';
 
 import { BaseNovelSearchResolver } from './novel-base';
 import { createCursorConnection } from '../../lib/relay/create-cursor-connection';
+import { getAndUpdateNovelRating } from './update-novel';
 import { ChapterConnectionType, ChapterWhereInputType } from '../chapter/chapter-base';
 import { BookConnectionType, BookWhereInputType } from '../book/book-base';
 import { ReviewConnectionType, ReviewWhereInputType } from '../review/review-base';
@@ -89,5 +90,16 @@ export class NovelSearchResolver extends BaseNovelSearchResolver {
       },
       Review
     );
+  }
+
+  /**
+   * Gets novel's average rating
+   * from the reviews and updates the novel field
+   *
+   * @param novel Novel root object
+   */
+  @FieldResolver(returns => Float, { nullable: true })
+  async averageRating(@Root() novel: Novel) {
+    return await getAndUpdateNovelRating(novel, false);
   }
 }

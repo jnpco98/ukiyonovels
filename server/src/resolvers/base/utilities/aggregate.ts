@@ -8,6 +8,7 @@ interface AggregateParams<T> {
   field: keyof T & string;
   array?: boolean;
   order?: 'ASC' | 'DESC';
+  orderCount?: boolean;
 }
 
 /**
@@ -24,7 +25,7 @@ interface AggregateParams<T> {
  *    GROUP BY field;
  */
 export function consolidateAndAggregateQuery<T extends BaseEntity>(params: AggregateParams<T>) {
-  const { EntityType, field, array, order } = params;
+  const { EntityType, field, array, order, orderCount } = params;
   
   const queryAlias = 'e';
   const queryBuilder = getRepository(EntityType).createQueryBuilder(queryAlias);
@@ -33,11 +34,14 @@ export function consolidateAndAggregateQuery<T extends BaseEntity>(params: Aggre
   if(array) queryBuilder.select(`jsonb_array_elements(${queryAlias}.${field}::jsonb)`, 'field');
   else queryBuilder.select(`${dbField}`, 'field');
 
-  return queryBuilder
+  queryBuilder
     .addSelect('COUNT(*)', 'count')
     .andWhere(new Brackets(qb => qb.andWhere(`archived = :isvalue`, { isvalue: false })))
-    .groupBy('field')
-    .orderBy('count', order || 'ASC')
-    .addOrderBy('field', 'ASC')
-    .getRawMany();
+    .groupBy('field');
+
+  if(orderCount) 
+    queryBuilder
+      .orderBy('count', order || 'ASC');
+
+  return queryBuilder.addOrderBy('field', 'ASC').getRawMany();
 }

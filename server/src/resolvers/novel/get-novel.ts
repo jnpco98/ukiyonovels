@@ -9,7 +9,7 @@ import { Novel } from '../../entity/novel';
  */
 @Resolver()
 export class NovelGetResolver extends BaseNovelGetResolver {
-  @Query(returns => Novel, { name: `novelBySlug` })
+  @Query(returns => Novel, { name: `novelBySlug`, nullable: true })
   async getNovelBySlug(
     @Arg('slug') slug?: string
   ) {

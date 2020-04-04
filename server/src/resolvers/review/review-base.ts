@@ -5,6 +5,9 @@ import ROLES from '../../constants/roles';
 import { StringWhere, NumberWhere } from '../../lib/query/where-type';
 import { ContextHooks } from '../base/types/context-hooks';
 import { BaseResolverParams } from '../base/types/resolver';
+import { Novel } from '../../entity/novel';
+import { getAndUpdateNovelRating } from '../novel/update-novel';
+import { Context } from '../../lib/resolver/context';
 
 /**
  * Required parameters to
@@ -31,7 +34,32 @@ const authorization = {
   delete: [ROLES.member]
 };
 
-const contextHooks: ContextHooks<Review> = {};
+async function updateNovelRatingOnReviewCreate(entity: Review, ctx: Context | undefined, data: any) {
+  const novel = await Novel.findOne({ where: { archived: false, id: data.novelId } });
+  if(!novel) return null;
+
+  entity.novelId = novel.id;
+  const review = await entity.save();
+  if(entity.rating) await getAndUpdateNovelRating(novel);
+
+  return review;
+}
+
+async function updateNovelRatingOnReviewModify(entity: Review, ctx: Context | undefined, data: any) {
+  const novel = await Novel.findOne({ where: { archived: false, id: entity.novelId } });
+  if(!novel) return null;
+  
+  const review = await entity.save();
+  if(entity.rating) await getAndUpdateNovelRating(novel);
+
+  return review;
+}
+
+const contextHooks: ContextHooks<Review> = {
+  create: async (entity, ctx, data) => await updateNovelRatingOnReviewCreate(entity, ctx, data),
+  update: async (entity, ctx, data) => await updateNovelRatingOnReviewModify(entity, ctx, data),
+  delete: async (entity, ctx, data) => await updateNovelRatingOnReviewModify(entity, ctx, data)
+};
 
 const resolverConfig: BaseResolverParams<Review, ReviewQueryableInput, Review> = {
   EntityType: Review,

@@ -1,6 +1,6 @@
 import { Column, Entity, BeforeInsert } from 'typeorm';
 import { Field, ID, InputType, ObjectType } from 'type-graphql';
-import { IsIn, IsOptional, Length } from 'class-validator';
+import { IsIn, IsOptional, Length, Min, Max } from 'class-validator';
 
 import { BaseEntity } from './entity';
 import { slugify } from '../utilities/string/slugify';
@@ -209,6 +209,19 @@ export class Novel extends BaseEntity implements Partial<Novel> {
   @Column({ type: 'text', default: novelStatus[0] })
   @IsIn(novelStatus)
   status?: string;
+
+  /**
+   * Calculated with the ff:
+   *   Current value = 0.8 with 5 reviews
+   *   New value = 0.9
+   *   (0.8 * 5 + 0.9) / 6
+   */
+  @Field({ description: `Average rating based on reviews [0 - 1]`, nullable: true })
+  @Column({ type: 'decimal', nullable: true })
+  @IsOptional()
+  @Min(0)
+  @Max(1)
+  rating: number;
 
   /**
    * Create slug on novel create
