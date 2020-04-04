@@ -135,7 +135,7 @@ export function getPagination<T extends BaseEntity>(
  * translates to
  * { incrementId: { dbSortKey: 'increment_id' } }
  *
- * @param EntityType Entity that inherits from BaseEntity
+ * @param EntityType Entity Constructor that inherits from BaseEntity Constructor
  */
 export function getConnectionProperties<T>(
   EntityType: ClassType<T>

@@ -25,4 +25,28 @@ export class NovelUtilsResolver {
       order: reverse ? 'DESC' : 'ASC' 
     });
   }
+
+  @Query(returns => [NovelAggregate], { name: `novelGenres`, defaultValue: [] })
+  async getNovelGenres(
+    @Arg(`reverse`, () => Boolean, { nullable: true }) reverse?: boolean
+  ) {
+    return consolidateAndAggregateQuery({ 
+      EntityType: Novel,
+      field: 'genres', 
+      order: reverse ? 'DESC' : 'ASC',
+      array: true 
+    });
+  }
+
+  @Query(returns => [NovelAggregate], { name: `novelTags`, defaultValue: [] })
+  async getNovelTags(
+    @Arg(`reverse`, () => Boolean, { nullable: true }) reverse?: boolean
+  ) {
+    return consolidateAndAggregateQuery({ 
+      EntityType: Novel,
+      field: 'tags', 
+      order: reverse ? 'DESC' : 'ASC' ,
+      array: true
+    });
+  }
 }
