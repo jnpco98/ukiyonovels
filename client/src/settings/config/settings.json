@@ -33,13 +33,18 @@
       },
       {
         "label": "Latest Update",
-        "link": "/latest-updates",
+        "link": "/novels/latest",
         "key": "latest-update"
       },
       {
         "label": "Top Novels",
-        "link": "/top-novels",
+        "link": "/novels/top-novels",
         "key": "top-novels"
+      },
+      {
+        "label": "Featured",
+        "link": "/novels/most-popular",
+        "key": "most-popular"
       },
       {
         "label": "Advanced Search",
@@ -106,56 +111,6 @@
   "sidePanel": {
     "popularNovels": {
       "headingText": "Popular Novels"
-    },
-    "genres": {
-      "headingText": "Search by genre",
-      "contents": [
-        { "title": "Action", "id": "action", "link": "/action" },
-        { "title": "Adventure", "id": "adventure", "link": "/adventure" },
-        { "title": "Celebrity", "id": "celebrity", "link": "/celebrity" },
-        { "title": "Comedy", "id": "comedy", "link": "/comedy" },
-        { "title": "Drama", "id": "drama", "link": "/drama" },
-        { "title": "Ecchi", "id": "ecchi", "link": "/ecchi" },
-        { "title": "Fantasy", "id": "fantasy", "link": "/fantasy" },
-        { "title": "Gender Bender", "id": "gender-bender", "link": "/gender bender" },
-        { "title": "Harem", "id": "harem", "link": "/harem" },
-        { "title": "Historical", "id": "historical", "link": "/historical" },
-        { "title": "Horror", "id": "horror", "link": "/horror" },
-        { "title": "Josei", "id": "josei", "link": "/josei" },
-        { "title": "Martial Arts", "id": "martial-arts", "link": "/martial arts" },
-        { "title": "Mature", "id": "mature", "link": "/mature" },
-        { "title": "Mecha", "id": "mecha", "link": "/mecha" },
-        { "title": "Mystery", "id": "mystery", "link": "/mystery" },
-        { "title": "Psychological", "id": "psychological", "link": "/psychological" },
-        { "title": "Romance", "id": "romance", "link": "/romance" },
-        { "title": "School Life", "id": "school Life", "link": "/school life" },
-        { "title": "Sci-fi", "id": "sci-fi", "link": "/sci fi" },
-        { "title": "Seinen", "id": "seinen", "link": "/seinen" },
-        { "title": "Shotacon", "id": "shotacon", "link": "/shotacon" },
-        { "title": "Shoujo", "id": "shoujo", "link": "/shoujo" },
-        { "title": "Shoujo Ai", "id": "shoujo-ai", "link": "/shoujo ai" },
-        { "title": "Shounen", "id": "shounen", "link": "/shounen" },
-        { "title": "Shounen Ai", "id": "shounen-ai", "link": "/shounen ai" },
-        { "title": "Slice of Life", "id": "slice-of-life", "link": "/slice of life" },
-        { "title": "Smut", "id": "smut", "link": "/smut" },
-        { "title": "Sports", "id": "sports", "link": "/sports" },
-        { "title": "Supernatural", "id": "supernatural", "link": "/supernatural" },
-        { "title": "Tragedy", "id": "tragedy", "link": "/tragedy" },
-        { "title": "Wuxia", "id": "wuxia", "link": "/wuxia" },
-        { "title": "Xianxia", "id": "xianxia", "link": "/xianxia" },
-        { "title": "Xuanhuan", "id": "xuanhuan", "link": "/xuanhuan" },
-        { "title": "Yaoi", "id": "yaoi", "link": "/yaoi" },
-        { "title": "Yuri", "id": "yuri", "link": "/yuri" }
-      ]
-    },
-    "type": {
-      "headingText": "Search by type",
-      "contents": [
-        { "title": "Web novel", "id": "web-novel", "link": "/web novel" },
-        { "title": "Light novel", "id": "light-novel", "link": "/light novel" },
-        { "title": "Chinese novel", "id": "chinese-novel", "link": "/chinese novel" },
-        { "title": "Korean novel", "id": "korean-novel", "link": "/korean novel" }
-      ]
     }
   },
   "novel":{

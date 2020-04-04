@@ -1,9 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
-/* @relayHash 49ae77aa4851a7e50b87cde3407bb016 */
+/* @relayHash 9646bae9aea3667d7c5a8002f08e2a0e */
 
 import { ConcreteRequest } from "relay-runtime";
-import { FragmentRefs } from "relay-runtime";
 export type NovelWhere = {
     AND?: Array<NovelQueryableInput> | null;
     OR?: Array<NovelQueryableInput> | null;
@@ -54,37 +53,60 @@ export type NumberWhere = {
     gt?: number | null;
     gte?: number | null;
 };
-export type searchQueryVariables = {
-    novelWhere?: NovelWhere | null;
-    novelSearchCount?: number | null;
+export type sidePanelQueryVariables = {
+    sidePanelNovelCount?: number | null;
+    sidePanelNovelSort?: string | null;
+    sidePanelNovelReverse?: boolean | null;
+    sidePanelNovelFilter?: NovelWhere | null;
 };
-export type searchQueryResponse = {
-    readonly search: {
+export type sidePanelQueryResponse = {
+    readonly popularNovels: {
         readonly edges: ReadonlyArray<{
             readonly node: {
-                readonly id: string;
-                readonly " $fragmentRefs": FragmentRefs<"novelThumbnail_novel">;
+                readonly slug: string | null;
+                readonly title: string | null;
+                readonly rating: number | null;
             };
         }>;
     } | null;
+    readonly genres: ReadonlyArray<{
+        readonly field: string | null;
+        readonly count: number;
+    }> | null;
+    readonly status: ReadonlyArray<{
+        readonly field: string | null;
+        readonly count: number;
+    }> | null;
+    readonly types: ReadonlyArray<{
+        readonly field: string | null;
+        readonly count: number;
+    }> | null;
+    readonly tags: ReadonlyArray<{
+        readonly field: string | null;
+        readonly count: number;
+    }> | null;
 };
-export type searchQuery = {
-    readonly response: searchQueryResponse;
-    readonly variables: searchQueryVariables;
+export type sidePanelQuery = {
+    readonly response: sidePanelQueryResponse;
+    readonly variables: sidePanelQueryVariables;
 };
 
 
 
 /*
-query searchQuery(
-  $novelWhere: NovelWhere
-  $novelSearchCount: Float
+query sidePanelQuery(
+  $sidePanelNovelCount: Float
+  $sidePanelNovelSort: String
+  $sidePanelNovelReverse: Boolean
+  $sidePanelNovelFilter: NovelWhere
 ) {
-  search: novels(where: $novelWhere, first: $novelSearchCount) {
+  popularNovels: novels(first: $sidePanelNovelCount, sortKey: $sidePanelNovelSort, reverse: $sidePanelNovelReverse, where: $sidePanelNovelFilter) {
     edges {
       node {
+        slug
+        title
+        rating
         id
-        ...novelThumbnail_novel
         __typename
       }
       cursor
@@ -94,14 +116,22 @@ query searchQuery(
       hasNextPage
     }
   }
-}
-
-fragment novelThumbnail_novel on Novel {
-  slug
-  title
-  genres
-  coverImage
-  type
+  genres: novelAggregateGenres {
+    field
+    count
+  }
+  status: novelAggregateStatus {
+    field
+    count
+  }
+  types: novelAggregateTypes {
+    field
+    count
+  }
+  tags: novelAggregateTags {
+    field
+    count
+  }
 }
 */
 
@@ -109,39 +139,71 @@ const node: ConcreteRequest = (function () {
     var v0 = [
         ({
             "kind": "LocalArgument",
-            "name": "novelWhere",
-            "type": "NovelWhere",
+            "name": "sidePanelNovelCount",
+            "type": "Float",
             "defaultValue": null
         } as any),
         ({
             "kind": "LocalArgument",
-            "name": "novelSearchCount",
-            "type": "Float",
+            "name": "sidePanelNovelSort",
+            "type": "String",
+            "defaultValue": null
+        } as any),
+        ({
+            "kind": "LocalArgument",
+            "name": "sidePanelNovelReverse",
+            "type": "Boolean",
+            "defaultValue": null
+        } as any),
+        ({
+            "kind": "LocalArgument",
+            "name": "sidePanelNovelFilter",
+            "type": "NovelWhere",
             "defaultValue": null
         } as any)
     ], v1 = ({
         "kind": "Variable",
-        "name": "where",
-        "variableName": "novelWhere"
+        "name": "reverse",
+        "variableName": "sidePanelNovelReverse"
     } as any), v2 = ({
+        "kind": "Variable",
+        "name": "sortKey",
+        "variableName": "sidePanelNovelSort"
+    } as any), v3 = ({
+        "kind": "Variable",
+        "name": "where",
+        "variableName": "sidePanelNovelFilter"
+    } as any), v4 = ({
         "kind": "ScalarField",
         "alias": null,
-        "name": "id",
+        "name": "slug",
         "args": null,
         "storageKey": null
-    } as any), v3 = ({
+    } as any), v5 = ({
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "title",
+        "args": null,
+        "storageKey": null
+    } as any), v6 = ({
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "rating",
+        "args": null,
+        "storageKey": null
+    } as any), v7 = ({
         "kind": "ScalarField",
         "alias": null,
         "name": "__typename",
         "args": null,
         "storageKey": null
-    } as any), v4 = ({
+    } as any), v8 = ({
         "kind": "ScalarField",
         "alias": null,
         "name": "cursor",
         "args": null,
         "storageKey": null
-    } as any), v5 = ({
+    } as any), v9 = ({
         "kind": "LinkedField",
         "alias": null,
         "name": "pageInfo",
@@ -165,30 +227,85 @@ const node: ConcreteRequest = (function () {
                 "storageKey": null
             }
         ]
-    } as any), v6 = [
+    } as any), v10 = [
+        ({
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "field",
+            "args": null,
+            "storageKey": null
+        } as any),
+        ({
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "count",
+            "args": null,
+            "storageKey": null
+        } as any)
+    ], v11 = ({
+        "kind": "LinkedField",
+        "alias": "genres",
+        "name": "novelAggregateGenres",
+        "storageKey": null,
+        "args": null,
+        "concreteType": "NovelAggregate",
+        "plural": true,
+        "selections": (v10 /*: any*/)
+    } as any), v12 = ({
+        "kind": "LinkedField",
+        "alias": "status",
+        "name": "novelAggregateStatus",
+        "storageKey": null,
+        "args": null,
+        "concreteType": "NovelAggregate",
+        "plural": true,
+        "selections": (v10 /*: any*/)
+    } as any), v13 = ({
+        "kind": "LinkedField",
+        "alias": "types",
+        "name": "novelAggregateTypes",
+        "storageKey": null,
+        "args": null,
+        "concreteType": "NovelAggregate",
+        "plural": true,
+        "selections": (v10 /*: any*/)
+    } as any), v14 = ({
+        "kind": "LinkedField",
+        "alias": "tags",
+        "name": "novelAggregateTags",
+        "storageKey": null,
+        "args": null,
+        "concreteType": "NovelAggregate",
+        "plural": true,
+        "selections": (v10 /*: any*/)
+    } as any), v15 = [
         ({
             "kind": "Variable",
             "name": "first",
-            "variableName": "novelSearchCount"
+            "variableName": "sidePanelNovelCount"
         } as any),
-        (v1 /*: any*/)
+        (v1 /*: any*/),
+        (v2 /*: any*/),
+        (v3 /*: any*/)
     ];
     return {
         "kind": "Request",
         "fragment": {
             "kind": "Fragment",
-            "name": "searchQuery",
+            "name": "sidePanelQuery",
             "type": "Query",
             "metadata": null,
             "argumentDefinitions": (v0 /*: any*/),
             "selections": [
                 {
                     "kind": "LinkedField",
-                    "alias": "search",
-                    "name": "__novels_search_connection",
+                    "alias": "popularNovels",
+                    "name": "__novel_popularNovels_connection",
                     "storageKey": null,
                     "args": [
-                        (v1 /*: any*/)
+                        (v1 /*: any*/),
+                        (v2 /*: any*/),
+                        (v3 /*: any*/)
                     ],
                     "concreteType": "NovelConnection",
                     "plural": false,
@@ -211,34 +328,35 @@ const node: ConcreteRequest = (function () {
                                     "concreteType": "Novel",
                                     "plural": false,
                                     "selections": [
-                                        (v2 /*: any*/),
-                                        (v3 /*: any*/),
-                                        {
-                                            "kind": "FragmentSpread",
-                                            "name": "novelThumbnail_novel",
-                                            "args": null
-                                        }
+                                        (v4 /*: any*/),
+                                        (v5 /*: any*/),
+                                        (v6 /*: any*/),
+                                        (v7 /*: any*/)
                                     ]
                                 },
-                                (v4 /*: any*/)
+                                (v8 /*: any*/)
                             ]
                         },
-                        (v5 /*: any*/)
+                        (v9 /*: any*/)
                     ]
-                }
+                },
+                (v11 /*: any*/),
+                (v12 /*: any*/),
+                (v13 /*: any*/),
+                (v14 /*: any*/)
             ]
         },
         "operation": {
             "kind": "Operation",
-            "name": "searchQuery",
+            "name": "sidePanelQuery",
             "argumentDefinitions": (v0 /*: any*/),
             "selections": [
                 {
                     "kind": "LinkedField",
-                    "alias": "search",
+                    "alias": "popularNovels",
                     "name": "novels",
                     "storageKey": null,
-                    "args": (v6 /*: any*/),
+                    "args": (v15 /*: any*/),
                     "concreteType": "NovelConnection",
                     "plural": false,
                     "selections": [
@@ -260,77 +378,57 @@ const node: ConcreteRequest = (function () {
                                     "concreteType": "Novel",
                                     "plural": false,
                                     "selections": [
-                                        (v2 /*: any*/),
+                                        (v4 /*: any*/),
+                                        (v5 /*: any*/),
+                                        (v6 /*: any*/),
                                         {
                                             "kind": "ScalarField",
                                             "alias": null,
-                                            "name": "slug",
+                                            "name": "id",
                                             "args": null,
                                             "storageKey": null
                                         },
-                                        {
-                                            "kind": "ScalarField",
-                                            "alias": null,
-                                            "name": "title",
-                                            "args": null,
-                                            "storageKey": null
-                                        },
-                                        {
-                                            "kind": "ScalarField",
-                                            "alias": null,
-                                            "name": "genres",
-                                            "args": null,
-                                            "storageKey": null
-                                        },
-                                        {
-                                            "kind": "ScalarField",
-                                            "alias": null,
-                                            "name": "coverImage",
-                                            "args": null,
-                                            "storageKey": null
-                                        },
-                                        {
-                                            "kind": "ScalarField",
-                                            "alias": null,
-                                            "name": "type",
-                                            "args": null,
-                                            "storageKey": null
-                                        },
-                                        (v3 /*: any*/)
+                                        (v7 /*: any*/)
                                     ]
                                 },
-                                (v4 /*: any*/)
+                                (v8 /*: any*/)
                             ]
                         },
-                        (v5 /*: any*/)
+                        (v9 /*: any*/)
                     ]
                 },
                 {
                     "kind": "LinkedHandle",
-                    "alias": "search",
+                    "alias": "popularNovels",
                     "name": "novels",
-                    "args": (v6 /*: any*/),
+                    "args": (v15 /*: any*/),
                     "handle": "connection",
-                    "key": "novels_search",
+                    "key": "novel_popularNovels",
                     "filters": [
+                        "sortKey",
+                        "reverse",
                         "where"
                     ]
-                }
+                },
+                (v11 /*: any*/),
+                (v12 /*: any*/),
+                (v13 /*: any*/),
+                (v14 /*: any*/)
             ]
         },
         "params": {
             "operationKind": "query",
-            "name": "searchQuery",
+            "name": "sidePanelQuery",
             "id": null,
-            "text": "query searchQuery(\n  $novelWhere: NovelWhere\n  $novelSearchCount: Float\n) {\n  search: novels(where: $novelWhere, first: $novelSearchCount) {\n    edges {\n      node {\n        id\n        ...novelThumbnail_novel\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment novelThumbnail_novel on Novel {\n  slug\n  title\n  genres\n  coverImage\n  type\n}\n",
+            "text": "query sidePanelQuery(\n  $sidePanelNovelCount: Float\n  $sidePanelNovelSort: String\n  $sidePanelNovelReverse: Boolean\n  $sidePanelNovelFilter: NovelWhere\n) {\n  popularNovels: novels(first: $sidePanelNovelCount, sortKey: $sidePanelNovelSort, reverse: $sidePanelNovelReverse, where: $sidePanelNovelFilter) {\n    edges {\n      node {\n        slug\n        title\n        rating\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  genres: novelAggregateGenres {\n    field\n    count\n  }\n  status: novelAggregateStatus {\n    field\n    count\n  }\n  types: novelAggregateTypes {\n    field\n    count\n  }\n  tags: novelAggregateTags {\n    field\n    count\n  }\n}\n",
             "metadata": {
                 "connection": [
                     {
-                        "count": "novelSearchCount",
+                        "count": "sidePanelNovelCount",
                         "cursor": null,
                         "direction": "forward",
                         "path": [
-                            "search"
+                            "popularNovels"
                         ]
                     }
                 ]
@@ -338,5 +436,5 @@ const node: ConcreteRequest = (function () {
         }
     } as any;
 })();
-(node as any).hash = '700017402fb96234fabed6b13da5c1db';
+(node as any).hash = 'ce9225bd76a8488e52813bb224ecd266';
 export default node;

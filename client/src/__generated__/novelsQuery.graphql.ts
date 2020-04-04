@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-/* @relayHash 1dd0940db168884c0f7d2ce773626594 */
+/* @relayHash 530e5c570455a7ea9663f8fd7fd4e997 */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -25,6 +25,7 @@ export type NovelQueryableInput = {
     year?: NumberWhere | null;
     likes?: NumberWhere | null;
     views?: NumberWhere | null;
+    rating?: NumberWhere | null;
 };
 export type StringWhere = {
     is?: string | null;
@@ -41,6 +42,7 @@ export type StringWhere = {
     notStartsWith?: string | null;
     endsWith?: string | null;
     notEndsWith?: string | null;
+    search?: string | null;
 };
 export type NumberWhere = {
     is?: number | null;

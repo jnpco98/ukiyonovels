@@ -1,18 +1,18 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 import { graphql } from 'babel-plugin-relay/macro';
 import { useQuery } from 'relay-hooks';
 
+import { RouteComponentProps } from 'react-router-dom';
 import NovelCardList from '../../organism/novel-card-list';
 import * as S from './style';
 
 import { homepage } from '../../../settings/config/settings.json';
-import { RouteComponentProps } from 'react-router-dom';
 import { homeQuery } from '../../../__generated__/homeQuery.graphql';
 import Loader, { LoaderType } from '../../atom/loaders';
 import { DEFAULT_NOVEL_THUMBNAIL_CAROUSEL_VARIABLES } from '../../organism/novel-thumbnail-carousel';
 
-//primary secondary tertiary for graphql with just argument diff
+// primary secondary tertiary for graphql with just argument diff
 export const homeRelayQuery = graphql`
   query homeQuery($novelThumbnailCarouselSort: String, $novelThumbnailCarouselCount: Float) {
     ...novelThumbnailCarousel_default
@@ -27,7 +27,7 @@ const defaultVariables = {
 
 type Props = {} & RouteComponentProps;
 
-function Home(props: Props) {
+function Home(props: Props): ReactElement {
   const { props: relayProps, error, retry } = useQuery<homeQuery>(homeRelayQuery, defaultVariables);
 
   if (error) return <div>{error.message}</div>;
@@ -53,7 +53,7 @@ function Home(props: Props) {
               novelCardList={relayProps as any}
             />
           </S.HomeWrapper>
-          <S.HomeSidePanel />
+          <S.HomeSidePanel classifications={['genres', 'status', 'tags', 'types']} />
         </S.HomeContainer>
       </>
     );

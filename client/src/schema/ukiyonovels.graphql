@@ -191,6 +191,7 @@ type Mutation {
   bookCreate(data: BookInput!): Book
   tokenCreate(data: TokenCreateInput!): AuthTokens
   tokenRefresh(data: TokenRefreshInput!): AuthTokens
+  novelRefreshRating(id: String!): Novel
   createUser(data: CreateUserInput!): User
 }
 
@@ -227,6 +228,9 @@ type Novel {
 
   """Types: [Completed, Ongoing, Hiatus]"""
   status: String
+
+  """Average rating based on reviews [0 - 1]"""
+  rating: Float
   chapters(
     where: ChapterWhere
 
@@ -290,6 +294,15 @@ type Novel {
     """Sort list by the given key"""
     sortKey: String
   ): ReviewConnection!
+  averageRating: Float
+}
+
+type NovelAggregate {
+  """Consolidate novel fields"""
+  field: String
+
+  """Aggregating consolidated novel field count"""
+  count: Float!
 }
 
 type NovelConnection {
@@ -332,6 +345,9 @@ input NovelInput {
 
   """Types: [Completed, Ongoing, Hiatus]"""
   status: String
+
+  """Average rating based on reviews [0 - 1]"""
+  rating: Float
 }
 
 input NovelQueryableInput {
@@ -351,6 +367,7 @@ input NovelQueryableInput {
   year: NumberWhere
   likes: NumberWhere
   views: NumberWhere
+  rating: NumberWhere
 }
 
 input NovelWhere {
@@ -488,6 +505,11 @@ type Query {
     sortKey: String
   ): BookConnection
   book(id: ID!): Book
+  novelBySlug(slug: String!): Novel
+  novelAggregateTypes(orderCount: Boolean, reverse: Boolean): [NovelAggregate!]
+  novelAggregateStatus(orderCount: Boolean, reverse: Boolean): [NovelAggregate!]
+  novelAggregateGenres(orderCount: Boolean, reverse: Boolean): [NovelAggregate!]
+  novelAggregateTags(orderCount: Boolean, reverse: Boolean): [NovelAggregate!]
   profile: User
 }
 
@@ -498,9 +520,10 @@ type Review {
   content: String
 
   """Rating: [0 - 1]"""
-  rating: Float!
+  rating: Float
   novelId: ID!
-  novel: Novel!
+  novel: Novel
+  user: ID
 }
 
 type ReviewConnection {
@@ -517,7 +540,7 @@ input ReviewInput {
   content: String
 
   """Rating: [0 - 1]"""
-  rating: Float!
+  rating: Float
   novelId: ID!
 }
 
@@ -546,6 +569,7 @@ input StringWhere {
   notStartsWith: String
   endsWith: String
   notEndsWith: String
+  search: String
 }
 
 type TokenConnection {

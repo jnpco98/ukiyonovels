@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components/macro';
-import { Paragraph } from '../text/style';
+import { Paragraph, Link } from '../text/style';
 import * as M from '../../../settings/media';
 
 type BarFillProps = {
@@ -12,7 +12,7 @@ export const BarTextWrapper = styled.div`
   margin-bottom: 0.2rem;
 `;
 
-export const BarTitle = styled(Paragraph)`
+export const BarTitle = styled(Link)`
   font-family: ${({ theme, ...props }) => theme.font.secondary};
 
   ${M.MEDIA_SMALL} {

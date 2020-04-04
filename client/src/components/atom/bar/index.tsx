@@ -5,16 +5,17 @@ type Props = {
   className?: string;
   title?: string;
   fillRate?: number;
+  link?: string;
 };
 
 const Bar: React.FC<Props> = (props: Props): ReactElement => {
-  const { className, title, fillRate } = props;
+  const { className, title, fillRate, link } = props;
 
   return (
     <S.BarContainer className={className}>
       {title && (
         <S.BarTextWrapper>
-          <S.BarTitle>{title}</S.BarTitle>
+          <S.BarTitle to={link}>{title}</S.BarTitle>
           <S.BarRating>{(fillRate * 10).toFixed(1)}</S.BarRating>
         </S.BarTextWrapper>
       )}

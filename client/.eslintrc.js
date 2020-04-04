@@ -27,10 +27,11 @@ module.exports =  {
   rules:  {
     // 'prettier/prettier': ['warn', { singleQuote: true, semi: true }],
     // 'no-console': 'off',
-    // "import/prefer-default-export": 'off',
+    "import/prefer-default-export": 'off',
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".tsx"] }],
     "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
-    "@typescript-eslint/no-unused-vars" : "off"
+    "@typescript-eslint/no-unused-vars" : "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
     // semi: ["warn", "always"],
     // 'no-unused-vars': 'warn',
     // "no-unused-vars": "off",

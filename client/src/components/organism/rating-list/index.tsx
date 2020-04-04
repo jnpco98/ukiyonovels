@@ -7,20 +7,22 @@ type Props = {
   headingText?: string;
   contents: {
     title: string;
+    link?: string;
     rating: number;
   }[];
 };
 
-const RatingList: React.FC<Props> = (props: Props) => {
+function RatingList(props: Props) {
   const { headingText, contents, className } = props;
+
   return (
     <S.RatingListContainer className={className}>
       {headingText && <S.RatingListHeading>{headingText}</S.RatingListHeading>}
       {contents.map(c => (
-        <Bar key={c.title + c.rating} fillRate={c.rating} title={c.title} />
+        <Bar key={c.title + c.rating} fillRate={c.rating} title={c.title} link={c.link} />
       ))}
     </S.RatingListContainer>
   );
-};
+}
 
 export default RatingList;
