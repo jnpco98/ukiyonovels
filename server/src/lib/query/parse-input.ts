@@ -177,6 +177,25 @@ export function parseInput<T extends { [key: string]: T | T[] }>(
           });
           break;
         }
+
+        /**
+         * Query for records where the
+         * field value contains any of the words of the query
+         *
+         * Field value and query value
+         * should both be of type string
+         * and there's an imposed limit of 1000
+         * characters because of the performance issues
+         */
+        case 'search': {
+          if((typeof value === 'string' || value instanceof String) && value.trim().length && value.length < 1000) {
+            query[andOr](`${sFieldName} ILIKE :newvalue`, {
+              newvalue: `%${value.replace(/\s/g, '%')}%`
+            });
+          }
+          break;
+        }
+
         default: {
           break;
         }

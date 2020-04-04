@@ -48,6 +48,9 @@ export class StringWhere implements WhereFilterParams {
 
   @Field(type => String, { nullable: true })
   notEndsWith?: String;
+
+  @Field(type => String, { nullable: true })
+  search?: String;
 }
 
 /**
