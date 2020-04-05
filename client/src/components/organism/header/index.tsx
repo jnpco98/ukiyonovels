@@ -5,6 +5,7 @@ import SearchOverlay from '../search-overlay';
 import DynamicIcon from '../../molecule/dynamic-icon';
 import * as S from './style';
 import SettingsOverlay from '../settings-overlay';
+import { account } from '../../../settings/config/settings.json';
 
 type MenuItem = {
   label: string;
@@ -47,6 +48,7 @@ function Header(props: Props) {
   };
 
   const renderLinks = (menuItem: MenuItem): ReactElement => {
+    if (menuItem.key === 'account' && !account.enableUser) return <></>;
     return (
       <S.HeaderMenuItem
         active={menuItem.key === activeMenuItem}

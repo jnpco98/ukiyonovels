@@ -9,14 +9,23 @@ import * as S from './style';
 import Loader, { LoaderType } from '../../atom/loaders';
 import { novelsQuery, novelsQueryVariables, NovelWhere } from '../../../__generated__/novelsQuery.graphql';
 import { slugify } from '../../../utilities/string';
+import { sidePanel_aggregates$key } from '../../../__generated__/sidePanel_aggregates.graphql';
+import { appQueryResponse } from '../../../__generated__/appQuery.graphql';
+import NovelCardList from '../../organism/novel-card-list';
 
-export const novelsRelayQuery = graphql`
+export const novelsRelayListQuery = graphql`
   query novelsQuery($novelsSort: String, $novelsCount: Float, $novelWhere: NovelWhere, $novelReverse: Boolean) {
     ...novelList
   }
 `;
 
-type Props = RouteComponentProps<{ type?: string; key?: string }>;
+export const novelsRelayCardQuery = graphql`
+  query novelsCardQuery($novelsSort: String, $novelsCount: Float, $novelWhere: NovelWhere, $novelReverse: Boolean) {
+    ...novelCardList_novels
+  }
+`;
+
+type Props = { appData: appQueryResponse; card?: boolean } & RouteComponentProps<{ type?: string; key?: string }>;
 
 function createNovelQuickSort(type: string): string | null {
   let sort = null;
@@ -46,10 +55,10 @@ function createNovelQuickFilter(type: string, key: string): NovelWhere | null {
 }
 
 function Novels(props: Props): ReactElement {
-  const { match } = props;
-  const { type, key } = match.params;
+  const { match, appData, card } = props;
+  const { type, key = '' } = match.params;
 
-  const variables: novelsQueryVariables = { novelsSort: 'title', novelsCount: 50 };
+  const variables: novelsQueryVariables = { novelsSort: 'title', novelsCount: 20 };
   const quickSort = createNovelQuickSort(type);
   if (quickSort) {
     variables.novelsSort = quickSort;
@@ -59,7 +68,10 @@ function Novels(props: Props): ReactElement {
     if (quickFilter) variables.novelWhere = quickFilter;
   }
 
-  const { props: relayProps, error, retry } = useQuery<novelsQuery>(novelsRelayQuery, variables);
+  const { props: relayProps, error, retry } = useQuery<novelsQuery>(
+    card ? novelsRelayCardQuery : novelsRelayListQuery,
+    variables
+  );
 
   if (error) return <div>{error.message}</div>;
   if (relayProps)
@@ -67,9 +79,13 @@ function Novels(props: Props): ReactElement {
       <S.NovelsContainer>
         <S.NovelsWrapper>
           <S.NovelTitle>Novel List</S.NovelTitle>
-          <NovelList novelsKey={relayProps} />
+          {card ? (
+            <NovelCardList headingText="" buttonText="Continue Reading" novelsKey={relayProps as any} />
+          ) : (
+            <NovelList novelsKey={relayProps} />
+          )}
         </S.NovelsWrapper>
-        <S.NovelsSidePanel />
+        <S.NovelsSidePanel classifications={appData} />
       </S.NovelsContainer>
     );
 

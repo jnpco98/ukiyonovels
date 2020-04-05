@@ -8,9 +8,14 @@ import { novelCardList_novels$key } from '../../../__generated__/novelCardList_n
 import * as S from './style';
 import Text, { TextType } from '../../atom/text';
 
+export const DEFAULT_NOVEL_CARD_LIST_VARIABLES = {
+  novelsCount: 20,
+  novelsSort: 'title'
+};
+
 const fragmentSpec = graphql`
   fragment novelCardList_novels on Query {
-    novelCardList: novels(first: 10, sortKey: "lastModified") @connection(key: "novel_novelCardList") {
+    novelCardList: novels(first: $novelsCount, sortKey: $novelsSort, where: $novelWhere, reverse: $novelReverse) {
       edges {
         node {
           id
@@ -23,15 +28,16 @@ const fragmentSpec = graphql`
 `;
 
 type Props = {
-  novelCardList: novelCardList_novels$key;
+  novelsKey: novelCardList_novels$key;
   className?: string;
   headingText?: string;
   buttonText: string;
 };
 
 function NovelCardList(props: Props) {
+  const { novelsKey } = props;
   const { className, headingText, buttonText } = props;
-  const { novelCardList } = useFragment(fragmentSpec, props.novelCardList);
+  const { novelCardList } = useFragment(fragmentSpec, novelsKey);
 
   return (
     <S.NovelCardListContainer className={className}>

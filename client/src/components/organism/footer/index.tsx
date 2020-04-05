@@ -1,59 +1,74 @@
 import React from 'react';
-import * as S from './style';
 import { useMediaQuery } from 'react-responsive';
+import { graphql } from 'babel-plugin-relay/macro';
+import { useFragment } from 'relay-hooks';
+import * as S from './style';
 import { SMALL } from '../../../settings/media';
+import { footer_aggregates$key, footer_aggregates } from '../../../__generated__/footer_aggregates.graphql';
 
-const genre = [
-  'Adventure',
-  'Action',
-  'Fantasy',
-  'Martial Arts',
-  'Mature',
-  'Romance',
-  'Seinen',
-  'Supernatural',
-  'Xianxia',
-  'Adventure',
-  'Action',
-  'Fantasy',
-  'Martial Arts',
-  'Mature',
-  'Romance',
-  'Seinen',
-  'Supernatural',
-  'Xianxia'
-];
-const classification = ['Light novel', 'Web novel'];
-const status = ['Complete', 'Ongoing', 'Hiatus'];
-
-const generateLink = (strs: string[]) => strs.map(str => ({ name: str, link: '#' }));
-
-const content = [
-  {
-    heading: 'Genre',
-    content: <S.FooterGenreClassifications headingText="Genre" classifications={generateLink(genre)} />
-  },
-  {
-    heading: 'Status',
-    content: <S.FooterClassifications headingText="Status" classifications={generateLink(status)} />
-  },
-  {
-    heading: 'Novel Type',
-    content: <S.FooterClassifications headingText="Novel type" classifications={generateLink(classification)} />
+export const footerFragmentSpec = graphql`
+  fragment footer_aggregates on Query {
+    genres: novelAggregateGenres {
+      field
+      count
+    }
+    status: novelAggregateStatus {
+      field
+      count
+    }
+    types: novelAggregateTypes {
+      field
+      count
+    }
+    tags: novelAggregateTags {
+      field
+      count
+    }
   }
-];
+`;
+type Props = {
+  classifications: footer_aggregates$key;
+};
 
-const Footer = () => {
+function generateContent(fields: footer_aggregates) {
+  const { genres, status, tags, types } = fields;
+
+  return ['genre', 'status', 'type']
+    .map(key => {
+      const classifications =
+        // eslint-disable-next-line no-nested-ternary
+        key === 'genre' ? genres : key === 'status' ? status : key === 'tagged' ? tags : key === 'type' ? types : null;
+      if (!classifications) return null;
+      return {
+        heading: key,
+        content: (
+          <S.FooterClassifications
+            headingText={key}
+            classifications={classifications.map(cls => ({ name: cls.field, link: `/novels/${key}/${cls.field}` }))}
+          />
+        )
+      };
+    })
+    .filter(c => c);
+  // return fields.map(f => ({ heading: 'RR', content: <S.FooterClassifications headingText={} ))
+}
+
+function Footer(props: Props) {
+  const { classifications } = props;
+  const fragment = useFragment(footerFragmentSpec, classifications);
+
   const isSmallScreen = useMediaQuery({ minWidth: SMALL });
 
   return (
     <S.FooterContainer>
       {!isSmallScreen ? (
         <S.FooterAccordionWrapper>
-          <S.FooterAccordion accordionContent={content} initialOpen={false} />
+          <S.FooterAccordion accordionContent={generateContent(fragment)} initialOpen={false} />
         </S.FooterAccordionWrapper>
       ) : (
-        <S.FooterClassificationLinksWrapper>{content.map(c => c.content)}</S.FooterClassificationLinksWrapper>
+        <S.FooterClassificationLinksWrapper>
+          {generateContent(fragment).map(c => c.content)}
+        </S.FooterClassificationLinksWrapper>
       )}
 
       <S.FooterContactWrapper>
@@ -74,6 +89,6 @@ const Footer = () => {
       </S.FooterLinksWrapper>
     </S.FooterContainer>
   );
-};
+}
 
 export default Footer;

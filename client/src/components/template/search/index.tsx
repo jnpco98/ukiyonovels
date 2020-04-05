@@ -8,6 +8,7 @@ import * as S from './style';
 import { searchQuery, searchQueryVariables } from '../../../__generated__/searchQuery.graphql';
 import Loader, { LoaderType } from '../../atom/loaders';
 import NovelThumbnail from '../../molecule/novel-thumbnail';
+import { sidePanel_aggregates$key } from '../../../__generated__/sidePanel_aggregates.graphql';
 
 export const searchRelayQuery = graphql`
   query searchQuery($novelWhere: NovelWhere, $novelSearchCount: Float) {
@@ -38,10 +39,10 @@ function renderNovels(renderProps: RenderProps<searchQuery>): ReactElement {
   return <Loader type={LoaderType.Ring} />;
 }
 
-type Props = RouteComponentProps;
+type Props = { appData: sidePanel_aggregates$key } & RouteComponentProps;
 
 function Search(props: Props): ReactElement {
-  const { location } = props;
+  const { location, appData } = props;
   const { query } = qs.parse(location.search, { ignoreQueryPrefix: true }) as { query?: string };
 
   const variables: searchQueryVariables = {
@@ -55,7 +56,7 @@ function Search(props: Props): ReactElement {
         <S.SearchTitle>Search Results</S.SearchTitle>
         {query && typeof query === 'string' ? renderNovels(queryResult) : <p>No results found</p>}
       </S.SearchWrapper>
-      <S.SearchSidePanel />
+      <S.SearchSidePanel classifications={appData} />
     </S.SearchContainer>
   );
 }

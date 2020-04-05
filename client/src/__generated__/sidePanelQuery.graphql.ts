@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-/* @relayHash 9646bae9aea3667d7c5a8002f08e2a0e */
+/* @relayHash 564f520781139482c91c0e31c74b15a5 */
 
 import { ConcreteRequest } from "relay-runtime";
 export type NovelWhere = {
@@ -69,22 +69,6 @@ export type sidePanelQueryResponse = {
             };
         }>;
     } | null;
-    readonly genres: ReadonlyArray<{
-        readonly field: string | null;
-        readonly count: number;
-    }> | null;
-    readonly status: ReadonlyArray<{
-        readonly field: string | null;
-        readonly count: number;
-    }> | null;
-    readonly types: ReadonlyArray<{
-        readonly field: string | null;
-        readonly count: number;
-    }> | null;
-    readonly tags: ReadonlyArray<{
-        readonly field: string | null;
-        readonly count: number;
-    }> | null;
 };
 export type sidePanelQuery = {
     readonly response: sidePanelQueryResponse;
@@ -115,22 +99,6 @@ query sidePanelQuery(
       endCursor
       hasNextPage
     }
-  }
-  genres: novelAggregateGenres {
-    field
-    count
-  }
-  status: novelAggregateStatus {
-    field
-    count
-  }
-  types: novelAggregateTypes {
-    field
-    count
-  }
-  tags: novelAggregateTags {
-    field
-    count
   }
 }
 */
@@ -229,57 +197,6 @@ const node: ConcreteRequest = (function () {
         ]
     } as any), v10 = [
         ({
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "field",
-            "args": null,
-            "storageKey": null
-        } as any),
-        ({
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "count",
-            "args": null,
-            "storageKey": null
-        } as any)
-    ], v11 = ({
-        "kind": "LinkedField",
-        "alias": "genres",
-        "name": "novelAggregateGenres",
-        "storageKey": null,
-        "args": null,
-        "concreteType": "NovelAggregate",
-        "plural": true,
-        "selections": (v10 /*: any*/)
-    } as any), v12 = ({
-        "kind": "LinkedField",
-        "alias": "status",
-        "name": "novelAggregateStatus",
-        "storageKey": null,
-        "args": null,
-        "concreteType": "NovelAggregate",
-        "plural": true,
-        "selections": (v10 /*: any*/)
-    } as any), v13 = ({
-        "kind": "LinkedField",
-        "alias": "types",
-        "name": "novelAggregateTypes",
-        "storageKey": null,
-        "args": null,
-        "concreteType": "NovelAggregate",
-        "plural": true,
-        "selections": (v10 /*: any*/)
-    } as any), v14 = ({
-        "kind": "LinkedField",
-        "alias": "tags",
-        "name": "novelAggregateTags",
-        "storageKey": null,
-        "args": null,
-        "concreteType": "NovelAggregate",
-        "plural": true,
-        "selections": (v10 /*: any*/)
-    } as any), v15 = [
-        ({
             "kind": "Variable",
             "name": "first",
             "variableName": "sidePanelNovelCount"
@@ -339,11 +256,7 @@ const node: ConcreteRequest = (function () {
                         },
                         (v9 /*: any*/)
                     ]
-                },
-                (v11 /*: any*/),
-                (v12 /*: any*/),
-                (v13 /*: any*/),
-                (v14 /*: any*/)
+                }
             ]
         },
         "operation": {
@@ -356,7 +269,7 @@ const node: ConcreteRequest = (function () {
                     "alias": "popularNovels",
                     "name": "novels",
                     "storageKey": null,
-                    "args": (v15 /*: any*/),
+                    "args": (v10 /*: any*/),
                     "concreteType": "NovelConnection",
                     "plural": false,
                     "selections": [
@@ -401,7 +314,7 @@ const node: ConcreteRequest = (function () {
                     "kind": "LinkedHandle",
                     "alias": "popularNovels",
                     "name": "novels",
-                    "args": (v15 /*: any*/),
+                    "args": (v10 /*: any*/),
                     "handle": "connection",
                     "key": "novel_popularNovels",
                     "filters": [
@@ -409,18 +322,14 @@ const node: ConcreteRequest = (function () {
                         "reverse",
                         "where"
                     ]
-                },
-                (v11 /*: any*/),
-                (v12 /*: any*/),
-                (v13 /*: any*/),
-                (v14 /*: any*/)
+                }
             ]
         },
         "params": {
             "operationKind": "query",
             "name": "sidePanelQuery",
             "id": null,
-            "text": "query sidePanelQuery(\n  $sidePanelNovelCount: Float\n  $sidePanelNovelSort: String\n  $sidePanelNovelReverse: Boolean\n  $sidePanelNovelFilter: NovelWhere\n) {\n  popularNovels: novels(first: $sidePanelNovelCount, sortKey: $sidePanelNovelSort, reverse: $sidePanelNovelReverse, where: $sidePanelNovelFilter) {\n    edges {\n      node {\n        slug\n        title\n        rating\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  genres: novelAggregateGenres {\n    field\n    count\n  }\n  status: novelAggregateStatus {\n    field\n    count\n  }\n  types: novelAggregateTypes {\n    field\n    count\n  }\n  tags: novelAggregateTags {\n    field\n    count\n  }\n}\n",
+            "text": "query sidePanelQuery(\n  $sidePanelNovelCount: Float\n  $sidePanelNovelSort: String\n  $sidePanelNovelReverse: Boolean\n  $sidePanelNovelFilter: NovelWhere\n) {\n  popularNovels: novels(first: $sidePanelNovelCount, sortKey: $sidePanelNovelSort, reverse: $sidePanelNovelReverse, where: $sidePanelNovelFilter) {\n    edges {\n      node {\n        slug\n        title\n        rating\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n",
             "metadata": {
                 "connection": [
                     {
@@ -436,5 +345,5 @@ const node: ConcreteRequest = (function () {
         }
     } as any;
 })();
-(node as any).hash = 'ce9225bd76a8488e52813bb224ecd266';
+(node as any).hash = '40f43773aa2a599c846d6cd17c8c909b';
 export default node;

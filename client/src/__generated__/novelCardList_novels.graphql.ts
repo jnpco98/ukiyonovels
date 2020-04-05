@@ -27,30 +27,55 @@ const node: ReaderFragment = ({
     "kind": "Fragment",
     "name": "novelCardList_novels",
     "type": "Query",
-    "metadata": {
-        "connection": [
-            {
-                "count": null,
-                "cursor": null,
-                "direction": "forward",
-                "path": [
-                    "novelCardList"
-                ]
-            }
-        ]
-    },
-    "argumentDefinitions": [],
+    "metadata": null,
+    "argumentDefinitions": [
+        {
+            "kind": "RootArgument",
+            "name": "novelsCount",
+            "type": "Float"
+        },
+        {
+            "kind": "RootArgument",
+            "name": "novelsSort",
+            "type": "String"
+        },
+        {
+            "kind": "RootArgument",
+            "name": "novelWhere",
+            "type": "NovelWhere"
+        },
+        {
+            "kind": "RootArgument",
+            "name": "novelReverse",
+            "type": "Boolean"
+        }
+    ],
     "selections": [
         {
             "kind": "LinkedField",
             "alias": "novelCardList",
-            "name": "__novel_novelCardList_connection",
-            "storageKey": "__novel_novelCardList_connection(sortKey:\"lastModified\")",
+            "name": "novels",
+            "storageKey": null,
             "args": [
                 {
-                    "kind": "Literal",
+                    "kind": "Variable",
+                    "name": "first",
+                    "variableName": "novelsCount"
+                },
+                {
+                    "kind": "Variable",
+                    "name": "reverse",
+                    "variableName": "novelReverse"
+                },
+                {
+                    "kind": "Variable",
                     "name": "sortKey",
-                    "value": "lastModified"
+                    "variableName": "novelsSort"
+                },
+                {
+                    "kind": "Variable",
+                    "name": "where",
+                    "variableName": "novelWhere"
                 }
             ],
             "concreteType": "NovelConnection",
@@ -89,50 +114,11 @@ const node: ReaderFragment = ({
                                     "storageKey": null
                                 },
                                 {
-                                    "kind": "ScalarField",
-                                    "alias": null,
-                                    "name": "__typename",
-                                    "args": null,
-                                    "storageKey": null
-                                },
-                                {
                                     "kind": "FragmentSpread",
                                     "name": "novelCard_novel",
                                     "args": null
                                 }
                             ]
-                        },
-                        {
-                            "kind": "ScalarField",
-                            "alias": null,
-                            "name": "cursor",
-                            "args": null,
-                            "storageKey": null
-                        }
-                    ]
-                },
-                {
-                    "kind": "LinkedField",
-                    "alias": null,
-                    "name": "pageInfo",
-                    "storageKey": null,
-                    "args": null,
-                    "concreteType": "PageInfo",
-                    "plural": false,
-                    "selections": [
-                        {
-                            "kind": "ScalarField",
-                            "alias": null,
-                            "name": "endCursor",
-                            "args": null,
-                            "storageKey": null
-                        },
-                        {
-                            "kind": "ScalarField",
-                            "alias": null,
-                            "name": "hasNextPage",
-                            "args": null,
-                            "storageKey": null
                         }
                     ]
                 }
@@ -140,5 +126,5 @@ const node: ReaderFragment = ({
         }
     ]
 } as any);
-(node as any).hash = 'd73591b2c7bc1c388744aacdcd3e85c5';
+(node as any).hash = 'b00954bde056bf42a10cd2fdd0c25b25';
 export default node;

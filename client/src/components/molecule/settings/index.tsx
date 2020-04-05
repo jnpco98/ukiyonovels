@@ -28,7 +28,7 @@ function Settings(props: Props, ref: React.RefObject<HTMLDivElement>) {
             { value: 'light', displayName: 'light' },
             { value: 'dark', displayName: 'dark' }
           ]}
-          onSelect={o => updateTheme({ fontSize: o.value })}
+          onSelect={o => updateTheme({ color: o.value })}
           optionName="Theme"
           defaultValue={color || 'Please select a color'}
         />
@@ -36,7 +36,7 @@ function Settings(props: Props, ref: React.RefObject<HTMLDivElement>) {
           options={Array(15)
             .fill(0)
             .map((n, idx) => ({ displayName: (idx + 8).toString(), value: (idx + 8).toString() }))}
-          onSelect={o => updateTheme({ color: o.value })}
+          onSelect={o => updateTheme({ fontSize: o.value })}
           optionName="Font Size"
           defaultValue={fontSize || 'Please select a font size'}
         />

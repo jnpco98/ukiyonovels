@@ -1,4 +1,7 @@
 {
+  "account": {
+    "enableUser": false
+  },
   "navigation": {
     "mainMenu": [
       {

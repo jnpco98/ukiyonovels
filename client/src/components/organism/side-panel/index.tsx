@@ -1,12 +1,13 @@
 import React, { ReactElement } from 'react';
 
 import { graphql } from 'babel-plugin-relay/macro';
-import { useQuery, RenderProps } from 'relay-hooks';
+import { useQuery, useFragment } from 'relay-hooks';
 
 import * as S from './style';
 import { sidePanelQuery, sidePanelQueryVariables } from '../../../__generated__/sidePanelQuery.graphql';
 import Loader, { LoaderType } from '../../atom/loaders';
 import { sidePanel } from '../../../settings/config/settings.json';
+import { sidePanel_aggregates$key, sidePanel_aggregates } from '../../../__generated__/sidePanel_aggregates.graphql';
 
 export const sidePanelRelayQuery = graphql`
   query sidePanelQuery(
@@ -29,6 +30,11 @@ export const sidePanelRelayQuery = graphql`
         }
       }
     }
+  }
+`;
+
+export const sidePanelFragmentSpec = graphql`
+  fragment sidePanel_aggregates on Query {
     genres: novelAggregateGenres {
       field
       count
@@ -52,20 +58,19 @@ type Classification = 'genres' | 'status' | 'types' | 'tags';
 
 type Props = {
   className?: string;
-  classifications?: Classification[];
+  classifications: sidePanel_aggregates$key;
+  enabledClassifications?: Classification[];
 };
 
 function renderQuickSearch(
-  renderProps: RenderProps<sidePanelQuery>,
-  classifications: Classification[]
+  classifications: sidePanel_aggregates,
+  enabledClassifications: Classification[]
 ): ReactElement | ReactElement[] {
-  const { props: relayProps, error, retry } = renderProps;
-
-  return classifications.map(c => (
+  return enabledClassifications.map(c => (
     <S.SidePanelQuickSearch
       key={c}
       headingText={`Search by ${c}`}
-      contents={relayProps[c].map(query => ({
+      contents={classifications[c].map(query => ({
         title: query.field,
         count: query.count,
         // eslint-disable-next-line no-nested-ternary
@@ -78,7 +83,7 @@ function renderQuickSearch(
 }
 
 function SidePanel(props: Props): ReactElement {
-  const { className, classifications = ['genres', 'status', 'types', 'tags'] } = props;
+  const { className, classifications, enabledClassifications = ['genres', 'status', 'types', 'tags'] } = props;
   const variables: sidePanelQueryVariables = {
     sidePanelNovelCount: 10,
     sidePanelNovelSort: 'rating',
@@ -87,6 +92,7 @@ function SidePanel(props: Props): ReactElement {
   };
   const renderProps = useQuery<sidePanelQuery>(sidePanelRelayQuery, variables);
   const { props: relayProps, error, retry } = renderProps;
+  const classificationsFragments = useFragment(sidePanelFragmentSpec, classifications);
 
   if (error) return <div>{error.message}</div>;
   if (relayProps)
@@ -100,7 +106,7 @@ function SidePanel(props: Props): ReactElement {
             link: `/novel/${node.slug}`
           }))}
         />
-        {renderQuickSearch(renderProps, classifications as Classification[])}
+        {renderQuickSearch(classificationsFragments, enabledClassifications as Classification[])}
       </S.SidePanelContainer>
     );
   return <Loader type={LoaderType.Ring} />;

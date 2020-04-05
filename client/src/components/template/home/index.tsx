@@ -4,17 +4,25 @@ import { graphql } from 'babel-plugin-relay/macro';
 import { useQuery } from 'relay-hooks';
 
 import { RouteComponentProps } from 'react-router-dom';
-import NovelCardList from '../../organism/novel-card-list';
+import NovelCardList, { DEFAULT_NOVEL_CARD_LIST_VARIABLES } from '../../organism/novel-card-list';
 import * as S from './style';
 
 import { homepage } from '../../../settings/config/settings.json';
 import { homeQuery } from '../../../__generated__/homeQuery.graphql';
 import Loader, { LoaderType } from '../../atom/loaders';
 import { DEFAULT_NOVEL_THUMBNAIL_CAROUSEL_VARIABLES } from '../../organism/novel-thumbnail-carousel';
+import { sidePanel_aggregates$key } from '../../../__generated__/sidePanel_aggregates.graphql';
 
 // primary secondary tertiary for graphql with just argument diff
 export const homeRelayQuery = graphql`
-  query homeQuery($novelThumbnailCarouselSort: String, $novelThumbnailCarouselCount: Float) {
+  query homeQuery(
+    $novelThumbnailCarouselSort: String
+    $novelThumbnailCarouselCount: Float
+    $novelsCount: Float
+    $novelsSort: String
+    $novelWhere: NovelWhere
+    $novelReverse: Boolean
+  ) {
     ...novelThumbnailCarousel_default
     ...novelThumbnailCarousel_latest
     ...novelCardList_novels
@@ -22,12 +30,16 @@ export const homeRelayQuery = graphql`
 `;
 
 const defaultVariables = {
-  ...DEFAULT_NOVEL_THUMBNAIL_CAROUSEL_VARIABLES
+  ...DEFAULT_NOVEL_THUMBNAIL_CAROUSEL_VARIABLES,
+  ...DEFAULT_NOVEL_CARD_LIST_VARIABLES
 };
 
-type Props = {} & RouteComponentProps;
+type Props = {
+  appData: sidePanel_aggregates$key;
+} & RouteComponentProps;
 
 function Home(props: Props): ReactElement {
+  const { appData } = props;
   const { props: relayProps, error, retry } = useQuery<homeQuery>(homeRelayQuery, defaultVariables);
 
   if (error) return <div>{error.message}</div>;
@@ -50,10 +62,10 @@ function Home(props: Props): ReactElement {
             <NovelCardList
               headingText={homepage.latestRelease.headingText}
               buttonText={homepage.latestRelease.actionButtonText}
-              novelCardList={relayProps as any}
+              novelsKey={relayProps as any}
             />
           </S.HomeWrapper>
-          <S.HomeSidePanel classifications={['genres', 'status', 'tags', 'types']} />
+          <S.HomeSidePanel classifications={appData} enabledClassifications={['genres', 'status', 'tags', 'types']} />
         </S.HomeContainer>
       </>
     );
