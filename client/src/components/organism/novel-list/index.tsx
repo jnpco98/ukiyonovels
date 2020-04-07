@@ -10,7 +10,7 @@ import { novelList$key } from '../../../__generated__/novelList.graphql';
 
 export const novelsListFragmentSpec = graphql`
   fragment novelList on Query {
-    novels(first: $novelsCount, sortKey: $novelsSort, where: $novelWhere, reverse: $novelReverse)
+    novels(first: $novelsCount, sortKey: $novelsSort, where: $novelWhere, reverse: $novelReverse, after: $novelAfter)
       @connection(key: "novel_novels") {
       edges {
         node {

@@ -22,6 +22,7 @@ export const homeRelayQuery = graphql`
     $novelsSort: String
     $novelWhere: NovelWhere
     $novelReverse: Boolean
+    $novelAfter: String
   ) {
     ...novelThumbnailCarousel_default
     ...novelThumbnailCarousel_latest

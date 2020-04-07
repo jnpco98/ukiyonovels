@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-/* @relayHash 18b597d767ac81bcca2ccb3f84abbea4 */
+/* @relayHash 6fde98b372c65fce9ebfb754a1dac459 */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -61,6 +61,7 @@ export type homeQueryVariables = {
     novelsSort?: string | null;
     novelWhere?: NovelWhere | null;
     novelReverse?: boolean | null;
+    novelAfter?: string | null;
 };
 export type homeQueryResponse = {
     readonly " $fragmentRefs": FragmentRefs<"novelThumbnailCarousel_default" | "novelThumbnailCarousel_latest" | "novelCardList_novels">;
@@ -80,6 +81,7 @@ query homeQuery(
   $novelsSort: String
   $novelWhere: NovelWhere
   $novelReverse: Boolean
+  $novelAfter: String
 ) {
   ...novelThumbnailCarousel_default
   ...novelThumbnailCarousel_latest
@@ -87,13 +89,19 @@ query homeQuery(
 }
 
 fragment novelCardList_novels on Query {
-  novelCardList: novels(first: $novelsCount, sortKey: $novelsSort, where: $novelWhere, reverse: $novelReverse) {
+  novelCardList: novels(first: $novelsCount, after: $novelAfter, sortKey: $novelsSort, where: $novelWhere, reverse: $novelReverse) {
     edges {
       node {
         id
         slug
         ...novelCard_novel
+        __typename
       }
+      cursor
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
     }
   }
 }
@@ -191,6 +199,12 @@ const node: ConcreteRequest = (function () {
             "name": "novelReverse",
             "type": "Boolean",
             "defaultValue": null
+        } as any),
+        ({
+            "kind": "LocalArgument",
+            "name": "novelAfter",
+            "type": "String",
+            "defaultValue": null
         } as any)
     ], v1 = [
         ({
@@ -233,7 +247,43 @@ const node: ConcreteRequest = (function () {
         "name": "type",
         "args": null,
         "storageKey": null
-    } as any), v7 = [
+    } as any), v7 = ({
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "__typename",
+        "args": null,
+        "storageKey": null
+    } as any), v8 = ({
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "cursor",
+        "args": null,
+        "storageKey": null
+    } as any), v9 = ({
+        "kind": "LinkedField",
+        "alias": null,
+        "name": "pageInfo",
+        "storageKey": null,
+        "args": null,
+        "concreteType": "PageInfo",
+        "plural": false,
+        "selections": [
+            {
+                "kind": "ScalarField",
+                "alias": null,
+                "name": "endCursor",
+                "args": null,
+                "storageKey": null
+            },
+            {
+                "kind": "ScalarField",
+                "alias": null,
+                "name": "hasNextPage",
+                "args": null,
+                "storageKey": null
+            }
+        ]
+    } as any), v10 = [
         ({
             "kind": "LinkedField",
             "alias": null,
@@ -264,52 +314,16 @@ const node: ConcreteRequest = (function () {
                         },
                         (v5 /*: any*/),
                         (v6 /*: any*/),
-                        {
-                            "kind": "ScalarField",
-                            "alias": null,
-                            "name": "__typename",
-                            "args": null,
-                            "storageKey": null
-                        }
+                        (v7 /*: any*/)
                     ]
                 },
-                {
-                    "kind": "ScalarField",
-                    "alias": null,
-                    "name": "cursor",
-                    "args": null,
-                    "storageKey": null
-                }
+                (v8 /*: any*/)
             ]
         } as any),
-        ({
-            "kind": "LinkedField",
-            "alias": null,
-            "name": "pageInfo",
-            "storageKey": null,
-            "args": null,
-            "concreteType": "PageInfo",
-            "plural": false,
-            "selections": [
-                {
-                    "kind": "ScalarField",
-                    "alias": null,
-                    "name": "endCursor",
-                    "args": null,
-                    "storageKey": null
-                },
-                {
-                    "kind": "ScalarField",
-                    "alias": null,
-                    "name": "hasNextPage",
-                    "args": null,
-                    "storageKey": null
-                }
-            ]
-        } as any)
-    ], v8 = [
+        (v9 /*: any*/)
+    ], v11 = [
         "sortKey"
-    ], v9 = [
+    ], v12 = [
         ({
             "kind": "Literal",
             "name": "first",
@@ -319,6 +333,32 @@ const node: ConcreteRequest = (function () {
             "kind": "Literal",
             "name": "sortKey",
             "value": "year"
+        } as any)
+    ], v13 = [
+        ({
+            "kind": "Variable",
+            "name": "after",
+            "variableName": "novelAfter"
+        } as any),
+        ({
+            "kind": "Variable",
+            "name": "first",
+            "variableName": "novelsCount"
+        } as any),
+        ({
+            "kind": "Variable",
+            "name": "reverse",
+            "variableName": "novelReverse"
+        } as any),
+        ({
+            "kind": "Variable",
+            "name": "sortKey",
+            "variableName": "novelsSort"
+        } as any),
+        ({
+            "kind": "Variable",
+            "name": "where",
+            "variableName": "novelWhere"
         } as any)
     ];
     return {
@@ -360,7 +400,7 @@ const node: ConcreteRequest = (function () {
                     "args": (v1 /*: any*/),
                     "concreteType": "NovelConnection",
                     "plural": false,
-                    "selections": (v7 /*: any*/)
+                    "selections": (v10 /*: any*/)
                 },
                 {
                     "kind": "LinkedHandle",
@@ -369,54 +409,33 @@ const node: ConcreteRequest = (function () {
                     "args": (v1 /*: any*/),
                     "handle": "connection",
                     "key": "novel_novelThumbnailCarousel",
-                    "filters": (v8 /*: any*/)
+                    "filters": (v11 /*: any*/)
                 },
                 {
                     "kind": "LinkedField",
                     "alias": "latestNovelThumbnailCarousel",
                     "name": "novels",
                     "storageKey": "novels(first:10,sortKey:\"year\")",
-                    "args": (v9 /*: any*/),
+                    "args": (v12 /*: any*/),
                     "concreteType": "NovelConnection",
                     "plural": false,
-                    "selections": (v7 /*: any*/)
+                    "selections": (v10 /*: any*/)
                 },
                 {
                     "kind": "LinkedHandle",
                     "alias": "latestNovelThumbnailCarousel",
                     "name": "novels",
-                    "args": (v9 /*: any*/),
+                    "args": (v12 /*: any*/),
                     "handle": "connection",
                     "key": "novel_latestNovelThumbnailCarousel",
-                    "filters": (v8 /*: any*/)
+                    "filters": (v11 /*: any*/)
                 },
                 {
                     "kind": "LinkedField",
                     "alias": "novelCardList",
                     "name": "novels",
                     "storageKey": null,
-                    "args": [
-                        {
-                            "kind": "Variable",
-                            "name": "first",
-                            "variableName": "novelsCount"
-                        },
-                        {
-                            "kind": "Variable",
-                            "name": "reverse",
-                            "variableName": "novelReverse"
-                        },
-                        {
-                            "kind": "Variable",
-                            "name": "sortKey",
-                            "variableName": "novelsSort"
-                        },
-                        {
-                            "kind": "Variable",
-                            "name": "where",
-                            "variableName": "novelWhere"
-                        }
-                    ],
+                    "args": (v13 /*: any*/),
                     "concreteType": "NovelConnection",
                     "plural": false,
                     "selections": [
@@ -470,11 +489,27 @@ const node: ConcreteRequest = (function () {
                                             "name": "lastModified",
                                             "args": null,
                                             "storageKey": null
-                                        }
+                                        },
+                                        (v7 /*: any*/)
                                     ]
-                                }
+                                },
+                                (v8 /*: any*/)
                             ]
-                        }
+                        },
+                        (v9 /*: any*/)
+                    ]
+                },
+                {
+                    "kind": "LinkedHandle",
+                    "alias": "novelCardList",
+                    "name": "novels",
+                    "args": (v13 /*: any*/),
+                    "handle": "connection",
+                    "key": "novels_novelCardList",
+                    "filters": [
+                        "sortKey",
+                        "where",
+                        "reverse"
                     ]
                 }
             ]
@@ -483,10 +518,10 @@ const node: ConcreteRequest = (function () {
             "operationKind": "query",
             "name": "homeQuery",
             "id": null,
-            "text": "query homeQuery(\n  $novelThumbnailCarouselSort: String\n  $novelThumbnailCarouselCount: Float\n  $novelsCount: Float\n  $novelsSort: String\n  $novelWhere: NovelWhere\n  $novelReverse: Boolean\n) {\n  ...novelThumbnailCarousel_default\n  ...novelThumbnailCarousel_latest\n  ...novelCardList_novels\n}\n\nfragment novelCardList_novels on Query {\n  novelCardList: novels(first: $novelsCount, sortKey: $novelsSort, where: $novelWhere, reverse: $novelReverse) {\n    edges {\n      node {\n        id\n        slug\n        ...novelCard_novel\n      }\n    }\n  }\n}\n\nfragment novelCard_novel on Novel {\n  slug\n  title\n  description\n  coverImage\n  type\n  likes\n  views\n  lastModified\n}\n\nfragment novelThumbnailCarousel_default on Query {\n  novelThumbnailCarousel: novels(first: $novelThumbnailCarouselCount, sortKey: $novelThumbnailCarouselSort) {\n    edges {\n      node {\n        id\n        slug\n        ...novelThumbnail_novel\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment novelThumbnailCarousel_latest on Query {\n  latestNovelThumbnailCarousel: novels(first: 10, sortKey: \"year\") {\n    edges {\n      node {\n        id\n        slug\n        ...novelThumbnail_novel\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment novelThumbnail_novel on Novel {\n  slug\n  title\n  genres\n  coverImage\n  type\n}\n",
+            "text": "query homeQuery(\n  $novelThumbnailCarouselSort: String\n  $novelThumbnailCarouselCount: Float\n  $novelsCount: Float\n  $novelsSort: String\n  $novelWhere: NovelWhere\n  $novelReverse: Boolean\n  $novelAfter: String\n) {\n  ...novelThumbnailCarousel_default\n  ...novelThumbnailCarousel_latest\n  ...novelCardList_novels\n}\n\nfragment novelCardList_novels on Query {\n  novelCardList: novels(first: $novelsCount, after: $novelAfter, sortKey: $novelsSort, where: $novelWhere, reverse: $novelReverse) {\n    edges {\n      node {\n        id\n        slug\n        ...novelCard_novel\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment novelCard_novel on Novel {\n  slug\n  title\n  description\n  coverImage\n  type\n  likes\n  views\n  lastModified\n}\n\nfragment novelThumbnailCarousel_default on Query {\n  novelThumbnailCarousel: novels(first: $novelThumbnailCarouselCount, sortKey: $novelThumbnailCarouselSort) {\n    edges {\n      node {\n        id\n        slug\n        ...novelThumbnail_novel\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment novelThumbnailCarousel_latest on Query {\n  latestNovelThumbnailCarousel: novels(first: 10, sortKey: \"year\") {\n    edges {\n      node {\n        id\n        slug\n        ...novelThumbnail_novel\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment novelThumbnail_novel on Novel {\n  slug\n  title\n  genres\n  coverImage\n  type\n}\n",
             "metadata": {}
         }
     } as any;
 })();
-(node as any).hash = '01d5e00b6e1fc60d547d926850de0760';
+(node as any).hash = '92b17042208658d2408b64c5556bbe4e';
 export default node;

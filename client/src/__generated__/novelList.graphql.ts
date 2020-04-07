@@ -31,7 +31,7 @@ const node: ReaderFragment = ({
         "connection": [
             {
                 "count": "novelsCount",
-                "cursor": null,
+                "cursor": "novelAfter",
                 "direction": "forward",
                 "path": [
                     "novels"
@@ -59,6 +59,11 @@ const node: ReaderFragment = ({
             "kind": "RootArgument",
             "name": "novelReverse",
             "type": "Boolean"
+        },
+        {
+            "kind": "RootArgument",
+            "name": "novelAfter",
+            "type": "String"
         }
     ],
     "selections": [
@@ -173,5 +178,5 @@ const node: ReaderFragment = ({
         }
     ]
 } as any);
-(node as any).hash = '30ce5d3911b5f871c1e91fcfe06764cb';
+(node as any).hash = '0e985b02476c5418a26734304d664165';
 export default node;

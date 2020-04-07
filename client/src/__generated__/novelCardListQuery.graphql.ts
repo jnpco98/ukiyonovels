@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-/* @relayHash c2a759fa195bc855cbde8efbe251b6d7 */
+/* @relayHash 217e6969dd82c59d1d30bf92a4b38f77 */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -54,35 +54,35 @@ export type NumberWhere = {
     gt?: number | null;
     gte?: number | null;
 };
-export type novelsCardQueryVariables = {
+export type novelCardListQueryVariables = {
     novelsSort?: string | null;
     novelsCount?: number | null;
     novelWhere?: NovelWhere | null;
     novelReverse?: boolean | null;
     novelAfter?: string | null;
 };
-export type novelsCardQueryResponse = {
+export type novelCardListQueryResponse = {
     readonly " $fragmentRefs": FragmentRefs<"novelCardList_novels">;
 };
-export type novelsCardQuery = {
-    readonly response: novelsCardQueryResponse;
-    readonly variables: novelsCardQueryVariables;
+export type novelCardListQuery = {
+    readonly response: novelCardListQueryResponse;
+    readonly variables: novelCardListQueryVariables;
 };
 
 
 
 /*
-query novelsCardQuery(
+query novelCardListQuery(
   $novelsSort: String
   $novelsCount: Float
   $novelWhere: NovelWhere
   $novelReverse: Boolean
   $novelAfter: String
 ) {
-  ...novelCardList_novels
+  ...novelCardList_novels_1bgGce
 }
 
-fragment novelCardList_novels on Query {
+fragment novelCardList_novels_1bgGce on Query {
   novelCardList: novels(first: $novelsCount, after: $novelAfter, sortKey: $novelsSort, where: $novelWhere, reverse: $novelReverse) {
     edges {
       node {
@@ -175,7 +175,7 @@ const node: ConcreteRequest = (function () {
         "kind": "Request",
         "fragment": {
             "kind": "Fragment",
-            "name": "novelsCardQuery",
+            "name": "novelCardListQuery",
             "type": "Query",
             "metadata": null,
             "argumentDefinitions": (v0 /*: any*/),
@@ -183,13 +183,13 @@ const node: ConcreteRequest = (function () {
                 {
                     "kind": "FragmentSpread",
                     "name": "novelCardList_novels",
-                    "args": null
+                    "args": (v1 /*: any*/)
                 }
             ]
         },
         "operation": {
             "kind": "Operation",
-            "name": "novelsCardQuery",
+            "name": "novelCardListQuery",
             "argumentDefinitions": (v0 /*: any*/),
             "selections": [
                 {
@@ -344,12 +344,12 @@ const node: ConcreteRequest = (function () {
         },
         "params": {
             "operationKind": "query",
-            "name": "novelsCardQuery",
+            "name": "novelCardListQuery",
             "id": null,
-            "text": "query novelsCardQuery(\n  $novelsSort: String\n  $novelsCount: Float\n  $novelWhere: NovelWhere\n  $novelReverse: Boolean\n  $novelAfter: String\n) {\n  ...novelCardList_novels\n}\n\nfragment novelCardList_novels on Query {\n  novelCardList: novels(first: $novelsCount, after: $novelAfter, sortKey: $novelsSort, where: $novelWhere, reverse: $novelReverse) {\n    edges {\n      node {\n        id\n        slug\n        ...novelCard_novel\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment novelCard_novel on Novel {\n  slug\n  title\n  description\n  coverImage\n  type\n  likes\n  views\n  lastModified\n}\n",
+            "text": "query novelCardListQuery(\n  $novelsSort: String\n  $novelsCount: Float\n  $novelWhere: NovelWhere\n  $novelReverse: Boolean\n  $novelAfter: String\n) {\n  ...novelCardList_novels_1bgGce\n}\n\nfragment novelCardList_novels_1bgGce on Query {\n  novelCardList: novels(first: $novelsCount, after: $novelAfter, sortKey: $novelsSort, where: $novelWhere, reverse: $novelReverse) {\n    edges {\n      node {\n        id\n        slug\n        ...novelCard_novel\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment novelCard_novel on Novel {\n  slug\n  title\n  description\n  coverImage\n  type\n  likes\n  views\n  lastModified\n}\n",
             "metadata": {}
         }
     } as any;
 })();
-(node as any).hash = 'afd24c22f5d1e5450802476eeb83da88';
+(node as any).hash = 'd2407f4bcb3bc6edb67c93ddf1ffba2a';
 export default node;

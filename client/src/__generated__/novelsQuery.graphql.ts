@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-/* @relayHash 530e5c570455a7ea9663f8fd7fd4e997 */
+/* @relayHash 48bca48666b0f5b064c0f1ec1d269ed8 */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -59,6 +59,7 @@ export type novelsQueryVariables = {
     novelsCount?: number | null;
     novelWhere?: NovelWhere | null;
     novelReverse?: boolean | null;
+    novelAfter?: string | null;
 };
 export type novelsQueryResponse = {
     readonly " $fragmentRefs": FragmentRefs<"novelList">;
@@ -76,12 +77,13 @@ query novelsQuery(
   $novelsCount: Float
   $novelWhere: NovelWhere
   $novelReverse: Boolean
+  $novelAfter: String
 ) {
   ...novelList
 }
 
 fragment novelList on Query {
-  novels(first: $novelsCount, sortKey: $novelsSort, where: $novelWhere, reverse: $novelReverse) {
+  novels(first: $novelsCount, sortKey: $novelsSort, where: $novelWhere, reverse: $novelReverse, after: $novelAfter) {
     edges {
       node {
         id
@@ -124,8 +126,19 @@ const node: ConcreteRequest = (function () {
             "name": "novelReverse",
             "type": "Boolean",
             "defaultValue": null
+        } as any),
+        ({
+            "kind": "LocalArgument",
+            "name": "novelAfter",
+            "type": "String",
+            "defaultValue": null
         } as any)
     ], v1 = [
+        ({
+            "kind": "Variable",
+            "name": "after",
+            "variableName": "novelAfter"
+        } as any),
         ({
             "kind": "Variable",
             "name": "first",
@@ -280,10 +293,10 @@ const node: ConcreteRequest = (function () {
             "operationKind": "query",
             "name": "novelsQuery",
             "id": null,
-            "text": "query novelsQuery(\n  $novelsSort: String\n  $novelsCount: Float\n  $novelWhere: NovelWhere\n  $novelReverse: Boolean\n) {\n  ...novelList\n}\n\nfragment novelList on Query {\n  novels(first: $novelsCount, sortKey: $novelsSort, where: $novelWhere, reverse: $novelReverse) {\n    edges {\n      node {\n        id\n        slug\n        title\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n",
+            "text": "query novelsQuery(\n  $novelsSort: String\n  $novelsCount: Float\n  $novelWhere: NovelWhere\n  $novelReverse: Boolean\n  $novelAfter: String\n) {\n  ...novelList\n}\n\nfragment novelList on Query {\n  novels(first: $novelsCount, sortKey: $novelsSort, where: $novelWhere, reverse: $novelReverse, after: $novelAfter) {\n    edges {\n      node {\n        id\n        slug\n        title\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n",
             "metadata": {}
         }
     } as any;
 })();
-(node as any).hash = 'b1ee947f2fcde9509907ce25477a9d42';
+(node as any).hash = '8edfcc52bbc4ad2c38cfee69a2ae7176';
 export default node;

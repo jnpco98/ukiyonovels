@@ -14,13 +14,25 @@ import { appQueryResponse } from '../../../__generated__/appQuery.graphql';
 import NovelCardList from '../../organism/novel-card-list';
 
 export const novelsRelayListQuery = graphql`
-  query novelsQuery($novelsSort: String, $novelsCount: Float, $novelWhere: NovelWhere, $novelReverse: Boolean) {
+  query novelsQuery(
+    $novelsSort: String
+    $novelsCount: Float
+    $novelWhere: NovelWhere
+    $novelReverse: Boolean
+    $novelAfter: String
+  ) {
     ...novelList
   }
 `;
 
 export const novelsRelayCardQuery = graphql`
-  query novelsCardQuery($novelsSort: String, $novelsCount: Float, $novelWhere: NovelWhere, $novelReverse: Boolean) {
+  query novelsCardQuery(
+    $novelsSort: String
+    $novelsCount: Float
+    $novelWhere: NovelWhere
+    $novelReverse: Boolean
+    $novelAfter: String
+  ) {
     ...novelCardList_novels
   }
 `;
@@ -58,7 +70,7 @@ function Novels(props: Props): ReactElement {
   const { match, appData, card } = props;
   const { type, key = '' } = match.params;
 
-  const variables: novelsQueryVariables = { novelsSort: 'title', novelsCount: 20 };
+  const variables: novelsQueryVariables = { novelsSort: 'title', novelsCount: 5 };
   const quickSort = createNovelQuickSort(type);
   if (quickSort) {
     variables.novelsSort = quickSort;
