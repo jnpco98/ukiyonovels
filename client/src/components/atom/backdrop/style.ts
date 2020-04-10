@@ -1,6 +1,5 @@
 import styled, { css } from 'styled-components/macro';
 import { center, FLEX_ALIGN_BOTH } from '../../../utilities/mixins';
-import { transparentize } from 'polished';
 
 type BackdropProps = {
   active: boolean;
@@ -14,7 +13,7 @@ export const BackdropContainer = styled.div<BackdropProps>`
   height: 100vh;
   position: fixed;
   backdrop-filter: blur(5px);
-  background-color: ${({ theme }) => transparentize(0.3, theme.colors.black)};
+  background-color: ${({ theme }) => theme.colors.backdrop};
   transform: translateY(-100%);
 
   &.is-transparent {

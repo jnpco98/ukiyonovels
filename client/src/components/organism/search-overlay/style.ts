@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 import Backdrop from '../../atom/backdrop';
-import { transparentize } from 'polished';
 
 export const SearchOverlayContainer = styled(Backdrop)`
-  background: ${({ theme, ...props }) => transparentize(0.3, theme.colors.black)};
+  background: ${({ theme }) => theme.colors.backdrop};
   transition: all 0.4s ease;
 `;

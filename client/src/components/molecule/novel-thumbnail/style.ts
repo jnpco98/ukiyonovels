@@ -85,7 +85,7 @@ export const NovelThumbnailImage = styled.img`
 `;
 
 export const NovelThumbnailHeading = styled(SubsectionTitle)`
-  color: ${({ theme, ...props }) => theme.colors.white};
+  color: ${({ theme, ...props }) => theme.colors.secondary};
   padding: 0 0.5rem;
   font-size: 0.5rem;
 
@@ -110,7 +110,7 @@ export const NovelThumbnailHeading = styled(SubsectionTitle)`
 `;
 
 export const NovelThumbnailSubtitle = styled(Paragraph)`
-  color: ${({ theme, ...props }) => theme.colors.white};
+  color: ${({ theme, ...props }) => theme.colors.secondary};
   ${fadeInTextHover(NovelThumbnailContainer)};
 
   ${NovelThumbnailContainer}:hover & {
@@ -134,7 +134,7 @@ export const NovelThumbnailSubtitle = styled(Paragraph)`
 `;
 
 export const NovelThumbnailGenre = styled(Span)`
-  color: ${({ theme, ...props }) => theme.colors.white};
+  color: ${({ theme, ...props }) => theme.colors.secondary};
   ${fadeInTextHover(NovelThumbnailContainer)};
   font-size: 0.5rem;
 
@@ -159,14 +159,14 @@ export const NovelThumbnailReadIconLink = styled(Link)`
   display: none;
   margin: 1rem 0.5rem 0.5rem;
   border-radius: 50%;
-  border: 4px solid ${({ theme, ...props }) => transparentize(0.5, theme.colors.white)};
+  border: 4px solid ${({ theme, ...props }) => transparentize(0.5, theme.colors.secondary)};
   transition: border-color 0.3s ease;
 
   position: relative;
   padding: 14%;
 
   &:hover {
-    border-color: ${({ theme, ...props }) => theme.colors.white};
+    border-color: ${({ theme, ...props }) => theme.colors.secondary};
   }
 
   ${NovelThumbnailContainer}:hover & {
@@ -188,7 +188,7 @@ export const NovelThumbnailIconWrapper = styled.div`
 `;
 
 export const NovelThumbnailReadIcon = styled(FontAwesomeIcon).attrs({ icon: faBookOpen })`
-  color: ${({ theme, ...props }) => theme.colors.white};
+  color: ${({ theme, ...props }) => theme.colors.secondary};
   ${fadeInTextHover(NovelThumbnailContainer)};
 
   font-size: 0.9rem;

@@ -1,5 +1,6 @@
 TODO
 
+[ ] Move settings to api
 [ ] NextJS
 [ ] Helmet - next equivalent
 [ ] Refactoring

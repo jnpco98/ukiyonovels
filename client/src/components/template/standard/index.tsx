@@ -1,37 +1,43 @@
 import React, { ReactElement } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
+import { graphql } from 'babel-plugin-relay/macro';
+import { useQuery } from 'relay-hooks';
 import * as S from './style';
-import Text, { TextType } from '../../atom/text';
 import DynamicHTML from '../../molecule/dynamic-html';
+import { standardQuery, standardQueryVariables } from '../../../__generated__/standardQuery.graphql';
+import Loader, { LoaderType } from '../../atom/loaders';
+import PageNotFound from '../404';
 
-type Props = {
-  pageHeading?: string;
-  pageText?: string;
+type Props = RouteComponentProps<{ slug: string }>;
 
-  contents?: {
-    heading?: string;
-    text: string;
-  }[];
-} & RouteComponentProps;
+const standardPageRelayQuery = graphql`
+  query standardQuery($slug: String!) {
+    article: articleBySlug(slug: $slug) {
+      title
+      content
+    }
+  }
+`;
 
 function StandardPage(props: Props): ReactElement {
-  const { pageHeading, pageText, contents } = props;
+  const { match } = props;
+  const { slug } = match.params;
 
-  return (
-    <S.StandardPageContainer>
-      <S.StandardPageContent>
-        {pageHeading && <S.StandardPageTitle>{pageHeading}</S.StandardPageTitle>}
-        {pageText && <DynamicHTML HTMLString={pageText} />}
-      </S.StandardPageContent>
-      {contents &&
-        contents.map(c => (
-          <S.StandardPageContent key={c.heading}>
-            {c.heading && <Text textType={TextType.SectionTitle}>{c.heading}</Text>}
-            {c.text && <DynamicHTML HTMLString={c.text} />}
-          </S.StandardPageContent>
-        ))}
-    </S.StandardPageContainer>
-  );
+  const variables: standardQueryVariables = { slug };
+  const { props: relayProps, error, retry } = useQuery<standardQuery>(standardPageRelayQuery, variables);
+
+  if (error) return <div>{error.message}</div>;
+  if (relayProps) {
+    if (!relayProps.article) return <PageNotFound />;
+    const { title, content } = relayProps.article;
+    return (
+      <S.StandardPageContainer className={`page_${slug}`}>
+        <S.StandardPageTitle>{title}</S.StandardPageTitle>
+        <DynamicHTML HTMLString={content} />
+      </S.StandardPageContainer>
+    );
+  }
+  return <Loader type={LoaderType.Ring} />;
 }
 
 export default StandardPage;

@@ -1,3 +1,38 @@
+type Article {
+  id: ID!
+  createdAt: DateTime!
+  lastModified: DateTime!
+  title: String!
+  slug: String
+  content: String
+}
+
+type ArticleConnection {
+  pageInfo: PageInfo!
+  edges: [ArticleEdge!]!
+}
+
+type ArticleEdge {
+  node: Article!
+  cursor: String!
+}
+
+input ArticleInput {
+  title: String!
+  slug: String
+  content: String
+}
+
+input ArticleQueryableInput {
+  title: StringWhere
+  content: StringWhere
+}
+
+input ArticleWhere {
+  AND: [ArticleQueryableInput!]
+  OR: [ArticleQueryableInput!]
+}
+
 type AuthTokens {
   id: ID!
   createdAt: DateTime!
@@ -190,6 +225,9 @@ type Mutation {
   bookDelete(id: ID!): Book
   bookCreate(data: BookInput!): Book
   tokenCreate(data: TokenCreateInput!): AuthTokens
+  articleUpdate(data: ArticleInput!, id: ID!): Article
+  articleDelete(id: ID!): Article
+  articleCreate(data: ArticleInput!): Article
   tokenRefresh(data: TokenRefreshInput!): AuthTokens
   novelRefreshRating(id: String!): Novel
   createUser(data: CreateUserInput!): User
@@ -505,6 +543,29 @@ type Query {
     sortKey: String
   ): BookConnection
   book(id: ID!): Book
+  articles(
+    where: ArticleWhere
+
+    """Returns the elements that come before the specified cursor"""
+    before: String
+
+    """Returns the elements that come after the specified cursor"""
+    after: String
+
+    """Returns up to the first n elements from the list"""
+    first: Float
+
+    """Returns up to the last n elements from the list"""
+    last: Float
+
+    """Reverse the order of the list"""
+    reverse: Boolean
+
+    """Sort list by the given key"""
+    sortKey: String
+  ): ArticleConnection
+  article(id: ID!): Article
+  articleBySlug(slug: String!): Article
   novelBySlug(slug: String!): Novel
   novelAggregateTypes(orderCount: Boolean, reverse: Boolean): [NovelAggregate!]
   novelAggregateStatus(orderCount: Boolean, reverse: Boolean): [NovelAggregate!]

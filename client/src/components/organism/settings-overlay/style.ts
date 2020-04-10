@@ -3,6 +3,6 @@ import Backdrop from '../../atom/backdrop';
 import { transparentize } from 'polished';
 
 export const SettingsOverlayContainer = styled(Backdrop)`
-  background: ${({ theme, ...props }) => transparentize(0.3, theme.colors.black)};
+  background: ${({ theme, ...props }) => theme.colors.backdrop};
   transition: all 0.4s ease;
 `;

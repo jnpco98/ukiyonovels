@@ -1,7 +1,7 @@
 import 'styled-components';
 
 declare module 'styled-components' {
-  export interface ThemeSettings {
+  export interface DefaultTheme {
     gutterHorizontal: {
       base: string;
       xxsmall: string;
@@ -24,44 +24,72 @@ declare module 'styled-components' {
     };
     font: {
       baseSize: string;
-      weightLight: string;
-      weightRegular: string;
-      weightBold: string;
+
+      // Font weight
+      light: string;
+      regular: string;
+      bold: string;
+
+      // Letter spacing
+      narrow: string;
+      default: string;
+      wide: string;
+
+      // Font Family
       primary: string;
       secondary: string;
     };
     colors: {
+      // Standard Colors
       default: string;
-      subdued: string;
+      defaultSubdued: string;
 
-      black: string;
-      white: string;
-
+      // Backgrounds
       background: string;
-      backgroundAlternate: string;
+      backgroundSecondary: string;
+      backgroundTertiary: string;
 
+      // Borders
       border: string;
       borderHover: string;
-      borderAlternate: string;
-      borderHoverAlternate: string;
+      borderSecondary: string;
+      borderSecondaryHover: string;
 
+      // Scheme
       primary: string;
       primaryCompliment: string;
+
       secondary: string;
       secondaryCompliment: string;
-      accent: string;
-      accentCompliment: string;
+
+      tertiary: string;
+      tertiaryCompliment: string;
+
+      // Hover
+      defaultHover: string;
+
+      primaryHover: string;
+      primaryComplimentHover: string;
+
+      secondaryHover: string;
+      secondaryComplimentHover: string;
+
+      tertiaryHover: string;
+      tertiaryComplimentHover: string;
+
+      // Disabled
+      disabled: string;
+      disabledCompliment: string;
 
       selection: string;
 
+      backdrop: string;
+
+      // Form color sets
       info: string;
-      infoCompliment: string;
       success: string;
-      successCompliment: string;
       warning: string;
-      warningCompliment: string;
       error: string;
-      errorCompliment: string;
     };
   }
 }

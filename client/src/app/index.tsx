@@ -8,7 +8,7 @@ import { useQuery } from 'relay-hooks';
 import { BaseTheme } from '../settings/theme';
 
 import * as S from './style';
-import { navigation, termsOfService, privacy, copyright } from '../settings/config/settings.json';
+import { navigation } from '../settings/config/settings.json';
 
 import Header from '../components/organism/header';
 import Home from '../components/template/home';
@@ -56,37 +56,8 @@ function App(): ReactElement {
                 path="/search"
                 render={(props): ReactElement => <Search appData={relayProps} {...props} />}
               />
-              <Route
-                exact
-                path="/terms-and-conditions"
-                render={(props): ReactElement => (
-                  <StandardPage
-                    {...props}
-                    pageHeading={termsOfService.pageHeading}
-                    pageText={termsOfService.pageText}
-                    contents={termsOfService.contents}
-                  />
-                )}
-              />
-              <Route
-                exact
-                path="/privacy-policy"
-                render={(props): ReactElement => (
-                  <StandardPage
-                    {...props}
-                    pageHeading={privacy.pageHeading}
-                    pageText={privacy.pageText}
-                    contents={privacy.contents}
-                  />
-                )}
-              />
-              <Route
-                exact
-                path="/copyright"
-                render={(props): ReactElement => (
-                  <StandardPage {...props} pageHeading={copyright.pageHeading} pageText={copyright.pageText} />
-                )}
-              />
+
+              <Route exact path="/pages/:slug" render={props => <StandardPage {...props} />} />
               <Route exact path="/contact" render={(props): ReactElement => <Contact {...props} />} />
               <Route component={PageNotFound} />
             </Switch>
@@ -99,3 +70,5 @@ function App(): ReactElement {
 }
 
 export default App;
+
+// terms and conditions, privacu policy, copyright
