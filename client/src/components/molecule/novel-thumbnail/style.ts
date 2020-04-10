@@ -3,14 +3,16 @@ import * as M from '../../../settings/media';
 import { Paragraph, Span, SubsectionTitle } from '../../atom/text/style';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookOpen } from '@fortawesome/free-solid-svg-icons';
+import { math } from 'polished';
 import { fadeInTextHover, center, CENTER_BOTH, FLEX_ALIGN_BOTH } from '../../../utilities/mixins';
 import { transparentize } from 'polished';
+import { cardDimRatio } from '../../atom/thumbnail/style';
 import { Link } from 'react-router-dom';
 
 export const NovelThumbnailContainer = styled.div`
   display: flex;
   position: relative;
-  overflow: hidden;
+  /* overflow: hidden; */
   margin: auto;
   border-radius: 0.5rem;
 
@@ -26,6 +28,29 @@ export const NovelThumbnailContainer = styled.div`
   }
 
   transition: all 0.3s ease;
+
+  /* width: 6.2rem;
+  height: ${math(`6.2rem * ${cardDimRatio}`)};
+
+  ${M.MEDIA_SMALL} {
+    width: 8.5rem;
+    height: ${math(`8.5rem * ${cardDimRatio}`)};
+  }
+
+  ${M.MEDIA_XLARGE} {
+    width: 9.5rem;
+    height: ${math(`9.5rem * ${cardDimRatio}`)};
+  }
+
+  ${M.MEDIA_XXLARGE} {
+    width: 10.7rem;
+    height: ${math(`10.7rem * ${cardDimRatio}`)};
+    border-radius: 0.7rem;
+  }
+
+  &:hover {
+    transform: scale(1.1);
+  } */
 `;
 
 export const NovelThumbnailContent = styled.div`

@@ -16,7 +16,7 @@ export const FooterContainer = styled.div`
   padding-bottom: 3rem;
 
   width: 100%;
-  background: ${({ theme, ...props }) => theme.colors.white};
+  background: ${({ theme, ...props }) => theme.colors.background};
 
   ${M.MEDIA_SMALL} {
     display: flex;
@@ -78,7 +78,7 @@ export const FooterContactWrapper = styled.div`
 
 export const FooterLinks = styled(Text).attrs({ textType: TextType.Link })`
   font-family: ${({ theme }) => theme.font.secondary};
-  font-weight: ${({ theme }) => theme.font.weightBold};
+  font-weight: ${({ theme }) => theme.font.bold};
   text-transform: uppercase;
   margin-right: 3rem;
 `;

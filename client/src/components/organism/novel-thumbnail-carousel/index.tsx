@@ -12,7 +12,7 @@ import * as S from './style';
 import Text, { TextType } from '../../atom/text';
 
 import { DEFAULT_SLIDER_SETTINGS } from '../../../utilities/slider';
-import { useOnResize, useOnElementResize } from '../../../utilities/hooks';
+import { useOnElementResize } from '../../../utilities/hooks';
 import * as M from '../../../settings/media';
 
 export const defaultNovelThumbnailCarouselFragmentSpec = graphql`
@@ -52,7 +52,9 @@ const sliderOptions: Settings = {
   nextArrow: <S.InfoThumbnailCarouselArrow />,
   variableWidth: true,
   infinite: true,
-  centerMode: true
+  centerMode: true,
+  // eslint-disable-next-line radix
+  responsive: [{ breakpoint: M.getRawDimension(M.SMALL), settings: { centerMode: false } }]
 };
 
 const DEFAULT_SORT = 'lastModified';
@@ -79,6 +81,7 @@ function NovelThumbnailCarousel(props: Props) {
   const { className, headingText, type, novels } = props;
 
   const containerRef = useRef(document.createElement('div'));
+
   const containerSize = useOnElementResize(containerRef);
 
   const fragment = useFragment(
@@ -95,21 +98,25 @@ function NovelThumbnailCarousel(props: Props) {
           ? fragment.latestNovelThumbnailCarousel.edges.map(({ node }) => (
               <S.NovelThumbnailCarouselItem
                 key={node.id}
-                novel={node}
                 dynamicDim={{
                   containerWidth: containerSize.width,
-                  cardCount: 3,
+                  cardCount: 2,
                   responsive: [
+                    { mediaQuery: M.MEDIA_XXSMALL, cardCount: 3 },
                     { mediaQuery: M.MEDIA_SMALL, cardCount: 4 },
                     { mediaQuery: M.MEDIA_LARGE, cardCount: 5 }
                   ]
                 }}
-              />
+              >
+                <S.NovelThumbnailCarouselThumbnail novel={node} />
+              </S.NovelThumbnailCarouselItem>
             ))
           : ''}
         {'novelThumbnailCarousel' in fragment
           ? fragment.novelThumbnailCarousel.edges.map(({ node }) => (
-              <S.NovelThumbnailCarouselItem key={node.id} novel={node} />
+              <S.NovelThumbnailCarouselItem key={node.id}>
+                <S.NovelThumbnailCarouselThumbnail novel={node} />
+              </S.NovelThumbnailCarouselItem>
             ))
           : ''}
       </S.NovelThumbnailCarouselSlider>

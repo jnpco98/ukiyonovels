@@ -9,40 +9,40 @@ type ButtonProps = {
 };
 
 const Success = css`
-  color: ${({ theme }) => theme.colors.successCompliment};
-  background-color: ${({ theme }) => theme.colors.success};
+  color: ${({ theme }) => theme.colors.success};
+  background-color: ${({ theme }) => theme.colors.default};
 
   &:hover {
     color: ${({ theme }) => theme.colors.success};
-    background-color: ${({ theme }) => theme.colors.successCompliment};
+    background-color: ${({ theme }) => theme.colors.default};
   }
 `;
 
 const Warning = css`
-  color: ${({ theme }) => theme.colors.warningCompliment};
-  background-color: ${({ theme }) => theme.colors.warning};
+  color: ${({ theme }) => theme.colors.warning};
+  background-color: ${({ theme }) => theme.colors.default};
 
   &:hover {
     color: ${({ theme }) => theme.colors.warning};
-    background-color: ${({ theme }) => theme.colors.warningCompliment};
+    background-color: ${({ theme }) => theme.colors.default};
   }
 `;
 
 const Danger = css`
-  color: ${({ theme }) => theme.colors.errorCompliment};
-  background-color: ${({ theme }) => theme.colors.error};
+  color: ${({ theme }) => theme.colors.error};
+  background-color: ${({ theme }) => theme.colors.default};
 
   &:hover {
     color: ${({ theme }) => theme.colors.error};
-    background-color: ${({ theme }) => theme.colors.errorCompliment};
+    background-color: ${({ theme }) => theme.colors.default};
   }
 `;
 
 export const ButtonContainer = styled(Link)<ButtonProps>`
   ${center(FLEX_ALIGN_MAIN)};
-  color: ${({ theme }) => theme.colors.infoCompliment};
-  background-color: ${({ theme }) => theme.colors.info};
-  border: 2px solid ${({ theme }) => theme.colors.infoCompliment};
+  color: ${({ theme }) => theme.colors.info};
+  background-color: ${({ theme }) => theme.colors.default};
+  border: 2px solid ${({ theme }) => theme.colors.default};
   padding: 0.6rem 1.2rem;
   font-size: 0.7rem;
   text-transform: uppercase;
@@ -52,7 +52,7 @@ export const ButtonContainer = styled(Link)<ButtonProps>`
 
   &:hover {
     color: ${({ theme }) => theme.colors.info};
-    background-color: ${({ theme }) => theme.colors.infoCompliment};
+    background-color: ${({ theme }) => theme.colors.default};
   }
 
   ${props => props.buttonType === ButtonType.Success && Success};

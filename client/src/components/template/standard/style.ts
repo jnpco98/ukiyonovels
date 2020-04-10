@@ -13,7 +13,7 @@ export const StandardPageContainer = styled.div`
   h1 {
     ${pageTitleFontSize};
     font-family: ${({ theme, ...props }) => theme.font.secondary};
-    font-weight: ${({ theme, ...props }) => theme.font.weightBold};
+    font-weight: ${({ theme, ...props }) => theme.font.bold};
     text-transform: uppercase;
 
     ${margin('1.4rem', null, '1.4rem', null)};
@@ -30,7 +30,7 @@ export const StandardPageContainer = styled.div`
   h2 {  
     ${sectionFontSize};
     font-family: ${({ theme, ...props }) => theme.font.secondary};
-    font-weight: ${({ theme, ...props }) => theme.font.weightBold};
+    font-weight: ${({ theme, ...props }) => theme.font.bold};
     text-transform: uppercase;
     ${margin('1rem', null, '1rem', null)};
 
@@ -47,7 +47,7 @@ export const StandardPageContainer = styled.div`
     ${subsectionFontSize};
     text-transform: uppercase;
     font-family: ${({ theme, ...props }) => theme.font.secondary};
-    font-weight: ${({ theme, ...props }) => theme.font.weightBold};
+    font-weight: ${({ theme, ...props }) => theme.font.bold};
     ${margin('1rem', null, '1rem', null)};
 
     ${M.MEDIA_SMALL} {

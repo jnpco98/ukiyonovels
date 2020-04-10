@@ -10,7 +10,7 @@ import DynamicHTML from '../dynamic-html';
 export const InfoCardContainer = styled.div`
   display: flex;
   align-items: center;
-  color: ${({ theme, ...props }) => theme.colors.black};
+  color: ${({ theme, ...props }) => theme.colors.default};
 `;
 
 export const InfoCardContent = styled.div`

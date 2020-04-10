@@ -1,4 +1,4 @@
-import { useEffect, MutableRefObject, useState } from 'react';
+import { useEffect, MutableRefObject, useState, useCallback } from 'react';
 import { debounce } from './delay';
 
 export function useInterval(callback: Function, delay: number) {
@@ -37,7 +37,7 @@ export function useOnClickOutside(ref: MutableRefObject<Node>, handler: Function
       document.removeEventListener('mousedown', listener);
       document.removeEventListener('touchstart', listener);
     };
-  }, [ref, handler]);
+  }, [ref]);
 }
 
 export function useOnResize(handler?: Function) {
@@ -54,7 +54,6 @@ export function useOnResize(handler?: Function) {
 
   function handleResize() {
     setContainerSize(getSize());
-
     if (typeof handler === 'function') handler(containerSize);
   }
 
@@ -63,7 +62,7 @@ export function useOnResize(handler?: Function) {
     const debouncedHandleResize = debounce(handleResize, 100, false);
     window.addEventListener('resize', debouncedHandleResize);
     return () => window.removeEventListener('resize', debouncedHandleResize);
-  }, [handler]);
+  }, []);
 
   return containerSize;
 }
@@ -82,18 +81,19 @@ export function useOnElementResize(container?: MutableRefObject<HTMLElement>, ha
   const [containerSize, setContainerSize] = useState(getSize());
 
   function handleResize() {
-    setContainerSize(getSize());
+    const currentSize = getSize();
+    setContainerSize(currentSize);
 
-    if (typeof handler === 'function') handler(containerSize);
+    if (typeof handler === 'function') handler(currentSize);
   }
 
   useEffect(() => {
     if (!container || !container.current || !container.current.clientWidth) return null;
-    const debouncedHandleResize = debounce(handleResize, 100, false);
+    const debouncedHandleResize = debounce(handleResize, 200, false);
     debouncedHandleResize();
-    container.current.addEventListener('resize', debouncedHandleResize);
+    window.addEventListener('resize', debouncedHandleResize);
     return () => window.removeEventListener('resize', debouncedHandleResize);
-  }, [container, handler]);
+  }, [container]);
 
   return containerSize;
 }

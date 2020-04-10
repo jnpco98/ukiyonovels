@@ -27,12 +27,12 @@ export const AccordionTabLabel = styled.label<LabelStyleProps>`
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  background: ${({ theme, ...props }) => theme.colors.accent};
+  background: ${({ theme, ...props }) => theme.colors.default};
   font-weight: bold;
   cursor: pointer;
 
   &:hover {
-    background: ${({ theme, ...props }) => theme.colors.accent};
+    background: ${({ theme, ...props }) => theme.colors.default};
   }
 
   ${M.MEDIA_XLARGE} {
@@ -65,7 +65,7 @@ export const AccordionTabLabelIcon = styled(FontAwesomeIcon).attrs({ icon: faArr
 export const AccordionContent = styled.div`
   max-height: 0;
   color: black;
-  background: ${({ theme, ...props }) => theme.colors.white};
+  background: ${({ theme, ...props }) => theme.colors.background};
   transition: all 0.25s;
   overflow: hidden;
   opacity: 0;
@@ -78,7 +78,7 @@ export const AccordionTabTrigger = styled.input`
 
   &:checked {
     + ${AccordionTabLabel} {
-      background: ${({ theme, ...props }) => theme.colors.accent};
+      background: ${({ theme, ...props }) => theme.colors.default};
 
       ${AccordionTabLabelIcon} {
         transform: rotate(90deg);
@@ -117,15 +117,15 @@ export const AccordionContainer = styled.div<AccordionStyleProps>`
       }
 
       ${AccordionTabLabel} {
-        background: ${theme.colors.white};
-        color: ${theme.colors.black};
-        border-bottom: 1px solid ${({ theme, ...props }) => theme.colors.subdued};
+        background: ${theme.colors.background};
+        color: ${theme.colors.default};
+        border-bottom: 1px solid ${({ theme, ...props }) => theme.colors.border};
         ${padding(null, 0)};
       }
 
       ${AccordionTabTrigger}:checked {
         + ${AccordionTabLabel} {
-          background: ${({ theme, ...props }) => theme.colors.white};
+          background: ${({ theme, ...props }) => theme.colors.background};
         }
         ~ ${AccordionContent} {
           ${padding(null, 0)};

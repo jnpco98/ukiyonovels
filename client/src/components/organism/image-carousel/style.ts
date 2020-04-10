@@ -116,7 +116,7 @@ export const ImageCarouselContent = styled.div`
 export const Arrow = styled(SlickArrow)``;
 
 export const ImageCarouselHeading = styled(SubsectionTitle)`
-  color: ${({ theme, ...props }) => theme.colors.white};
+  color: ${({ theme, ...props }) => theme.colors.background};
   ${pageTitleFontSize};
 
   margin-bottom: 0.3rem;
@@ -127,7 +127,7 @@ export const ImageCarouselHeading = styled(SubsectionTitle)`
 `;
 
 export const ImageCarouselSubtitle = styled(Paragraph)`
-  color: ${({ theme, ...props }) => theme.colors.white};
+  color: ${({ theme, ...props }) => theme.colors.background};
   margin-bottom: 0.9rem;
 
   ${M.MEDIA_MEDIUM} {

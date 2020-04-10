@@ -33,15 +33,24 @@ type CardProps = {
   dynamicDim?: { containerWidth: number, cardCount: number, responsive: { mediaQuery: string, cardCount: number }[] };
 }
 
-export const NovelThumbnailCarouselItem = styled(NovelThumbnail)<CardProps>`
-  margin-right: 0.65rem;
+export const NovelThumbnailCarouselThumbnail = styled(NovelThumbnail)`
+  width: 95%;
+  height: 95%;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+`;
+
+export const NovelThumbnailCarouselItem = styled.div<CardProps>`
+  margin: 0.24rem;
 
   ${M.MEDIA_XXSMALL} {
-    margin-right: 0.9rem;
+    margin: 0.44rem;
   }
 
   ${M.MEDIA_SMALL} {
-    margin-right: 1.2rem;
+    margin: 0.5rem;
   }
 
   ${M.MEDIA_MEDIUM} {
@@ -54,8 +63,8 @@ export const NovelThumbnailCarouselItem = styled(NovelThumbnail)<CardProps>`
     if(staticDim && staticDim.length) {
       return staticDim.map(dim => css`
         ${dim.mediaQuery} {
-          width: ${dim.width}px;
-          height: ${dim.height}px;
+          width: ${dim.width}px !important;
+          height: ${dim.height}px !important;
         }
       `);
     }
@@ -65,8 +74,8 @@ export const NovelThumbnailCarouselItem = styled(NovelThumbnail)<CardProps>`
       const baseCardWidth = containerWidth / cardCount;
 
       return css`
-        width: ${baseCardWidth}px;
-        height: ${baseCardWidth * cardDimRatio}px;
+        width: ${baseCardWidth}px !important;
+        height: ${baseCardWidth * cardDimRatio}px !important;
 
         ${dynamicDim.responsive && dynamicDim.responsive.length && css`
           ${dynamicDim.responsive.map(dim => {
@@ -74,8 +83,8 @@ export const NovelThumbnailCarouselItem = styled(NovelThumbnail)<CardProps>`
 
             return css`
               ${dim.mediaQuery} {
-                width: ${cardWidth}px;
-                height: ${cardWidth * cardDimRatio}px;
+                width: ${cardWidth}px !important;
+                height: ${cardWidth * cardDimRatio}px !important;
               }
             `
           })}
@@ -87,28 +96,6 @@ export const NovelThumbnailCarouselItem = styled(NovelThumbnail)<CardProps>`
   }}
 `;
 
-  /* width: 6.2rem;
-  height: ${math(`6.2rem * ${cardDimRatio}`)};
-
-  ${M.MEDIA_SMALL} {
-    width: 8.5rem;
-    height: ${math(`8.5rem * ${cardDimRatio}`)};
-  }
-
-  ${M.MEDIA_XLARGE} {
-    width: 9.5rem;
-    height: ${math(`9.5rem * ${cardDimRatio}`)};
-  }
-
-  ${M.MEDIA_XXLARGE} {
-    width: 10.7rem;
-    height: ${math(`10.7rem * ${cardDimRatio}`)};
-    border-radius: 0.7rem;
-  }
-
-  &:hover {
-    transform: scale(1.1);
-  } */
 export const NovelThumbnailCarouselSlider = styled(Slick)`
   .slick-dots {
     left: 0;

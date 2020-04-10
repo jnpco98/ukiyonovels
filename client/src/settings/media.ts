@@ -1,4 +1,11 @@
-const generateQuery = (screen: string): string => `@media only screen and (min-width: ${screen})`;
+function generateQuery(screen: string) {
+  return `@media only screen and (min-width: ${screen})`;
+}
+
+export function getRawDimension(pixel: string) {
+  // eslint-disable-next-line radix
+  return parseInt(pixel.replace('px', ''));
+}
 
 export const XXSMALL = '411px';
 export const XSMALL = '667px';

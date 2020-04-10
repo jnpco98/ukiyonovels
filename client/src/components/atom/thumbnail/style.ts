@@ -12,8 +12,8 @@ export const ThumbnailContent = styled.div`
   bottom: 0;
   transform: translateY(80%);
   transition: all 0.2s ease-in;
-  background: ${({ theme, ...props }) => rgba(theme.colors.black, 0.5)};
-  color: ${({ theme, ...props }) => theme.colors.backgroundAlternate};
+  background: ${({ theme, ...props }) => rgba(theme.colors.default, 0.5)};
+  color: ${({ theme, ...props }) => theme.colors.default};
   padding: 0.2rem;
 `;
 

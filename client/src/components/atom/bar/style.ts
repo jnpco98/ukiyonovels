@@ -47,7 +47,7 @@ export const BarFill = styled.div<BarFillProps>`
   ${({ theme, ...props }) =>
     css`
       background-color: ${theme.colors.primary};
-      background-image: linear-gradient(90deg, ${theme.colors.black}, ${theme.colors.black});
+      background-image: linear-gradient(90deg, ${theme.colors.default}, ${theme.colors.default});
       background-size: ${props.rating * 100}% 100%;
       background-repeat: no-repeat;
     `}

@@ -326,7 +326,7 @@ export function headingDecoration() {
       width: 50%;
       height: 2px;
       position: absolute;
-      background: ${({ theme, ...props }) => theme.colors.black};
+      background: ${({ theme, ...props }) => theme.colors.default};
       content: '';
     }
 
