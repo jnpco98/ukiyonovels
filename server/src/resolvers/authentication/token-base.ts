@@ -55,7 +55,7 @@ const contextHooks: ContextHooks<AuthTokens> = {
   create: async (entity, ctx, data) => await createTokenContextHook(entity, ctx, data)
 };
 
-const resolverConfig: BaseResolverParams<AuthTokens, null, TokenCreateInput> = {
+const resolverConfig: BaseResolverParams<AuthTokens, TokenCreateInput> = {
   EntityType: AuthTokens,
   MutationInputType: TokenCreateInput,
   authorization,

@@ -30,7 +30,7 @@ const authorization = {
 
 const contextHooks: ContextHooks<Chapter> = {};
 
-const resolverConfig: BaseResolverParams<Chapter, ChapterQueryableInput, Chapter> = {
+const resolverConfig: BaseResolverParams<Chapter, Chapter> = {
   EntityType: Chapter,
   QueryableInputType: ChapterQueryableInput,
   MutationInputType: Chapter,

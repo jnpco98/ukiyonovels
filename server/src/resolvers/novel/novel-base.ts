@@ -8,8 +8,7 @@ import ROLES from '../../constants/roles';
 import { createBaseResolver } from '../base/base-resolver';
 
 /**
- * Required parameters to
- * create the novel resource
+ * Filters for querying resource
  */
 @InputType()
 export class NovelQueryableInput {
@@ -79,7 +78,7 @@ const authorization = {
 
 const contextHooks: ContextHooks<Novel> = {};
 
-const resolverConfig: BaseResolverParams<Novel, NovelQueryableInput, Novel> = {
+const resolverConfig: BaseResolverParams<Novel, Novel> = {
   EntityType: Novel,
   QueryableInputType: NovelQueryableInput,
   MutationInputType: Novel,

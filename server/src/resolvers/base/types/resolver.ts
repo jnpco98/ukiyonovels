@@ -2,13 +2,18 @@ import { ClassType } from 'type-graphql';
 import { AuthorizationRequirements } from './authorization';
 import { ResolverMiddleware } from './middleware';
 import { ContextHooks } from './context-hooks';
+import { NumberWhere, StringWhere } from '../../../lib/query/where-type';
+
+export type EntityQueryable<T> = {
+  [P in keyof T]?: typeof StringWhere | typeof NumberWhere;
+}
 
 /**
  * Base Resolver Params
  */
-export interface BaseResolverParams<T, V, U> {
+export interface BaseResolverParams<T, U> {
   EntityType: ClassType<T>;
-  QueryableInputType?: ClassType<V>;
+  QueryableInputType?: ClassType<EntityQueryable<T>>;
   MutationInputType: ClassType<U>;
 
   resource: string;

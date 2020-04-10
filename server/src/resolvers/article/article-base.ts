@@ -1,5 +1,5 @@
 import { createBaseResolver } from '../base/base-resolver';
-import { Comment } from '../../entity/comment';
+import { Article } from '../../entity/article';
 import ROLES from '../../constants/roles';
 import { InputType, Field } from 'type-graphql';
 import { StringWhere, NumberWhere } from '../../lib/query/where-type';
@@ -10,14 +10,17 @@ import { BaseResolverParams } from '../base/types/resolver';
  * Filters for querying resource
  */
 @InputType()
-export class CommentQueryableInput {
+export class ArticleQueryableInput {
+  @Field(type => StringWhere, { nullable: true })
+  title?: typeof StringWhere;
+
   @Field(type => StringWhere, { nullable: true })
   content?: typeof StringWhere;
 }
 
 /**
  * Authorization required
- * to call a comment action
+ * to call a article action
  */
 const authorization = {
   get: [ROLES.anonymous],
@@ -27,19 +30,19 @@ const authorization = {
   delete: [ROLES.owner]
 };
 
-const contextHooks: ContextHooks<Comment> = {};
+const contextHooks: ContextHooks<Article> = {};
 
-const resolverConfig: BaseResolverParams<Comment, Comment> = {
-  EntityType: Comment,
-  QueryableInputType: CommentQueryableInput,
-  MutationInputType: Comment,
+const resolverConfig: BaseResolverParams<Article, Article> = {
+  EntityType: Article,
+  QueryableInputType: ArticleQueryableInput,
+  MutationInputType: Article,
   authorization,
   contextHooks,
-  resource: 'comment'
+  resource: 'article'
 };
 
 /**
- * Creates the base comment resolver classes
+ * Creates the base article resolver classes
  */
 const {
   ConnectionType,
@@ -52,11 +55,11 @@ const {
 } = createBaseResolver(resolverConfig);
 
 export {
-  ConnectionType as CommentConnectionType,
-  WhereInputType as CommentWhereInputType,
-  BaseGetResolver as BaseCommentGetResolver,
-  BaseSearchResolver as BaseCommentSearchResolver,
-  BaseCreateResolver as BaseCommentCreateResolver,
-  BaseUpdateResolver as BaseCommentUpdateResolver,
-  BaseDeleteResolver as BaseCommentDeleteResolver
+  ConnectionType as ArticleConnectionType,
+  WhereInputType as ArticleWhereInputType,
+  BaseGetResolver as BaseArticleGetResolver,
+  BaseSearchResolver as BaseArticleSearchResolver,
+  BaseCreateResolver as BaseArticleCreateResolver,
+  BaseUpdateResolver as BaseArticleUpdateResolver,
+  BaseDeleteResolver as BaseArticleDeleteResolver
 };

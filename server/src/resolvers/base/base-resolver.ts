@@ -27,8 +27,8 @@ import { capitalize } from '../../utilities/string/format';
  * Creates base resolvers for the ff.
  * - get, paginate, create, update, and delete
  */
-export function createBaseResolver<T extends BaseEntity, V extends any, U extends any>(
-  params: BaseResolverParams<T, V, U>
+export function createBaseResolver<T extends BaseEntity, U extends any>(
+  params: BaseResolverParams<T, U>
 ) {
   const {
     EntityType,

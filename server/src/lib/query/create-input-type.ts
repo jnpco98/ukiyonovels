@@ -1,13 +1,14 @@
 import { InputType, Field, ClassType } from 'type-graphql';
 import { WhereAndOrParams } from '../../lib/query/types/where-and-or';
-
+import { EntityQueryable } from '../../resolvers/base/types/resolver';
+import { BaseEntity } from '../../entity/entity';
 /**
  * @param name Where input type name to make it unique.
  * @param ReturnType
  */
-export function createWhereInputType(
+export function createWhereInputType<T extends EntityQueryable<BaseEntity>>(
   name: string,
-  ReturnType: ClassType<WhereAndOrParams>
+  ReturnType: ClassType<T>
 ): ClassType<WhereAndOrParams> {
   @InputType(`${name}Where`)
   class WhereInput implements WhereAndOrParams {

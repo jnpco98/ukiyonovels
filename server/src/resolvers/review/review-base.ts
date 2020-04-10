@@ -10,8 +10,7 @@ import { getAndUpdateNovelRating } from '../novel/update-novel';
 import { Context } from '../../lib/resolver/context';
 
 /**
- * Required parameters to
- * create the review resource
+ * Filters for querying resource
  */
 @InputType()
 export class ReviewQueryableInput {
@@ -61,7 +60,7 @@ const contextHooks: ContextHooks<Review> = {
   delete: async (entity, ctx, data) => await updateNovelRatingOnReviewModify(entity, ctx, data)
 };
 
-const resolverConfig: BaseResolverParams<Review, ReviewQueryableInput, Review> = {
+const resolverConfig: BaseResolverParams<Review, Review> = {
   EntityType: Review,
   QueryableInputType: ReviewQueryableInput,
   MutationInputType: Review,

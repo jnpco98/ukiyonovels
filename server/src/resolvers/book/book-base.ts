@@ -7,8 +7,7 @@ import { ContextHooks } from '../base/types/context-hooks';
 import { BaseResolverParams } from '../base/types/resolver';
 
 /**
- * Required parameters to
- * create the book resource
+ * Filters for querying resource
  */
 @InputType()
 export class BookQueryableInput {
@@ -36,7 +35,7 @@ const authorization = {
 
 const contextHooks: ContextHooks<Book> = {};
 
-const resolverConfig: BaseResolverParams<Book, BookQueryableInput, Book> = {
+const resolverConfig: BaseResolverParams<Book, Book> = {
   EntityType: Book,
   QueryableInputType: BookQueryableInput,
   MutationInputType: Book,
