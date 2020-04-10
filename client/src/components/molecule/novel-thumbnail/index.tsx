@@ -3,14 +3,14 @@ import React from 'react';
 import { graphql } from 'babel-plugin-relay/macro';
 import { useFragment } from 'relay-hooks';
 
+import { useMediaQuery } from 'react-responsive';
+import { Link } from 'react-router-dom';
 import { novelThumbnail_novel$key } from '../../../__generated__/novelThumbnail_novel.graphql';
 
 import * as S from './style';
 
-import { useMediaQuery } from 'react-responsive';
 import { truncate } from '../../../utilities/string';
 import { SMALL, MEDIUM } from '../../../settings/media';
-import { Link } from 'react-router-dom';
 
 const fragmentSpec = graphql`
   fragment novelThumbnail_novel on Novel {
@@ -28,7 +28,8 @@ type Props = {
 };
 
 function NovelThumbnail(props: Props) {
-  const { slug, title, genres, coverImage, type } = useFragment(fragmentSpec, props.novel);
+  const { novel } = props;
+  const { slug, title, genres, coverImage, type } = useFragment(fragmentSpec, novel);
   const { className } = props;
 
   const isSmallScreen = useMediaQuery({ minWidth: SMALL });

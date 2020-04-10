@@ -24,7 +24,7 @@ const Line = css`
   position: absolute;
   height: ${BASE_HEIGHT / 5}rem;
   width: 100%;
-  background: ${({ theme }) => theme.colors.accent};
+  background: ${({ theme }) => theme.colors.primary};
   border-radius: ${BASE_HEIGHT / 5}rem;
   opacity: 1;
   left: 0;
@@ -76,7 +76,7 @@ export const NoEntry = styled.div<HamburgerProps>`
     position: absolute;
     height: ${BASE_HEIGHT / 5}rem;
     width: 50%;
-    background: ${({ theme }) => theme.colors.accent};
+    background: ${({ theme }) => theme.colors.primary};
     opacity: 1;
     transform: rotate(0.001deg);
     transition: 0.25s ease-in-out;

@@ -3,10 +3,8 @@ import * as M from '../../../settings/media';
 import { Paragraph, Span, SubsectionTitle } from '../../atom/text/style';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookOpen } from '@fortawesome/free-solid-svg-icons';
-import { math } from 'polished';
 import { fadeInTextHover, center, CENTER_BOTH, FLEX_ALIGN_BOTH } from '../../../utilities/mixins';
 import { transparentize } from 'polished';
-import { cardDimRatio } from '../../atom/thumbnail/style';
 import { Link } from 'react-router-dom';
 
 export const NovelThumbnailContainer = styled.div`
@@ -28,25 +26,6 @@ export const NovelThumbnailContainer = styled.div`
   }
 
   transition: all 0.3s ease;
-
-  width: 6.2rem;
-  height: ${math(`6.2rem * ${cardDimRatio}`)};
-
-  ${M.MEDIA_SMALL} {
-    width: 8.5rem;
-    height: ${math(`8.5rem * ${cardDimRatio}`)};
-  }
-
-  ${M.MEDIA_XLARGE} {
-    width: 9.5rem;
-    height: ${math(`9.5rem * ${cardDimRatio}`)};
-  }
-
-  ${M.MEDIA_XXLARGE} {
-    width: 10.7rem;
-    height: ${math(`10.7rem * ${cardDimRatio}`)};
-    border-radius: 0.7rem;
-  }
 `;
 
 export const NovelThumbnailContent = styled.div`
@@ -60,14 +39,14 @@ export const NovelThumbnailContent = styled.div`
   left: 0;
   z-index: 2;
   display: flex;
-  transform: translateY(35%);
+  transform: translateY(100%);
   transition: transform 0.3s ease;
-
+/* 
   ${NovelThumbnailContainer}:hover & {
     background: linear-gradient(to bottom, rgba(22, 22, 34, 0.5) 0%, rgba(22, 22, 34, 1) 100%);
     transform: translateY(0%);
     justify-content: space-around;
-  }
+  } */
 `;
 
 export const NovelThumbnailImage = styled.img`

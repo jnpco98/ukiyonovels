@@ -1,16 +1,19 @@
-import React from 'react';
+/* eslint-disable react/jsx-props-no-spreading */
+import React, { useRef, useState } from 'react';
 
 import { graphql } from 'babel-plugin-relay/macro';
 import { useFragment } from 'relay-hooks';
 
+import { Settings } from 'react-slick';
 import { novelThumbnailCarousel_default$key } from '../../../__generated__/novelThumbnailCarousel_default.graphql';
 import { novelThumbnailCarousel_latest$key } from '../../../__generated__/novelThumbnailCarousel_latest.graphql';
 
 import * as S from './style';
 import Text, { TextType } from '../../atom/text';
 
-import { Settings } from 'react-slick';
 import { DEFAULT_SLIDER_SETTINGS } from '../../../utilities/slider';
+import { useOnResize, useOnElementResize } from '../../../utilities/hooks';
+import * as M from '../../../settings/media';
 
 export const defaultNovelThumbnailCarouselFragmentSpec = graphql`
   fragment novelThumbnailCarousel_default on Query {
@@ -48,7 +51,8 @@ const sliderOptions: Settings = {
   prevArrow: <S.InfoThumbnailCarouselArrow />,
   nextArrow: <S.InfoThumbnailCarouselArrow />,
   variableWidth: true,
-  centerMode: false
+  infinite: true,
+  centerMode: true
 };
 
 const DEFAULT_SORT = 'lastModified';
@@ -72,19 +76,35 @@ type Props = {
 };
 
 function NovelThumbnailCarousel(props: Props) {
-  const { className, headingText, type } = props;
+  const { className, headingText, type, novels } = props;
+
+  const containerRef = useRef(document.createElement('div'));
+  const containerSize = useOnElementResize(containerRef);
+
   const fragment = useFragment(
-    props.type === 'latest' ? latestNovelThumbnailCarouselFragmentSpec : defaultNovelThumbnailCarouselFragmentSpec,
-    props.novels
+    type === 'latest' ? latestNovelThumbnailCarouselFragmentSpec : defaultNovelThumbnailCarouselFragmentSpec,
+    novels
   );
+
   return (
-    <S.NovelThumbnailCarouselContainer className={className}>
+    <S.NovelThumbnailCarouselContainer ref={containerRef} className={className}>
       {headingText && <Text textType={TextType.SectionTitle}>{headingText}</Text>}
 
       <S.NovelThumbnailCarouselSlider {...sliderOptions}>
         {'latestNovelThumbnailCarousel' in fragment
           ? fragment.latestNovelThumbnailCarousel.edges.map(({ node }) => (
-              <S.NovelThumbnailCarouselItem key={node.id} novel={node} />
+              <S.NovelThumbnailCarouselItem
+                key={node.id}
+                novel={node}
+                dynamicDim={{
+                  containerWidth: containerSize.width,
+                  cardCount: 3,
+                  responsive: [
+                    { mediaQuery: M.MEDIA_SMALL, cardCount: 4 },
+                    { mediaQuery: M.MEDIA_LARGE, cardCount: 5 }
+                  ]
+                }}
+              />
             ))
           : ''}
         {'novelThumbnailCarousel' in fragment
