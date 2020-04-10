@@ -43,11 +43,43 @@ function Home(props: Props): ReactElement {
   const { appData } = props;
   const { props: relayProps, error, retry } = useQuery<homeQuery>(homeRelayQuery, defaultVariables);
 
+  const width = 200;
   if (error) return <div>{error.message}</div>;
   if (relayProps) {
     return (
       <>
         <S.HomeBanner contents={homepage.heroBanner} />
+        <div style={{ padding: '5rem', background: '#3b0087', width: '100%', height: '500px' }}>
+          <S.TestCard>
+            <div className="card__content">
+              <a href="/">
+                <div className="card__content-image" />
+              </a>
+              <div className="card__content-details">
+                <p className="card__content-details__title">
+                  <a href="/">Selector</a>
+                </p>
+                <p className="card__content-details__title">
+                  <a href="/">
+                    MA15+ <span className="is-dot-item" />
+                    2014 <span className="is-dot-item" />
+                    24 Episodes
+                  </a>
+                </p>
+                <p className="card__content-details__title">
+                  <span className="is-snippet">Web Novel</span>
+                  <span className="is-snippet">Chinese</span>
+                </p>
+              </div>
+              <div className="card__content-details__reveal">
+                <a className="card__content-details__reveal-content" href="/">
+                  <span className="is-play-icon" />
+                  Start Reading
+                </a>
+              </div>
+            </div>
+          </S.TestCard>
+        </div>
         <S.HomeContainer>
           <S.HomeWrapper>
             <S.HomeNovelThumbnailCarousel
