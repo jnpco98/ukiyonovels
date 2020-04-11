@@ -35,8 +35,8 @@ export const BaseTheme: DefaultTheme = {
     default: '0.042rem',
     wide: '0.085rem',
 
-    primary: '"Nunito Sans", Sans-Serif',
-    secondary: '"Montserrat", Sans-Serif'
+    primary: '"Lato", Sans-Serif',
+    secondary: '"Alegraya", Sans-Serif'
   },
   colors: {
     // Standard Colors
