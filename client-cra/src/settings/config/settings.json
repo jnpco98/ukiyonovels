@@ -1,0 +1,193 @@
+{
+  "account": {
+    "enableUser": false
+  },
+  "navigation": {
+    "mainMenu": [
+      {
+        "label": "<svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" viewBox=\"0 0 512 512\"><path d=\"M447.615 64.386C406.095 22.866 350.892 0 292.175 0s-113.92 22.866-155.439 64.386C95.217 105.905 72.35 161.108 72.35 219.824c0 53.683 19.124 104.421 54.132 144.458L4.399 486.366c-5.864 5.864-5.864 15.371 0 21.236C7.331 510.533 11.174 512 15.016 512s7.686-1.466 10.617-4.399l122.084-122.083c40.037 35.007 90.775 54.132 144.458 54.132 58.718 0 113.919-22.866 155.439-64.386 41.519-41.519 64.385-96.722 64.385-155.439s-22.865-113.92-64.384-155.439zm-21.236 289.643c-74.001 74-194.406 74-268.407 0-74-74-74-194.407 0-268.407 37.004-37.004 85.596-55.5 134.204-55.5 48.596 0 97.208 18.505 134.204 55.5 73.998 73.999 73.998 194.406-.001 268.407z\"\/><\/svg>",
+        "key": "search",
+        "icon": true,
+        "button": true
+      },
+      {
+        "label": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 512\"><path d=\"M437.02 330.98c-27.883-27.882-61.071-48.523-97.281-61.018C378.521 243.251 404 198.548 404 148 404 66.393 337.607 0 256 0S108 66.393 108 148c0 50.548 25.479 95.251 64.262 121.962-36.21 12.495-69.398 33.136-97.281 61.018C26.629 379.333 0 443.62 0 512h40c0-119.103 96.897-216 216-216s216 96.897 216 216h40c0-68.38-26.629-132.667-74.98-181.02zM256 256c-59.551 0-108-48.448-108-108S196.449 40 256 40s108 48.448 108 108-48.449 108-108 108z\"/></svg>",
+        "link": "#!",
+        "key": "account",
+        "icon": true
+      },
+      {
+        "label": "<svg height=\"512pt\" viewBox=\"0 0 512 512\" width=\"512pt\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\"><path d=\"M256 133.61c-67.484 0-122.39 54.906-122.39 122.39S188.515 378.39 256 378.39 378.39 323.485 378.39 256 323.485 133.61 256 133.61zm0 214.183c-50.613 0-91.793-41.18-91.793-91.793s41.18-91.793 91.793-91.793 91.793 41.18 91.793 91.793-41.18 91.793-91.793 91.793zm0 0\"\/><path d=\"M499.953 197.703l-39.351-8.555a214.162 214.162 0 00-12.664-30.539l21.785-33.886a15.302 15.302 0 00-2.051-19.09l-61.305-61.305a15.302 15.302 0 00-19.09-2.05l-33.886 21.785a214.162 214.162 0 00-30.54-12.665l-8.554-39.351A15.298 15.298 0 00299.347 0h-86.695a15.298 15.298 0 00-14.949 12.047l-8.555 39.351a214.162 214.162 0 00-30.539 12.664l-33.886-21.785a15.302 15.302 0 00-19.09 2.051l-61.305 61.305a15.302 15.302 0 00-2.05 19.09l21.785 33.886a214.162 214.162 0 00-12.665 30.54l-39.351 8.554A15.301 15.301 0 000 212.653v86.695a15.301 15.301 0 0012.047 14.949l39.351 8.555a214.162 214.162 0 0012.665 30.539l-21.786 33.886a15.302 15.302 0 002.051 19.09l61.305 61.305a15.302 15.302 0 0019.09 2.05l33.886-21.785a214.162 214.162 0 0030.54 12.665l8.554 39.351A15.298 15.298 0 00212.653 512h86.695a15.298 15.298 0 0014.949-12.047l8.555-39.351a214.162 214.162 0 0030.539-12.665l33.886 21.786a15.297 15.297 0 0019.09-2.051l61.305-61.305a15.302 15.302 0 002.05-19.09l-21.784-33.886a214.162 214.162 0 0012.664-30.54l39.351-8.554A15.301 15.301 0 00512 299.347v-86.695a15.301 15.301 0 00-12.047-14.949zm-18.55 89.313l-36.083 7.843a15.307 15.307 0 00-11.488 10.84 183.563 183.563 0 01-16.95 40.88 15.294 15.294 0 00.454 15.792l19.98 31.078-43.863 43.867-31.082-19.98a15.287 15.287 0 00-15.789-.453 183.67 183.67 0 01-40.883 16.949 15.307 15.307 0 00-10.84 11.488l-7.843 36.082h-62.032l-7.843-36.082a15.307 15.307 0 00-10.84-11.488 183.563 183.563 0 01-40.88-16.95 15.303 15.303 0 00-15.792.454l-31.078 19.98-43.864-43.867 19.977-31.078a15.294 15.294 0 00.457-15.793A183.76 183.76 0 0178.168 305.7a15.302 15.302 0 00-11.484-10.84l-36.086-7.843v-62.032l36.082-7.843a15.307 15.307 0 0011.488-10.84 183.563 183.563 0 0116.95-40.88 15.294 15.294 0 00-.454-15.792l-19.98-31.078 43.863-43.867 31.082 19.98a15.287 15.287 0 0015.789.453 183.67 183.67 0 0140.883-16.949 15.307 15.307 0 0010.84-11.488l7.843-36.082h62.032l7.843 36.082a15.307 15.307 0 0010.84 11.488 183.563 183.563 0 0140.88 16.95 15.303 15.303 0 0015.792-.454l31.078-19.98 43.863 43.867-19.976 31.078a15.294 15.294 0 00-.457 15.793 183.576 183.576 0 0116.953 40.879 15.302 15.302 0 0011.484 10.84l36.086 7.843zm0 0\"\/><\/svg>",
+        "link": "#!",
+        "key": "settings",
+        "icon": true
+      }
+    ],
+    "sidenavMenu": [
+      {
+        "label": "Homepage",
+        "link": "/",
+        "key": "homepage"
+      },
+      {
+        "label": "Novel List",
+        "link": "/novels",
+        "key": "novel-list"
+      },
+      {
+        "label": "Latest Update",
+        "link": "/novels/latest",
+        "key": "latest-update"
+      },
+      {
+        "label": "Top Novels",
+        "link": "/novels/top-novels",
+        "key": "top-novels"
+      },
+      {
+        "label": "Featured",
+        "link": "/novels/most-popular",
+        "key": "most-popular"
+      },
+      {
+        "label": "Advanced Search",
+        "link": "/advanced-search",
+        "key": "advanced-search"
+      },
+      {
+        "label": "Terms and conditions",
+        "link": "/pages/terms-and-conditions",
+        "key": "terms-and-conditions"
+      },
+      {
+        "label": "Privacy policy",
+        "link": "/pages/privacy-policy",
+        "key": "privacy-policy"
+      },
+      {
+        "label": "Copyright",
+        "link": "/pages/copyright",
+        "key": "copyright"
+      },
+      {
+        "label": "Contact",
+        "link": "/contact",
+        "key": "contact"
+      }
+    ]
+  },
+  "homepage": {
+    "heroBanner": [
+      {
+        "mobileImage": "",
+        "desktopImage": "https://images.wallpapersden.com/image/download/demon-slayer-tanjirou-kamado_66766_2048x1152.jpg",
+        "headingText": "Demon Slayer: Kimetsu no Yaiba",
+        "description": "In Taishō-era Japan, Tanjirō Kamado is a kindhearted and intelligent boy who lives with his family. He has become his family's sole source of income after the passing of his father. Everything changes when his family is attacked and slaughtered by a demon. Tanjirō and his sister Nezuko are the sole survivors of the incident, with Nezuko being transformed into a demon, but still surprisingly showing signs of human emotion and thought. After an encounter with Giyu Tomioka, a demon slayer, Tanjirō is recruited by Giyu to also become a demon slayer to help his sister turn human again and avenge the deaths of the rest of his family.",
+        "buttonText": "Read now",
+        "link": "#!"
+      },
+      {
+        "mobileImage": "",
+        "desktopImage": "https://c4.wallpaperflare.com/wallpaper/819/317/195/anime-demon-slayer-kimetsu-no-yaiba-giyuu-tomioka-gyomei-himejima-kyojuro-rengoku-hd-wallpaper-preview.jpg",
+        "headingText": "Demon Slayer: Kimetsu no Yaiba",
+        "description": "In Taishō-era Japan, Tanjirō Kamado is a kindhearted and intelligent boy who lives with his family. He has become his family's sole source of income after the passing of his father. Everything changes when his family is attacked and slaughtered by a demon. Tanjirō and his sister Nezuko are the sole survivors of the incident, with Nezuko being transformed into a demon, but still surprisingly showing signs of human emotion and thought. After an encounter with Giyu Tomioka, a demon slayer, Tanjirō is recruited by Giyu to also become a demon slayer to help his sister turn human again and avenge the deaths of the rest of his family.",
+        "buttonText": "Read now",
+        "link": "#!"
+      },
+      {
+        "mobileImage": "",
+        "desktopImage": "https://pbs.twimg.com/media/D4E1l1gWAAApftP?format=jpg&name=small",
+        "headingText": "Demon Slayer: Kimetsu no Yaiba",
+        "description": "In Taishō-era Japan, Tanjirō Kamado is a kindhearted and intelligent boy who lives with his family. He has become his family's sole source of income after the passing of his father. Everything changes when his family is attacked and slaughtered by a demon. Tanjirō and his sister Nezuko are the sole survivors of the incident, with Nezuko being transformed into a demon, but still surprisingly showing signs of human emotion and thought. After an encounter with Giyu Tomioka, a demon slayer, Tanjirō is recruited by Giyu to also become a demon slayer to help his sister turn human again and avenge the deaths of the rest of his family.",
+        "buttonText": "Read now",
+        "link": "#!"
+      }
+    ],
+    "featuredNovels": {
+      "headingText": "Featured Novels"
+    },
+    "latestRelease": {
+      "headingText": "Latest Release",
+      "actionButtonText": "Continue reading"
+    }
+  },
+  "sidePanel": {
+    "popularNovels": {
+      "headingText": "Popular Novels"
+    }
+  },
+  "novel":{
+    "heading": {
+      "type": "type",
+      "genre": "genre",
+      "tags": "tags",
+      "language": "language",
+      "author": "author",
+      "artist": "artist",
+      "year": "year",
+      "status": "status",
+      "description": "description",
+      "alternativeNames": "alternative names",
+      "relatedSeries": "related series",
+      "recommendations": "You may also like",
+      "downloads": "Download links"
+    }
+  },
+  "searchResults": {
+    "headingText": "Search Results"
+  },
+  "contact": {
+    "pageHeading": "Contact us",
+    "pageText": "<p>Have a question, feature/novel request, or found a bug you want to report? Fill up the form and we'll see what we can do. You should get a reply within 48 hrs.</p>",
+    "fields": [
+      {
+        "label": "Name",
+        "displayName": "User",
+        "required": true,
+        "placeholder": "Name",
+        "multi": false,
+        "pattern": ""
+      },
+      {
+        "label": "Email",
+        "displayName": "Email",
+        "required": true,
+        "placeholder": "Email",
+        "multi": false,
+        "pattern": "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+      },
+      {
+        "label": "Subject",
+        "displayName": "Subject",
+        "required": true,
+        "placeholder": "Subject",
+        "multi": false,
+        "pattern": ""
+      },
+      {
+        "label": "Message",
+        "displayName": "Message",
+        "required": true,
+        "placeholder": "Your message...",
+        "multi": true,
+        "pattern": ""
+      }
+    ],
+    "submitText": "Submit"
+  },
+  "pageNotFound": {
+    "headingText": "oops",
+    "subtitleText": "404 - The page can't be found"
+  },
+  "footer": {
+    "contact": {
+      "headingText": "Contact",
+      "subtitle": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eius neque quibusdam tempore saepe pariatur voluptates, ut eligendi! Autem doloribus deleniti harum neque, quidem ea commodi voluptates, cupiditate quia explicabo hic ullam? Dolor impedit facilis modi veritatis dolore deleniti cupiditate rem iure id ex temporibus provident expedita, tempore enim nisi animi aperiam aliquam voluptatem suscipit!"
+    },
+    "heading": {
+      "genre": "genre",
+      "status": "status",
+      "novelType": "novel type"
+    }
+  }
+}

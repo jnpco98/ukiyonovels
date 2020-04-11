@@ -22,15 +22,55 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "noEmit": true,
-    "jsx": "react",
+    "jsx": "preserve",
     "pretty": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "baseUrl": ".",
+    "paths": {
+      "@modules/*": [
+        "modules/*"
+      ],
+      "@components/*": [
+        "components/*"
+      ],
+      "@layout/*": [
+        "layout/*"
+      ],
+      "@actions/*": [
+        "actions/*"
+      ],
+      "@actionTypes/*": [
+        "actionTypes/*"
+      ],
+      "@reducers/*": [
+        "./reducers/*"
+      ],
+      "@sagas/*": [
+        "./sagas/*"
+      ],
+      "@static/*": [
+        "static/*"
+      ],
+      "@store/*": [
+        "store/*"
+      ],
+      "@dummy/*": [
+        "__dummy__/*"
+      ],
+      "@constants/*": [
+        "constants/*"
+      ],
+      "@utilities/*": [
+        "utilities/*"
+      ]
+    }
   },
-  "include": [
-    "./src/**/*", "config-overrides.js"
-  ],
   "exclude": [
-    "node_modules",
-    "**/*.spec.ts"
+    "node_modules"
+  ],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
   ]
 }
