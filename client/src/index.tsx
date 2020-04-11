@@ -22,3 +22,19 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 );
+
+if ((module as any).hot) {
+  (module as any).hot.accept('./app', () => {
+    // eslint-disable-next-line global-require
+    const NextApp = require('./app').default;
+    ReactDOM.render(
+      <Provider store={store}>
+        <RelayEnvironmentProvider environment={environment}>
+          <Reset />
+          <App />
+        </RelayEnvironmentProvider>
+      </Provider>,
+      document.getElementById('root')
+    );
+  });
+}

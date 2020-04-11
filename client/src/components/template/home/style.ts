@@ -5,10 +5,22 @@ import { gutter, GUTTER_LEFT, GUTTER_RIGHT, GUTTER_BOTTOM } from '../../../utili
 import NovelThumbnailCarousel from '../../organism/novel-thumbnail-carousel';
 import ImageCarousel from '../../organism/image-carousel';
 import { ImageCarouselSliderItem, ImageCarouselContent } from '../../organism/image-carousel/style';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+// const w = 400;
+// const ratio = 0.5;
+const w = 200;
+const ratio = 1.75;
 
+export const TestCardWrapper = styled.div`
+
+  width: ${w}px;
+  height: ${w * ratio}px;
+`;
 export const TestCard = styled.div`
-  width: 200px;
-  height: 350px;
+/* width: 90%;
+height: 90%; */
+padding: 1rem 0.2rem;
   /* background: red; */
 
   .card__content {
@@ -54,12 +66,16 @@ export const TestCard = styled.div`
         z-index: 10;
         transform: scale(1.05,1.05);
       }
+      
+      .card__content-image__link {
+        opacity: 1;
+      }
     }
   }
 
   .card__content-image {
     display: block;
-    background-image: url(//d1pnza0erna1im.cloudfront.net/shows/selector_portrait-key-art-normal-small_85908.jpeg);
+    background-image: url(//d1pnza0erna1im.cloudfront.net/shows/kakushigoto_portrait-key-art-normal-small_86920.jpeg);
     background-repeat: no-repeat;
     background-size: 100.1%;
     background-position: 50% 50%;
@@ -68,13 +84,25 @@ export const TestCard = styled.div`
     background-color: rgba(0, 0, 0, 0.4);
     position: relative;
     transition: all .15s ease-out;
+    background-clip: padding-box;
 
     &:before {
       display: block;
       content: '';
       width: 100%;
-      padding-top: 150%;
+      padding-top: ${100 * (ratio - (ratio * 0.14))}%;
     }
+  }
+
+  .card__content-image__link {
+    background: linear-gradient(to bottom,#17003a 0,rgba(0,0,0,0) 50%);
+    position: absolute;
+    right: 0;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    transition: all .15s ease-out;
+    opacity: 0;
   }
 
   .card__content-details {
@@ -142,18 +170,6 @@ export const TestCard = styled.div`
     }
   }
 
-  .is-play-icon {
-    width: 1rem;
-    position: absolute;
-    top: 50%;
-    right: 0.1rem;
-    transform: translateY(-50%);
-
-    &:before {
-      content: ">";
-    }
-  }
-
   .is-dot-item {
     top: 0;
     left: 1px;
@@ -176,6 +192,18 @@ export const TestCard = styled.div`
     font-weight: 400;
     border-radius: 4px;
     font-size: 12px;
+  }
+`;
+
+export const CardPlayIcon = styled(FontAwesomeIcon).attrs({ icon: faArrowRight })`
+  width: 1rem;
+  position: absolute;
+  top: 50%;
+  right: 0.5rem;
+  transform: translateY(-50%);
+
+  &:before {
+    content: ">";
   }
 `;
 
