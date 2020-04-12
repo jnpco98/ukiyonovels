@@ -48,15 +48,7 @@ class Document extends NextDocument {
           <meta property="og:site_name" content={SITE_NAME} />
           <meta property="og:title" content={SITE_TITLE} />
           <meta property="og:description" content={SITE_DESCRIPTION} />
-
-          <link
-            href="https://fonts.googleapis.com/css?family=Alegreya:400,600&display=swap"
-            rel="stylesheet"
-          />
-          <link
-            href="https://fonts.googleapis.com/css?family=Lato:400,600&display=swap"
-            rel="stylesheet"
-          />
+          <link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
           {this.props.styles}
         </Head>
         <body>

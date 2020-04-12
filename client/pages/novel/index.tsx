@@ -1,7 +1,8 @@
 import React from 'react';
+import Standard from '@layout/Standard';
 
 function Novel() {
-  return <div>This is the novel page</div>;
+  return <Standard>This is the novel page</Standard>;
 }
 
 export default Novel;

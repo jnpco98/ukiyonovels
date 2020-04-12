@@ -28,7 +28,7 @@ export const BaseTheme: DefaultTheme = {
     // Font weight
     light: '200',
     regular: '400',
-    bold: '600',
+    bold: '700',
 
     // Letter spacing
     narrow: '0.03rem',

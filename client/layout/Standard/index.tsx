@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import Head from 'next/head';
+import Header from '@components/organism/Header';
 
 type Props = {
   children: ReactNode;
@@ -8,7 +8,7 @@ type Props = {
 function Standard(props: Props) {
   return (
     <div>
-      <div>Header</div>
+      <Header />
       {props.children}
     </div>
   );

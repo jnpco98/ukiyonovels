@@ -9,7 +9,6 @@ export enum TextType {
   SubsectionTitle,
   Paragraph,
   Span,
-  Link,
   Anchor,
   Label
 }
@@ -43,9 +42,6 @@ function Text(props: Props) {
       break;
     case TextType.Span:
       StyledText = S.Span;
-      break;
-    case TextType.Link:
-      StyledText = S.Link;
       break;
     case TextType.Anchor:
       StyledText = S.Anchor;

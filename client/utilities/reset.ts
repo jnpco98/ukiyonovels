@@ -12,6 +12,8 @@ const reset = css`
   body,
   html {
     height: 100%;
+    text-rendering: optimizeLegibility !important;
+    -webkit-font-smoothing: antialiased !important;
   }
 
   html, body, div, span, applet, object, iframe, 

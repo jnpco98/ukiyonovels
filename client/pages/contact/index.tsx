@@ -1,7 +1,8 @@
 import React from 'react';
+import Standard from '@layout/Standard';
 
 function Contact() {
-  return <div>Advanced Search</div>;
+  return <Standard>Advanced Search</Standard>;
 }
 
 export default Contact;

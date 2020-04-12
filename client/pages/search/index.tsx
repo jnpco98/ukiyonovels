@@ -1,7 +1,8 @@
 import React from 'react';
+import Standard from '@layout/Standard';
 
 function Search() {
-  return <div>Search</div>;
+  return <Standard>Search</Standard>;
 }
 
 export default Search;

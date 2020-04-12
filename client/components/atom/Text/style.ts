@@ -15,7 +15,7 @@ type HeadingStyleProps = {
 
 export const PageTitle = styled.h1<HeadingStyleProps>`
   ${pageTitleFontSize};
-  font-family: ${({ theme, ...props }) => theme.font.secondary};
+  font-family: ${({ theme }) => theme.font.secondary};
   font-weight: ${({ theme, ...props }) => theme.font.bold};
   text-transform: uppercase;
 
@@ -35,8 +35,8 @@ export const PageTitle = styled.h1<HeadingStyleProps>`
 export const SectionTitle = styled.h2<HeadingStyleProps>`
   ${sectionFontSize};
 
-  font-family: ${({ theme, ...props }) => theme.font.secondary};
-  font-weight: ${({ theme, ...props }) => theme.font.bold};
+  font-family: ${({ theme }) => theme.font.secondary};
+  font-weight: ${({ theme }) => theme.font.bold};
   text-transform: uppercase;
   ${margin('1rem', null, '1rem', null)};
 
@@ -54,8 +54,8 @@ export const SectionTitle = styled.h2<HeadingStyleProps>`
 export const SubsectionTitle = styled.h3`
   ${subsectionFontSize};
   text-transform: uppercase;
-  font-family: ${({ theme, ...props }) => theme.font.secondary};
-  font-weight: ${({ theme, ...props }) => theme.font.bold};
+  font-family: ${({ theme }) => theme.font.secondary};
+  font-weight: ${({ theme }) => theme.font.bold};
   ${margin('1rem', null, '1rem', null)};
 
   ${M.MEDIA_SMALL} {
@@ -78,16 +78,6 @@ export const Paragraph = styled.p`
 `;
 
 export const Span = styled.span`
-  ${regularFontSize};
-
-  ${margin('0.2rem', null, '0.2rem', null)};
-
-  ${M.MEDIA_MEDIUM} {
-    ${margin('0.4rem', null, '0.4rem', null)};
-  }
-`;
-
-export const Link = styled.a`
   ${regularFontSize};
 
   ${margin('0.2rem', null, '0.2rem', null)};
