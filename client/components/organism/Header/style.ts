@@ -174,15 +174,6 @@ export const Drawer = styled(SideDrawer)`
   overflow-y: auto;
 
   ${M.MEDIA_XXSMALL} {
-    width: 23rem;
     padding-left: 2rem;
-  }
-
-  ${M.MEDIA_XSMALL} {
-    width: 28rem;
-  }
-
-  ${M.MEDIA_LARGE} {
-    width: 50%;
   }
 `;

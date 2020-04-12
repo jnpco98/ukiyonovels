@@ -7,7 +7,7 @@ type DrawerProps = {
 
 export const SideDrawerContainer = styled.div<DrawerProps>`
   position: fixed;
-  background: ${({ theme }) => theme.colors.background};
+  background: linear-gradient(to left, rgba(245, 245, 245, 0) 0%, rgba(245, 245, 245, 50%) 30%, rgba(245, 245, 245, 1) 100%);
   overflow: hidden;
   transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
   z-index: 5;
@@ -16,7 +16,7 @@ export const SideDrawerContainer = styled.div<DrawerProps>`
   left: 0;
   height: 100%;
   width: 100%;
-  max-width: 17rem;
+  /* max-width: 17rem; */
 
   li {
     white-space: nowrap;
@@ -47,5 +47,9 @@ export const SideDrawerContainer = styled.div<DrawerProps>`
 
   ${M.MEDIA_MEDIUM} {
     max-width: 45rem;
+  }
+
+  ${M.MEDIA_LARGE} {
+    max-width: 50%;
   }
 `;

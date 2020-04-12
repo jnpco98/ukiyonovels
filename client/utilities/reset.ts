@@ -37,7 +37,7 @@ const reset = css`
     -moz-osx-font-smoothing: grayscale;
 
     &::selection {
-      color: ${({ theme }) => theme.font.default};
+      color: ${({ theme }) => theme.colors.default};
       background: ${({ theme }) => theme.colors.selection};
     }
   }
