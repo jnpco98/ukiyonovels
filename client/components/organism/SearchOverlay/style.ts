@@ -7,5 +7,5 @@ type OverlayProps = {
 
 export const Container = styled(Backdrop)<OverlayProps>`
   background: ${({ theme }) => theme.colors.backdrop};
-  transition: all 0.4s ease;
+  transition: all 0.1s ease;
 `;

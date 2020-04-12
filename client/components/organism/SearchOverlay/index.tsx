@@ -18,10 +18,10 @@ function SearchOverlay(props: Props) {
   function handleClick(event: MouseEvent) {
     setActive(false);
   }
-  useOnClickOutside(searchRef, () => setActive(false));
+  useOnClickOutside(searchRef, handleClick);
 
   return (
-    <S.Container active={active} centerContent onClick={(event) => handleClick(event)}>
+    <S.Container active={active} centerContent>
       <Search
         ref={searchRef}
         active={active}
