@@ -39,7 +39,7 @@ export const SearchButton = styled.button.attrs({ type: 'submit' })`
 
 export const SearchButtonIcon = styled(FontAwesomeIcon).attrs({ icon: faSearch })`
   ${sectionFontSize};
-  color: ${({ theme, ...props }) => theme.colors.background};
+  color: ${({ theme }) => theme.colors.background};
   transition: all 0.5s ease;
 
   &:hover {
@@ -52,11 +52,11 @@ export const SearchInput = styled.input.attrs({ type: 'text' })`
   border: none;
   background: none;
   transition: all 0.24s linear;
-  color: ${({ theme, ...props }) => theme.colors.background};
+  color: ${({ theme }) => theme.colors.background};
   width: 12rem;
 
   &::placeholder {
-    color: ${({ theme, ...props }) => theme.colors.defaultSubdued};
+    color: ${({ theme }) => theme.colors.defaultSubdued};
   }
 
   ${M.MEDIA_SMALL} {

@@ -16,7 +16,7 @@ type HeadingStyleProps = {
 export const PageTitle = styled.h1<HeadingStyleProps>`
   ${pageTitleFontSize};
   font-family: ${({ theme }) => theme.font.secondary};
-  font-weight: ${({ theme, ...props }) => theme.font.bold};
+  font-weight: ${({ theme }) => theme.font.bold};
   text-transform: uppercase;
 
   ${margin('1.4rem', null, '1.4rem', null)};

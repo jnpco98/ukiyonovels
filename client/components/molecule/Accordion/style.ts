@@ -14,7 +14,7 @@ export const Tabs = styled.div`
 
 export const Tab = styled.div`
   width: 100%;
-  color: ${({ theme, ...props }) => theme.colors.background};
+  color: ${({ theme }) => theme.colors.background};
   overflow: hidden;
 `;
 
@@ -27,12 +27,12 @@ export const Label = styled.label<LabelStyleProps>`
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  background: ${({ theme, ...props }) => theme.colors.default};
+  background: ${({ theme }) => theme.colors.default};
   font-weight: bold;
   cursor: pointer;
 
   &:hover {
-    background: ${({ theme, ...props }) => theme.colors.default};
+    background: ${({ theme }) => theme.colors.default};
   }
 
   ${M.MEDIA_XLARGE} {
@@ -65,7 +65,7 @@ export const Icon = styled(FontAwesomeIcon).attrs({ icon: faArrowRight })`
 export const Content = styled.div`
   max-height: 0;
   color: black;
-  background: ${({ theme, ...props }) => theme.colors.background};
+  background: ${({ theme }) => theme.colors.background};
   transition: all 0.25s;
   overflow: hidden;
   opacity: 0;
@@ -78,7 +78,7 @@ export const Trigger = styled.input`
 
   &:checked {
     + ${Label} {
-      background: ${({ theme, ...props }) => theme.colors.default};
+      background: ${({ theme }) => theme.colors.default};
 
       ${Icon} {
         transform: rotate(90deg);
@@ -119,13 +119,13 @@ export const Container = styled.div<AccordionStyleProps>`
       ${Label} {
         background: ${theme.colors.background};
         color: ${theme.colors.default};
-        border-bottom: 1px solid ${({ theme, ...props }) => theme.colors.border};
+        border-bottom: 1px solid ${({ theme }) => theme.colors.border};
         ${padding(null, 0)};
       }
 
       ${Trigger}:checked {
         + ${Label} {
-          background: ${({ theme, ...props }) => theme.colors.background};
+          background: ${({ theme }) => theme.colors.background};
         }
         ~ ${Content} {
           ${padding(null, 0)};

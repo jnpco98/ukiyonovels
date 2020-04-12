@@ -7,7 +7,7 @@ type DrawerProps = {
 
 export const SideDrawerContainer = styled.div<DrawerProps>`
   position: fixed;
-  background: ${({ theme, ...props }) => theme.colors.background};
+  background: ${({ theme }) => theme.colors.background};
   overflow: hidden;
   transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
   z-index: 5;
