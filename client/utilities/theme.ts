@@ -3,12 +3,12 @@ import { lighten, transparentize } from 'polished';
 
 export const BaseTheme: DefaultTheme = {
   gutterHorizontal: {
-    base: '0.5rem',
-    xxsmall: '0.5rem',
-    xsmall: '0.5rem',
-    small: '1.5rem',
-    medium: '3rem',
-    large: '5rem',
+    base: '0.8rem',
+    xxsmall: '1.9rem',
+    xsmall: '2.6rem',
+    small: '5.6rem',
+    medium: '7rem',
+    large: '9rem',
     xlarge: '10rem',
     xxlarge: '10%'
   },
@@ -82,7 +82,7 @@ export const BaseTheme: DefaultTheme = {
 
     selection: transparentize(0.8, '#2A4A59'),
 
-    backdrop: transparentize(0.9, '#111111'),
+    backdrop: transparentize(0.7, '#111111'),
 
     // Form color sets
     info: '#2A4A59',

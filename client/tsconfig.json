@@ -62,6 +62,12 @@
       ],
       "@utilities/*": [
         "utilities/*"
+      ],
+      "@settings": [
+        "./.settings.ts"
+      ],
+      "@icons": [
+        "./.icons.ts"
       ]
     }
   },

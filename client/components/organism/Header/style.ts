@@ -3,6 +3,7 @@ import SideDrawer from '@components/atom/Drawer';
 import Text, { TextType } from '@components/atom/Text';
 import { center, FLEX_ALIGN_MAIN } from '@utilities/mixins';
 import * as M from '@utilities/media';
+import Hamburger from '@components/atom/Hamburger';
 
 type HeaderMenuProps = {
   floating: boolean;
@@ -31,9 +32,7 @@ export const RightMenu = styled.ul`
   }
 `;
 
-export const HeaderSideDrawerMenu = styled.ul``;
-
-export const HeaderMenuItemLink = styled(Text).attrs({ textType: TextType.Anchor })<{ link: string; }>`
+export const Link = styled(Text).attrs({ textType: TextType.Anchor })<{ link: string; }>`
   overflow: hidden;
 
   &:after {
@@ -41,7 +40,7 @@ export const HeaderMenuItemLink = styled(Text).attrs({ textType: TextType.Anchor
   }
 `;
 
-export const HeaderMenuItemButton = styled(Text).attrs({ textType: TextType.Span })`
+export const Button = styled(Text).attrs({ textType: TextType.Span })`
   overflow: hidden;
 
   &:after {
@@ -49,33 +48,15 @@ export const HeaderMenuItemButton = styled(Text).attrs({ textType: TextType.Span
   }
 `;
 
-export const HeaderMenuItem = styled.li<HeaderMenuItemProps>`
+export const MenuItem = styled.li<HeaderMenuItemProps>`
   ${center(FLEX_ALIGN_MAIN)};
 
+  cursor: pointer;
   text-transform: uppercase;
   margin: 0 0.9rem;
   padding-top: 0.8rem;
 
-  ${props => 
-    props.icon && css`
-      padding-top: 0;
-      margin-right: 0;
-
-      ${HeaderMenuItemLink}, ${HeaderMenuItemButton} {
-        width: 1rem;
-        height: 1rem;
-      }
-      
-      ${HeaderMenuItemLink} {
-        font-size: unset;
-
-        &:after {
-          content: none;
-        }
-      }
-    `};
-
-  ${HeaderMenuItemLink} {
+  ${Link} {
     position: relative;
 
     &:after {
@@ -91,15 +72,32 @@ export const HeaderMenuItem = styled.li<HeaderMenuItemProps>`
   }
 
   &:hover {
-    ${HeaderMenuItemLink}:after {
+    ${Link}:after {
       transform: translateX(0);
     }
   }
 
+  ${props => 
+    props.icon && css`
+      padding-top: 0;
+      margin-right: 0;
+
+      ${Link}, ${Button} {
+        width: 1rem;
+        height: 1rem;
+        font-size: unset;
+
+        &:after {
+          content: none;
+        }
+      }
+    `};
+
+
   ${props =>
     props.active &&
     css`
-      ${HeaderMenuItemLink}:after {
+      ${Link}:after {
         transform: translateX(0);
       }
     `};
@@ -115,7 +113,8 @@ export const HeaderMenuItem = styled.li<HeaderMenuItemProps>`
     ${props =>
       props.icon && 
       css`
-        ${HeaderMenuItemLink}, ${HeaderMenuItemButton} {
+        padding-top: 0;
+        ${Link}, ${Button} {
           width: 1.2rem;
           height: 1.2rem;
         }
@@ -123,7 +122,11 @@ export const HeaderMenuItem = styled.li<HeaderMenuItemProps>`
   }
 `;
 
-export const DrawerTrigger = styled.li``;
+export const DrawerTrigger = styled.li`
+  margin: 0 1rem;
+`;
+
+export const DrawerTriggerIcon = styled(Hamburger)``;
 
 export const Container = styled.header<HeaderMenuProps>`
   display: flex;
@@ -149,6 +152,10 @@ export const Container = styled.header<HeaderMenuProps>`
       box-shadow: 0px 10px 13px -9px rgba(0, 0, 0, 0.75);
     `};
 
+  ${M.MEDIA_XSMALL} {
+    padding-top: 1rem;
+  }
+
   ${M.MEDIA_XLARGE} {
     height: 6rem;
   }
@@ -159,30 +166,23 @@ export const Container = styled.header<HeaderMenuProps>`
 `;
 
 export const Drawer = styled(SideDrawer)`
-  ${HeaderMenuItem}:first-child {
-    margin-top: 4rem;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  padding: 4rem 0;
+  overflow-y: auto;
 
   ${M.MEDIA_XXSMALL} {
     width: 23rem;
-
-    ${HeaderMenuItem}:first-child {
-      margin-top: 4.5rem;
-    }
+    padding-left: 2rem;
   }
 
   ${M.MEDIA_XSMALL} {
     width: 28rem;
-
-    ${HeaderMenuItem}:first-child {
-      margin-top: 7.5rem;
-    }
   }
 
   ${M.MEDIA_LARGE} {
     width: 50%;
-    ${HeaderMenuItem}:first-child {
-      margin-top: 10rem;
-    }
   }
 `;

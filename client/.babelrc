@@ -26,7 +26,9 @@
           "@reducers": "./reducers",
           "@dummy": "./dummy",
           "@constants": "./constants/",
-          "@utilities": "./utilities"
+          "@utilities": "./utilities",
+          "@settings": "./.settings.ts",
+          "@icons": "./.icons.ts"
         }
       }
     ],

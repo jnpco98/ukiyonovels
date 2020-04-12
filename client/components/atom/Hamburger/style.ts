@@ -12,7 +12,6 @@ const Base = css`
   width: ${BASE_WIDTH}rem;
   height: ${BASE_HEIGHT}rem;
   position: relative;
-  margin: 0 1rem;
   transform: rotate(0.001deg);
   transition: 0.5s ease-in-out;
   cursor: pointer;
@@ -24,7 +23,7 @@ const Line = css`
   position: absolute;
   height: ${BASE_HEIGHT / 5}rem;
   width: 100%;
-  background: ${({ theme }) => theme.colors.primary};
+  background: ${({ theme }) => theme.colors.default};
   border-radius: ${BASE_HEIGHT / 5}rem;
   opacity: 1;
   left: 0;
@@ -76,7 +75,7 @@ export const NoEntry = styled.div<HamburgerProps>`
     position: absolute;
     height: ${BASE_HEIGHT / 5}rem;
     width: 50%;
-    background: ${({ theme }) => theme.colors.primary};
+    background: ${({ theme }) => theme.colors.default};
     opacity: 1;
     transform: rotate(0.001deg);
     transition: 0.25s ease-in-out;

@@ -1,20 +1,24 @@
-import NextApp from 'next/app';
+import { NextPageContext, NextComponentType } from 'next';
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import { BaseTheme } from '@utilities/theme';
 import Reset from '@utilities/reset';
 
-class App extends NextApp {
-  render() {
-    const { Component, pageProps } = this.props;
+import 'swiper/css/swiper.min.css';
 
-    return (
-      <ThemeProvider theme={BaseTheme}>
-        <Reset />
-        <Component {...pageProps} />
-      </ThemeProvider>
-    );
-  }
+type Props = {
+  Component: NextComponentType<NextPageContext, any, {}>;
+  pageProps: any;
+};
+
+function App(props: Props) {
+  const { Component, pageProps } = props;
+  return (
+    <ThemeProvider theme={BaseTheme}>
+      <Reset />
+      <Component {...pageProps} />
+    </ThemeProvider>
+  );
 }
 
 export default App;

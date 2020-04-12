@@ -1,10 +1,12 @@
 import React from 'react';
 import Standard from '@layout/Standard';
+import Banner from '@components/organism/Banner';
+import { home } from '@settings';
 
 function Index() {
   return (
     <Standard>
-      <div>This is next js</div>
+      <Banner contents={home.bannerContent} />
     </Standard>
   );
 }
