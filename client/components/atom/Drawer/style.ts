@@ -16,7 +16,6 @@ export const SideDrawerContainer = styled.div<DrawerProps>`
   left: 0;
   height: 100%;
   width: 100%;
-  /* max-width: 17rem; */
 
   li {
     white-space: nowrap;

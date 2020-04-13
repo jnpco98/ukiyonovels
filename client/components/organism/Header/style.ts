@@ -126,7 +126,11 @@ export const DrawerTrigger = styled.li`
   margin: 0 1rem;
 `;
 
-export const DrawerTriggerIcon = styled(Hamburger)``;
+export const DrawerTriggerIcon = styled(Hamburger)`
+  ${M.MEDIA_SMALL} {
+    transform: scale(1.3);
+  }
+`;
 
 export const Container = styled.header<HeaderMenuProps>`
   display: flex;
@@ -151,17 +155,45 @@ export const Container = styled.header<HeaderMenuProps>`
       background: ${({ theme }) => theme.colors.background};
       box-shadow: 0px 10px 13px -9px rgba(0, 0, 0, 0.75);
     `};
-
+  
   ${M.MEDIA_XSMALL} {
     padding-top: 1rem;
+
+    ${props => 
+      props.floating &&
+        css`
+          padding: 2rem 0;
+        `};
+  }
+
+  ${M.MEDIA_SMALL} {
+    padding-top: 2rem;
+
+    ${props => 
+      props.floating &&
+        css`
+          padding: 2.5rem 0;
+        `};
   }
 
   ${M.MEDIA_XLARGE} {
     height: 6rem;
+
+    ${props => 
+      props.floating &&
+        css`
+          padding: 3rem 0;
+        `};
   }
 
   ${M.MEDIA_XXLARGE} {
     height: 8rem;
+
+    ${props => 
+      props.floating &&
+        css`
+          padding: 4rem 0;
+        `};
   }
 `;
 
