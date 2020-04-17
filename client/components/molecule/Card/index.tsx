@@ -1,10 +1,15 @@
 import React from 'react';
 import * as S from './style';
 
-// Add snippets
-function Card() {
+type Props = {
+  className?: string;
+};
+
+function Card(props: Props) {
+  const { className } = props;
+
   return (
-    <S.Container>
+    <S.Container className={className}>
       <S.Wrapper>
         <S.Content>
           <S.Image
@@ -14,15 +19,19 @@ function Card() {
           </S.Image>
           <S.Details>
             <S.DetailsTitle>
-              <span>--Selector--</span>
+              <span>Kaguya-Sama: Love is War</span>
             </S.DetailsTitle>
-            <S.DetailsTitle>
-              <span>MA15+ 2014 24 Episodes</span>
-            </S.DetailsTitle>
-            <S.DetailsTitle>
+            <S.DetailsInfo>
+              MA15+
+              <S.DotSeparator />
+              2014
+              <S.DotSeparator />
+              24 Episodes
+            </S.DetailsInfo>
+            <S.DetailsTabs>
               <span>Web Novel</span>
               <span>Chinese</span>
-            </S.DetailsTitle>
+            </S.DetailsTabs>
           </S.Details>
           <S.Reveal>
             <S.RevealContent>

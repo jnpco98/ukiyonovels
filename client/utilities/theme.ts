@@ -2,6 +2,9 @@ import { DefaultTheme } from 'styled-components';
 import { lighten, transparentize } from 'polished';
 
 export const BaseTheme: DefaultTheme = {
+  screen: {
+    innerMaxWidth: '1600px'
+  },
   gutterHorizontal: {
     base: '0.8rem',
     xxsmall: '1.9rem',
@@ -35,7 +38,7 @@ export const BaseTheme: DefaultTheme = {
     default: '0.042rem',
     wide: '0.085rem',
 
-    primary: '"Lato", Sans-Serif',
+    primary: '"Work Sans", Sans-Serif',
     secondary: '"Alegraya", Sans-Serif'
   },
   colors: {

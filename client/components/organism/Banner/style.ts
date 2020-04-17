@@ -16,87 +16,6 @@ import {
 export const Container = styled.div`
   width: 100%;
   overflow: hidden;
-  margin-bottom: 0.65rem;
-
-  .swiper-controls {
-    color: ${({ theme }) => theme.colors.primary};
-  }
-
-  .swiper-pagination-bullet-active {
-    background-color: ${({ theme }) => theme.colors.primary};
-  }
-
-  .swiper-button-next, .swiper-button-prev {
-    display: none;
-    height: 3rem;
-    transition: 0.3s ease;
-  }
-
-  .swiper-button-next {
-    transform: translateX(-50%);
-    &:hover {
-      transform: translateX(-20%);
-    }
-  }
-  
-  .swiper-button-prev {
-    transform: translateX(50%);
-    &:hover {
-      transform: translateX(20%);
-    }
-  }
-
-  ${M.MEDIA_XXSMALL} {
-    margin-bottom: 1rem;
-  }
-
-  ${M.MEDIA_SMALL} {
-    margin-bottom: 1.5rem;
-
-    .swiper-button-next, .swiper-button-prev {
-      display: block;
-    }
-
-    .swiper-pagination {
-      display: none;
-    }
-  }
-
-  ${M.MEDIA_MEDIUM} {
-    margin-bottom: 2rem;
-    
-    .swiper-button-next {
-      transform: translateX(-100%);
-      &:hover {
-        transform: translateX(-60%);
-      }
-    }
-    
-    .swiper-button-prev {
-      transform: translateX(100%);
-      &:hover {
-        transform: translateX(60%);
-      }
-    }
-  }
-
-  ${M.MEDIA_LARGE} {
-    margin-bottom: 2.5rem;
-
-    .swiper-button-next {
-      transform: translateX(-120%);
-      &:hover {
-        transform: translateX(-80%);
-      }
-    }
-    
-    .swiper-button-prev {
-      transform: translateX(120%);
-      &:hover {
-        transform: translateX(80%);
-      }
-    }
-  }
 `;
 
 export const Item = styled.div`
@@ -141,7 +60,7 @@ export const Item = styled.div`
   }
 
   ${M.MEDIA_XXLARGE} {
-    height: 60rem;
+    height: 55rem;
   }
 `;
 

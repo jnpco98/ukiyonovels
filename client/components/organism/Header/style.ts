@@ -152,7 +152,7 @@ export const Container = styled.header<HeaderMenuProps>`
     css`
       font-size: 0.9rem;
       position: fixed;
-      background: ${({ theme }) => theme.colors.background};
+      background: linear-gradient(to top, rgba(245, 245, 245, 60%) 0%, rgba(245, 245, 245, 1) 100%);
       box-shadow: 0px 10px 13px -9px rgba(0, 0, 0, 0.75);
     `};
   

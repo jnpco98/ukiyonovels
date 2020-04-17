@@ -2,6 +2,9 @@ import 'styled-components';
 
 declare module 'styled-components' {
   export interface DefaultTheme {
+    screen: {
+      innerMaxWidth: string;
+    },
     gutterHorizontal: {
       base: string;
       xxsmall: string;
