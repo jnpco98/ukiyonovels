@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css, DefaultTheme } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookOpen } from '@fortawesome/free-solid-svg-icons';
 import * as M from '@utilities/media';
@@ -12,13 +12,15 @@ import {
   pageTitleFontSize,
   GUTTER_RIGHT
 } from '@utilities/mixins';
+import { parseToRgb } from 'polished';
+import { Colors } from '@themeTypes';
 
 export const Container = styled.div`
   width: 100%;
   overflow: hidden;
 `;
 
-export const Item = styled.div`
+export const Item = styled.div<{ backgroundBase?: keyof Colors }>`
   display: flex !important;
   position: relative;
   height: 20rem;
@@ -32,7 +34,22 @@ export const Item = styled.div`
     bottom: 0;
     left: 0;
     pointer-events: none;
-    background: linear-gradient(to bottom, rgba(245, 245, 245, 0) 0%, rgba(245, 245, 245, 1) 100%);
+
+    ${props =>
+      props.backgroundBase ? 
+      css`
+        ${() => {
+          const { theme, backgroundBase } = props;
+          const { red, green, blue } = parseToRgb(theme.colors[backgroundBase]);
+          return css`
+            background: linear-gradient(to bottom, rgba(${red}, ${green}, ${blue}, 0) 0%, rgba(${red}, ${green}, ${blue}, 1) 100%);
+          `
+        }}
+      ` : 
+      css`
+        background: linear-gradient(to bottom, rgba(245, 245, 245, 0) 0%, rgba(245, 245, 245, 1) 100%);
+      `};
+
     width: 100%;
     height: 5rem;
   }

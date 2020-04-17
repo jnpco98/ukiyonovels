@@ -28,7 +28,8 @@
           "@constants": "./constants/",
           "@utilities": "./utilities",
           "@settings": "./.settings.ts",
-          "@icons": "./.icons.ts"
+          "@icons": "./.icons.ts",
+          "@themeTypes": "./@types/styled.d.ts"
         }
       }
     ],

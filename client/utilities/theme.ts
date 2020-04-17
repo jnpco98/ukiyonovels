@@ -49,7 +49,7 @@ export const BaseTheme: DefaultTheme = {
     // Backgrounds
     background: '#FFFFFF',
     backgroundSecondary: '#FBFAF4',
-    backgroundTertiary: '#E2DFD7',
+    backgroundTertiary: '#642254',
 
     // Borders
     border: '#EEE',

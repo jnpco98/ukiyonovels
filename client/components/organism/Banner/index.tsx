@@ -1,6 +1,7 @@
 import React from 'react';
 import Swiper from 'react-id-swiper';
 import { truncate } from '@utilities/string';
+import { Colors } from '@themeTypes';
 import * as S from './style';
 
 type BannerContent = {
@@ -18,6 +19,7 @@ type BannerContent = {
 type Props = {
   className?: string;
   contents?: BannerContent[];
+  backgroundBase?: keyof Colors;
 };
 
 const sliderParams = {
@@ -37,7 +39,7 @@ const sliderParams = {
 };
 
 function Banner(props: Props) {
-  const { className, contents } = props;
+  const { className, contents, backgroundBase } = props;
 
   return (
     <S.Container className={className}>
@@ -50,7 +52,7 @@ function Banner(props: Props) {
           const key = heading + link;
 
           return (
-            <S.Item key={key}>
+            <S.Item key={key} backgroundBase={backgroundBase}>
               <S.BackgroundImage src={desktopImage || mobileImage} alt="Banner" />
               <S.MobileBackgroundImage src={mobileImage || desktopImage} alt="Banner" />
               <S.Content dark={dark}>

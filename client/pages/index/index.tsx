@@ -7,7 +7,7 @@ import CardCarousel from '@components/organism/CardCarousel';
 function Index() {
   return (
     <Standard>
-      <Banner contents={home.bannerContent} />
+      <Banner contents={home.bannerContent} backgroundBase="backgroundTertiary" />
       <CardCarousel />
     </Standard>
   );

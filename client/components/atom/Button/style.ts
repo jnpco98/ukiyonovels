@@ -47,7 +47,7 @@ export const Container = styled.a<ButtonProps>`
   transition: all 0.1s ease-in;
   font-weight: 600;
   font-family: ${({ theme }) => theme.font.secondary};
-  border-radius: 0.5rem;
+  border-radius: 2.5rem;
 
   &:hover {
     color: ${({ theme }) => theme.colors.background};

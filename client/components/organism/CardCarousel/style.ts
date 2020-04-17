@@ -5,13 +5,13 @@ export const Container = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-  background: ${({ theme }) => theme.colors.primary};
+  background: ${({ theme }) => theme.colors.backgroundTertiary};
 `;
 
 export const Wrapper = styled.div`
   width: 90%;
   max-width: ${({ theme }) => theme.screen.innerMaxWidth};
-  background: ${({ theme }) => theme.colors.primary};
+  background: ${({ theme }) => theme.colors.backgroundTertiary};
 
   .swiper-wrapper {
     padding: 2rem 0;

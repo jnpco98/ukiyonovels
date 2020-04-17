@@ -68,6 +68,9 @@
       ],
       "@icons": [
         "./.icons.ts"
+      ],
+      "@themeTypes": [
+        "./@types/styled.d.ts"
       ]
     }
   },
