@@ -54,7 +54,6 @@ export const DetailsInfo = styled.p`
 
 export const DetailsTabs = styled.p`
   ${xSmallFontSize};
-  color: rgba(255, 255, 255, 0.6);
   margin-top: 0.6rem;
   text-transform: uppercase;
   display: block;

@@ -39,17 +39,15 @@ const carouselParams = {
 
 function CardCarousel() {
   return (
-    <S.Container>
-      <S.Wrapper>
-        <Swiper {...carouselParams} shouldSwiperUpdate>
-          {Array(10)
-            .fill(0)
-            .map((e, idx) => (
-              <Card key={idx} />
-            ))}
-        </Swiper>
-      </S.Wrapper>
-    </S.Container>
+    <S.Wrapper>
+      <Swiper {...carouselParams} shouldSwiperUpdate>
+        {Array(10)
+          .fill(0)
+          .map((e, idx) => (
+            <Card key={idx} />
+          ))}
+      </Swiper>
+    </S.Wrapper>
   );
 }
 

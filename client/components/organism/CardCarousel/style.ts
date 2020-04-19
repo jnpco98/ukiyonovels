@@ -1,17 +1,10 @@
 import styled from 'styled-components';
 import * as M from '@utilities/media';
 
-export const Container = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  background: ${({ theme }) => theme.colors.backgroundTertiary};
-`;
-
 export const Wrapper = styled.div`
-  width: 90%;
+  width: 100%;
   max-width: ${({ theme }) => theme.screen.innerMaxWidth};
-  background: ${({ theme }) => theme.colors.backgroundTertiary};
+  background: ${({ theme }) => theme.colors.primary};
 
   .swiper-wrapper {
     padding: 2rem 0;

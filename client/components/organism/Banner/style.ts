@@ -1,4 +1,4 @@
-import styled, { css, DefaultTheme } from 'styled-components';
+import styled, { css } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookOpen } from '@fortawesome/free-solid-svg-icons';
 import * as M from '@utilities/media';
@@ -42,7 +42,7 @@ export const Item = styled.div<{ backgroundBase?: keyof Colors }>`
           const { theme, backgroundBase } = props;
           const { red, green, blue } = parseToRgb(theme.colors[backgroundBase]);
           return css`
-            background: linear-gradient(to bottom, rgba(${red}, ${green}, ${blue}, 0) 0%, rgba(${red}, ${green}, ${blue}, 1) 100%);
+            background: linear-gradient(to bottom, rgba(${red}, ${green}, ${blue}, 0) 0%, rgba(${red}, ${green}, ${blue}, 0.5) 100%);
           `
         }}
       ` : 
