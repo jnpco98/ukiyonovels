@@ -4,6 +4,7 @@ import Banner from '@components/organism/Banner';
 import { home } from '@settings';
 import CardCarousel from '@components/organism/CardCarousel';
 import ColumnCardList from '@components/organism/ColumnCardList';
+import Rating from '@components/molecule/Rating';
 import * as S from './style';
 
 function Index() {
@@ -13,9 +14,9 @@ function Index() {
       <S.CardCarouselSection>
         <CardCarousel />
       </S.CardCarouselSection>
-      <S.ColumnCardListSection layout="primarySecondary">
+      <S.ColumnCardListSection layout="primarySecondary" sectionTitle="Latest Releases">
         <ColumnCardList />
-        <ColumnCardList />
+        <Rating />
       </S.ColumnCardListSection>
     </Standard>
   );

@@ -7,13 +7,17 @@ type Props = {
   className?: string;
   children: ReactNode;
   layout?: SectionType;
+  sectionTitle?: string;
 };
 
 function Section(props: Props) {
-  const { className, children, layout } = props;
+  const { className, children, layout, sectionTitle } = props;
   return (
-    <S.Container className={className} layout={layout}>
-      {children}
+    <S.Container>
+      {sectionTitle && <S.SectionTitle>{sectionTitle}</S.SectionTitle>}
+      <S.Wrapper className={className} layout={layout}>
+        {children}
+      </S.Wrapper>
     </S.Container>
   );
 }

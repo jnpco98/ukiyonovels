@@ -10,7 +10,7 @@ import * as M from '@utilities/media';
 import { margin } from 'polished';
 
 type HeadingStyleProps = {
-  clearDecoration?: boolean;
+  decorate?: boolean;
 };
 
 export const PageTitle = styled.h1<HeadingStyleProps>`
@@ -29,7 +29,7 @@ export const PageTitle = styled.h1<HeadingStyleProps>`
     ${margin('2rem', null, '2rem', null)};
   }
 
-  ${props => !props.clearDecoration && headingDecoration};
+  ${props => props.decorate && headingDecoration};
 `;
 
 export const SectionTitle = styled.h2<HeadingStyleProps>`
@@ -48,7 +48,7 @@ export const SectionTitle = styled.h2<HeadingStyleProps>`
     ${margin('2rem', null, '2rem', null)};
   }
 
-  ${props => !props.clearDecoration && headingDecoration};
+  ${props => props.decorate && headingDecoration};
 `;
 
 export const SubsectionTitle = styled.h3`

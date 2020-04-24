@@ -1,15 +1,28 @@
 import styled, { css } from "styled-components";
-import { gutter, GUTTER_LEFT, GUTTER_RIGHT } from "@utilities/mixins";
+import { gutter, GUTTER_LEFT, GUTTER_RIGHT, pageTitleFontSize } from "@utilities/mixins";
 import { SectionType } from ".";
 import * as M from '@utilities/media';
+import Text, { TextType } from "@components/atom/Text";
 
-export const Container = styled.div<{ layout?: SectionType; }>`
+export const Container = styled.div`
+  background: teal;
+`;
+
+export const SectionTitle = styled(Text).attrs({ textType: TextType.SectionTitle })`
+  ${pageTitleFontSize};
+  padding: 5rem 0 2rem;
+  color: rgba(255, 255, 255, 0.6);
+  width: 100%;
+  text-align: center;
+`;
+
+export const Wrapper = styled.div<{ layout?: SectionType; }>`
   ${gutter(GUTTER_LEFT)};
   ${gutter(GUTTER_RIGHT)};
 
   ${M.MEDIA_SMALL} {
     display: flex;
-    align-items: baseline;
+    align-items: flex-start;
     
     ${props => {
       const { layout } = props;
