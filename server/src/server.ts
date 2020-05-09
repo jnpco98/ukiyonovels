@@ -78,7 +78,7 @@ async function main() {
    * If database is currently in production
    * this needs to be manually set up
    */
-  if (!isProduction) await connection.runMigrations();
+  if (!isProduction()) await connection.runMigrations();
 
   const MAX_QUERY_COST = parseInt(process.env.MAX_QUERY_COST || '1000');
 
