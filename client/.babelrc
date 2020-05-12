@@ -1,0 +1,50 @@
+{
+  "presets": [
+    [
+      "next/babel",
+      {
+        "preset-env": {
+          "useBuiltIns": "usage",
+          "corejs": 3
+        }
+      }
+    ]
+  ],
+  "plugins": [
+    [
+      "module-resolver",
+      {
+        "alias": {
+          "@components": "components/",
+          "@layout": "layout/",
+          "@actions": "actions/",
+          "@actionTypes": "actionTypes/",
+          "@public": "public/",
+          "@store": "store/",
+          "@sagas": "sagas/",
+          "@reducers": "reducers/",
+          "@constants": "constants/",
+          "@utilities": "utilities/",
+          "@themeTypes": "@types/styled.d.ts",
+          "@settings": ".settings.ts",
+          "@icons": ".icons.ts"
+        }
+      }
+    ],
+    [
+      "styled-components",
+      {
+        "ssr": true,
+        "displayName": true,
+        "preprocess": false
+      }
+    ]
+  ],
+  "env": {
+    "test": {
+      "presets": [
+        ["@babel/preset-env", { "modules": false } ],
+        ["next/babel", { "preset-env": { "modules": "commonjs" }}]]
+    }
+  }
+}

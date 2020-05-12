@@ -1,0 +1,83 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": false,
+    "skipLibCheck": true,
+    "alwaysStrict": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "strictNullChecks": false,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "strictFunctionTypes": true,
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "noEmit": true,
+    "sourceMap": true,
+    "jsx": "preserve",
+    "pretty": true,
+    "isolatedModules": true,
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": [
+        "components/*"
+      ],
+      "@layout/*": [
+        "layout/*"
+      ],
+      "@actions/*": [
+        "actions/*"
+      ],
+      "@actionTypes/*": [
+        "actionTypes/*"
+      ],
+      "@public/*": [
+        "public/*"
+      ],
+      "@store/*": [
+        "store/*"
+      ],
+      "@sagas/*": [
+        "sagas/*"
+      ],
+      "@reducers/*": [
+        "reducers/*"
+      ],
+      "@constants/*": [
+        "constants/*"
+      ],
+      "@utilities/*": [
+        "utilities/*"
+      ],
+      "@themeTypes": [
+        "./@types/styled.d.ts"
+      ],
+      "@settings": [
+        ".settings.ts"
+      ],
+      "@icons": [
+        ".icons.ts"
+      ]
+    }
+  },
+  "exclude": [
+    "dist", 
+    ".next/*", 
+    "out", 
+    "next.config.js"
+  ],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ]
+}
