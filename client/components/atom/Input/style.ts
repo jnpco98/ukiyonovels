@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import TextAreaAutoResize from 'react-autosize-textarea';
-import { regularFontSize } from '../../../utilities/mixins';
+import { regularFontSize } from '@utilities/mixins';
 
 type InputProps = {
   bordered?: boolean;

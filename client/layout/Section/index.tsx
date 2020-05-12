@@ -7,12 +7,12 @@ type Props = {
   layoutType?: S.Layout;
   navOffset?: boolean;
   footerOffset?: boolean;
-}
+} & React.HTMLAttributes<HTMLDivElement>
 
 function Layout(props: Props) {
-  const { children, className, layoutType, navOffset, footerOffset } = props;
+  const { children, className, layoutType, navOffset, footerOffset, ...restProps } = props;
   return(
-    <S.Container className={className} layoutType={layoutType} navOffset={navOffset} footerOffset={footerOffset}>{children}</S.Container>
+    <S.Container className={className} layoutType={layoutType} navOffset={navOffset} footerOffset={footerOffset} {...restProps}>{children}</S.Container>
   );
 }
 

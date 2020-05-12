@@ -10,7 +10,7 @@ export enum InputType {
 type Props = {
   className?: string;
   inputType?: InputType;
-} & (HTMLInputElement | HTMLTextAreaElement);
+} & (React.HTMLAttributes<HTMLInputElement> | React.HTMLAttributes<HTMLTextAreaElement>);
 
 function Input(
   props: Props,

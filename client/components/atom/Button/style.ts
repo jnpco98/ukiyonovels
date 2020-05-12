@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
-import { ButtonType } from '.';
 import { center, FLEX_ALIGN_MAIN } from '@utilities/mixins';
 import * as M from '@utilities/media';
+import { ButtonType } from '.';
 
 type ButtonProps = {
   buttonType?: ButtonType;

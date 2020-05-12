@@ -18,7 +18,7 @@ type Props = {
   children?: ReactNode;
   disabled?: boolean;
   loading?: boolean;
-} & (HTMLAnchorElement | HTMLButtonElement);
+} & (React.HTMLAttributes<HTMLAnchorElement> | React.HTMLAttributes<HTMLButtonElement>);
 
 function Button(props: Props) {
   const {
