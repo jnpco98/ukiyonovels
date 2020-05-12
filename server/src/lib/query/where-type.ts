@@ -1,4 +1,5 @@
-import { Field, InputType, ClassType } from 'type-graphql';
+import { Field, InputType } from 'type-graphql';
+
 import { WhereFilterParams } from './types/where-filter';
 
 /**

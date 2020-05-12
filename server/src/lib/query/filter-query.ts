@@ -1,4 +1,5 @@
 import { Brackets, SelectQueryBuilder } from 'typeorm';
+
 import { WhereAndOrParams } from './types/where-and-or';
 import { parseInput } from './parse-input';
 

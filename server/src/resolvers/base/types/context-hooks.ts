@@ -1,5 +1,5 @@
-import { Context } from '../../../lib/resolver/context';
 import { BaseEntity } from 'typeorm';
+import { Context } from '../../../lib/resolver/context';
 
 /**
  * Accepts a hook for each base resolver action

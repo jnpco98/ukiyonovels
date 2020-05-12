@@ -1,9 +1,9 @@
+import { NextFunction, Request, Response } from 'express';
 import { verify } from 'jsonwebtoken';
-import { Request, Response, NextFunction } from 'express';
 
-import { User } from '../../entity/user';
 import ROLES from '../../constants/roles';
 import { TokenDecoded } from './types/token-decoded';
+import { User } from '../../entity/user';
 
 /**
  * Creates the request auth object

@@ -1,11 +1,13 @@
-import { parsePagination } from './parse-pagination';
-import { ConnectionArgs } from './connection-args';
+import { Brackets, ObjectLiteral, SelectQueryBuilder, getConnection } from 'typeorm';
 import { ClassType } from 'type-graphql';
-import { getConnection, ObjectLiteral, SelectQueryBuilder, Brackets } from 'typeorm';
-import { CursorNotMatchingSortError, InvalidCursorError } from './errors/invalid-cursor';
-import { InvalidSortKeyError } from './errors/invalid-sort-key';
+
 import { BaseEntity } from '../../entity/entity';
+import { ConnectionArgs } from './connection-args';
+import { InvalidSortKeyError } from './errors/invalid-sort-key';
+import { CursorNotMatchingSortError, InvalidCursorError } from './errors/invalid-cursor';
+
 import { decodeCursor } from './create-cursor-connection';
+import { parsePagination } from './parse-pagination';
 
 interface ParsedPagination {
   limit?: number;

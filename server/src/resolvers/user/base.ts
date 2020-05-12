@@ -1,7 +1,8 @@
 import { Resolver, Mutation, Arg, InputType, Field, Query, Ctx } from 'type-graphql';
 import bcrypt from 'bcrypt';
-import { User } from '../../entity/user';
 import { Length, IsEmail } from 'class-validator';
+
+import { User } from '../../entity/user';
 import { Context } from '../../lib/resolver/context';
 
 /**

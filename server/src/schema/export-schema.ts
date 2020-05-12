@@ -1,7 +1,8 @@
-import { createSchema } from './create-schema';
-import { printSchema } from 'graphql';
-import { writeFile, ensureFile } from 'fs-extra';
+import { ensureFile, writeFile } from 'fs-extra';
 import path from 'path';
+import { printSchema } from 'graphql';
+
+import { createSchema } from './create-schema';
 
 /**
  * Export Graphql SDL from typegraphql resolvers

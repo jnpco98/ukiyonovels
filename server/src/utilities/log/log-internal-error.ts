@@ -1,5 +1,5 @@
-import nanoid from 'nanoid';
 import Log from './logger';
+import nanoid from 'nanoid';
 
 /**
  * Logs error with tracking id

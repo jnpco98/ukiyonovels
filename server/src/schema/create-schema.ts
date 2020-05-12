@@ -1,8 +1,8 @@
-import path from 'path';
+import { GraphQLSchema } from 'graphql';
 import { buildSchema } from 'type-graphql';
+import path from 'path';
 
 import { authChecker } from '../utilities/auth/auth-checker';
-import { GraphQLSchema } from 'graphql';
 import { isProduction } from '../utilities/env/node-env';
 
 let schema: GraphQLSchema;

@@ -1,5 +1,6 @@
-import { User } from '../../entity/user';
 import { sign } from 'jsonwebtoken';
+
+import { User } from '../../entity/user';
 
 /**
  * Creates JWT Token from user data

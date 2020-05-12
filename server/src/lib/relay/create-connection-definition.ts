@@ -1,7 +1,7 @@
-import { ObjectType, Field, ClassType } from 'type-graphql';
+import { ClassType, Field, ObjectType } from 'type-graphql';
 
-import { PageInfo } from './page-info';
 import { BaseEntity } from '../../entity/entity';
+import { PageInfo } from './page-info';
 
 /**
  * Creates the connection and edge definitions

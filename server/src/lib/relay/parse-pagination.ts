@@ -1,6 +1,6 @@
+import { InvalidPaginationArgumentError, InvalidPaginationError } from './errors/invalid-argument';
 import { ConnectionArgs } from './connection-args';
 import { PaginationMeta } from './types/pagination-meta';
-import { InvalidPaginationError, InvalidPaginationArgumentError } from './errors/invalid-argument';
 
 export function parsePagination(connArgs: ConnectionArgs): PaginationMeta {
   const { first = 0, last = 0, after, before } = connArgs;

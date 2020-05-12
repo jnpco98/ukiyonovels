@@ -1,15 +1,16 @@
+import { InputType, Field, Resolver, FieldResolver, Root, Args, Arg } from 'type-graphql';
+import { getRepository } from 'typeorm';
+import { GraphQLObjectType } from 'graphql';
+
 import { createBaseResolver } from '../base/base-resolver';
 import { Chapter } from '../../entity/chapter';
 import ROLES from '../../constants/roles';
-import { InputType, Field, Resolver, FieldResolver, Root, Args, Arg } from 'type-graphql';
 import { StringWhere } from '../../lib/query/where-type';
 import { ContextHooks } from '../base/types/context-hooks';
 import { BaseResolverParams } from '../base/types/resolver';
 import { Novel } from '../../entity/novel';
-import { getRepository } from 'typeorm';
 import { Book } from '../../entity/book';
 import { ConnectionArgs } from '../../lib/relay/connection-args';
-import { GraphQLObjectType } from 'graphql';
 import { WhereAndOrParams } from '../../lib/query/types/where-and-or';
 import { createCursorConnection } from '../../lib/relay/create-cursor-connection';
 import { Comment } from '../../entity/comment';

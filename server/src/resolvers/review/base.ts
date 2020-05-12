@@ -1,4 +1,6 @@
 import { InputType, Field, FieldResolver, Resolver, Root, ID } from 'type-graphql';
+import { getRepository } from 'typeorm';
+
 import { createBaseResolver } from '../base/base-resolver';
 import { Review } from '../../entity/review';
 import ROLES from '../../constants/roles';
@@ -7,7 +9,6 @@ import { ContextHooks } from '../base/types/context-hooks';
 import { BaseResolverParams } from '../base/types/resolver';
 import { Novel } from '../../entity/novel';
 import { Context } from '../../lib/resolver/context';
-import { getRepository } from 'typeorm';
 import { getAndUpdateNovelRating } from '../novel/base';
 
 /**

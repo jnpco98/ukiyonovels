@@ -9,8 +9,10 @@ import {
   Args,
   Float
 } from 'type-graphql';
-import { NumberWhere, StringWhere } from '../../lib/query/where-type';
+import { GraphQLObjectType } from 'graphql';
+import { getRepository } from 'typeorm';
 
+import { NumberWhere, StringWhere } from '../../lib/query/where-type';
 import { BaseResolverParams } from '../base/types/resolver';
 import { ContextHooks } from '../base/types/context-hooks';
 import { Novel } from '../../entity/novel';
@@ -18,9 +20,7 @@ import ROLES from '../../constants/roles';
 import { createBaseResolver } from '../base/base-resolver';
 import { ConnectionArgs } from '../../lib/relay/connection-args';
 import { ChapterWhereInputType, ChapterConnectionType } from '../chapter/base';
-import { GraphQLObjectType } from 'graphql';
 import { WhereAndOrParams } from '../../lib/query/types/where-and-or';
-import { getRepository } from 'typeorm';
 import { Chapter } from '../../entity/chapter';
 import { createCursorConnection } from '../../lib/relay/create-cursor-connection';
 import { BookConnectionType, BookWhereInputType } from '../book/base';

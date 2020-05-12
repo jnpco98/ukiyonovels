@@ -1,11 +1,12 @@
-import { InputType, Field, Resolver } from 'type-graphql';
-import { IsEmail } from 'class-validator';
 import bcrypt from 'bcrypt';
+import { Field, InputType, Resolver } from 'type-graphql';
+import { IsEmail } from 'class-validator';
+
 import { AuthTokens } from '../../entity/token';
-import ROLES from '../../constants/roles';
 import { BaseResolverParams } from '../base/types/resolver';
-import { ContextHooks } from '../base/types/context-hooks';
 import { Context } from '../../lib/resolver/context';
+import { ContextHooks } from '../base/types/context-hooks';
+import ROLES from '../../constants/roles';
 import { User } from '../../entity/user';
 import { createBaseResolver } from '../base/base-resolver';
 import { generateTokens } from '../../utilities/auth/token';

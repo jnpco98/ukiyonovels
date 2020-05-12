@@ -1,5 +1,5 @@
-import { initializeConnection } from '../utilities/connection/initialize-connection';
 import Log from '../utilities/log/logger';
+import { initializeConnection } from '../utilities/connection/initialize-connection';
 
 /**
  * Resets the test database

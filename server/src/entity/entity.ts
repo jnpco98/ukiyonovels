@@ -1,13 +1,14 @@
 import {
   BaseEntity as ActiveRecordBaseEntity,
-  CreateDateColumn,
-  UpdateDateColumn,
-  Column,
   BeforeInsert,
+  Column,
+  CreateDateColumn,
+  Generated,
   PrimaryColumn,
-  Generated
+  UpdateDateColumn
 } from 'typeorm';
-import { ObjectType, Field, ID } from 'type-graphql';
+import { Field, ID, ObjectType } from 'type-graphql';
+
 import nanoid from 'nanoid';
 
 /**

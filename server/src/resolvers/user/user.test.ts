@@ -1,9 +1,9 @@
-import { initializeConnection } from '../../utilities/connection/initialize-connection';
 import { Connection } from 'typeorm';
-import { graphql } from 'graphql';
+import { User } from '../../entity/user';
 import { createSchema } from '../../schema/create-schema';
 import faker from 'faker';
-import { User } from '../../entity/user';
+import { graphql } from 'graphql';
+import { initializeConnection } from '../../utilities/connection/initialize-connection';
 
 let connection: Connection;
 

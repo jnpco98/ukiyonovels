@@ -1,12 +1,13 @@
+import { InputType, Field, Resolver, FieldResolver, Root } from 'type-graphql';
+import { getRepository } from 'typeorm';
+
 import { createBaseResolver } from '../base/base-resolver';
 import { Comment } from '../../entity/comment';
 import ROLES from '../../constants/roles';
-import { InputType, Field, Resolver, FieldResolver, Root } from 'type-graphql';
 import { StringWhere } from '../../lib/query/where-type';
 import { ContextHooks } from '../base/types/context-hooks';
 import { BaseResolverParams } from '../base/types/resolver';
 import { Chapter } from '../../entity/chapter';
-import { getRepository } from 'typeorm';
 
 /**
  * Filters for querying resource

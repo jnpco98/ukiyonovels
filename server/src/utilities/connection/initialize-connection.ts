@@ -1,6 +1,7 @@
-import { getConnectionOptions, createConnection } from 'typeorm';
-import { DropDatabaseGuardOptions } from './types/drop-database-guard-options';
+import { createConnection, getConnectionOptions } from 'typeorm';
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
+
+import { DropDatabaseGuardOptions } from './types/drop-database-guard-options';
 import { isProduction } from '../env/node-env';
 
 export async function initializeConnection(

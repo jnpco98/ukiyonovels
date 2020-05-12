@@ -1,7 +1,9 @@
-import { InputType, Field, ClassType } from 'type-graphql';
-import { WhereAndOrParams } from '../../lib/query/types/where-and-or';
-import { EntityQueryable } from '../../resolvers/base/types/resolver';
+import { ClassType, Field, InputType } from 'type-graphql';
+
 import { BaseEntity } from '../../entity/entity';
+import { EntityQueryable } from '../../resolvers/base/types/resolver';
+import { WhereAndOrParams } from '../../lib/query/types/where-and-or';
+
 /**
  * @param name Where input type name to make it unique.
  * @param ReturnType

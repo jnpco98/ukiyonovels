@@ -11,6 +11,7 @@ import {
 } from 'type-graphql';
 import { getRepository } from 'typeorm';
 import { plural } from 'pluralize';
+import { GraphQLObjectType } from 'graphql';
 
 import { BaseEntity } from '../../entity/entity';
 import { createConnectionDefinition } from '../../lib/relay/create-connection-definition';
@@ -20,7 +21,6 @@ import { WhereAndOrParams } from '../../lib/query/types/where-and-or';
 import { BaseResolverParams } from './types/resolver';
 import { Context } from '../../lib/resolver/context';
 import { createCursorConnection } from '../../lib/relay/create-cursor-connection';
-import { GraphQLObjectType } from 'graphql';
 import { capitalize } from '../../utilities/string/format';
 
 /**

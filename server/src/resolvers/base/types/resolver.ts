@@ -1,7 +1,8 @@
 import { ClassType } from 'type-graphql';
+
 import { AuthorizationRequirements } from './authorization';
-import { ResolverMiddleware } from './middleware';
 import { ContextHooks } from './context-hooks';
+import { ResolverMiddleware } from './middleware';
 import { NumberWhere, StringWhere } from '../../../lib/query/where-type';
 
 export type EntityQueryable<T> = {

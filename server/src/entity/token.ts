@@ -1,5 +1,6 @@
-import { ObjectType, Field } from 'type-graphql';
-import { Entity, Column } from 'typeorm';
+import { Column, Entity } from 'typeorm';
+import { Field, ObjectType } from 'type-graphql';
+
 import { BaseEntity } from './entity';
 
 /**

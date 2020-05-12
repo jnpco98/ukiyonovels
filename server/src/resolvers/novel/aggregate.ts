@@ -1,4 +1,5 @@
 import { Resolver, Query, Arg, Mutation, Authorized } from 'type-graphql';
+
 import { Novel, NovelAggregate } from '../../entity/novel';
 import { consolidateAndAggregateQuery } from '../base/utilities/aggregate';
 import ROLES from '../../constants/roles';

@@ -1,7 +1,8 @@
-import { Field, ObjectType, ID, InputType } from 'type-graphql';
-import { Entity, Column, BeforeInsert } from 'typeorm';
+import { BeforeInsert, Column, Entity } from 'typeorm';
+import { Field, ID, InputType, ObjectType } from 'type-graphql';
+import { IsOptional, Length, MinLength } from 'class-validator';
+
 import { BaseEntity } from './entity';
-import { Length, IsOptional, MinLength } from 'class-validator';
 import { slugify } from '../utilities/string/slugify';
 
 /**

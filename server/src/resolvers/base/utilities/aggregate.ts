@@ -1,6 +1,7 @@
-import { getRepository, Brackets, QueryFailedError } from 'typeorm';
-import { BaseEntity } from '../../../entity/entity';
+import { Brackets, getRepository } from 'typeorm';
 import { ClassType } from 'type-graphql';
+
+import { BaseEntity } from '../../../entity/entity';
 import { getConnectionProperties } from '../../../lib/relay/get-pagination';
 
 interface AggregateParams<T> {
