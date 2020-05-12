@@ -10,11 +10,7 @@ import {
   isTesting
 } from './utilities/env/node-env';
 import { GraphQLError, separateOperations } from 'graphql';
-import {
-  fieldConfigEstimator,
-  getComplexity,
-  simpleEstimator
-} from 'graphql-query-complexity';
+import { fieldConfigEstimator, getComplexity, simpleEstimator } from 'graphql-query-complexity';
 
 import { ArgumentValidationError } from 'type-graphql';
 import Log from './utilities/log/logger';
@@ -55,9 +51,7 @@ async function main() {
    * NODE_ENV must be set one of the following
    */
   if (!isDevelopment() && !isTesting() && !isProduction())
-    throw new Error(
-      `NODE_ENV must be ${ENV_DEVELOPMENT} || ${ENV_TESTING} || ${ENV_PRODUCTION}`
-    );
+    throw new Error(`NODE_ENV must be ${ENV_DEVELOPMENT} || ${ENV_TESTING} || ${ENV_PRODUCTION}`);
 
   /**
    * Authorization and authentication
@@ -103,10 +97,7 @@ async function main() {
                 ? separateOperations(document)[request.operationName]
                 : document,
               variables: request.variables,
-              estimators: [
-                fieldConfigEstimator(),
-                simpleEstimator({ defaultComplexity: 1 })
-              ]
+              estimators: [fieldConfigEstimator(), simpleEstimator({ defaultComplexity: 1 })]
             });
             if (complexity > MAX_QUERY_COST) {
               throw new MaxComplexityError(complexity, MAX_QUERY_COST);
@@ -134,4 +125,4 @@ async function main() {
   });
 }
 
-main().catch(e => Log.fatal(e));
+main().catch((e) => Log.fatal(e));

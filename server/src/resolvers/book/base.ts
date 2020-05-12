@@ -19,13 +19,13 @@ import { createCursorConnection } from '../../lib/relay/create-cursor-connection
  */
 @InputType()
 export class BookQueryableInput {
-  @Field(type => StringWhere, { nullable: true })
+  @Field((type) => StringWhere, { nullable: true })
   title?: typeof StringWhere;
 
-  @Field(type => StringWhere, { nullable: true })
+  @Field((type) => StringWhere, { nullable: true })
   description?: typeof StringWhere;
 
-  @Field(type => StringWhere, { nullable: true })
+  @Field((type) => StringWhere, { nullable: true })
   isbn?: typeof StringWhere;
 }
 
@@ -65,10 +65,7 @@ const {
   BaseDeleteResolver
 } = createBaseResolver(resolverConfig);
 
-export {
-  ConnectionType as BookConnectionType,
-  WhereInputType as BookWhereInputType
-}
+export { ConnectionType as BookConnectionType, WhereInputType as BookWhereInputType };
 
 /**
  * Book Create Resolver
@@ -97,7 +94,7 @@ export class BookGetResolver extends BaseGetResolver {}
  *
  * Gets a single resource using the resource id
  */
-@Resolver(of => Book)
+@Resolver((of) => Book)
 export class BookSearchResolver extends BaseSearchResolver {
   /**
    * Gets the novel associated
@@ -105,7 +102,7 @@ export class BookSearchResolver extends BaseSearchResolver {
    *
    * @param book Book root object
    */
-  @FieldResolver(returns => Novel)
+  @FieldResolver((returns) => Novel)
   async novel(@Root() book: Book) {
     return await getRepository(Novel).findOne({
       id: book.novelId,
@@ -117,7 +114,7 @@ export class BookSearchResolver extends BaseSearchResolver {
    * Returns a chapter relay connection
    * for the book entity
    */
-  @FieldResolver(returns => ChapterConnectionType.Connection, {
+  @FieldResolver((returns) => ChapterConnectionType.Connection, {
     complexity: ({ childComplexity, args }) => (args.first || args.last) * childComplexity
   })
   async chapters(

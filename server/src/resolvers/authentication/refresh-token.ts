@@ -16,7 +16,7 @@ export class TokenRefreshResolver {
    * returns an access token with the
    * appropriate access level permissions
    */
-  @Mutation(returns => AuthTokens, { name: 'tokenRefresh', nullable: true })
+  @Mutation((returns) => AuthTokens, { name: 'tokenRefresh', nullable: true })
   async refreshAccessToken(
     @Arg('data') { password, email, token }: TokenRefreshInput
   ): Promise<AuthTokens | null> {

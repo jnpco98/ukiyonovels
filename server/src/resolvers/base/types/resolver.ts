@@ -6,7 +6,7 @@ import { NumberWhere, StringWhere } from '../../../lib/query/where-type';
 
 export type EntityQueryable<T> = {
   [P in keyof T]?: typeof StringWhere | typeof NumberWhere;
-}
+};
 
 /**
  * Base Resolver Params

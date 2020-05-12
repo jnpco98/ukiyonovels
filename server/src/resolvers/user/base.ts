@@ -29,7 +29,7 @@ class CreateUserInput {
  */
 @Resolver()
 export class CreateUserResolver {
-  @Mutation(returns => User, { nullable: true })
+  @Mutation((returns) => User, { nullable: true })
   async createUser(
     @Arg('data') { username, password, email }: CreateUserInput
   ): Promise<User | null> {
@@ -50,7 +50,7 @@ export class CreateUserResolver {
  */
 @Resolver()
 export class ProfileResolver {
-  @Query(returns => User, { nullable: true })
+  @Query((returns) => User, { nullable: true })
   async profile(@Ctx() { req }: Context): Promise<User | null> {
     if (!req || !req.auth) return null;
 

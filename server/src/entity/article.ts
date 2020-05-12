@@ -22,7 +22,7 @@ export class Article extends BaseEntity implements Partial<Article> {
   @Column({ type: 'text' })
   @Length(10, 100, { message: 'Title should be between 10-100 characters' })
   title: string;
-  
+
   @Field({ nullable: true })
   @Column({ type: 'text', unique: true })
   slug: string;

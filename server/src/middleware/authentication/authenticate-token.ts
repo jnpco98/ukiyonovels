@@ -37,10 +37,7 @@ export async function authenticateToken(req: Request, res: Response, next: NextF
    */
   if (accessToken) {
     try {
-      const decoded = verify(
-        accessToken,
-        process.env.ACCESS_TOKEN_SECRET!
-      ) as TokenDecoded;
+      const decoded = verify(accessToken, process.env.ACCESS_TOKEN_SECRET!) as TokenDecoded;
       const user = await User.findOne(decoded.userId);
 
       if (user && user.role === decoded.role) {

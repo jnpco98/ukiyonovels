@@ -22,7 +22,7 @@ const origins = [
   'Indonesia',
   'Vietnamese'
 ];
-export const novelTypes = origins.map(origin => `${origin} Novel`);
+export const novelTypes = origins.map((origin) => `${origin} Novel`);
 
 /**
  * Valid novel status, checked in validation
@@ -84,7 +84,7 @@ export class Novel extends BaseEntity implements Partial<Novel> {
    * Comma separated tags
    * ex: "\"Tag1\",\"Tag2 with space\""
    */
-  @Field(returns => String, { nullable: true })
+  @Field((returns) => String, { nullable: true })
   @Column({ type: 'text', nullable: true })
   @IsOptional()
   tags?: string;
@@ -93,7 +93,7 @@ export class Novel extends BaseEntity implements Partial<Novel> {
    * Comma separated genres
    * ex: "\"Genre1\",\"Genre2 with space\""
    */
-  @Field(returns => String, { nullable: true })
+  @Field((returns) => String, { nullable: true })
   @Column({ type: 'text', nullable: true })
   @IsOptional()
   genres?: string;
@@ -102,7 +102,7 @@ export class Novel extends BaseEntity implements Partial<Novel> {
    * Comma separated origins
    * ex: "\"Origin1\",\"Origin2 with space\""
    */
-  @Field(returns => String, { nullable: true })
+  @Field((returns) => String, { nullable: true })
   @Column({ type: 'text', nullable: true })
   @IsOptional()
   origins?: string;
@@ -111,7 +111,7 @@ export class Novel extends BaseEntity implements Partial<Novel> {
    * Comma separated authors
    * ex: "\"Author1\", \"Author2 with space\""
    */
-  @Field(returns => String, { nullable: true })
+  @Field((returns) => String, { nullable: true })
   @Column({ type: 'text', nullable: true })
   @IsOptional()
   authors?: string;
@@ -120,7 +120,7 @@ export class Novel extends BaseEntity implements Partial<Novel> {
    * Comma separated artists
    * ex: "\"Artist1\", \"Artist2 with space\""
    */
-  @Field(returns => String, { nullable: true })
+  @Field((returns) => String, { nullable: true })
   @Column({ type: 'text', nullable: true })
   @IsOptional()
   artists?: string;
@@ -130,7 +130,7 @@ export class Novel extends BaseEntity implements Partial<Novel> {
    * - prequel, sequel, related universe
    * ex: "\"Related1\", \"Related2 with space\""
    */
-  @Field(returns => String, { nullable: true })
+  @Field((returns) => String, { nullable: true })
   @Column({ name: 'related_novels', type: 'text', nullable: true })
   @IsOptional()
   relatedNovels?: string;
@@ -139,7 +139,7 @@ export class Novel extends BaseEntity implements Partial<Novel> {
    * Comma separated associated names
    * ex: "\"Recommended1\", \"Recommended2 with space\""
    */
-  @Field(returns => String, { nullable: true })
+  @Field((returns) => String, { nullable: true })
   @Column({ name: 'recommended_novels', type: 'text', nullable: true })
   @IsOptional()
   recommendedNovels?: string;
@@ -149,7 +149,7 @@ export class Novel extends BaseEntity implements Partial<Novel> {
    * - name in different languages, published name
    * ex: "\"Alternative1\", \"Alternative2 with space\""
    */
-  @Field(returns => String, { nullable: true })
+  @Field((returns) => String, { nullable: true })
   @Column({ name: 'alternative_names', type: 'text', nullable: true })
   @IsOptional()
   alternativeNames?: string;
@@ -159,7 +159,7 @@ export class Novel extends BaseEntity implements Partial<Novel> {
    * Novel image collection
    * ex: "\"Media1\", \"Media2 with space\""
    */
-  @Field(returns => String, { nullable: true })
+  @Field((returns) => String, { nullable: true })
   @Column({ name: 'media_gallery', type: 'text', nullable: true })
   @IsOptional()
   mediaGallery?: string;
@@ -168,7 +168,7 @@ export class Novel extends BaseEntity implements Partial<Novel> {
    * Featured image
    * ex: "Imageurl"
    */
-  @Field(returns => String, { nullable: true })
+  @Field((returns) => String, { nullable: true })
   @Column({ name: 'cover_image', type: 'text', nullable: true })
   @IsOptional()
   coverImage?: string;

@@ -29,8 +29,10 @@ export async function createCursorConnection<T extends BaseEntity>(
 ) {
   const { queryBuilder, connArgs, query } = connParams;
   const { sortKey = DEFAULT_SORT_KEY, reverse, pagination } = connArgs;
-  
-  queryBuilder.andWhere(new Brackets(qb => qb.andWhere(`archived = :archived`, { archived: false })));
+
+  queryBuilder.andWhere(
+    new Brackets((qb) => qb.andWhere(`archived = :archived`, { archived: false }))
+  );
 
   /**
    * Augments the query and uses the cursor data
@@ -64,7 +66,7 @@ export async function createCursorConnection<T extends BaseEntity>(
    * Create an edge which contains
    * the entity as node and a cursor
    */
-  const edges = entities.map(node => ({
+  const edges = entities.map((node) => ({
     node,
     cursor: createCursor(node, sortKey)
   }));

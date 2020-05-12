@@ -69,10 +69,7 @@ const resolverConfig: BaseResolverParams<AuthTokens, TokenCreateInput> = {
 /**
  * Creates the base token resolver classes
  */
-const {
-  BaseCreateResolver,
-} = createBaseResolver(resolverConfig);
-
+const { BaseCreateResolver } = createBaseResolver(resolverConfig);
 
 @Resolver()
 export class TokenCreateResolver extends BaseCreateResolver {}

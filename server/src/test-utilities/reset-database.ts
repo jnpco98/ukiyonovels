@@ -11,7 +11,7 @@ import Log from '../utilities/log/logger';
 (async () => {
   const testDatabase = 'ukiyo_test';
   Log.warn(`Dropping ${testDatabase}`);
-  await new Promise(resolve => setTimeout(resolve, 5000));
+  await new Promise((resolve) => setTimeout(resolve, 5000));
   await initializeConnection({ drop: true, databaseToDrop: testDatabase });
   Log.info('Database reset success');
   process.exit(0);

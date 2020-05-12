@@ -21,7 +21,7 @@ import { CommentConnectionType, CommentWhereInputType } from '../comment/base';
  */
 @InputType()
 export class ChapterQueryableInput {
-  @Field(type => StringWhere, { nullable: true })
+  @Field((type) => StringWhere, { nullable: true })
   title?: typeof StringWhere;
 }
 
@@ -61,10 +61,7 @@ const {
   BaseDeleteResolver
 } = createBaseResolver(resolverConfig);
 
-export {
-  WhereInputType as ChapterWhereInputType,
-  ConnectionType as ChapterConnectionType
-};
+export { WhereInputType as ChapterWhereInputType, ConnectionType as ChapterConnectionType };
 
 /**
  * Chapter Create Resolver
@@ -91,7 +88,7 @@ export class ChapterGetResolver extends BaseGetResolver {}
 /**
  * Chapter Search Resolver
  */
-@Resolver(of => Chapter)
+@Resolver((of) => Chapter)
 export class ChapterSearchResolver extends BaseSearchResolver {
   /**
    * Gets the novel associated
@@ -99,7 +96,7 @@ export class ChapterSearchResolver extends BaseSearchResolver {
    *
    * @param chapter Chapter root object
    */
-  @FieldResolver(returns => Novel)
+  @FieldResolver((returns) => Novel)
   async novel(@Root() chapter: Chapter) {
     return await getRepository(Novel).findOne({
       id: chapter.novelId,
@@ -113,7 +110,7 @@ export class ChapterSearchResolver extends BaseSearchResolver {
    *
    * @param chapter Chapter root object
    */
-  @FieldResolver(returns => Book)
+  @FieldResolver((returns) => Book)
   async book(@Root() chapter: Chapter) {
     return await getRepository(Book).findOne({
       id: chapter.bookId,
@@ -125,7 +122,7 @@ export class ChapterSearchResolver extends BaseSearchResolver {
    * Returns a comment relay connection
    * for the chapter entity
    */
-  @FieldResolver(returns => CommentConnectionType.Connection, {
+  @FieldResolver((returns) => CommentConnectionType.Connection, {
     complexity: ({ childComplexity, args }) => (args.first || args.last) * childComplexity
   })
   async comments(

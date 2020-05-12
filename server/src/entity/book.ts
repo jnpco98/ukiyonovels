@@ -22,7 +22,7 @@ export class Book extends BaseEntity implements Partial<Book> {
   @Column({ type: 'text' })
   @Length(10, 50, { message: 'Title should be between 10-50 characters' })
   title: string;
-  
+
   @Field({ nullable: true })
   @Column({ type: 'text', unique: true })
   slug: string;

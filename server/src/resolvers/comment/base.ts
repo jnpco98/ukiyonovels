@@ -13,7 +13,7 @@ import { getRepository } from 'typeorm';
  */
 @InputType()
 export class CommentQueryableInput {
-  @Field(type => StringWhere, { nullable: true })
+  @Field((type) => StringWhere, { nullable: true })
   content?: typeof StringWhere;
 }
 
@@ -53,10 +53,7 @@ const {
   BaseDeleteResolver
 } = createBaseResolver(resolverConfig);
 
-export {
-  ConnectionType as CommentConnectionType,
-  WhereInputType as CommentWhereInputType
-};
+export { ConnectionType as CommentConnectionType, WhereInputType as CommentWhereInputType };
 
 /**
  * Comment Create Resolver
@@ -83,7 +80,7 @@ export class CommentGetResolver extends BaseGetResolver {}
 /**
  * Comment Search Resolver
  */
-@Resolver(of => Comment)
+@Resolver((of) => Comment)
 export class CommentSearchResolver extends BaseSearchResolver {
   /**
    * Gets the novel associated
@@ -91,7 +88,7 @@ export class CommentSearchResolver extends BaseSearchResolver {
    *
    * @param comment Comment root object
    */
-  @FieldResolver(returns => Chapter)
+  @FieldResolver((returns) => Chapter)
   async novel(@Root() comment: Comment) {
     return await getRepository(Chapter).findOne({
       id: comment.chapterId,

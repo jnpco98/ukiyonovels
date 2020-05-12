@@ -66,8 +66,8 @@ export function createBaseResolver<T extends BaseEntity, U extends any>(
   abstract class BaseGetResolver {
     @Authorized(authorization.get || [])
     @UseMiddleware(resolverMiddleware.get || [])
-    @Query(returns => EntityType, { name: `${resource}`, nullable: true })
-    async getOne(@Arg('id', type => ID) id: string, @Ctx() ctx: Context) {
+    @Query((returns) => EntityType, { name: `${resource}`, nullable: true })
+    async getOne(@Arg('id', (type) => ID) id: string, @Ctx() ctx: Context) {
       const entity = await getRepository(EntityType).findOne({
         where: { id, archived: false }
       });
@@ -92,11 +92,10 @@ export function createBaseResolver<T extends BaseEntity, U extends any>(
   abstract class BaseSearchResolver {
     @Authorized(authorization.paginate || [])
     @UseMiddleware(resolverMiddleware.paginate || [])
-    @Query(returns => ConnectionType.Connection, {
+    @Query((returns) => ConnectionType.Connection, {
       name: `${plural(resource)}`,
       nullable: true,
-      complexity: ({ childComplexity, args }) =>
-        (args.first || args.last) * childComplexity
+      complexity: ({ childComplexity, args }) => (args.first || args.last) * childComplexity
     })
     async paginate(
       @Args() connArgs: ConnectionArgs,
@@ -121,7 +120,7 @@ export function createBaseResolver<T extends BaseEntity, U extends any>(
   abstract class BaseCreateResolver {
     @Authorized(authorization.create || [])
     @UseMiddleware(resolverMiddleware.create || [])
-    @Mutation(returns => EntityType, {
+    @Mutation((returns) => EntityType, {
       name: `${resource}Create`,
       nullable: true
     })
@@ -149,7 +148,7 @@ export function createBaseResolver<T extends BaseEntity, U extends any>(
   abstract class BaseUpdateResolver {
     @Authorized(authorization.update || [])
     @UseMiddleware(resolverMiddleware.update || [])
-    @Mutation(returns => EntityType, {
+    @Mutation((returns) => EntityType, {
       name: `${resource}Update`,
       nullable: true
     })
@@ -186,7 +185,7 @@ export function createBaseResolver<T extends BaseEntity, U extends any>(
   abstract class BaseDeleteResolver {
     @Authorized(authorization.delete || [])
     @UseMiddleware(resolverMiddleware.delete || [])
-    @Mutation(returns => EntityType, {
+    @Mutation((returns) => EntityType, {
       name: `${resource}Delete`,
       nullable: true
     })

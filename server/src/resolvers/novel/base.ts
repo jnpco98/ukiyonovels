@@ -1,4 +1,14 @@
-import { Field, InputType, Resolver, Query, Arg, FieldResolver, Root, Args, Float } from 'type-graphql';
+import {
+  Field,
+  InputType,
+  Resolver,
+  Query,
+  Arg,
+  FieldResolver,
+  Root,
+  Args,
+  Float
+} from 'type-graphql';
 import { NumberWhere, StringWhere } from '../../lib/query/where-type';
 
 import { BaseResolverParams } from '../base/types/resolver';
@@ -23,55 +33,55 @@ import { Review } from '../../entity/review';
  */
 @InputType()
 export class NovelQueryableInput {
-  @Field(type => StringWhere, { nullable: true })
+  @Field((type) => StringWhere, { nullable: true })
   title?: typeof StringWhere;
 
-  @Field(type => StringWhere, { nullable: true })
+  @Field((type) => StringWhere, { nullable: true })
   slug?: typeof StringWhere;
 
-  @Field(type => StringWhere, { nullable: true })
+  @Field((type) => StringWhere, { nullable: true })
   description?: typeof StringWhere;
 
-  @Field(type => StringWhere, { nullable: true })
+  @Field((type) => StringWhere, { nullable: true })
   type?: typeof StringWhere;
 
-  @Field(type => StringWhere, { nullable: true })
+  @Field((type) => StringWhere, { nullable: true })
   tags?: typeof StringWhere;
 
-  @Field(type => StringWhere, { nullable: true })
+  @Field((type) => StringWhere, { nullable: true })
   genres?: typeof StringWhere;
 
-  @Field(type => StringWhere, { nullable: true })
+  @Field((type) => StringWhere, { nullable: true })
   origins?: typeof StringWhere;
 
-  @Field(type => StringWhere, { nullable: true })
+  @Field((type) => StringWhere, { nullable: true })
   authors?: typeof StringWhere;
 
-  @Field(type => StringWhere, { nullable: true })
+  @Field((type) => StringWhere, { nullable: true })
   artists?: typeof StringWhere;
 
-  @Field(type => StringWhere, { nullable: true })
+  @Field((type) => StringWhere, { nullable: true })
   relatedNovels?: typeof StringWhere;
 
-  @Field(type => StringWhere, { nullable: true })
+  @Field((type) => StringWhere, { nullable: true })
   associatedNames?: typeof StringWhere;
 
-  @Field(type => StringWhere, { nullable: true })
+  @Field((type) => StringWhere, { nullable: true })
   alternativeNames?: typeof StringWhere;
 
-  @Field(type => StringWhere, { nullable: true })
+  @Field((type) => StringWhere, { nullable: true })
   status?: typeof StringWhere;
 
-  @Field(type => NumberWhere, { nullable: true })
+  @Field((type) => NumberWhere, { nullable: true })
   year?: typeof NumberWhere;
 
-  @Field(type => NumberWhere, { nullable: true })
+  @Field((type) => NumberWhere, { nullable: true })
   likes?: typeof NumberWhere;
 
-  @Field(type => NumberWhere, { nullable: true })
+  @Field((type) => NumberWhere, { nullable: true })
   views?: typeof NumberWhere;
 
-  @Field(type => NumberWhere, { nullable: true })
+  @Field((type) => NumberWhere, { nullable: true })
   rating?: typeof NumberWhere;
 }
 
@@ -106,14 +116,13 @@ export async function getAndUpdateNovelRating(novel: Novel, update = true) {
     .andWhere('novel_id = :isvalue', { isvalue: novel.id })
     .andWhere(`archived = :archived`, { archived: false });
 
-  const averageRating = (await queryBuilder.getRawOne() as any)['avg'];
-  if(novel.rating != averageRating && update) {
+  const averageRating = ((await queryBuilder.getRawOne()) as any)['avg'];
+  if (novel.rating != averageRating && update) {
     novel.rating = averageRating;
     await novel.save();
   }
   return averageRating;
 }
-
 
 /**
  * Creates the novel chapter resolver classes
@@ -128,10 +137,7 @@ const {
   BaseDeleteResolver
 } = createBaseResolver(resolverConfig);
 
-export {
-  ConnectionType as NovelConnectionType,
-  WhereInputType as NovelWhereInputType
-};
+export { ConnectionType as NovelConnectionType, WhereInputType as NovelWhereInputType };
 
 /**
  * Novel Create Resolver
@@ -154,10 +160,8 @@ export class NovelDeleteResolver extends BaseDeleteResolver {}
  */
 @Resolver()
 export class NovelGetResolver extends BaseGetResolver {
-  @Query(returns => Novel, { name: `novelBySlug`, nullable: true })
-  async getNovelBySlug(
-    @Arg('slug') slug?: string
-  ) {
+  @Query((returns) => Novel, { name: `novelBySlug`, nullable: true })
+  async getNovelBySlug(@Arg('slug') slug?: string) {
     return await Novel.findOne({ where: { slug, archived: false } });
   }
 }
@@ -168,20 +172,20 @@ export class NovelGetResolver extends BaseGetResolver {
  * Updates a single resource using the
  * resource id and the required input parameters
  */
-@Resolver(of => Novel)
+@Resolver((of) => Novel)
 export class NovelUpdateResolver extends BaseUpdateResolver {}
 
 /**
  * Novel Search Resolver
  */
-@Resolver(of => Novel)
+@Resolver((of) => Novel)
 export class NovelSearchResolver extends BaseSearchResolver {
   /**
    * Returns a chapter relay connection
    * for the novel entity
    */
-  @FieldResolver(returns => ChapterConnectionType.Connection, {
-    complexity: ({ childComplexity, args }) => args['first'] * childComplexity
+  @FieldResolver((returns) => ChapterConnectionType.Connection, {
+    complexity: ({ childComplexity, args }) => (args.first || args.last) * childComplexity
   })
   async chapters(
     @Root() novel: Novel,
@@ -205,7 +209,7 @@ export class NovelSearchResolver extends BaseSearchResolver {
    * Returns a book relay connection
    * for the novel entity
    */
-  @FieldResolver(returns => BookConnectionType.Connection, {
+  @FieldResolver((returns) => BookConnectionType.Connection, {
     complexity: ({ childComplexity, args }) => (args.first || args.last) * childComplexity
   })
   async books(
@@ -230,7 +234,7 @@ export class NovelSearchResolver extends BaseSearchResolver {
    * Returns a review relay connection
    * for the novel entity
    */
-  @FieldResolver(returns => ReviewConnectionType.Connection, {
+  @FieldResolver((returns) => ReviewConnectionType.Connection, {
     complexity: ({ childComplexity, args }) => (args.first || args.last) * childComplexity
   })
   async reviews(
@@ -257,7 +261,7 @@ export class NovelSearchResolver extends BaseSearchResolver {
    *
    * @param novel Novel root object
    */
-  @FieldResolver(returns => Float, { nullable: true })
+  @FieldResolver((returns) => Float, { nullable: true })
   async averageRating(@Root() novel: Novel) {
     return await getAndUpdateNovelRating(novel, false);
   }

@@ -15,10 +15,10 @@ import { getAndUpdateNovelRating } from '../novel/base';
  */
 @InputType()
 export class ReviewQueryableInput {
-  @Field(type => StringWhere, { nullable: true })
+  @Field((type) => StringWhere, { nullable: true })
   content?: typeof StringWhere;
 
-  @Field(type => NumberWhere, { nullable: true })
+  @Field((type) => NumberWhere, { nullable: true })
   rating: typeof NumberWhere;
 }
 
@@ -34,23 +34,31 @@ const authorization = {
   delete: [ROLES.member]
 };
 
-async function updateNovelRatingOnReviewCreate(entity: Review, ctx: Context | undefined, data: any) {
+async function updateNovelRatingOnReviewCreate(
+  entity: Review,
+  ctx: Context | undefined,
+  data: any
+) {
   const novel = await Novel.findOne({ where: { archived: false, id: data.novelId } });
-  if(!novel) return null;
+  if (!novel) return null;
 
   entity.novelId = novel.id;
   const review = await entity.save();
-  if(entity.rating) await getAndUpdateNovelRating(novel);
+  if (entity.rating) await getAndUpdateNovelRating(novel);
 
   return review;
 }
 
-async function updateNovelRatingOnReviewModify(entity: Review, ctx: Context | undefined, data: any) {
+async function updateNovelRatingOnReviewModify(
+  entity: Review,
+  ctx: Context | undefined,
+  data: any
+) {
   const novel = await Novel.findOne({ where: { archived: false, id: entity.novelId } });
-  if(!novel) return null;
-  
+  if (!novel) return null;
+
   const review = await entity.save();
-  if(entity.rating) await getAndUpdateNovelRating(novel);
+  if (entity.rating) await getAndUpdateNovelRating(novel);
 
   return review;
 }
@@ -83,10 +91,7 @@ const {
   BaseDeleteResolver
 } = createBaseResolver(resolverConfig);
 
-export {
-  ConnectionType as ReviewConnectionType,
-  WhereInputType as ReviewWhereInputType
-};
+export { ConnectionType as ReviewConnectionType, WhereInputType as ReviewWhereInputType };
 
 /**
  * Review Create Resolver
@@ -110,7 +115,7 @@ export class ReviewDeleteResolver extends BaseDeleteResolver {}
 @Resolver()
 export class ReviewGetResolver extends BaseGetResolver {}
 
-@Resolver(of => Review)
+@Resolver((of) => Review)
 export class ReviewSearchResolver extends BaseSearchResolver {
   /**
    * Gets the novel associated
@@ -118,7 +123,7 @@ export class ReviewSearchResolver extends BaseSearchResolver {
    *
    * @param review Review root object
    */
-  @FieldResolver(returns => Novel, { nullable: true })
+  @FieldResolver((returns) => Novel, { nullable: true })
   async novel(@Root() review: Review) {
     return await getRepository(Novel).findOne({
       id: review.novelId,
@@ -132,7 +137,7 @@ export class ReviewSearchResolver extends BaseSearchResolver {
    *
    * @param review Review root object
    */
-  @FieldResolver(returns => ID, { nullable: true })
+  @FieldResolver((returns) => ID, { nullable: true })
   async user(@Root() review: Review) {
     return review.creatorId;
   }

@@ -33,11 +33,11 @@ export class Chapter extends BaseEntity implements Partial<Chapter> {
   @IsOptional()
   content?: string;
 
-  @Field(type => ID)
+  @Field((type) => ID)
   @Column({ name: 'novel_id' })
   novelId: string;
 
-  @Field(type => ID, { nullable: true })
+  @Field((type) => ID, { nullable: true })
   @Column({ name: 'book_id', nullable: true })
   bookId?: string;
 

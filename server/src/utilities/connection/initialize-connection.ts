@@ -6,13 +6,13 @@ import { isProduction } from '../env/node-env';
 export async function initializeConnection(
   dropDatabaseGuardOptions: DropDatabaseGuardOptions = {}
 ) {
-  const username = process.env.POSTGRES_USER!; 
+  const username = process.env.POSTGRES_USER!;
   const password = process.env.POSTGRES_PASSWORD!;
   const host = process.env.POSTGRES_HOST!;
   const port = process.env.POSTGRES_PORT!;
-  const database = process.env.POSTGRES_DATABASE!
+  const database = process.env.POSTGRES_DATABASE!;
 
-  if(isProduction() && !username || !password || !host || !port || !database) 
+  if (isProduction() && (!username || !password || !host || !port || !database))
     throw new Error(`Database config not setup`);
 
   /**
@@ -22,15 +22,15 @@ export async function initializeConnection(
   const { drop, databaseToDrop } = dropDatabaseGuardOptions;
   const configuration = await getConnectionOptions(process.env.NODE_ENV);
 
-  const connectionParams: { [key: string]: any } = { 
-    ...configuration, 
+  const connectionParams: { [key: string]: any } = {
+    ...configuration,
     name: 'default'
   };
 
   /**
    * Use env config on production
    */
-  if(isProduction()) {
+  if (isProduction()) {
     connectionParams.username = username;
     connectionParams.password = password;
     connectionParams.host = host;

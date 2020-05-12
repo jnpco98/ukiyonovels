@@ -11,12 +11,12 @@ export function parseInput<T extends { [key: string]: T | T[] }>(
 ) {
   const whereArgs = Object.entries(where);
 
-  whereArgs.map(whereArg => {
+  whereArgs.map((whereArg) => {
     const [fieldName, filters] = whereArg;
     const sFieldName = snakeCase(fieldName);
     const ops = Object.entries(filters);
 
-    ops.map(parameters => {
+    ops.map((parameters) => {
       const [operation, value] = parameters;
 
       switch (operation) {
@@ -188,7 +188,11 @@ export function parseInput<T extends { [key: string]: T | T[] }>(
          * characters because of the performance issues
          */
         case 'search': {
-          if((typeof value === 'string' || value instanceof String) && value.trim().length && value.length < 1000) {
+          if (
+            (typeof value === 'string' || value instanceof String) &&
+            value.trim().length &&
+            value.length < 1000
+          ) {
             query[andOr](`${sFieldName} ILIKE :newvalue`, {
               newvalue: `%${value.replace(/\s/g, '%')}%`
             });

@@ -1,9 +1,6 @@
 import { ConnectionArgs } from './connection-args';
 import { PaginationMeta } from './types/pagination-meta';
-import {
-  InvalidPaginationError,
-  InvalidPaginationArgumentError
-} from './errors/invalid-argument';
+import { InvalidPaginationError, InvalidPaginationArgumentError } from './errors/invalid-argument';
 
 export function parsePagination(connArgs: ConnectionArgs): PaginationMeta {
   const { first = 0, last = 0, after, before } = connArgs;
@@ -25,14 +22,10 @@ export function parsePagination(connArgs: ConnectionArgs): PaginationMeta {
   const paginatingBackward = !!last || !!before;
 
   if (paginatingForward && paginatingBackward)
-    throw new InvalidPaginationError(
-      'Cannot paginate forward and backward at the same time'
-    );
+    throw new InvalidPaginationError('Cannot paginate forward and backward at the same time');
 
   if ((paginatingForward && before) || (paginatingBackward && after))
-    throw new InvalidPaginationArgumentError(
-      'Must use either first/after or last/before'
-    );
+    throw new InvalidPaginationArgumentError('Must use either first/after or last/before');
 
   if ((paginatingForward && first < 0) || (paginatingBackward && last < 0))
     throw new InvalidPaginationError('Pagination must be positive');

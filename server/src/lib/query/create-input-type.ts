@@ -12,10 +12,10 @@ export function createWhereInputType<T extends EntityQueryable<BaseEntity>>(
 ): ClassType<WhereAndOrParams> {
   @InputType(`${name}Where`)
   class WhereInput implements WhereAndOrParams {
-    @Field(type => [ReturnType], { nullable: true })
+    @Field((type) => [ReturnType], { nullable: true })
     AND?: [typeof ReturnType];
 
-    @Field(type => [ReturnType], { nullable: true })
+    @Field((type) => [ReturnType], { nullable: true })
     OR?: [typeof ReturnType];
   }
 

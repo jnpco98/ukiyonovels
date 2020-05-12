@@ -23,7 +23,7 @@ import nanoid from 'nanoid';
  */
 @ObjectType({ isAbstract: true })
 export abstract class BaseEntity extends ActiveRecordBaseEntity {
-  @Field(type => ID, { name: 'id' })
+  @Field((type) => ID, { name: 'id' })
   @PrimaryColumn({ name: 'entity_id', type: 'text' })
   id: string;
 

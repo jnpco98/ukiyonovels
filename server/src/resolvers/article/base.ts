@@ -11,10 +11,10 @@ import { BaseResolverParams } from '../base/types/resolver';
  */
 @InputType()
 export class ArticleQueryableInput {
-  @Field(type => StringWhere, { nullable: true })
+  @Field((type) => StringWhere, { nullable: true })
   title?: typeof StringWhere;
 
-  @Field(type => StringWhere, { nullable: true })
+  @Field((type) => StringWhere, { nullable: true })
   content?: typeof StringWhere;
 }
 
@@ -54,10 +54,7 @@ const {
   BaseDeleteResolver
 } = createBaseResolver(resolverConfig);
 
-export {
-  ConnectionType as ArticleConnectionType,
-  WhereInputType as ArticleWhereInputType
-};
+export { ConnectionType as ArticleConnectionType, WhereInputType as ArticleWhereInputType };
 
 /**
  * Article Create Resolver
@@ -79,10 +76,8 @@ export class ArticleGetResolver extends BaseGetResolver {
   /**
    * Gets a single resource using the resource id or slug
    */
-  @Query(returns => Article, { name: `articleBySlug`, nullable: true })
-  async getNovelBySlug(
-    @Arg('slug') slug?: string
-  ) {
+  @Query((returns) => Article, { name: `articleBySlug`, nullable: true })
+  async getNovelBySlug(@Arg('slug') slug?: string) {
     return await Article.findOne({ where: { slug, archived: false } });
   }
 }

@@ -39,8 +39,7 @@ function cursorToAugmentedQuery<T>(augment: CursorQueryAugment<T>) {
    * If the sortkey isn't a property of the entity
    * throw error
    */
-  if (!Object.keys(connectionProperties).includes(sortKey))
-    throw new InvalidSortKeyError();
+  if (!Object.keys(connectionProperties).includes(sortKey)) throw new InvalidSortKeyError();
 
   const operation = direction === 'backward' ? '<' : '>';
 
@@ -66,7 +65,7 @@ function cursorToAugmentedQuery<T>(augment: CursorQueryAugment<T>) {
     queryBuilder
       .andWhere(`${dbSortKey} ${operation}= :secondary`, { secondary })
       .andWhere(
-        new Brackets(q =>
+        new Brackets((q) =>
           q
             .where(`${DEFAULT_DB_SORT_KEY} ${operation} :primary`, { primary })
             .orWhere(`${dbSortKey} ${operation} :secondary`, { secondary })
@@ -87,7 +86,7 @@ export function getPagination<T extends BaseEntity>(
 
     const sortKey = connArgs.sortKey || DEFAULT_SORT_KEY;
     const { dbSortKey } = connectionProperties[sortKey] || {};
-    if(!dbSortKey) throw new InvalidSortKeyError();
+    if (!dbSortKey) throw new InvalidSortKeyError();
 
     /**
      * Builds query augment depending on the pagination direction

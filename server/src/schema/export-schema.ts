@@ -14,4 +14,4 @@ import path from 'path';
 
   await ensureFile(exportPath);
   await writeFile(exportPath, sdl);
-})().catch(e => console.error(e));
+})().catch((e) => console.error(e));
