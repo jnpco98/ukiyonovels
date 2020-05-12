@@ -1,0 +1,9 @@
+{
+  "NOT_FOUND": {
+    "heading": "404",
+    "content": "Page not found"
+  },
+  "FOOTER": {
+    "copyright": "Copyright © 2020 by Ukiyo"
+  }
+}

@@ -39,14 +39,26 @@ export const mainMenu: MenuItem[] = [
 
 export const footerMenu: MenuItem[] = [
   {
-    label: 'Terms and conditions',
-    key: 'terms-and-conditions',
+    label: 'DMCA',
+    key: 'dmca',
     icon: false,
     link: '/'
   },
   {
     label: 'Contact',
     key: 'contact',
+    icon: false,
+    link: '/'
+  },
+  {
+    label: 'Privacy',
+    key: 'privacy',
+    icon: false,
+    link: '/'
+  },
+  {
+    label: 'Terms and conditions',
+    key: 'terms-and-conditions',
     icon: false,
     link: '/'
   }

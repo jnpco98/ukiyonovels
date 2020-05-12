@@ -25,6 +25,7 @@
           "@reducers": "reducers/",
           "@constants": "constants/",
           "@utilities": "utilities/",
+          "@language": "language/en.json",
           "@themeTypes": "@types/styled.d.ts",
           "@settings": ".settings.ts",
           "@icons": ".icons.ts"

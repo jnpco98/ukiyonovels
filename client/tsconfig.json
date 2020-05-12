@@ -58,6 +58,9 @@
       "@utilities/*": [
         "utilities/*"
       ],
+      "@language/*": [
+        "./language/en.json"
+      ],
       "@themeTypes": [
         "./@types/styled.d.ts"
       ],
