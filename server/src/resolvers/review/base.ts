@@ -1,4 +1,4 @@
-import { InputType, Field } from 'type-graphql';
+import { InputType, Field, FieldResolver, Resolver, Root, ID } from 'type-graphql';
 import { createBaseResolver } from '../base/base-resolver';
 import { Review } from '../../entity/review';
 import ROLES from '../../constants/roles';
@@ -6,8 +6,9 @@ import { StringWhere, NumberWhere } from '../../lib/query/where-type';
 import { ContextHooks } from '../base/types/context-hooks';
 import { BaseResolverParams } from '../base/types/resolver';
 import { Novel } from '../../entity/novel';
-import { getAndUpdateNovelRating } from '../novel/update-novel';
 import { Context } from '../../lib/resolver/context';
+import { getRepository } from 'typeorm';
+import { getAndUpdateNovelRating } from '../novel/base';
 
 /**
  * Filters for querying resource
@@ -15,10 +16,10 @@ import { Context } from '../../lib/resolver/context';
 @InputType()
 export class ReviewQueryableInput {
   @Field(type => StringWhere, { nullable: true })
-  content?: string;
+  content?: typeof StringWhere;
 
   @Field(type => NumberWhere, { nullable: true })
-  rating: number;
+  rating: typeof NumberWhere;
 }
 
 /**
@@ -84,10 +85,64 @@ const {
 
 export {
   ConnectionType as ReviewConnectionType,
-  WhereInputType as ReviewWhereInputType,
-  BaseGetResolver as BaseReviewGetResolver,
-  BaseSearchResolver as BaseReviewSearchResolver,
-  BaseCreateResolver as BaseReviewCreateResolver,
-  BaseUpdateResolver as BaseReviewUpdateResolver,
-  BaseDeleteResolver as BaseReviewDeleteResolver
+  WhereInputType as ReviewWhereInputType
 };
+
+/**
+ * Review Create Resolver
+ */
+@Resolver()
+export class ReviewCreateResolver extends BaseCreateResolver {}
+
+/**
+ * Review Delete Resolver
+ *
+ * Archives/Mark for deletion the selected resource
+ */
+@Resolver()
+export class ReviewDeleteResolver extends BaseDeleteResolver {}
+
+/**
+ * Review Get Resolver
+ *
+ * Gets a single resource using the resource id
+ */
+@Resolver()
+export class ReviewGetResolver extends BaseGetResolver {}
+
+@Resolver(of => Review)
+export class ReviewSearchResolver extends BaseSearchResolver {
+  /**
+   * Gets the novel associated
+   * with the review entity
+   *
+   * @param review Review root object
+   */
+  @FieldResolver(returns => Novel, { nullable: true })
+  async novel(@Root() review: Review) {
+    return await getRepository(Novel).findOne({
+      id: review.novelId,
+      archived: false
+    });
+  }
+
+  /**
+   * Gets the user associated
+   * with the review entity
+   *
+   * @param review Review root object
+   */
+  @FieldResolver(returns => ID, { nullable: true })
+  async user(@Root() review: Review) {
+    return review.creatorId;
+  }
+}
+
+/**
+ * Review Update Resolver
+ *
+ * Updates a single resource using the
+ * resource id and the required input parameters
+ */
+@Resolver()
+export class ReviewUpdateResolver extends BaseUpdateResolver {}

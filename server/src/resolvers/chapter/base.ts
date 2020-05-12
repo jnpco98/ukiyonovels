@@ -1,0 +1,157 @@
+import { createBaseResolver } from '../base/base-resolver';
+import { Chapter } from '../../entity/chapter';
+import ROLES from '../../constants/roles';
+import { InputType, Field, Resolver, FieldResolver, Root, Args, Arg } from 'type-graphql';
+import { StringWhere } from '../../lib/query/where-type';
+import { ContextHooks } from '../base/types/context-hooks';
+import { BaseResolverParams } from '../base/types/resolver';
+import { Novel } from '../../entity/novel';
+import { getRepository } from 'typeorm';
+import { Book } from '../../entity/book';
+import { ConnectionArgs } from '../../lib/relay/connection-args';
+import { GraphQLObjectType } from 'graphql';
+import { WhereAndOrParams } from '../../lib/query/types/where-and-or';
+import { createCursorConnection } from '../../lib/relay/create-cursor-connection';
+import { Comment } from '../../entity/comment';
+import { CommentConnectionType, CommentWhereInputType } from '../comment/base';
+
+/**
+ * Required parameters to
+ * create the chapter resource
+ */
+@InputType()
+export class ChapterQueryableInput {
+  @Field(type => StringWhere, { nullable: true })
+  title?: typeof StringWhere;
+}
+
+/**
+ * Authorization required
+ * to call a chapter action
+ */
+const authorization = {
+  get: [ROLES.anonymous],
+  paginate: [ROLES.anonymous],
+  create: [ROLES.owner],
+  update: [ROLES.owner],
+  delete: [ROLES.owner]
+};
+
+const contextHooks: ContextHooks<Chapter> = {};
+
+const resolverConfig: BaseResolverParams<Chapter, Chapter> = {
+  EntityType: Chapter,
+  QueryableInputType: ChapterQueryableInput,
+  MutationInputType: Chapter,
+  authorization,
+  contextHooks,
+  resource: 'chapter'
+};
+
+/**
+ * Creates the base chapter resolver classes
+ */
+const {
+  ConnectionType,
+  WhereInputType,
+  BaseGetResolver,
+  BaseSearchResolver,
+  BaseCreateResolver,
+  BaseUpdateResolver,
+  BaseDeleteResolver
+} = createBaseResolver(resolverConfig);
+
+export {
+  WhereInputType as ChapterWhereInputType,
+  ConnectionType as ChapterConnectionType
+};
+
+/**
+ * Chapter Create Resolver
+ */
+@Resolver()
+export class ChapterCreateResolver extends BaseCreateResolver {}
+
+/**
+ * Chapter Delete Resolver
+ *
+ * Archives/Mark for deletion the selected resource
+ */
+@Resolver()
+export class ChapterDeleteResolver extends BaseDeleteResolver {}
+
+/**
+ * Chapter Get Resolver
+ *
+ * Gets a single resource using the resource id
+ */
+@Resolver()
+export class ChapterGetResolver extends BaseGetResolver {}
+
+/**
+ * Chapter Search Resolver
+ */
+@Resolver(of => Chapter)
+export class ChapterSearchResolver extends BaseSearchResolver {
+  /**
+   * Gets the novel associated
+   * with the chapter entity
+   *
+   * @param chapter Chapter root object
+   */
+  @FieldResolver(returns => Novel)
+  async novel(@Root() chapter: Chapter) {
+    return await getRepository(Novel).findOne({
+      id: chapter.novelId,
+      archived: false
+    });
+  }
+
+  /**
+   * Gets the book associated
+   * with the chapter entity
+   *
+   * @param chapter Chapter root object
+   */
+  @FieldResolver(returns => Book)
+  async book(@Root() chapter: Chapter) {
+    return await getRepository(Book).findOne({
+      id: chapter.bookId,
+      archived: false
+    });
+  }
+
+  /**
+   * Returns a comment relay connection
+   * for the chapter entity
+   */
+  @FieldResolver(returns => CommentConnectionType.Connection, {
+    complexity: ({ childComplexity, args }) => (args.first || args.last) * childComplexity
+  })
+  async comments(
+    @Root() chapter: Chapter,
+    @Args() connArgs: ConnectionArgs,
+    @Arg(`where`, () => CommentWhereInputType || GraphQLObjectType, { nullable: true })
+    query?: WhereAndOrParams
+  ): Promise<any> {
+    const queryBuilder = getRepository(Comment).createQueryBuilder();
+    queryBuilder.andWhere('chapter_id = :isvalue', { isvalue: chapter.id });
+    return await createCursorConnection(
+      {
+        queryBuilder,
+        connArgs,
+        query
+      },
+      Comment
+    );
+  }
+}
+
+/**
+ * Chapter Update Resolver
+ *
+ * Updates a single resource using the
+ * resource id and the required input parameters
+ */
+@Resolver()
+export class ChapterUpdateResolver extends BaseUpdateResolver {}

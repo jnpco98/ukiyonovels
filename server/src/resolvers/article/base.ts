@@ -1,8 +1,8 @@
 import { createBaseResolver } from '../base/base-resolver';
 import { Article } from '../../entity/article';
 import ROLES from '../../constants/roles';
-import { InputType, Field } from 'type-graphql';
-import { StringWhere, NumberWhere } from '../../lib/query/where-type';
+import { InputType, Field, Resolver, Query, Arg } from 'type-graphql';
+import { StringWhere } from '../../lib/query/where-type';
 import { ContextHooks } from '../base/types/context-hooks';
 import { BaseResolverParams } from '../base/types/resolver';
 
@@ -56,10 +56,45 @@ const {
 
 export {
   ConnectionType as ArticleConnectionType,
-  WhereInputType as ArticleWhereInputType,
-  BaseGetResolver as BaseArticleGetResolver,
-  BaseSearchResolver as BaseArticleSearchResolver,
-  BaseCreateResolver as BaseArticleCreateResolver,
-  BaseUpdateResolver as BaseArticleUpdateResolver,
-  BaseDeleteResolver as BaseArticleDeleteResolver
+  WhereInputType as ArticleWhereInputType
 };
+
+/**
+ * Article Create Resolver
+ */
+@Resolver()
+export class ArticleCreateResolver extends BaseCreateResolver {}
+
+/**
+ * Article Delete Resolver
+ */
+@Resolver()
+export class ArticleDeleteResolver extends BaseDeleteResolver {}
+
+/**
+ * Article Get Resolver
+ */
+@Resolver()
+export class ArticleGetResolver extends BaseGetResolver {
+  /**
+   * Gets a single resource using the resource id or slug
+   */
+  @Query(returns => Article, { name: `articleBySlug`, nullable: true })
+  async getNovelBySlug(
+    @Arg('slug') slug?: string
+  ) {
+    return await Article.findOne({ where: { slug, archived: false } });
+  }
+}
+
+/**
+ * Article Search Resolver
+ */
+@Resolver()
+export class ArticleSearchResolver extends BaseSearchResolver {}
+
+/**
+ * Article Update Resolver
+ */
+@Resolver()
+export class ArticleUpdateResolver extends BaseUpdateResolver {}

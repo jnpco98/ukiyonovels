@@ -4,7 +4,7 @@ import { User } from '../../entity/user';
 import { generateTokens } from '../../utilities/auth/token';
 import { AuthTokens } from '../../entity/token';
 import { verify } from 'jsonwebtoken';
-import { TokenRefreshInput } from './token-base';
+import { TokenRefreshInput } from './base';
 
 @Resolver()
 export class TokenRefreshResolver {

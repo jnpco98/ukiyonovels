@@ -1,5 +1,5 @@
 import { Column, Entity, BeforeInsert } from 'typeorm';
-import { Field, ID, InputType, ObjectType } from 'type-graphql';
+import { Field, InputType, ObjectType } from 'type-graphql';
 import { IsIn, IsOptional, Length, Min, Max } from 'class-validator';
 
 import { BaseEntity } from './entity';

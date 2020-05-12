@@ -1,8 +1,8 @@
-import { Resolver, Query, Arg, Mutation, Ctx, Authorized, Float } from "type-graphql";
+import { Resolver, Query, Arg, Mutation, Authorized } from "type-graphql";
 import { Novel, NovelAggregate } from "../../entity/novel";
-import { getAndUpdateNovelRating } from './update-novel';
 import { consolidateAndAggregateQuery } from "../base/utilities/aggregate";
 import ROLES from "../../constants/roles";
+import { getAndUpdateNovelRating } from "./base";
 
 @Resolver()
 export class NovelUtilsResolver {
