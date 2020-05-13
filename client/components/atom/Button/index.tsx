@@ -1,6 +1,6 @@
 import React, { ReactNode, HTMLAttributes } from 'react';
-import Link from 'next/link';
-import Loader from '../Loader';
+import Loader from '@components/atom/Loader';
+import Link from '@components/atom/Link';
 import * as S from './style';
 
 export enum ButtonType {

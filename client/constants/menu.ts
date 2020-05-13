@@ -70,7 +70,6 @@ export const secondaryMenu: MenuItem[] = [
   }
 ];
 
-
 export const footerMenu: MenuItem[] = [
   {
     label: 'DMCA',

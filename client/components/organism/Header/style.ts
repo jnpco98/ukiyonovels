@@ -24,7 +24,7 @@ export const RightMenu = styled.ul`
   }
 `;
 
-export const Link = styled(Text).attrs({ textType: TextType.Anchor })<{ link: string; }>`
+export const Link = styled(Text).attrs({ textType: TextType.Anchor })<{ decorateActive?: boolean, link: string; }>`
   overflow: hidden;
 `;
 
@@ -36,7 +36,7 @@ export const Button = styled(Text).attrs({ textType: TextType.Span })`
   }
 `;
 
-export const MenuItem = styled.li<{ active: boolean, icon: boolean }>`
+export const MenuItem = styled.li<{ icon: boolean }>`
   ${center(FLEX_ALIGN_MAIN)};
 
   cursor: pointer;
@@ -60,15 +60,6 @@ export const MenuItem = styled.li<{ active: boolean, icon: boolean }>`
         &:after {
           content: none;
         }
-      }
-    `};
-
-
-  ${props =>
-    props.active &&
-    css`
-      ${Link}:after {
-        transform: translateX(0);
       }
     `};
     

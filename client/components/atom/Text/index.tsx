@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { AnyStyledComponent } from 'styled-components';
-import Link from 'next/link';
+import Link from '@components/atom/Link';
 import * as S from './style';
 
 export enum TextType {
@@ -20,12 +20,14 @@ type Props = {
   children?: ReactNode;
   textType?: TextType;
   htmlFor?: string;
+  decorateActive?: boolean;
 };
 
 function Text(props: Props) {
-  const { children, className, textType, link, absolute, htmlFor } = props;
+  const { children, className, textType, link, absolute, htmlFor, decorateActive } = props;
 
   let StyledText: AnyStyledComponent;
+  const textProps: any = { className, textType, htmlFor };
 
   switch (textType) {
     case TextType.PageTitle:
@@ -46,14 +48,13 @@ function Text(props: Props) {
       break;
     case TextType.Anchor:
       StyledText = S.Anchor;
+      if (absolute) textProps.href = link;
+      textProps.decorateActive = !!decorateActive;
       break;
     case TextType.Label:
       StyledText = S.Label;
       break;
   }
-
-  const textProps: any = { className, textType, htmlFor };
-  if (absolute) textProps.href = link;
 
   const Element = <StyledText {...textProps}>{children || ''}</StyledText>;
   if (link)

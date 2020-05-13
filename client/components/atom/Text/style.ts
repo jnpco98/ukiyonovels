@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import {
   pageTitleFontSize,
   sectionFontSize,
@@ -47,7 +47,7 @@ export const Span = styled.span`
   ${margin('0.2rem', null, '0.2rem', null)};
 `;
 
-export const Anchor = styled.a`
+export const Anchor = styled.a<{ active?: boolean, decorateActive?: boolean }>`
   ${regularFontSize};
   color: ${({ theme }) => theme.colors.primary};
   position: relative;
@@ -70,6 +70,13 @@ export const Anchor = styled.a`
       transform: translateX(0%);
     }
   }
+
+  ${props => 
+    props.active && props.decorateActive && css`
+      &:after {
+        transform: translateX(0);
+      }
+    `};
 
   ${margin('0.2rem', null, '0.2rem', null)};
 `;

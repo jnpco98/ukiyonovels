@@ -11,14 +11,7 @@ import * as S from './style';
 
 const DynamicIcon = dynamic(() => import('@components/molecule/DynamicIcon'), { ssr: false });
 
-type Props = {
-  onSelect?: Function;
-};
-
-function Header(props: Props) {
-  const { onSelect } = props;
-
-  const [activeMenuItem, setActiveMenuItem] = useState(mobilePrimaryMenu[0].key);
+function Header() {
   const [floating, setFloating] = useState(false);
   const [drawerActive, setDrawerActive] = useState(false);
   const [searchOverlayActive, setSearchOverlayActive] = useState(false);
@@ -27,8 +20,6 @@ function Header(props: Props) {
   const containerRef = useRef(null);
 
   const isMobileDevice = useMediaQuery({ query: `(max-width: ${M.SMALL})` }, null, () => setDrawerActive(false));
-
-  useEffect(() => onSelect && onSelect(activeMenuItem), []);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
@@ -39,27 +30,17 @@ function Header(props: Props) {
     setFloating(window.pageYOffset >= containerRef.current.scrollHeight);
   }
 
-  function handleSelect(key: string) {
-    setActiveMenuItem(key);
-    if (onSelect) onSelect(key);
-    if (drawerActive) setDrawerActive(false);
-  }
-
   function renderLinks(menuItem: MenuItem, key: string) {
     if (menuItem.key === 'account' && !ENABLE_ACCOUNTS) return <></>;
 
     return (
       <S.MenuItem
         key={key}
-        active={menuItem.key === activeMenuItem}
         icon={!!menuItem.icon}
-        onClick={() => {
-          if (menuItem.key === 'search') setSearchOverlayActive(true);
-          else handleSelect(menuItem.key);
-        }}
+        onClick={() => menuItem.key.includes('_search') && setSearchOverlayActive(true)}
       >
         {menuItem.link ? (
-          <S.Link link={menuItem.link}>
+          <S.Link decorateActive link={menuItem.link}>
             {menuItem.icon ? <DynamicIcon SVGString={menuItem.icon} /> : menuItem.label}
           </S.Link>
         ) : (
