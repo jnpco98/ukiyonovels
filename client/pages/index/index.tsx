@@ -4,7 +4,7 @@ import Page from '@layout/Page';
 function Index() {
   return(
     <Page>
-      <div style={{ height: '20rem' }}/>
+      <div style={{ height: '200vh' }}/>
     </Page>
   );
 }

@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
-export const DynamicIconContainer = styled.span`
-  width: 1rem;
-  height: 1rem;
+export const Container = styled.span`
   display: block;
 
   svg {

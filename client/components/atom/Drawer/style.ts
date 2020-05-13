@@ -4,9 +4,6 @@ import * as M from '@utilities/media';
 
 export const Container = styled.div<{ sidenavActive: boolean }>`
   position: fixed;
-  ${({ theme }) => css`
-    background: linear-gradient(to right, ${transparentize(0.2, theme.colors.background)} 0%, ${transparentize(0.7, theme.colors.background)} 30%, ${transparentize(1, theme.colors.background)} 100%);
-  `};
   overflow: hidden;
   transition: all 0.3s ease;
   z-index: 5;
@@ -19,6 +16,10 @@ export const Container = styled.div<{ sidenavActive: boolean }>`
   li {
     white-space: nowrap;
   }
+  
+  ${({ theme }) => css`
+    background: linear-gradient(to right, ${transparentize(0.2, theme.colors.background)} 0%, ${transparentize(0.7, theme.colors.background)} 30%, ${transparentize(1, theme.colors.background)} 100%);
+  `};
 
   ${props =>
     props.sidenavActive

@@ -1,10 +1,35 @@
 import styled, { css } from 'styled-components';
+import dynamic from 'next/dynamic';
 import { transparentize } from 'polished';
 import SideDrawer from '@components/atom/Drawer';
 import Text, { TextType } from '@components/atom/Text';
 import Hamburger from '@components/atom/Hamburger';
 import { center, FLEX_ALIGN_MAIN, gutter, GUTTER_LEFT, GUTTER_RIGHT } from '@utilities/mixins';
 import * as M from '@utilities/media';
+import Backdrop from '@components/atom/Backdrop';
+
+const DynamicIcon = dynamic(() => import('@components/molecule/DynamicIcon'), { ssr: false });
+
+export const MobileMenuItem = styled.ul`
+  display: flex;
+
+  ${M.MEDIA_SMALL} {
+    display: none;
+  }
+`;
+
+export const DesktopMenuItem = styled.ul`
+  display: none;
+
+  ${M.MEDIA_SMALL} {
+    display: flex;
+  }
+`;
+
+export const Icon = styled(DynamicIcon)`
+  width: 1rem;
+  height: 1rem;
+`;
 
 export const Link = styled(Text).attrs({ textType: TextType.Anchor })<{ decorateActive?: boolean, link: string; }>`
   overflow: hidden;
@@ -33,16 +58,6 @@ export const MenuItem = styled.li<{ icon: boolean }>`
     props.icon && css`
       padding-top: 0;
       margin-right: 0;
-
-      ${Link}, ${Button} {
-        width: 1rem;
-        height: 1rem;
-        font-size: unset;
-
-        &:after {
-          content: none;
-        }
-      }
     `};
     
   ${M.MEDIA_XXSMALL} {
@@ -66,6 +81,7 @@ export const MenuItem = styled.li<{ icon: boolean }>`
 
 export const DrawerTrigger = styled.li`
   margin: 0 1rem;
+  margin-left: 0rem;
 `;
 
 export const DrawerTriggerIcon = styled(Hamburger)`
@@ -85,7 +101,7 @@ export const Container = styled.header<{ floating: boolean }>`
   justify-content: space-between;
   width: 100%;
   height: 4rem;
-  position: fixed;
+  position: relative;
   transition: all 0.2s ease;
   z-index: 50;
   background: transparent;
@@ -93,12 +109,9 @@ export const Container = styled.header<{ floating: boolean }>`
   max-width: ${({ theme }) => theme.screen.innerMaxWidth};
   margin-left: auto;
   margin-right: auto;
+  top: 0;
   right: 0;
   left: 0;
-
-  & > ul {
-    display: flex;
-  }
 
   ${props =>
     props.floating &&
@@ -107,44 +120,9 @@ export const Container = styled.header<{ floating: boolean }>`
       position: fixed;
 
       ${({ theme }) => css`
-        background: linear-gradient(to top, ${transparentize(0.4, theme.colors.primaryCompliment)} 0%, ${transparentize(0, theme.colors.primaryCompliment)} 100%);
         box-shadow: 0 0.3rem 0.8rem -0.5rem ${transparentize(0.2, theme.colors.primaryCompliment)};
       `};
     `};
-  
-  ${M.MEDIA_XSMALL} {
-    ${props => 
-      props.floating &&
-        css`
-          padding: 2rem 0;
-        `};
-  }
-
-  ${M.MEDIA_SMALL} {
-    ${props => 
-      props.floating &&
-        css`
-          padding: 2.5rem 0;
-        `};
-  }
-
-  ${M.MEDIA_XLARGE} {
-    height: 6rem;
-
-    ${props => 
-      props.floating &&
-        css`
-          padding: 3rem 0;
-        `};
-  }
-
-  ${M.MEDIA_XXLARGE} {
-    ${props => 
-      props.floating &&
-        css`
-          padding: 4rem 0;
-        `};
-  }
 `;
 
 export const Drawer = styled(SideDrawer)`
@@ -152,10 +130,26 @@ export const Drawer = styled(SideDrawer)`
   flex-direction: column;
   justify-content: center;
 
-  padding: 4rem 0;
+  padding: 4rem 1rem;
   overflow-y: auto;
 
   ${M.MEDIA_XXSMALL} {
-    padding-left: 2rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+
+  ${M.MEDIA_XSMALL} {
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+
+  ${M.MEDIA_SMALL} {
+    display: none;
+  }
+`;
+
+export const DrawerBackdrop = styled(Backdrop)`
+  ${M.MEDIA_SMALL} {
+    display: none;
   }
 `;

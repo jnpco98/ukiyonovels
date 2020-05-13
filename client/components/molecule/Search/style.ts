@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import dynamic from 'next/dynamic';
-import { center, CENTER_BOTH, pageTitleFontSize } from '@utilities/mixins';
+import { center, CENTER_BOTH, subsectionFontSize } from '@utilities/mixins';
 import { search } from '@icons';
 import * as M from '@utilities/media';
 
@@ -60,7 +60,7 @@ export const SearchButtonIcon = styled(DynamicIcon).attrs({ SVGString: search })
 `;
 
 export const SearchInput = styled.input.attrs({ type: 'text' })`
-  ${pageTitleFontSize};
+  ${subsectionFontSize};
   border: none;
   background: none;
   transition: all 0.24s linear;

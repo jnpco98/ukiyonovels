@@ -37,7 +37,8 @@
       {
         "ssr": true,
         "displayName": true,
-        "preprocess": false
+        "preprocess": false,
+        "filename": true
       }
     ]
   ],

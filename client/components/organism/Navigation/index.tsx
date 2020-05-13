@@ -1,26 +1,21 @@
 import React, { useState, useEffect, useRef } from 'react';
-import dynamic from 'next/dynamic';
 import { useRouter } from 'next/dist/client/router';
 import { useMediaQuery } from 'react-responsive';
 import { ENABLE_ACCOUNTS } from '@constants/head';
-import Backdrop from '@components/atom/Backdrop';
 import SearchOverlay from '@components/organism/SearchOverlay';
 import { MenuItem, mobilePrimaryMenu, mobileSecondaryMenu, primaryMenu, secondaryMenu } from '@constants/menu';
 import * as M from '@utilities/media';
 import * as S from './style';
 
-const DynamicIcon = dynamic(() => import('@components/molecule/DynamicIcon'), { ssr: false });
 
-function Header() {
+function Navigation() {
   const [floating, setFloating] = useState(false);
   const [drawerActive, setDrawerActive] = useState(false);
   const [searchOverlayActive, setSearchOverlayActive] = useState(false);
 
   const router = useRouter();
   const containerRef = useRef(null);
-
-  const isMobileDevice = useMediaQuery({ query: `(max-width: ${M.SMALL})` }, null, () => setDrawerActive(false));
-
+  
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return (): void => window.removeEventListener('scroll', handleScroll);
@@ -41,12 +36,12 @@ function Header() {
       >
         {menuItem.link ? (
           <S.Link decorateActive link={menuItem.link}>
-            {menuItem.icon ? <DynamicIcon SVGString={menuItem.icon} /> : menuItem.label}
+            {menuItem.icon ? <S.Icon SVGString={menuItem.icon} /> : menuItem.label}
           </S.Link>
         ) : (
-          <S.Button>
-            {menuItem.icon ? <DynamicIcon SVGString={menuItem.icon} /> : menuItem.label}
-          </S.Button>
+          <>
+            {menuItem.icon ? <S.Icon SVGString={menuItem.icon} /> : <S.Button>menuItem.label</S.Button>}
+          </>
         )}
       </S.MenuItem>
     );
@@ -55,34 +50,29 @@ function Header() {
   return (
     <S.Container floating={floating} ref={containerRef}>
 
-      {
-        isMobileDevice ?
-          <>
-            <ul>
-              <S.DrawerTrigger onClick={(): void => setDrawerActive(!drawerActive)}>
-                <S.DrawerTriggerIcon active={drawerActive} />
-              </S.DrawerTrigger>
-            </ul>
-            <S.Drawer drawerActive={drawerActive}>
-              {mobileSecondaryMenu.map((item) => renderLinks(item, `${item.key}`))}
-            </S.Drawer>
-            <Backdrop active={drawerActive} onClick={(): void => setDrawerActive(false)} />
+      <S.MobileMenuItem>
+        <S.DrawerTrigger onClick={(): void => setDrawerActive(!drawerActive)}>
+          <S.DrawerTriggerIcon active={drawerActive} />
+        </S.DrawerTrigger>
+      </S.MobileMenuItem>
+      <S.Drawer drawerActive={drawerActive}>
+        {mobileSecondaryMenu.map((item) => renderLinks(item, `${item.key}`))}
+      </S.Drawer>
+      <S.DrawerBackdrop active={drawerActive} onClick={(): void => setDrawerActive(false)} />
+      <S.MobileMenuItem>{mobilePrimaryMenu.map((item) => renderLinks(item, `${item.key}`))}</S.MobileMenuItem>
 
-            <ul>{mobilePrimaryMenu.map((item) => renderLinks(item, `${item.key}`))}</ul>
-          </> :
-          <>
-            <ul>{secondaryMenu.map((item) => renderLinks(item, `${item.key}`))}</ul>
-            <ul>{primaryMenu.map((item) => renderLinks(item, `${item.key}`))}</ul>
-          </>
-      }
+    
+      <S.DesktopMenuItem>{secondaryMenu.map((item) => renderLinks(item, `${item.key}`))}</S.DesktopMenuItem>
+      <S.DesktopMenuItem>{primaryMenu.map((item) => renderLinks(item, `${item.key}`))}</S.DesktopMenuItem>
 
       <SearchOverlay
         active={searchOverlayActive}
         setActive={setSearchOverlayActive}
         onSearchSubmit={(query: string) => router.push(`/search?query=${query}`)}
+        placeholder="Search for a novel..."
       />
     </S.Container>
   );
 }
 
-export default Header;
+export default Navigation;

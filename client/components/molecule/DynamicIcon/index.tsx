@@ -10,7 +10,7 @@ type Props = {
 function DynamicIcon (props: Props) {
   const { SVGString, className } = props;
 
-  return <S.DynamicIconContainer className={className} dangerouslySetInnerHTML={{ __html: purifyHTML(SVGString) }} />;
+  return <S.Container className={className} dangerouslySetInnerHTML={{ __html: purifyHTML(SVGString) }} />;
 };
 
 export default DynamicIcon;
