@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import * as M from 'utilities/media'
 import { gutter, GUTTER_LEFT, GUTTER_RIGHT } from '@utilities/mixins';
+import { Layout } from '.';
 
 export const PrimarySecondary = css`
   display: flex;
@@ -54,9 +55,7 @@ export const Equal = css`
   }
 `;
 
-export type Layout = 'primarySecondary' | 'secondaryPrimary' | 'equal';
-
-export const Container = styled.section<{ layoutType?: Layout, navOffset?: boolean, footerOffset?: boolean }>`
+export const Container = styled.section<{ layoutType: Layout, navOffset: boolean, footerOffset: boolean }>`
   ${gutter(GUTTER_LEFT)};
   ${gutter(GUTTER_RIGHT)};
   
@@ -64,8 +63,6 @@ export const Container = styled.section<{ layoutType?: Layout, navOffset?: boole
   margin-left: auto;
   margin-right: auto;
 
-  ${M.MEDIA_SMALL} {
-  }
   ${props => 
     props.layoutType === 'primarySecondary' ? PrimarySecondary :
     props.layoutType === 'secondaryPrimary' ? SecondaryPrimary :

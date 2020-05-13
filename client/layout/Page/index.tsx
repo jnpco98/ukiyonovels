@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+import Header from '@components/organism/Header';
 import Footer from '@components/organism/Footer';
 
 type Props = {
@@ -9,6 +10,7 @@ function Page(props: Props) {
   const { children } = props;
   return(
     <>
+      <Header/>
       {children}
       <Footer/>
     </>

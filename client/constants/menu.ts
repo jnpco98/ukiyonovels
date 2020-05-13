@@ -1,65 +1,95 @@
+import { search } from '@icons';
+
 export type MenuItem = {
   key: string;
-  label: string;
   link?: string;
-  icon?: boolean;
-};
+} & ({ label: string, icon?: never } | { icon: string, label?: never });
 
-export const mainMenu: MenuItem[] = [
+export const mobilePrimaryMenu: MenuItem[] = [
+  {
+    key: 'mm_search',
+    icon: search
+  }
+];
+
+export const mobileSecondaryMenu: MenuItem[] = [
   {
     label: 'Home',
-    key: 'home',
-    icon: false,
+    key: 'ms_home',
     link: '/'
   },
   {
     label: 'Novels',
-    key: 'novels',
-    icon: false,
+    key: 'ms_novels',
     link: '/novels'
   },
   {
     label: 'Latest Updates',
-    key: 'latest-updates',
-    icon: false,
+    key: 'ms_latest-updates',
     link: '/novels/latest'
   },
   {
     label: 'Top Novels',
-    key: 'most-popular',
-    icon: false,
+    key: 'ms_most-popular',
     link: '/novels/most-popular'
   },
   {
-    label: 'Search',
-    key: 'search',
-    icon: true
+    label: 'Advanced Search',
+    key: 'ms_advanced-search',
+    link: '/advanced-search'
   }
 ];
+
+export const primaryMenu: MenuItem[] = [
+  {
+    key: 'm_search',
+    icon: search
+  }
+];
+
+export const secondaryMenu: MenuItem[] = [
+  {
+    label: 'Home',
+    key: 's_home',
+    link: '/'
+  },
+  {
+    label: 'Novels',
+    key: 's_novels',
+    link: '/novels'
+  },
+  {
+    label: 'Latest Updates',
+    key: 's_latest-updates',
+    link: '/novels/latest'
+  },
+  {
+    label: 'Top Novels',
+    key: 's_most-popular',
+    link: '/novels/most-popular'
+  }
+];
+
 
 export const footerMenu: MenuItem[] = [
   {
     label: 'DMCA',
-    key: 'dmca',
-    icon: false,
-    link: '/'
+    key: 'f_dmca',
+    link: '/pages/dmca'
   },
   {
     label: 'Contact',
-    key: 'contact',
-    icon: false,
-    link: '/'
+    key: 'f_contact',
+    link: '/pages/contact'
   },
   {
     label: 'Privacy',
-    key: 'privacy',
-    icon: false,
-    link: '/'
+    key: 'f_privacy',
+    link: '/pages/privacy'
   },
   {
     label: 'Terms and conditions',
-    key: 'terms-and-conditions',
-    icon: false,
-    link: '/'
+    key: 'f_terms-and-conditions',
+    link: '/pages/terms-and-conditions'
   }
 ];
