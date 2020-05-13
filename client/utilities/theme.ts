@@ -1,4 +1,5 @@
 import { DefaultTheme } from 'styled-components';
+import { transparentize } from 'polished';
 
 export const BaseTheme: DefaultTheme = {
   screen: {
@@ -46,8 +47,8 @@ export const BaseTheme: DefaultTheme = {
     defaultSubdued: 'lightgray',
 
     // Backgrounds
-    background: 'linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23DBAB)',
-    backgroundSecondary: 'rgba(255, 255, 255, 0.7)',
+    background: '#FFF',
+    backgroundSecondary: transparentize(0.5, '#FFF'),
     backgroundTertiary: '#FAFAFA',
 
     // Borders
@@ -56,17 +57,17 @@ export const BaseTheme: DefaultTheme = {
 
     // Scheme
     primary: '#343A40',
-    primaryCompliment: 'rgba(52,58,64,0.5)',
+    primaryCompliment: transparentize(0.5, '#343A40'),
 
     // Hover
-    primaryHover: 'rgba(52,58,64,0.5)',
+    primaryHover: transparentize(0.5, '#343A40'),
 
     // Disabled
     disabled: '#F8F9FA',
 
     selection: 'lightgray',
 
-    backdrop: '#343A40',
+    backdrop: transparentize(0.8, '#FFF'),
 
     // Form color sets
     info: '#EE7752',
