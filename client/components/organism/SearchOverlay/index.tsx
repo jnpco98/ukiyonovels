@@ -4,6 +4,7 @@ import * as S from './style';
 import { useOnClickOutside } from '@utilities/hooks';
 
 type Props = {
+  className?: string;
   active: boolean;
   setActive: Function;
   onSearchSubmit?: Function;
@@ -11,7 +12,7 @@ type Props = {
 };
 
 function SearchOverlay(props: Props) {
-  const { onSearchSubmit, active, setActive, placeholder } = props;
+  const { className, onSearchSubmit, active, setActive, placeholder } = props;
 
   const searchRef = useRef(null);
 
@@ -21,7 +22,7 @@ function SearchOverlay(props: Props) {
   useOnClickOutside(searchRef, handleClick);
 
   return (
-    <S.Container active={active} centerContent>
+    <S.Container className={className} active={active} centerContent>
       <Search
         ref={searchRef}
         active={active}

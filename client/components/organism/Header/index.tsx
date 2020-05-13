@@ -3,8 +3,8 @@ import { useRouter } from 'next/dist/client/router';
 import { ENABLE_ACCOUNTS } from '@constants/head';
 import SearchOverlay from '@components/organism/SearchOverlay';
 import { MenuItem, mobilePrimaryMenu, mobileSecondaryMenu, primaryMenu, secondaryMenu } from '@constants/menu';
+import BannerLogo from '@components/organism/BannerLogo';
 import * as S from './style';
-import BannerLogo from '../BannerLogo';
 
 
 function Header() {
@@ -50,7 +50,7 @@ function Header() {
   return (
     <>
       <BannerLogo ref={bannerRef}/>
-      <S.Container floating={floating}>
+      <S.Container floating={floating} flat={drawerActive || searchOverlayActive}>
 
         <S.MobileMenuItem>
           <S.DrawerTrigger onClick={(): void => setDrawerActive(!drawerActive)}>
@@ -63,7 +63,6 @@ function Header() {
         <S.DrawerBackdrop active={drawerActive} onClick={(): void => setDrawerActive(false)} />
         <S.MobileMenuItem>{mobilePrimaryMenu.map((item) => renderLinks(item, `${item.key}`))}</S.MobileMenuItem>
 
-      
         <S.DesktopMenuItem>{secondaryMenu.map((item) => renderLinks(item, `${item.key}`))}</S.DesktopMenuItem>
         <S.DesktopMenuItem>{primaryMenu.map((item) => renderLinks(item, `${item.key}`))}</S.DesktopMenuItem>
 

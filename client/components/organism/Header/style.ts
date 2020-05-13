@@ -79,7 +79,7 @@ export const MenuItem = styled.li<{ icon: boolean }>`
   }
 `;
 
-export const Container = styled.header<{ floating: boolean }>`
+export const Container = styled.header<{ floating: boolean, flat: boolean }>`
   ${gutter(GUTTER_LEFT)};
   ${gutter(GUTTER_RIGHT)};
   
@@ -106,7 +106,7 @@ export const Container = styled.header<{ floating: boolean }>`
       font-size: 0.9rem;
       position: fixed;
 
-      ${({ theme }) => css`
+      ${({ theme }) => !props.flat && css`
         box-shadow: 0 0.3rem 0.8rem -0.5rem ${transparentize(0.2, theme.colors.primaryCompliment)};
       `};
     `};
