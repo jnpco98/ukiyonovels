@@ -18,7 +18,7 @@ export const Container = styled.div<{ sidenavActive: boolean }>`
   }
   
   ${({ theme }) => css`
-    background: linear-gradient(to right, ${transparentize(0.2, theme.colors.background)} 0%, ${transparentize(0.7, theme.colors.background)} 30%, ${transparentize(1, theme.colors.background)} 100%);
+    background: linear-gradient(to right, ${transparentize(0, theme.colors.background)} 0%, ${transparentize(0.1, theme.colors.background)} 65%, ${transparentize(0.9, theme.colors.background)} 100%);
   `};
 
   ${props =>

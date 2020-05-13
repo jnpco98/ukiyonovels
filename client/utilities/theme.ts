@@ -47,7 +47,7 @@ export const BaseTheme: DefaultTheme = {
     defaultSubdued: 'lightgray',
 
     // Backgrounds
-    background: '#FFF',
+    background: '#FAFAFA',
     backgroundSecondary: transparentize(0.5, '#FFF'),
     backgroundTertiary: '#FAFAFA',
 

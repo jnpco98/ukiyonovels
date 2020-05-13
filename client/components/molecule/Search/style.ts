@@ -47,16 +47,6 @@ export const SearchButtonIcon = styled(DynamicIcon).attrs({ SVGString: search })
     width: 1.7rem;
     height: 1.7rem;
   }
-
-  ${M.MEDIA_MEDIUM} {
-    width: 2.1rem;
-    height: 2.1rem;
-  }
-
-  ${M.MEDIA_LARGE} {
-    width: 2.5rem;
-    height: 2.5rem;
-  }
 `;
 
 export const SearchInput = styled.input.attrs({ type: 'text' })`

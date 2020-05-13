@@ -79,19 +79,6 @@ export const MenuItem = styled.li<{ icon: boolean }>`
   }
 `;
 
-export const DrawerTrigger = styled.li`
-  margin: 0 1rem;
-  margin-left: 0rem;
-`;
-
-export const DrawerTriggerIcon = styled(Hamburger)`
-  transition: all 0.3s ease;
-
-  ${M.MEDIA_SMALL} {
-    transform: translate(-100vh);
-  }
-`;
-
 export const Container = styled.header<{ floating: boolean }>`
   ${gutter(GUTTER_LEFT)};
   ${gutter(GUTTER_RIGHT)};
@@ -133,6 +120,10 @@ export const Drawer = styled(SideDrawer)`
   padding: 4rem 1rem;
   overflow-y: auto;
 
+  ${MenuItem} + ${MenuItem} {
+    margin-top: 0.4rem;
+  }
+
   ${M.MEDIA_XXSMALL} {
     padding-left: 3rem;
     padding-right: 3rem;
@@ -145,6 +136,19 @@ export const Drawer = styled(SideDrawer)`
 
   ${M.MEDIA_SMALL} {
     display: none;
+  }
+`;
+
+export const DrawerTrigger = styled.li`
+  margin: 0 1rem;
+  margin-left: 0rem;
+`;
+
+export const DrawerTriggerIcon = styled(Hamburger)`
+  transition: all 0.3s ease;
+
+  ${M.MEDIA_SMALL} {
+    transform: translate(-100vh);
   }
 `;
 

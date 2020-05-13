@@ -1,7 +1,6 @@
 import React, { ReactNode } from 'react';
-import Navigation from '@components/organism/Navigation';
+import Header from '@components/organism/Header';
 import Footer from '@components/organism/Footer';
-import BannerLogo from '@components/organism/BannerLogo';
 
 
 type Props = {
@@ -13,8 +12,7 @@ function Page(props: Props) {
 
   return(
     <>
-      <BannerLogo/>
-      <Navigation/>
+      <Header/>
       {children}
       {/* <Footer/> */}
     </>
