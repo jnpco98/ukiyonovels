@@ -1,13 +1,15 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, HTMLAttributes } from 'react';
 import * as S from './style'
+
+export type Layout = 'primarySecondary' | 'secondaryPrimary' | 'equal';
 
 type Props = {
   children: ReactNode;
   className?: string;
-  layoutType?: S.Layout;
+  layoutType?: Layout;
   navOffset?: boolean;
   footerOffset?: boolean;
-} & React.HTMLAttributes<HTMLDivElement>
+} & HTMLAttributes<HTMLDivElement>
 
 function Layout(props: Props) {
   const { children, className, layoutType, navOffset, footerOffset, ...restProps } = props;

@@ -11,14 +11,16 @@
     "deploy:prod": "yarn deploy -p"
   },
   "devDependencies": {
-    "@types/dompurify": "^2.0.1",
+    "@types/dompurify": "^2.0.2",
     "@types/file-saver": "^2.0.1",
     "@types/node": "^13.13.5",
     "@types/qs": "^6.9.2",
     "@types/react": "^16.9.35",
+    "@types/react-responsive": "^8.0.2",
     "@types/react-select": "^3.0.12",
     "@types/react-transition-group": "^4.2.4",
     "@types/styled-components": "^5.1.0",
+    "babel-plugin-module-resolver": "^4.0.0",
     "tslint": "^6.1.2",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.8.3"
@@ -29,6 +31,7 @@
     "@fortawesome/react-fontawesome": "^0.1.9",
     "axios": "^0.19.2",
     "core-js": "^3.6.5",
+    "dompurify": "^2.0.11",
     "dotenv": "^8.2.0",
     "file-saver": "^2.0.2",
     "next": "^9.4.0",
@@ -38,6 +41,7 @@
     "react-autosize-textarea": "^7.0.0",
     "react-dom": "^16.13.1",
     "react-ga": "^2.7.0",
+    "react-responsive": "^8.0.3",
     "react-select": "^3.1.0",
     "react-transition-group": "^4.4.1",
     "styled-components": "^5.1.0"

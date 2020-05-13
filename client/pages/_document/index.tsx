@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Children } from 'react';
 import NextDocument, { Head, Main, NextScript, DocumentContext } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
 import {
@@ -48,7 +48,7 @@ class Document extends NextDocument {
 
       return {
         ...initialProps,
-        styles: [...React.Children.toArray(initialProps.styles), ...styles]
+        styles: [...Children.toArray(initialProps.styles), ...styles]
       };
     } finally {
       sheet.seal();
