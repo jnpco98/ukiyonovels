@@ -58,21 +58,21 @@ function Header() {
       {
         isMobileDevice ?
           <>
-            <S.LeftMenu>
+            <ul>
               <S.DrawerTrigger onClick={(): void => setDrawerActive(!drawerActive)}>
                 <S.DrawerTriggerIcon active={drawerActive} />
               </S.DrawerTrigger>
-            </S.LeftMenu>
+            </ul>
             <S.Drawer drawerActive={drawerActive}>
               {mobileSecondaryMenu.map((item) => renderLinks(item, `${item.key}`))}
             </S.Drawer>
             <Backdrop active={drawerActive} onClick={(): void => setDrawerActive(false)} />
 
-            <S.RightMenu>{mobilePrimaryMenu.map((item) => renderLinks(item, `${item.key}`))}</S.RightMenu>
+            <ul>{mobilePrimaryMenu.map((item) => renderLinks(item, `${item.key}`))}</ul>
           </> :
           <>
-            <S.LeftMenu>{secondaryMenu.map((item) => renderLinks(item, `${item.key}`))}</S.LeftMenu>
-            <S.RightMenu>{primaryMenu.map((item) => renderLinks(item, `${item.key}`))}</S.RightMenu>
+            <ul>{secondaryMenu.map((item) => renderLinks(item, `${item.key}`))}</ul>
+            <ul>{primaryMenu.map((item) => renderLinks(item, `${item.key}`))}</ul>
           </>
       }
 

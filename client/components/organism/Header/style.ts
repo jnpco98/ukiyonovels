@@ -3,26 +3,8 @@ import { transparentize } from 'polished';
 import SideDrawer from '@components/atom/Drawer';
 import Text, { TextType } from '@components/atom/Text';
 import Hamburger from '@components/atom/Hamburger';
-import { center, FLEX_ALIGN_MAIN } from '@utilities/mixins';
+import { center, FLEX_ALIGN_MAIN, gutter, GUTTER_LEFT, GUTTER_RIGHT } from '@utilities/mixins';
 import * as M from '@utilities/media';
-
-export const LeftMenu = styled.ul`
-  ${M.MEDIA_XXSMALL} {
-    margin-left: 1rem;
-  }
-
-  ${M.MEDIA_XSMALL} {
-    margin-left: 2rem;
-  }
-`;
-
-export const RightMenu = styled.ul`
-  margin-right: 1rem;
-
-  ${M.MEDIA_XSMALL} {
-    margin-right: 2rem;
-  }
-`;
 
 export const Link = styled(Text).attrs({ textType: TextType.Anchor })<{ decorateActive?: boolean, link: string; }>`
   overflow: hidden;
@@ -95,6 +77,9 @@ export const DrawerTriggerIcon = styled(Hamburger)`
 `;
 
 export const Container = styled.header<{ floating: boolean }>`
+  ${gutter(GUTTER_LEFT)};
+  ${gutter(GUTTER_RIGHT)};
+  
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -111,7 +96,7 @@ export const Container = styled.header<{ floating: boolean }>`
   right: 0;
   left: 0;
 
-  ${LeftMenu}, ${RightMenu} {
+  & > ul {
     display: flex;
   }
 

@@ -1,9 +1,14 @@
 import React from 'react';
-import Layout from '@layout/Section';
 import { NOT_FOUND } from '@language/';
+import Page from '@layout/Page';
 
 function NotFound() {
-  return <Layout>{NOT_FOUND.heading}</Layout>;
+  return(
+    <Page>
+      <div style={{ height: '20rem' }}/>
+      {NOT_FOUND.heading}
+    </Page>
+  );
 }
 
 export default NotFound;
