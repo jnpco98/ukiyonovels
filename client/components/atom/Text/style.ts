@@ -8,11 +8,7 @@ import {
 } from '@utilities/mixins';
 import { margin } from 'polished';
 
-type HeadingStyleProps = {
-  decorate?: boolean;
-};
-
-export const PageTitle = styled.h1<HeadingStyleProps>`
+export const PageTitle = styled.h1<{ decorate: boolean }>`
   ${pageTitleFontSize};
   font-family: ${({ theme }) => theme.font.secondary};
   font-weight: ${({ theme }) => theme.font.bold};
@@ -22,7 +18,7 @@ export const PageTitle = styled.h1<HeadingStyleProps>`
   ${(props) => props.decorate && headingDecoration};
 `;
 
-export const SectionTitle = styled.h2<HeadingStyleProps>`
+export const SectionTitle = styled.h2<{ decorate: boolean }>`
   ${sectionFontSize};
 
   font-family: ${({ theme }) => theme.font.secondary};
@@ -55,6 +51,7 @@ export const Anchor = styled.a`
   ${regularFontSize};
   color: ${({ theme }) => theme.colors.primary};
   position: relative;
+  overflow: hidden;
 
   &:after {
     width: 100%;
@@ -64,10 +61,14 @@ export const Anchor = styled.a`
     left: 0;
     content: '';
     background: ${({ theme }) => theme.colors.primary};
+    transform: translateX(-120%);
+    transition: all 0.3s ease;
   }
 
   &:hover {
-    color: ${({ theme }) => theme.colors.primaryCompliment};
+    &:after {
+      transform: translateX(0%);
+    }
   }
 
   ${margin('0.2rem', null, '0.2rem', null)};

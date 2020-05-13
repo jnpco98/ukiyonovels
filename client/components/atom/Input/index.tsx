@@ -1,4 +1,4 @@
-import React, { ReactElement, forwardRef, ForwardRefRenderFunction } from 'react';
+import React, { ReactElement, forwardRef, ForwardRefRenderFunction, HTMLAttributes, RefObject } from 'react';
 import { AnyStyledComponent } from 'styled-components';
 import * as S from './style';
 
@@ -10,11 +10,11 @@ export enum InputType {
 type Props = {
   className?: string;
   inputType?: InputType;
-} & (React.HTMLAttributes<HTMLInputElement> | React.HTMLAttributes<HTMLTextAreaElement>);
+} & (HTMLAttributes<HTMLInputElement> | HTMLAttributes<HTMLTextAreaElement>);
 
 function Input(
   props: Props,
-  ref: React.RefObject<HTMLInputElement | HTMLTextAreaElement>
+  ref: RefObject<HTMLInputElement | HTMLTextAreaElement>
 ): ReactElement {
   const { className, inputType, ...restProps } = props;
 

@@ -3,12 +3,6 @@ import { center, FLEX_ALIGN_MAIN } from '@utilities/mixins';
 import * as M from '@utilities/media';
 import { ButtonType } from '.';
 
-type ButtonProps = {
-  buttonType?: ButtonType;
-  loading?: boolean;
-  disabled?: boolean;
-};
-
 const Success = css`
   color: ${({ theme }) => theme.colors.backgroundTertiary};
   background-color: ${({ theme }) => theme.colors.backgroundSecondary};
@@ -39,7 +33,7 @@ const Danger = css`
   }
 `;
 
-export const Container = styled.a<ButtonProps>`
+export const Container = styled.a<{ buttonType: ButtonType, loading: boolean, disabled: boolean }>`
   ${center(FLEX_ALIGN_MAIN)};
   color: ${({ theme }) => theme.colors.backgroundTertiary};
   background-color: ${({ theme }) => theme.colors.primary};

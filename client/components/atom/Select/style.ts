@@ -2,14 +2,7 @@ import styled, { css } from 'styled-components';
 import ReactSelect from 'react-select';
 import { regularFontSize } from '@utilities/mixins';
 
-type SelectProps = {
-  className: string;
-  classNamePrefix: string;
-  placeholder?: string;
-  value?: string;
-};
-
-export const Container = styled(ReactSelect)<SelectProps>`
+export const Container = styled(ReactSelect)<{ className: string, classNamePrefix: string, placeholder: string, value: string }>`
   ${regularFontSize};
 
   ${({ theme, ...props }) => css`

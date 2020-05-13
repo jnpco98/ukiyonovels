@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import purifyHTML from '@utilities/purify-html';
 import * as S from './style';
 
@@ -7,7 +7,7 @@ type Props = {
   className?: string;
 };
 
-const DynamicIcon: React.FC<Props> = (props: Props): ReactElement => {
+function DynamicIcon (props: Props) {
   const { SVGString, className } = props;
 
   return <S.DynamicIconContainer className={className} dangerouslySetInnerHTML={{ __html: purifyHTML(SVGString) }} />;

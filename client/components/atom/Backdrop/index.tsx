@@ -1,19 +1,21 @@
-import React from 'react';
+import React, { ReactNode, HTMLAttributes } from 'react';
 import * as S from './style';
 
 type Props = {
   active: boolean;
   className?: string;
-  children?: React.ReactNode;
+  children?: ReactNode;
   transparent?: boolean;
   centerContent?: boolean;
-} & React.HTMLAttributes<HTMLDivElement>;
+} & HTMLAttributes<HTMLDivElement>;
 
-const Backdrop: React.FC<Props> = (props: Props) => {
+function Backdrop (props: Props){
   const { active, className, children, transparent, centerContent, ...restProps } = props;
 
-  if (active) document.body.classList.add('no-scroll');
-  else if (!active) document.body.classList.remove('no-scroll');
+  if(process.browser) {
+    if (active) document.body.classList.add('no-scroll');
+    else if (!active) document.body.classList.remove('no-scroll');
+  }
 
   return (
     <S.BackdropContainer className={className} active={active} transparent={transparent} centerContent={centerContent} {...restProps}>

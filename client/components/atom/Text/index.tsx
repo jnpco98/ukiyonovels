@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { AnyStyledComponent } from 'styled-components';
 import Link from 'next/link';
 import * as S from './style';
@@ -17,7 +17,7 @@ type Props = {
   link?: string;
   absolute?: boolean;
   className?: string;
-  children?: React.ReactNode;
+  children?: ReactNode;
   textType?: TextType;
   htmlFor?: string;
 };

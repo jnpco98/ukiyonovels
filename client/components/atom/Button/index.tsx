@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, HTMLAttributes } from 'react';
 import Link from 'next/link';
 import Loader from '../Loader';
 import * as S from './style';
@@ -18,7 +18,7 @@ type Props = {
   children?: ReactNode;
   disabled?: boolean;
   loading?: boolean;
-} & (React.HTMLAttributes<HTMLAnchorElement> | React.HTMLAttributes<HTMLButtonElement>);
+} & (HTMLAttributes<HTMLAnchorElement> | HTMLAttributes<HTMLButtonElement>);
 
 function Button(props: Props) {
   const {

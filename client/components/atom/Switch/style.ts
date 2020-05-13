@@ -1,11 +1,8 @@
 import styled from 'styled-components';
+import { transparentize } from 'polished';
 import Text, { TextType } from '../Text';
 
-type SwitchProps = {
-  className?: string;
-};
-
-export const Container = styled.div<SwitchProps>`
+export const Container = styled.div`
   display: flex;
   align-items: center;
 `;
@@ -17,7 +14,7 @@ export const Checkbox = styled.input.attrs({ type: 'checkbox' })`
   appearance: none;
   background: ${({ theme }) => theme.colors.disabled};
   border-radius: 1rem;
-  box-shadow: inset 0 0 0.1rem rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 0 0.1rem ${({ theme }) => transparentize(0.8, theme.colors.default)};
   transition: 0.5s ease;
   cursor: pointer;
 
@@ -43,10 +40,6 @@ export const Checkbox = styled.input.attrs({ type: 'checkbox' })`
   }
 `;
 
-type LabelProps = {
-  htmlFor: string;
-};
-
-export const Label = styled(Text).attrs({ textType: TextType.Label })<LabelProps>`
+export const Label = styled(Text).attrs({ textType: TextType.Label })`
   margin-right: 1rem;
 `;
