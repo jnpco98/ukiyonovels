@@ -48,7 +48,7 @@ export const BaseTheme: DefaultTheme = {
 
     // Backgrounds
     background: '#FAFAFA',
-    backgroundSecondary: transparentize(0.5, '#FFF'),
+    backgroundSecondary: '#F0EEE4',
     backgroundTertiary: '#FAFAFA',
 
     // Borders

@@ -21,13 +21,14 @@ type Props = {
   textType?: TextType;
   htmlFor?: string;
   decorateActive?: boolean;
+  center?: boolean;
 };
 
 function Text(props: Props) {
-  const { children, className, textType, link, absolute, htmlFor, decorateActive } = props;
+  const { children, className, textType, link, absolute, htmlFor, decorateActive, center } = props;
 
   let StyledText: AnyStyledComponent;
-  const textProps: any = { className, textType, htmlFor };
+  const textProps: any = { className, textType, htmlFor, center };
 
   switch (textType) {
     case TextType.PageTitle:

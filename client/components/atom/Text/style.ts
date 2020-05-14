@@ -8,8 +8,15 @@ import {
 } from '@utilities/mixins';
 import { margin } from 'polished';
 
+const textCommons = css<{ center?: boolean }>`
+  ${props => props.center && css`
+    text-align: center;
+  `}
+`;
+
 export const PageTitle = styled.h1<{ decorate: boolean }>`
   ${pageTitleFontSize};
+  ${textCommons};
   font-family: ${({ theme }) => theme.font.secondary};
   font-weight: ${({ theme }) => theme.font.bold};
 
@@ -20,6 +27,7 @@ export const PageTitle = styled.h1<{ decorate: boolean }>`
 
 export const SectionTitle = styled.h2<{ decorate: boolean }>`
   ${sectionFontSize};
+  ${textCommons};
 
   font-family: ${({ theme }) => theme.font.secondary};
   font-weight: ${({ theme }) => theme.font.bold};
@@ -30,6 +38,8 @@ export const SectionTitle = styled.h2<{ decorate: boolean }>`
 
 export const SubsectionTitle = styled.h3`
   ${subsectionFontSize};
+  ${textCommons};
+
   font-family: ${({ theme }) => theme.font.secondary};
   font-weight: ${({ theme }) => theme.font.bold};
   ${margin('1rem', null, '1rem', null)};
@@ -37,18 +47,22 @@ export const SubsectionTitle = styled.h3`
 
 export const Paragraph = styled.p`
   ${regularFontSize};
+  ${textCommons};
 
   ${margin('0.2rem', null, '0.2rem', null)};
 `;
 
 export const Span = styled.span`
   ${regularFontSize};
+  ${textCommons};
 
   ${margin('0.2rem', null, '0.2rem', null)};
 `;
 
 export const Anchor = styled.a<{ active?: boolean, decorateActive?: boolean }>`
   ${regularFontSize};
+  ${textCommons};
+
   color: ${({ theme }) => theme.colors.primary};
   position: relative;
   overflow: hidden;
@@ -83,6 +97,7 @@ export const Anchor = styled.a<{ active?: boolean, decorateActive?: boolean }>`
 
 export const Label = styled.label`
   ${regularFontSize};
+  ${textCommons};
 
   ${margin('0.2rem', null, '0.2rem', null)};
 `;
