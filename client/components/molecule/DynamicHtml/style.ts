@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { regularFontSize } from '@utilities/mixins';
 
-export const DynamicHtmlContainer = styled.div`
+export const Container = styled.div`
   width: 100%;
   ${regularFontSize};
   text-align: left;

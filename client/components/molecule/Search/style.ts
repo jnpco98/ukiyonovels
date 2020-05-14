@@ -6,7 +6,7 @@ import * as M from '@utilities/media';
 
 const DynamicIcon = dynamic(() => import('@components/molecule/DynamicIcon'), { ssr: false });
 
-export const SearchContainer = styled.div<{ active: boolean }>`
+export const Container = styled.div<{ active: boolean }>`
   position: fixed;
   display: none;
   z-index: 3;
@@ -18,7 +18,7 @@ export const SearchContainer = styled.div<{ active: boolean }>`
     `}
 `;
 
-export const SearchContent = styled.form`
+export const Form = styled.form`
   ${center(CENTER_BOTH)};
   display: flex;
   padding: 1rem;
@@ -28,13 +28,13 @@ export const SearchContent = styled.form`
   }
 `;
 
-export const SearchButton = styled.button.attrs({ type: 'submit' })`
+export const Submit = styled.button.attrs({ type: 'submit' })`
   border: none;
   background: none;
   cursor: pointer;
 `;
 
-export const SearchButtonIcon = styled(DynamicIcon).attrs({ SVGString: search })`
+export const Icon = styled(DynamicIcon).attrs({ SVGString: search })`
   path {
     fill: ${({ theme }) => theme.colors.primary};
   }
@@ -49,7 +49,7 @@ export const SearchButtonIcon = styled(DynamicIcon).attrs({ SVGString: search })
   }
 `;
 
-export const SearchInput = styled.input.attrs({ type: 'text' })`
+export const Input = styled.input.attrs({ type: 'text' })`
   ${subsectionFontSize};
   border: none;
   background: none;

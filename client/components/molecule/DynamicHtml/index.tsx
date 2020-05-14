@@ -10,7 +10,7 @@ type Props = {
 function DynamicHtml (props: Props) {
   const { HTMLString, className } = props;
 
-  return <S.DynamicHtmlContainer className={className} dangerouslySetInnerHTML={{ __html: purifyHTML(HTMLString) }} />;
+  return <S.Container className={className} dangerouslySetInnerHTML={{ __html: purifyHTML(HTMLString) }} />;
 };
 
 export default DynamicHtml;

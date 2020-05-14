@@ -21,18 +21,18 @@ function Search(props: Props, ref: RefObject<HTMLDivElement>) {
   };
 
   return (
-    <S.SearchContainer ref={ref} active={active}>
-      <S.SearchContent onSubmit={handleSearchSubmit}>
-        <S.SearchInput
+    <S.Container ref={ref} active={active}>
+      <S.Form onSubmit={handleSearchSubmit}>
+        <S.Input
           placeholder={placeholder}
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
         />
-        <S.SearchButton>
-          <S.SearchButtonIcon />
-        </S.SearchButton>
-      </S.SearchContent>
-    </S.SearchContainer>
+        <S.Submit>
+          <S.Icon />
+        </S.Submit>
+      </S.Form>
+    </S.Container>
   );
 }
 
