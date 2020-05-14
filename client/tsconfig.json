@@ -40,9 +40,6 @@
       "@actionTypes/*": [
         "actionTypes/*"
       ],
-      "@public/*": [
-        "public/*"
-      ],
       "@store/*": [
         "store/*"
       ],
@@ -58,14 +55,8 @@
       "@utilities/*": [
         "utilities/*"
       ],
-      "@language/*": [
-        "./language/en.json"
-      ],
       "@themeTypes": [
         "./@types/styled.d.ts"
-      ],
-      "@settings": [
-        ".settings.ts"
       ],
       "@icons": [
         ".icons.ts"
@@ -81,6 +72,8 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
+    "*.ts",
+    "*.tsx"
   ]
 }
