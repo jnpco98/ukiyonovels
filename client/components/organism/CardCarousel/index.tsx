@@ -23,7 +23,6 @@ const carouselParams = {
   simulateTouch: true
 };
 
-
 type Props = {
   className?: string;
   heading?: string,

@@ -17,22 +17,16 @@ type Props = {
 function Card(props: Props) {
   const { className, thumbnail, content } = props;
 
-  function renderDetails() {
-    return(
-      <S.Details>
-        <S.Title>{content.heading}</S.Title>
-        <S.InlineList items={content.inline}/>
-        <S.TabbedList items={content.tabbed}/>
-      </S.Details>
-    );
-  }
-
   return (
     <S.Container className={className}>
       <S.Wrapper>
         <S.Content>
           <S.Image img={thumbnail}><S.Overlay /></S.Image>
-          {renderDetails()}
+          <S.Details>
+            <S.Title>{content.heading}</S.Title>
+            <S.InlineList items={content.inline}/>
+            <S.TabbedList items={content.tabbed}/>
+          </S.Details>
           <S.Reveal>
             <S.RevealContent><S.RevealIcon/>{t('card.cta')}</S.RevealContent>
           </S.Reveal>

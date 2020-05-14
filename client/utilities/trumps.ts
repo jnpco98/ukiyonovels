@@ -43,6 +43,7 @@ const swiper = css`
 
     .swiper-button-next {
       right: 0;
+      padding-right: 0;
       transform: translate(-50%, -50%);
       &:hover {
         transform: translate(-20%, -50%);
@@ -51,6 +52,7 @@ const swiper = css`
 
     .swiper-button-prev {
       left: 0;
+      padding-left: 0;
       transform: translate(50%, -50%);
       &:hover {
         transform: translate(20%, -50%);
