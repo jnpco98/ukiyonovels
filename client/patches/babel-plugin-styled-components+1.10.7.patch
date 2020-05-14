@@ -1,0 +1,13 @@
+diff --git a/node_modules/babel-plugin-styled-components/lib/visitors/displayNameAndId.js b/node_modules/babel-plugin-styled-components/lib/visitors/displayNameAndId.js
+index b67a1c8..77113e4 100644
+--- a/node_modules/babel-plugin-styled-components/lib/visitors/displayNameAndId.js
++++ b/node_modules/babel-plugin-styled-components/lib/visitors/displayNameAndId.js
+@@ -49,7 +49,7 @@ var addConfig = function addConfig(t) {
+ var getBlockName = function getBlockName(file) {
+   var name = _path.default.basename(file.opts.filename, _path.default.extname(file.opts.filename));
+ 
+-  return name !== 'index' ? name : _path.default.basename(_path.default.dirname(file.opts.filename));
++  return name !== 'index' && name !== 'style' ? name : _path.default.basename(_path.default.dirname(file.opts.filename));
+ };
+ 
+ var getDisplayName = function getDisplayName(t) {
