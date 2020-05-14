@@ -4,6 +4,7 @@ import Page from '@layout/Page';
 import Layout from '@layout/Layout';
 import CardCarousel from '@components/organism/CardCarousel';
 import * as M from '@utilities/media';
+import HozCard from '@components/molecule/HozCard';
 
 function cardParams(cnt: number) {
   const thumbnail = `https://occ-0-2954-2568.1.nflxso.net/dnm/api/v6/XsrytRUxks8BtTRf9HNlZkW2tvY/AAAABcvEUXtNFRBthcDmFXo8Lhc4L10J5s2WVkm9ipP6V_9fM5Jl5x8mmacyTnR8pj_Y2ZM3gaiwontqaMdQh7gG4cdELHgbILEQzg.jpg`;
@@ -26,6 +27,11 @@ function Index() {
   return(
     <Page>
       <Layout>
+        <div style={{ display: 'flex', flexWrap: 'wrap'}}>
+        <HozCard thumbnail={cardParams(1)[0].thumbnail} content={cardParams(1)[0].content} />
+
+        <HozCard thumbnail={cardParams(1)[0].thumbnail} content={cardParams(1)[0].content} />
+        </div>
         <Carousel heading="Top Novels" cardContents={cardParams(20)}/>
       </Layout>
     </Page>
