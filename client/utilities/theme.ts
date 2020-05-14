@@ -3,17 +3,17 @@ import { transparentize } from 'polished';
 
 export const BaseTheme: DefaultTheme = {
   screen: {
-    innerMaxWidth: '60rem'
+    innerMaxWidth: '72rem'
   },
   gutterHorizontal: {
     base: '0.8rem',
     xxsmall: '2.5rem',
     xsmall: '4rem',
-    small: '5rem',
-    medium: '5rem',
-    large: '5rem',
-    xlarge: '5rem',
-    xxlarge: '5rem'
+    small: '4rem',
+    medium: '4rem',
+    large: '4rem',
+    xlarge: '4rem',
+    xxlarge: '4rem'
   },
   gutterVertical: {
     base: '1rem',

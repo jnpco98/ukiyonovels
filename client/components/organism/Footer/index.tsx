@@ -1,5 +1,5 @@
 import React from 'react';
-import Section from '@layout/Section';
+import Section from '@layout/Layout';
 import Text, { TextType } from '@components/atom/Text';
 import { footerMenu } from '@constants/menu';
 import { t } from '@utilities/locales';

@@ -20,7 +20,6 @@ export const Container = styled.div`
 `;
 
 export const Wrapper = styled.div`
-  padding: 1rem 0.2rem;
 `;
 
 export const Details = styled.div`
@@ -61,16 +60,15 @@ export const RevealContent = styled.a`
   border-radius: 2rem;
   padding: 0.7rem 0.9rem 0.65rem;
   background-color: ${({ theme }) => theme.colors.background};
-  border: 0.0625rem solid ${({ theme }) => theme.colors.background};
-  box-shadow: 0 -0.0625rem 1.3rem 0 ${({ theme }) => theme.colors.primaryCompliment};
+  border: 0.0625rem solid ${({ theme }) => theme.colors.primary};
   transform: translateY(-2.2rem);
   transition: all 0.15s ease, box-shadow 0ms;
 
   ${M.MEDIA_SMALL} {
     &:hover {
       ${({ theme }) => css`      
-        color: ${theme.colors.primary};
-        background-color: ${theme.colors.backgroundSecondary};
+        color: ${theme.colors.background};
+        background-color: ${theme.colors.primary};
         border: 0.0625rem solid ${theme.colors.border};
       `};
     }
@@ -108,10 +106,6 @@ export const Overlay = styled.a`
   left: 0;
   opacity: 0;
   transition: all 0.15s ease;
-  
-  ${({ theme }) => css`
-    background: linear-gradient(to bottom, ${theme.colors.primary} 0, ${transparentize(1, theme.colors.primary)} 50%);
-  `};
 `;
 
 export const Content = styled.div`
@@ -131,7 +125,7 @@ export const Content = styled.div`
     ${Details} {
       transform: scale(${HOVER_SCALE}, ${HOVER_SCALE});
       border-radius: 0.7rem 0.7rem 0 0;
-      background-color: ${({ theme }) => theme.colors.background};
+      background-color: transparent;
       z-index: 4;
     }
 
@@ -145,7 +139,7 @@ export const Content = styled.div`
 
     ${Image} {
       border-radius: 1rem 1rem 0 0;
-      transform: scale(${HOVER_SCALE}, ${HOVER_SCALE});
+      transform: scale(${HOVER_SCALE - 0.005}, ${HOVER_SCALE});
       z-index: 3;
     }
 
@@ -158,6 +152,7 @@ export const Content = styled.div`
     &:hover {
       ${Details} {
         transform: translateY(-2.5rem) scale(${HOVER_SCALE}, ${HOVER_SCALE});
+        background-color: ${({ theme }) => theme.colors.background};
         padding: 0.8rem 0.5rem 1rem;
       }
 
@@ -165,9 +160,15 @@ export const Content = styled.div`
         height: 2.3rem;
         border-radius: 0 0 1.2rem 1.2rem; 
         overflow: visible;
-        transform: scale(${HOVER_SCALE}, ${HOVER_SCALE});
+        transform: scale(${HOVER_SCALE - 0.001}, ${HOVER_SCALE});
         z-index: 4;
-      } 
+      }
+
+      ${Overlay} {
+        ${({ theme }) => css`
+          background: linear-gradient(to bottom, ${transparentize(0.2, theme.colors.primary)} 0, ${transparentize(1, theme.colors.primary)} 50%);
+        `};
+      }
     }
   }
 `;

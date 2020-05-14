@@ -9,6 +9,8 @@ import Trumps from '@utilities/trumps';
 import { initializeGoogleAnalytics } from '@utilities/analytics';
 import { SITE_TITLE } from '@constants/head';
 
+import 'swiper/css/swiper.min.css';
+
 type Props = {
   Component: NextComponentType<NextPageContext, any, {}>;
   pageProps: any;

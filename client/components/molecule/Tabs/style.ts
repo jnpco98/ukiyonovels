@@ -3,6 +3,7 @@ import { xSmallFontSize } from '@utilities/mixins';
 
 export const Item = styled.span`
   display: inline-block;
+  color: ${({ theme }) => theme.colors.primary};
   background: ${({ theme }) => theme.colors.backgroundSecondary};
   padding: 0.1rem 0.4rem;
   border-radius: 1rem;
@@ -17,5 +18,4 @@ export const Container = styled.div`
   ${xSmallFontSize};
   display: block;
   margin-top: 0.6rem;
-  color: ${({ theme }) => theme.colors.primary};
 `;

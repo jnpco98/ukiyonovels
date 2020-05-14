@@ -80,6 +80,9 @@ export const MenuItem = styled.li<{ icon: boolean }>`
 `;
 
 export const Container = styled.header<{ floating: boolean, flat: boolean }>`
+  max-width: ${({ theme }) => theme.screen.innerMaxWidth};
+  margin-left: auto;
+  margin-right: auto;
   ${gutter(GUTTER_LEFT)};
   ${gutter(GUTTER_RIGHT)};
   
@@ -92,10 +95,6 @@ export const Container = styled.header<{ floating: boolean, flat: boolean }>`
   transition: all 0.2s ease;
   z-index: 50;
   background: transparent;
-
-  max-width: ${({ theme }) => theme.screen.innerMaxWidth};
-  margin-left: auto;
-  margin-right: auto;
   top: 0;
   right: 0;
   left: 0;
