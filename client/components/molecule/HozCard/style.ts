@@ -43,7 +43,6 @@ export const Reveal = styled.div`
   height: 0;
   z-index: 4;
   flex: 0.3;
-  background: ${({ theme }) => theme.colors.background};
   transition: all 0.15s ease;
   overflow: hidden;
 `;
@@ -118,17 +117,9 @@ export const Content = styled.div`
   border-radius: 0.9rem;
   z-index: 3;
 
-  ${TabbedList} {
-    display: none;
-  }
-
   &:hover {
     ${Details} {
       transform: scale(${HOVER_SCALE}, ${HOVER_SCALE});
-    }
-    
-    ${TabbedList} {
-      display: block;
     }
 
     ${Image} {

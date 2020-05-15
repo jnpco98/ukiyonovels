@@ -59,16 +59,7 @@ const swiper = css`
       }
     }
 
-    ${M.MEDIA_XSMALL} {
-      .swiper-wrapper {
-        padding: 0 0 3rem;
-      }
-    }
-
     ${M.MEDIA_SMALL} {
-      .swiper-wrapper {
-        padding: 0 0 5rem;
-      }
       .swiper-button-next,
       .swiper-button-prev {
         display: block;
@@ -80,10 +71,6 @@ const swiper = css`
     }
 
     ${M.MEDIA_MEDIUM} {
-      .swiper-wrapper {
-        padding: 0 0 3rem;
-      }
-
       .swiper-button-next {
         transform: translate(-100%, -50%);
         &:hover {

@@ -17,9 +17,22 @@ const HOVER_SCALE = 1.05;
 export const Container = styled.div`
   width: ${INITIAL_WIDTH}rem;
   height: ${INITIAL_WIDTH * CARD_RATIO}rem;
+
+  ${M.MEDIA_XSMALL} {
+    margin-bottom: 3rem;
+  }
+  
+  ${M.MEDIA_SMALL} {
+    margin-bottom: 5rem;
+  }
+
+  ${M.MEDIA_MEDIUM} {
+    margin-bottom: 3rem;
+  }
 `;
 
 export const Wrapper = styled.div`
+  margin-bottom: 3rem;
 `;
 
 export const Details = styled.div`

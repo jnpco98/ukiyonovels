@@ -1,7 +1,7 @@
 import React from 'react';
 import * as S from './style';
 
-export interface CardContent {
+export interface HozCardContent {
   heading: string;
   inline: string[];
   tabbed: string[];
@@ -10,7 +10,7 @@ export interface CardContent {
 type Props = {
   className?: string;
   thumbnail?: string;
-  content: CardContent;
+  content: HozCardContent;
 };
 
 function HozCard(props: Props) {
