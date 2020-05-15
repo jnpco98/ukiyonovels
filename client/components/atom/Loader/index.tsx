@@ -9,11 +9,12 @@ export enum LoaderType {
 }
 
 type Props = {
+  className?: string;
   loaderType?: LoaderType;
 };
 
 function Loader(props: Props) {
-  const { loaderType } = props;
+  const { className, loaderType } = props;
 
   const generateDiv = (count: number): ReactElement[] =>
     Array(count)
@@ -39,7 +40,7 @@ function Loader(props: Props) {
       break;
   }
 
-  return <StyledLoader>{generateDiv(divCount)}</StyledLoader>;
+  return <StyledLoader className={className}>{generateDiv(divCount)}</StyledLoader>;
 }
 
 export default Loader;

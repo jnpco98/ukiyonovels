@@ -19,6 +19,18 @@ function cardParams(cnt: number) {
 }
 
 const Carousel = styled(CardCarousel)`
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+
+  ${M.MEDIA_MEDIUM} {
+    width: 70%;
+  }
+`;
+
+const LatestReleases = styled(CardList)`
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  
   ${M.MEDIA_MEDIUM} {
     width: 70%;
   }
@@ -43,9 +55,11 @@ function Index() {
   return(
     <Page>
       <Layout>
-        <CardList heading="Novels" contents={cardParams(20)} responsive={cardResponsive}/>
-        <CardList heading="Novels" contents={cardParams(20)} cardType='wide' responsive={wideCardResponsive}/>
+        {/* <CardList heading="Novels" contents={cardParams(20)} responsive={cardResponsive}/>
+         */}
         <Carousel heading="Top Novels" contents={cardParams(20)}/>
+        <LatestReleases heading="Latest Releases" contents={cardParams(6)} cardType='wide' responsive={wideCardResponsive}/>
+        <Carousel heading="New Novels" contents={cardParams(20)}/>
       </Layout>
     </Page>
   );

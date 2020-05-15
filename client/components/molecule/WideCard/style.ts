@@ -7,6 +7,7 @@ import { center, regularFontSize, CENTER_BOTH } from '@utilities/mixins';
 import Tabs from '@components/molecule/Tabs';
 import List from '@components/molecule/List';
 import * as M from '@utilities/media';
+import Button from '@components/atom/Button';
 
 export const CARD_RATIO = 0.5;
 
@@ -15,8 +16,6 @@ const HOVER_SCALE = 1.02;
 export const Container = styled.div`
   width: 100%;
 `;
-
-export const Wrapper = styled.div``;
 
 export const Details = styled.div`
   display: flex;
@@ -35,6 +34,7 @@ export const Title = styled(Text).attrs({ textType: TextType.Paragraph })`
   white-space: nowrap;
   color: ${({ theme }) => theme.colors.primary};
   font-weight: bold;
+  font-family: ${({ theme }) => theme.font.secondary};
 `;
 
 export const Meta = styled.div`
@@ -49,26 +49,13 @@ export const Reveal = styled.div`
   overflow: hidden;
 `;
 
-export const RevealContent = styled.a`
-  ${regularFontSize};
+export const RevealContent = styled(Button)`
   width: 3rem;
   height: 3rem;
-  display: block;
   margin-left: auto;
-  border-radius: 1rem;
+  border-radius: 1rem !important;
   position: relative;
-  background-color: ${({ theme }) => theme.colors.background};
-  border: 0.0625rem solid ${({ theme }) => theme.colors.primary};
-  transition: all 0.15s ease;
   overflow: hidden;
-
-  &:hover {
-    ${({ theme }) => css`      
-      color: ${theme.colors.background};
-      background-color: ${theme.colors.primary};
-      border: 0.0625rem solid ${theme.colors.border};
-    `};
-  }
 `;
 
 export const RevealIcon = styled(FontAwesomeIcon).attrs({ icon: faArrowRight })`
@@ -111,7 +98,7 @@ export const Overlay = styled.a`
 `;
 
 export const Content = styled.div`
-  margin: 1rem 0.3rem 1.2rem;
+  margin: 0.3rem;
   border-radius: 0.3rem;
   position: relative;
   transition: all 0.15s ease;
@@ -130,15 +117,11 @@ export const Content = styled.div`
       z-index: 3;
     }
 
-    ${Reveal} {
-      border-radius: 0 0 1.2rem 1.2rem; 
-    }
-
     ${M.MEDIA_SMALL} {
       ${Details} {
         transform: translateY(-2rem) scale(${HOVER_SCALE}, ${HOVER_SCALE});
-        padding: 1rem 0.8rem;
         background-color: ${({ theme }) => theme.colors.background};
+        padding: 1rem 0.8rem;
         z-index: 4;
       }
 

@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
-import { center, FLEX_ALIGN_MAIN } from '@utilities/mixins';
-import * as M from '@utilities/media';
+import { center, FLEX_ALIGN_MAIN, regularFontSize } from '@utilities/mixins';
 import { ButtonType } from '.';
+import Loader from '../Loader';
 
 const Success = css`
   color: ${({ theme }) => theme.colors.backgroundTertiary};
@@ -34,16 +34,16 @@ const Danger = css`
 `;
 
 export const Container = styled.a<{ buttonType: ButtonType, loading: boolean, disabled: boolean }>`
+  ${regularFontSize};
   ${center(FLEX_ALIGN_MAIN)};
-  color: ${({ theme }) => theme.colors.backgroundTertiary};
-  background-color: ${({ theme }) => theme.colors.primary};
-  padding: 0.6rem 1.4rem;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  font-weight: 600;
-  font-family: ${({ theme }) => theme.font.secondary};
+
+  display: block;
+  color: ${({ theme }) => theme.colors.primary};
+  background-color: ${({ theme }) => theme.colors.background};
+  border: 0.0625rem solid ${({ theme }) => theme.colors.primary};
+  padding: 0.7rem 0.9rem 0.65rem;
+  font-family: ${({ theme }) => theme.font.primary};
   border-radius: 0.3rem;
-  text-align: center;
   justify-content: center;
   transition: background 0.2s ease;
 
@@ -54,33 +54,27 @@ export const Container = styled.a<{ buttonType: ButtonType, loading: boolean, di
         `
       : css`
           padding: 0.6rem 1.4rem;
-
-          ${M.MEDIA_SMALL} {
-            padding: 0.7rem 1.5rem;
-            font-size: 0.75rem;
-          }
-
-          ${M.MEDIA_LARGE} {
-            padding: 0.75rem 2rem;
-            font-size: 0.8rem;
-          }
         `};
 
   ${(props) => props.buttonType === ButtonType.Success && Success};
   ${(props) => props.buttonType === ButtonType.Warning && Warning};
   ${(props) => props.buttonType === ButtonType.Error && Danger};
 
-  border: none;
-
-  ${(props) =>
+  ${({ theme, ...props }) =>
     props.disabled
       ? css`
           background: none;
-          border: 1px solid ${({ theme }) => theme.colors.default};
+          border: 1px solid ${theme.colors.default};
         `
       : css`
           &:hover {
-            background-color: ${({ theme }) => theme.colors.primaryHover};
+            color: ${theme.colors.background};
+            background-color: ${theme.colors.primary};
+            border: 0.0625rem solid ${theme.colors.border};
           }
         `};
+`;
+
+export const LoadMoreIcon = styled(Loader)`
+  margin: auto;
 `;

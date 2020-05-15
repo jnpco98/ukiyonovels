@@ -1,5 +1,4 @@
 import React, { ReactNode, HTMLAttributes } from 'react';
-import Loader from '@components/atom/Loader';
 import Link from '@components/atom/Link';
 import * as S from './style';
 
@@ -37,7 +36,7 @@ function Button(props: Props) {
   if (!link) buttonProps.as = 'button';
   if (absolute) buttonProps.href = link;
 
-  const Element = <S.Container {...buttonProps} {...restProps}>{loading ? <Loader /> : children}</S.Container>;
+  const Element = <S.Container {...buttonProps} {...restProps}>{loading ? <S.LoadMoreIcon /> : children}</S.Container>;
 
   if (link) return <Link href={link}>{Element}</Link>;
 

@@ -7,15 +7,14 @@ import { center, CENTER_VERTICAL, regularFontSize } from '@utilities/mixins';
 import Tabs from '@components/molecule/Tabs';
 import List from '@components/molecule/List';
 import * as M from '@utilities/media';
+import Button from '@components/atom/Button';
 
 export const CARD_RATIO = 1.75;
 
 const HOVER_SCALE = 1.05;
-const INITIAL_WIDTH = 13;
 
 export const Container = styled.div`
-  width: ${INITIAL_WIDTH}rem;
-  height: ${INITIAL_WIDTH * CARD_RATIO}rem;
+  width: 100%;
 `;
 
 export const Details = styled.div`
@@ -33,6 +32,7 @@ export const Title = styled(Text).attrs({ textType: TextType.Paragraph })`
   white-space: nowrap;
   color: ${({ theme }) => theme.colors.primary};
   font-weight: bold;
+  font-family: ${({ theme }) => theme.font.secondary};
 `;
 
 export const Reveal = styled.div`
@@ -47,27 +47,12 @@ export const Reveal = styled.div`
   overflow: hidden;
 `;
 
-export const RevealContent = styled.a`
-  ${regularFontSize};
-  display: block;
+export const RevealContent = styled(Button)`
   margin: 0;
   width: 100%;
-  border-radius: 2rem;
-  padding: 0.7rem 0.9rem 0.65rem;
-  background-color: ${({ theme }) => theme.colors.background};
-  border: 0.0625rem solid ${({ theme }) => theme.colors.primary};
-  transform: translateY(-2.2rem);
-  transition: all 0.15s ease, box-shadow 0ms;
-
-  ${M.MEDIA_SMALL} {
-    &:hover {
-      ${({ theme }) => css`      
-        color: ${theme.colors.background};
-        background-color: ${theme.colors.primary};
-        border: 0.0625rem solid ${theme.colors.border};
-      `};
-    }
-  }
+  border-radius: 2rem !important;
+  transform: translateY(-2.2rem);padding: 0.7rem 0.9rem 0.65rem;
+  text-align: left;
 `;
 
 export const Image = styled.div<{ img: string; }>`
@@ -124,6 +109,12 @@ export const Content = styled.div`
       z-index: 4;
     }
 
+    ${Image} {
+      border-radius: 1rem 1rem 0 0;
+      transform: scale(${HOVER_SCALE - 0.005}, ${HOVER_SCALE});
+      z-index: 3;
+    }
+
     ${TabbedList} {
       opacity: 1;
     }
@@ -132,24 +123,18 @@ export const Content = styled.div`
       transform: translateY(0);
     }
 
-    ${Image} {
-      border-radius: 1rem 1rem 0 0;
-      transform: scale(${HOVER_SCALE - 0.005}, ${HOVER_SCALE});
-      z-index: 3;
-    }
-
     ${Overlay} {
       opacity: 1;
     }
   }
 
   ${M.MEDIA_SMALL} {
-    margin-bottom: 1.3rem;
     &:hover {
       ${Details} {
         transform: translateY(-2.5rem) scale(${HOVER_SCALE}, ${HOVER_SCALE});
         background-color: ${({ theme }) => theme.colors.background};
-        padding: 0.8rem 0.5rem 1rem;
+        padding: 0.8rem 0.7rem 1rem;
+        z-index: 4;
       }
 
       ${Reveal} {

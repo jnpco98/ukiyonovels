@@ -39,7 +39,7 @@ export const BaseTheme: DefaultTheme = {
     wide: '0.085rem',
 
     primary: '"Source Code Pro", Sans-Serif',
-    secondary: '"Source Code Pro", Sans-Serif'
+    secondary: 'Montserrat, Sans-Serif'
   },
   colors: {
     // Standard Colors

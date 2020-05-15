@@ -46,6 +46,7 @@ export const Button = styled(Text).attrs({ textType: TextType.Span })`
 export const MenuItem = styled.li<{ icon: boolean }>`
   ${center(FLEX_ALIGN_MAIN)};
 
+  font-family: ${({ theme }) => theme.font.secondary};
   cursor: pointer;
   text-transform: uppercase;
   margin: 0 0.9rem;
