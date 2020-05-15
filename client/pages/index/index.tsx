@@ -4,8 +4,7 @@ import Page from '@layout/Page';
 import Layout from '@layout/Layout';
 import CardCarousel from '@components/organism/CardCarousel';
 import CardList, { Responsive } from '@components/organism/CardList';
-import List from '@components/molecule/List';
-import TextBlock from '@components/molecule/TextBlock';
+import SidePanel from '@components/organism/SidePanel';
 import * as M from '@utilities/media';
 
 function cardParams(cnt: number) {
@@ -18,14 +17,6 @@ function cardParams(cnt: number) {
   }
 
   return Array(cnt).fill(0).map(_ => content);
-}
-
-function generateList(cnt: number) {
-  return Array(cnt).fill(0).map(_ => ({
-    title: 'Kaguya-Sama: Love is War',
-    subtitle: Math.floor(Math.random() * 4023) + 1,
-    link: '/'
-  }));
 }
 
 const TopNovels = styled(CardCarousel)`
@@ -47,27 +38,6 @@ const LatestReleases = styled(CardList)`
   margin: 0 auto;
   margin-bottom: 3rem;
 `;
-
-const SearchByGenre = styled(List)`
-  margin: 0 auto;
-  margin-bottom: 3rem;
-
-  ${M.MEDIA_MEDIUM} {
-    margin-top: 2rem;
-  }
-`;
-
-const SearchByType = styled(List)`
-  margin: 0 auto;
-  margin-bottom: 3rem;
-`;
-
-const SidePanelTextBlock = styled(TextBlock)`
-  width: 90%;
-  margin: 0 auto;
-  margin-bottom: 3rem;
-`;
-
 const cardResponsive: Responsive = {
   cardsPerRow: 2,
   gap: 0.2,
@@ -107,13 +77,7 @@ function Index() {
           <LatestReleases heading="Latest Releases" contents={cardParams(6)} cardType='wide' responsive={wideCardResponsive}/>
           <NewNovels heading="New Novels" contents={cardParams(20)}/>
         </Layout>
-        <Layout gutterLeft>
-          <SearchByGenre heading="Search by Genre" contents={generateList(10)} bulleted/>
-          <SidePanelTextBlock heading="Advanced Search" subtitle="Search novels by genres, tags, type, author, status, and many more" link="/advanced-search" linkLabel="Advanced Search"/>
-          <SearchByType heading="Search by Type" contents={generateList(10)} bulleted/>
-          <SidePanelTextBlock heading="Report a problem" subtitle="If you find any bug, or any problems with any of the novels, report using the link below" link="/report" linkLabel="Report a problem"/>
-          <SidePanelTextBlock heading="Report a problem" subtitle="If you go any novel requests, go to the link below" link="/request" linkLabel="Got requests?"/>
-        </Layout>
+        <SidePanel/>
       </Layout>
     </Page>
   );

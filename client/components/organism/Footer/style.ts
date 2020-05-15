@@ -28,19 +28,9 @@ export const TextGroup = styled.div`
 
 export const TermsGroup = styled.div`
   display: flex;
-
-  ${Anchor}:after {
-    content: none;
-  }
   
   ${Anchor} + ${Anchor} {
     margin-left: 0.8rem;
-  }
-
-  ${M.MEDIA_XSMALL} {
-    ${Anchor}:after {
-      content: '';
-    }
   }
 
   ${M.MEDIA_SMALL} {
