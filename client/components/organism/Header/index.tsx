@@ -73,6 +73,7 @@ function Header() {
           placeholder="Search for a novel..."
         />
       </S.Container>
+      <S.Filler active={floating}/>
     </>
   );
 }

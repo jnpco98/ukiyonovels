@@ -10,6 +10,8 @@ import Backdrop from '@components/atom/Backdrop';
 
 const DynamicIcon = dynamic(() => import('@components/molecule/DynamicIcon'), { ssr: false });
 
+const topBarHeight = '4rem';
+
 export const MobileMenuItem = styled.ul`
   display: flex;
 
@@ -91,7 +93,7 @@ export const Container = styled.header<{ floating: boolean, flat: boolean }>`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  height: 4rem;
+  height: ${topBarHeight};
   position: relative;
   transition: all 0.2s ease;
   z-index: 50;
@@ -156,4 +158,8 @@ export const DrawerBackdrop = styled(Backdrop)`
   ${M.MEDIA_SMALL} {
     display: none;
   }
+`;
+
+export const Filler = styled.div<{ active: boolean }>`
+  padding-top: ${props => props.active ? topBarHeight : 0};
 `;
