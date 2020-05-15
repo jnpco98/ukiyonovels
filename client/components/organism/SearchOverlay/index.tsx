@@ -1,7 +1,7 @@
 import React, { useRef, MouseEvent } from 'react';
 import Search from '@components/molecule/Search';
-import * as S from './style';
 import { useOnClickOutside } from '@utilities/hooks';
+import * as S from './style';
 
 type Props = {
   className?: string;

@@ -4,7 +4,6 @@ import * as M from '@utilities/media';
 
 export const Container = styled.div`
   width: 100%;
-  margin: 0 auto;
 `;
 
 export const Heading = styled(Text).attrs({ textType: TextType.SectionTitle })`

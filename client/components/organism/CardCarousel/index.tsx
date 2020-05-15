@@ -46,7 +46,7 @@ function CardCarousel(props: Props) {
 
   return (
     <S.Container className={className}>
-      <S.Heading>{heading}</S.Heading>
+      {heading && <S.Heading>{heading}</S.Heading>}
       <Swiper {...carouselParams} shouldSwiperUpdate getSwiper={updateSwiper}>
         {contents.map((content, idx) => 
           <Card key={idx} content={content} />

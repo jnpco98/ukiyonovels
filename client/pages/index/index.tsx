@@ -5,6 +5,7 @@ import Layout from '@layout/Layout';
 import CardCarousel from '@components/organism/CardCarousel';
 import CardList, { Responsive } from '@components/organism/CardList';
 import * as M from '@utilities/media';
+import List from '@components/molecule/List';
 
 function cardParams(cnt: number) {
   const thumbnail = `https://occ-0-2954-2568.1.nflxso.net/dnm/api/v6/XsrytRUxks8BtTRf9HNlZkW2tvY/AAAABcvEUXtNFRBthcDmFXo8Lhc4L10J5s2WVkm9ipP6V_9fM5Jl5x8mmacyTnR8pj_Y2ZM3gaiwontqaMdQh7gG4cdELHgbILEQzg.jpg`;
@@ -18,56 +19,92 @@ function cardParams(cnt: number) {
   return Array(cnt).fill(0).map(_ => content);
 }
 
-const Carousel = styled(CardCarousel)`
-  margin-top: 3rem;
-  margin-bottom: 2rem;
+function generateList(cnt: number) {
+  return Array(cnt).fill(0).map(_ => ({
+    title: 'Kaguya-Sama: Love is War',
+    subtitle: Math.floor(Math.random() * 4023) + 1,
+    link: '/'
+  }));
+}
 
-  ${M.MEDIA_SMALL} {
-    width: 90%;
-  }
+const TopNovels = styled(CardCarousel)`
+  margin: 0 auto;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
 
   ${M.MEDIA_MEDIUM} {
-    width: 65%;
+    margin-top: 4rem;
   }
+`;
+
+const NewNovels = styled(CardCarousel)`
+  margin: 0 auto;
+  margin-bottom: 3rem;
 `;
 
 const LatestReleases = styled(CardList)`
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  margin: 0 auto;
+  margin-bottom: 3rem;
+`;
 
-  ${M.MEDIA_SMALL} {
-    width: 90%;
-  }
-  
+const SearchByGenre = styled(List)`
+  margin: 0 auto;
+  margin-bottom: 3rem;
+
   ${M.MEDIA_MEDIUM} {
-    width: 65%;
+    margin-top: 2rem;
   }
 `;
 
+const SearchByType = styled(List)`
+  margin: 0 auto;
+  margin-bottom: 3rem;
+`;
+
+
 const cardResponsive: Responsive = {
   cardsPerRow: 2,
+  gap: 0.2,
   breakpoints: {
-    [M.MEDIA_XXSMALL]: 3,
-    [M.MEDIA_SMALL]: 4
+    [M.MEDIA_XXSMALL]: {
+      cardsPerRow: 3,
+      gap: 0.4
+    },
+    [M.MEDIA_SMALL]: {
+      cardsPerRow: 4,
+      gap: 0.7
+    }
   }
 }
 
 const wideCardResponsive: Responsive = {
   cardsPerRow: 1,
+  gap: 0.2,
   breakpoints: {
-    [M.MEDIA_XXSMALL]: 2
+    [M.MEDIA_XXSMALL]: {
+      cardsPerRow: 2,
+      gap: 0.4
+    },
+    [M.MEDIA_SMALL]: {
+      cardsPerRow: 2,
+      gap: 0.7
+    }
   }
 }
 
 function Index() {
   return(
     <Page>
-      <Layout>
-        {/* <CardList heading="Novels" contents={cardParams(20)} responsive={cardResponsive}/>
-         */}
-        <Carousel heading="Top Novels" contents={cardParams(20)}/>
-        <LatestReleases heading="Latest Releases" contents={cardParams(6)} cardType='wide' responsive={wideCardResponsive}/>
-        <Carousel heading="New Novels" contents={cardParams(20)}/>
+      <Layout layoutType="primarySecondary" main>
+        <Layout gutterRight>
+          <TopNovels heading="Top Novels" contents={cardParams(20)}/>
+          <LatestReleases heading="Latest Releases" contents={cardParams(6)} cardType='wide' responsive={wideCardResponsive}/>
+          <NewNovels heading="New Novels" contents={cardParams(20)}/>
+        </Layout>
+        <Layout gutterLeft>
+          <SearchByGenre heading="Search by Genre" contents={generateList(10)} bulleted/>
+          <SearchByType heading="Search by Type" contents={generateList(10)} bulleted/>
+        </Layout>
       </Layout>
     </Page>
   );

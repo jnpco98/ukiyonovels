@@ -9,12 +9,15 @@ type Props = {
   layoutType?: Layout;
   navOffset?: boolean;
   footerOffset?: boolean;
+  main?: boolean;
+  gutterLeft?: boolean;
+  gutterRight?: boolean;
 } & HTMLAttributes<HTMLDivElement>
 
 function Layout(props: Props) {
-  const { children, className, layoutType, navOffset, footerOffset, ...restProps } = props;
+  const { children, className, layoutType, navOffset, footerOffset, main, gutterLeft, gutterRight, ...restProps } = props;
   return(
-    <S.Container className={className} layoutType={layoutType} navOffset={navOffset} footerOffset={footerOffset} {...restProps}>{children}</S.Container>
+    <S.Container className={className} layoutType={layoutType} navOffset={navOffset} footerOffset={footerOffset} main={main} gutterLeft={gutterLeft} gutterRight={gutterRight} {...restProps}>{children}</S.Container>
   );
 }
 
