@@ -30,7 +30,7 @@ function CardList(props: Props) {
             <S.Standard key={idx} content={content} />
         )}
       </S.Wrapper>
-      <S.CtaButton loading>Load More</S.CtaButton>
+      <S.CtaButton>Load More</S.CtaButton>
     </S.Container>
   );
 }

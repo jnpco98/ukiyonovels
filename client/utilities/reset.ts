@@ -15,7 +15,7 @@ const reset = css`
     height: 100%;
     text-rendering: optimizeLegibility !important;
     -webkit-font-smoothing: antialiased !important;
-    background: #f2f2f2;
+    background: ${({ theme }) => theme.colors.background};
   }
 
   html, body, div, span, applet, object, iframe, 

@@ -22,17 +22,25 @@ const Carousel = styled(CardCarousel)`
   margin-top: 3rem;
   margin-bottom: 2rem;
 
+  ${M.MEDIA_SMALL} {
+    width: 90%;
+  }
+
   ${M.MEDIA_MEDIUM} {
-    width: 70%;
+    width: 65%;
   }
 `;
 
 const LatestReleases = styled(CardList)`
   margin-top: 2rem;
   margin-bottom: 2rem;
+
+  ${M.MEDIA_SMALL} {
+    width: 90%;
+  }
   
   ${M.MEDIA_MEDIUM} {
-    width: 70%;
+    width: 65%;
   }
 `;
 
