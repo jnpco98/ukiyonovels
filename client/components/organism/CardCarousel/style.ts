@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import Text, { TextType } from '@components/atom/Text';
 import * as M from '@utilities/media';
 
-export const Wrapper = styled.div`
+export const Container = styled.div`
   width: 100%;
   margin: 0 auto;
 `;

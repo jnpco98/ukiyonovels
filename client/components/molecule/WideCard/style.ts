@@ -16,6 +16,8 @@ export const Container = styled.div`
   width: 100%;
 `;
 
+export const Wrapper = styled.div``;
+
 export const Details = styled.div`
   display: flex;
   align-items: center;
@@ -135,7 +137,7 @@ export const Content = styled.div`
     ${M.MEDIA_SMALL} {
       ${Details} {
         transform: translateY(-2rem) scale(${HOVER_SCALE}, ${HOVER_SCALE});
-        padding: 0.8rem 1rem 1rem;
+        padding: 1rem 0.8rem;
         background-color: ${({ theme }) => theme.colors.background};
         z-index: 4;
       }

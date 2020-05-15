@@ -8,31 +8,14 @@ import Tabs from '@components/molecule/Tabs';
 import List from '@components/molecule/List';
 import * as M from '@utilities/media';
 
-const INITIAL_WIDTH = 13;
-
 export const CARD_RATIO = 1.75;
 
 const HOVER_SCALE = 1.05;
+const INITIAL_WIDTH = 13;
 
 export const Container = styled.div`
   width: ${INITIAL_WIDTH}rem;
   height: ${INITIAL_WIDTH * CARD_RATIO}rem;
-
-  ${M.MEDIA_XSMALL} {
-    margin-bottom: 3rem;
-  }
-  
-  ${M.MEDIA_SMALL} {
-    margin-bottom: 5rem;
-  }
-
-  ${M.MEDIA_MEDIUM} {
-    margin-bottom: 3rem;
-  }
-`;
-
-export const Wrapper = styled.div`
-  margin-bottom: 3rem;
 `;
 
 export const Details = styled.div`
@@ -69,7 +52,6 @@ export const RevealContent = styled.a`
   display: block;
   margin: 0;
   width: 100%;
-  line-height: 1.43;
   border-radius: 2rem;
   padding: 0.7rem 0.9rem 0.65rem;
   background-color: ${({ theme }) => theme.colors.background};
@@ -122,7 +104,7 @@ export const Overlay = styled.a`
 `;
 
 export const Content = styled.div`
-  margin: 1rem 0.3rem 1.2rem;
+  margin: 1rem 0.3rem 0rem;
   border-radius: 0.3rem;
   position: relative;
   transition: all 0.15s ease;
@@ -131,7 +113,7 @@ export const Content = styled.div`
   z-index: 3;
 
   ${TabbedList} {
-    display: none;
+    opacity: 0;
   }
 
   &:hover {
@@ -143,7 +125,7 @@ export const Content = styled.div`
     }
 
     ${TabbedList} {
-      display: block;
+      opacity: 1;
     }
 
     ${RevealContent} {
@@ -162,6 +144,7 @@ export const Content = styled.div`
   }
 
   ${M.MEDIA_SMALL} {
+    margin-bottom: 1.3rem;
     &:hover {
       ${Details} {
         transform: translateY(-2.5rem) scale(${HOVER_SCALE}, ${HOVER_SCALE});
@@ -170,7 +153,7 @@ export const Content = styled.div`
       }
 
       ${Reveal} {
-        height: 2.3rem;
+        height: 2.5rem;
         border-radius: 0 0 1.2rem 1.2rem; 
         overflow: visible;
         transform: scale(${HOVER_SCALE - 0.001}, ${HOVER_SCALE});

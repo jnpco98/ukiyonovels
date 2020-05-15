@@ -1,20 +1,15 @@
 import React from 'react';
+import { CardContent } from '@components/molecule/Card';
 import * as S from './style';
-
-export interface HozCardContent {
-  heading: string;
-  inline: string[];
-  tabbed: string[];
-}
 
 type Props = {
   className?: string;
-  thumbnail?: string;
-  content: HozCardContent;
+  content: CardContent;
 };
 
-function HozCard(props: Props) {
-  const { className, thumbnail, content } = props;
+function WideCard(props: Props) {
+  const { className, content } = props;
+  const { thumbnail, heading, inline, tabbed } = content;
 
   return (
     <S.Container className={className}>
@@ -23,9 +18,9 @@ function HozCard(props: Props) {
           <S.Image img={thumbnail}><S.Overlay /></S.Image>
           <S.Details>
             <S.Meta>
-              <S.Title>{content.heading}</S.Title>
-              <S.InlineList items={content.inline}/>
-              <S.TabbedList items={content.tabbed}/>
+              <S.Title>{heading}</S.Title>
+              <S.InlineList items={inline}/>
+              <S.TabbedList items={tabbed}/>
             </S.Meta>
             <S.Reveal>
               <S.RevealContent>
@@ -39,4 +34,4 @@ function HozCard(props: Props) {
   );
 }
 
-export default HozCard;
+export default WideCard;

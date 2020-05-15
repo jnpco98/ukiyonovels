@@ -26,24 +26,21 @@ const carouselParams = {
 type Props = {
   className?: string;
   heading?: string,
-  cardContents: {
-    thumbnail: string;
-    content: CardContent;
-  }[];
+  contents: CardContent[];
 }
 
 function CardCarousel(props: Props) {
-  const { className, heading, cardContents } = props;
+  const { className, heading, contents } = props;
 
   return (
-    <S.Wrapper className={className}>
+    <S.Container className={className}>
       <S.Heading>{heading}</S.Heading>
       <Swiper {...carouselParams} shouldSwiperUpdate>
-        {cardContents.map((content, idx) => 
-          <Card key={idx} thumbnail={content.thumbnail}content={content.content} />
+        {contents.map((content, idx) => 
+          <Card key={idx} content={content} />
         )}
       </Swiper>
-    </S.Wrapper>
+    </S.Container>
   );
 }
 
