@@ -1,19 +1,23 @@
-import React, { Fragment } from 'react';
+import React from 'react';
+import { RowContent } from '@components/atom/Row';
 import * as S from './style';
 
 type Props = {
   className?: string;
-  items: string[];
+  heading?: string;
+  contents: RowContent[];
+  bulleted?: boolean;
 }
 
 function List(props: Props) {
-  const { className, items } = props;
+  const { className, heading, contents, bulleted } = props;
 
   return(
     <S.Container className={className}>
-      {items.map((item, idx) => <Fragment key={idx}>{item}{idx !== items.length - 1 && <S.Divider/>}</Fragment>)}
+      {heading && <S.Heading>{heading}</S.Heading>}
+      {contents.map(c => <S.Item content={c} bulleted={bulleted} key={c.title + c.link}/>)}
     </S.Container>
-  )
+  );
 }
 
 export default List;
