@@ -11,7 +11,6 @@ export const Wide = styled(WideCard)``;
 
 export const Container = styled.div`
   width: 100%;
-  margin: 0 auto;
 `;
 
 export const Heading = styled(Text).attrs({ textType: TextType.SectionTitle })`
@@ -24,16 +23,17 @@ export const Wrapper = styled.div<{ responsive?: Responsive }>`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
   margin-bottom: 2rem;
 
   ${props => {
     if(!props.responsive) return css``;
-    const { cardsPerRow, breakpoints } = props.responsive;
+    const { cardsPerRow, gap, breakpoints } = props.responsive;
     return css`
       ${Standard}, ${Wide} {
         ${cardsPerRow && css`
           height: auto;
-          width: ${100 / cardsPerRow}%;
+          width: calc(${100 / cardsPerRow}% - ${cardsPerRow * (gap || 0.5)}rem);
         `}
 
         ${Object.keys(breakpoints)
@@ -41,7 +41,7 @@ export const Wrapper = styled.div<{ responsive?: Responsive }>`
             ${mqs}
             ${breakpoint} {
               height: auto;
-              width: ${100 / breakpoints[breakpoint]}%;
+              width: calc(${100 / breakpoints[breakpoint].cardsPerRow}% - ${cardsPerRow * (breakpoints[breakpoint].gap || 0.5)}rem);
           }`, css``)
         }
       }

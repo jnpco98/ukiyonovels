@@ -67,7 +67,7 @@ export const BaseTheme: DefaultTheme = {
 
     selection: 'lightgray',
 
-    backdrop: transparentize(0.8, '#FFF'),
+    backdrop: transparentize(0.2, '#FFF'),
 
     // Form color sets
     info: '#EE7752',

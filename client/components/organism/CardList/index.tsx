@@ -4,8 +4,12 @@ import * as S from './style';
 
 export type Responsive = {
   cardsPerRow: number;
+  gap?: number;
   breakpoints?: {
-    [key: string]: number;
+    [key: string]: {
+      cardsPerRow: number;
+      gap?: number;
+    };
   }
 }
 
@@ -22,7 +26,7 @@ function CardList(props: Props) {
 
   return (
     <S.Container className={className}>
-      <S.Heading>{heading}</S.Heading>
+      {heading && <S.Heading>{heading}</S.Heading>}
       <S.Wrapper responsive={responsive}>
         {contents.map((content, idx) => 
           cardType === 'wide' ? 

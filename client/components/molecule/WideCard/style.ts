@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { center, regularFontSize, CENTER_BOTH } from '@utilities/mixins';
 import Tabs from '@components/molecule/Tabs';
-import List from '@components/molecule/List';
+import InlineList from '@components/molecule/InlineList';
 import * as M from '@utilities/media';
 import Button from '@components/atom/Button';
 
@@ -33,7 +33,7 @@ export const Title = styled(Text).attrs({ textType: TextType.Paragraph })`
   text-overflow: ellipsis;
   white-space: nowrap;
   color: ${({ theme }) => theme.colors.primary};
-  font-weight: bold;
+  font-weight: ${({ theme }) => theme.font.bold};
   font-family: ${({ theme }) => theme.font.secondary};
 `;
 
@@ -83,9 +83,9 @@ export const Image = styled.div<{ img: string; }>`
   }
 `;
 
-export const TabbedList = styled(Tabs)``;
+export const DotSeparatedList = styled(InlineList)``;
 
-export const InlineList = styled(List)``;
+export const TabbedList = styled(Tabs)``;
 
 export const Overlay = styled.a`
   position: absolute;

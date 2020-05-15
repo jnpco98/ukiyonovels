@@ -19,7 +19,7 @@ function WideCard(props: Props) {
           <S.Details>
             <S.Meta>
               <S.Title>{heading}</S.Title>
-              <S.InlineList items={inline}/>
+              <S.DotSeparatedList items={inline}/>
               <S.TabbedList items={tabbed}/>
             </S.Meta>
             <S.Reveal>

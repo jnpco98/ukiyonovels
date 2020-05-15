@@ -25,7 +25,7 @@ function Card(props: Props) {
           <S.Image img={thumbnail}><S.Overlay /></S.Image>
           <S.Details>
             <S.Title>{heading}</S.Title>
-            <S.InlineList items={inline}/>
+            <S.DotSeparatedList items={inline}/>
             <S.TabbedList items={tabbed}/>
           </S.Details>
           <S.Reveal>
