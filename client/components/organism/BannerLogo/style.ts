@@ -6,7 +6,7 @@ import { gutter, GUTTER_LEFT, GUTTER_RIGHT } from '@utilities/mixins';
 
 const DynamicIcon = dynamic(() => import('@components/molecule/DynamicIcon'), { ssr: false });
 
-export const Container = styled.div`
+export const Container = styled.a`
   max-width: ${({ theme }) => theme.screen.innerMaxWidth};
   margin-left: auto;
   margin-right: auto;

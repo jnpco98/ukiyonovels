@@ -16,11 +16,11 @@ export const PrimarySecondary = css`
     flex-direction: row;
 
     & > *:nth-child(1) {
-      width: 70%;
+      width: 65%;
     }
 
     & > *:nth-child(2) {
-      width: 30%;
+      width: 35%;
     }
   }
 `;
@@ -38,11 +38,11 @@ export const SecondaryPrimary = css`
     flex-direction: row;
 
     & > *:nth-child(1) {
-      width: 30%;
+      width: 35%;
     }
 
     & > *:nth-child(2) {
-      width: 70%;
+      width: 65%;
     }
   }
 `;
@@ -61,14 +61,6 @@ export const Equal = css`
 
     & > * {
       width: 50%;
-    }
-
-    & > *:nth-child(1) {
-      margin-right: 0.7rem;
-    }
-
-    & > *:nth-child(2) {
-      margin-left: 0.7rem;
     }
   }
 `;
@@ -102,7 +94,7 @@ export const Container = styled.section<{ layoutType: Layout, navOffset: boolean
       padding-bottom: 9rem;
     `};
 
-  ${M.MEDIA_SMALL} {
+  ${M.MEDIA_MEDIUM} {
     ${props => props.gutterLeft && css`margin-left: 1.5rem;`};
     ${props => props.gutterRight && css`margin-right: 1.5rem;`};
   }
