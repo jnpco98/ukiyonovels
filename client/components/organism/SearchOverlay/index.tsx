@@ -2,6 +2,7 @@ import React, { useRef, MouseEvent } from 'react';
 import Search from '@components/molecule/Search';
 import { useOnClickOutside } from '@utilities/hooks';
 import * as S from './style';
+import { t } from '@utilities/locales';
 
 type Props = {
   className?: string;
@@ -30,7 +31,7 @@ function SearchOverlay(props: Props) {
           onSearchSubmit(query);
           setActive(false);
         }}
-        placeholder={placeholder}
+        placeholder={placeholder || t('components.search.placeholder') as unknown as string || ''}
       />
     </S.Container>
   );

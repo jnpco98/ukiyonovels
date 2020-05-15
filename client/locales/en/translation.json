@@ -1,6 +1,51 @@
 {
-  "card": {
-    "cta": "Read Now"
+  "components": {
+    "search": {
+      "placeholder": "Search for a novel..."
+    },
+    "cardList": {
+      "loadMore": "Load More"
+    },
+    "card": {
+      "cta": "Read Now"
+    },
+    "sidePanel": {
+      "searchByGenre": {
+        "heading": "Search by Genre"
+      },
+      "searchByType": {
+        "heading": "Search by Type"
+      },
+      "advancedSearch": {
+        "heading": "Advanced Search",
+        "subtitle": "Search novels by genres, tags, type, author, status, and many more",
+        "link": "/advanced-search",
+        "linkLabel": "Advanced Search"
+      },
+      "report": {
+        "heading": "Report a problem",
+        "subtitle": "If you find any bug, or any problems with any of the novels, report using the link below",
+        "link": "/report",
+        "linkLabel": "Report a problem"
+      },
+      "request": {
+        "heading": "Requests",
+        "subtitle": "If you go any novel requests, go to the link below",
+        "link": "/request",
+        "linkLabel": "Got requests?"
+      }
+    }
+  },
+  "homepage": {
+    "topNovels": {
+      "heading": "Top Novels"
+    },
+    "latestReleases": {
+      "heading": "Latest Releases"
+    },
+    "newNovels": {
+      "heading": "New Novels"
+    }
   },
   "footer": {
     "copyright": "Copyright © 2020 by Ukiyo"

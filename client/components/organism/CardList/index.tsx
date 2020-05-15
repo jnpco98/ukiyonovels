@@ -1,5 +1,6 @@
 import React from 'react';
 import { CardContent } from '@components/molecule/Card';
+import { t } from '@utilities/locales';
 import * as S from './style';
 
 export type Responsive = {
@@ -34,7 +35,7 @@ function CardList(props: Props) {
             <S.Standard key={idx} content={content} />
         )}
       </S.Wrapper>
-      <S.CtaButton>Load More</S.CtaButton>
+        <S.CtaButton>{t('components.cardList.loadMore')}</S.CtaButton>
     </S.Container>
   );
 }

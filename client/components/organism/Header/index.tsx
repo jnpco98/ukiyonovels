@@ -70,7 +70,6 @@ function Header() {
           active={searchOverlayActive}
           setActive={setSearchOverlayActive}
           onSearchSubmit={(query: string) => router.push(`/search?query=${query}`)}
-          placeholder="Search for a novel..."
         />
       </S.Container>
       <S.Filler active={floating}/>

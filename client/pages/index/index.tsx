@@ -5,6 +5,7 @@ import Layout from '@layout/Layout';
 import CardCarousel from '@components/organism/CardCarousel';
 import CardList, { Responsive } from '@components/organism/CardList';
 import SidePanel from '@components/organism/SidePanel';
+import { t } from '@utilities/locales';
 import * as M from '@utilities/media';
 
 function cardParams(cnt: number) {
@@ -38,6 +39,7 @@ const LatestReleases = styled(CardList)`
   margin: 0 auto;
   margin-bottom: 3rem;
 `;
+
 const cardResponsive: Responsive = {
   cardsPerRow: 2,
   gap: 0.2,
@@ -69,13 +71,15 @@ const wideCardResponsive: Responsive = {
 }
 
 function Index() {
+  const { topNovels, latestReleases, newNovels } = t('homepage');
+
   return(
     <Page>
       <Layout layoutType="primarySecondary" main>
         <Layout gutterRight>
-          <TopNovels heading="Top Novels" contents={cardParams(20)}/>
-          <LatestReleases heading="Latest Releases" contents={cardParams(6)} cardType='wide' responsive={wideCardResponsive}/>
-          <NewNovels heading="New Novels" contents={cardParams(20)}/>
+          <TopNovels heading={topNovels.heading} contents={cardParams(20)}/>
+          <LatestReleases heading={latestReleases.heading} contents={cardParams(6)} cardType='wide' responsive={wideCardResponsive}/>
+          <NewNovels heading={newNovels.heading} contents={cardParams(20)}/>
         </Layout>
         <SidePanel/>
       </Layout>

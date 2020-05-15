@@ -1,5 +1,5 @@
 import React from 'react';
-import Layout from '@layout/Layout';
+import { t } from '@utilities/locales';
 import * as S from './style';
 
 function generateList(cnt: number) {
@@ -11,13 +11,15 @@ function generateList(cnt: number) {
 }
 
 function SidePanel() {
+  const { searchByGenre, searchByType, advancedSearch, report, request } = t('components.sidePanel');
+
   return(
     <S.Container gutterLeft>
-      <S.QuickFilter heading="Search by Genre" contents={generateList(10)} bulleted/>
-      <S.Text heading="Advanced Search" subtitle="Search novels by genres, tags, type, author, status, and many more" link="/advanced-search" linkLabel="Advanced Search"/>
-      <S.QuickFilter heading="Search by Type" contents={generateList(10)} bulleted/>
-      <S.Text heading="Report a problem" subtitle="If you find any bug, or any problems with any of the novels, report using the link below" link="/report" linkLabel="Report a problem"/>
-      <S.Text heading="Report a problem" subtitle="If you go any novel requests, go to the link below" link="/request" linkLabel="Got requests?"/>
+      <S.QuickFilter heading={searchByGenre.heading} contents={generateList(10)} bulleted/>
+      <S.Text heading={advancedSearch.heading} subtitle={advancedSearch.subtitle} link={advancedSearch.link} linkLabel={advancedSearch.linkLabel}/>
+      <S.QuickFilter heading={searchByType.heading} contents={generateList(10)} bulleted/>
+      <S.Text heading={report.heading} subtitle={report.subtitle} link={report.link} linkLabel={report.linkLabel}/>
+      <S.Text heading={request.heading} subtitle={request.subtitle} link={request.link} linkLabel={request.linkLabel}/>
     </S.Container>
   );
 }

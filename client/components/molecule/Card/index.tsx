@@ -30,7 +30,7 @@ function Card(props: Props) {
           </S.Details>
           <S.Reveal>
             <S.RevealContent>
-              <S.RevealIcon/>{t('card.cta')}
+              <S.RevealIcon/>{t('components.card.cta')}
             </S.RevealContent>
           </S.Reveal>
         </S.Content>

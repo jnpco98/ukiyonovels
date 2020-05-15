@@ -8,9 +8,10 @@ export const Container = styled.div<{ active: boolean, transparent: boolean, cen
   width: 100vw;
   height: 100vh;
   position: fixed;
-  backdrop-filter: blur(0.08rem);
+  backdrop-filter: blur(0.2rem);
   background-color: ${({ theme }) => theme.colors.backdrop};
   transform: translateY(-100%);
+  transition: all 0.3s ease;
 
   ${props =>
     props.transparent && css`
