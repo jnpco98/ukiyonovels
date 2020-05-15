@@ -7,7 +7,7 @@ import * as S from './style';
 
 function Footer() {
   return (
-    <Section footerOffset>
+    <Section footerOffset main>
       <S.Container>
         <S.Divider />
         <S.TextGroup>

@@ -19,7 +19,6 @@ export const Item = styled(Row)`
 `;
 
 export const Heading = styled(Text).attrs({ textType: TextType.SectionTitle })`
-  text-transform: uppercase;
   text-align: center;
   margin-bottom: 2.1rem;
   margin-right: 0.5rem;

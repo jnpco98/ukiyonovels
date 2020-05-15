@@ -18,24 +18,32 @@ export const Divider = styled.div`
 
 export const TextGroup = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
+
+  ${M.MEDIA_SMALL} {
+    flex-direction: row;
+  }
 `;
 
 export const TermsGroup = styled.div`
   display: flex;
-  margin-left: 2rem;
 
   ${Anchor}:after {
     content: none;
   }
   
   ${Anchor} + ${Anchor} {
-    margin-left: 0.5rem;
+    margin-left: 0.8rem;
   }
 
   ${M.MEDIA_XSMALL} {
     ${Anchor}:after {
       content: '';
     }
+  }
+
+  ${M.MEDIA_SMALL} {
+    margin-left: 2rem;
   }
 `;

@@ -13,7 +13,7 @@ function Page(props: Props) {
     <>
       <Header/>
       {children}
-      {/* <Footer/> */}
+      <Footer/>
     </>
   );
 }

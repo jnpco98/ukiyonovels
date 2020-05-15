@@ -14,7 +14,6 @@ export const Container = styled.div`
 `;
 
 export const Heading = styled(Text).attrs({ textType: TextType.SectionTitle })`
-  text-transform: uppercase;
   text-align: center;
   margin-bottom: 2.1rem;
 `;

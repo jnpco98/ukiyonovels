@@ -91,7 +91,7 @@ export const Container = styled.section<{ layoutType: Layout, navOffset: boolean
   ${(props) =>
     props.footerOffset &&
     css`
-      padding-bottom: 9rem;
+      padding-bottom: 2rem;
     `};
 
   ${M.MEDIA_MEDIUM} {
@@ -114,7 +114,7 @@ export const Container = styled.section<{ layoutType: Layout, navOffset: boolean
     ${(props) =>
       props.footerOffset &&
       css`
-        padding-bottom: 12rem;
+        padding-bottom: 3rem;
       `};
   }
 `;

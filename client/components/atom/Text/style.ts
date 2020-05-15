@@ -17,6 +17,7 @@ const textCommons = css<{ center?: boolean }>`
 export const PageTitle = styled.h1<{ decorate: boolean }>`
   ${pageTitleFontSize};
   ${textCommons};
+  text-transform: uppercase;
   font-family: ${({ theme }) => theme.font.secondary};
   font-weight: ${({ theme }) => theme.font.bold};
 
@@ -28,7 +29,7 @@ export const PageTitle = styled.h1<{ decorate: boolean }>`
 export const SectionTitle = styled.h2<{ decorate: boolean }>`
   ${sectionFontSize};
   ${textCommons};
-
+  text-transform: uppercase;
   font-family: ${({ theme }) => theme.font.secondary};
   font-weight: ${({ theme }) => theme.font.bold};
   ${margin('0.7rem', null, '0.7rem', null)};
@@ -39,7 +40,7 @@ export const SectionTitle = styled.h2<{ decorate: boolean }>`
 export const SubsectionTitle = styled.h3`
   ${subsectionFontSize};
   ${textCommons};
-
+  text-transform: uppercase;
   font-family: ${({ theme }) => theme.font.secondary};
   font-weight: ${({ theme }) => theme.font.bold};
   ${margin('1rem', null, '1rem', null)};
