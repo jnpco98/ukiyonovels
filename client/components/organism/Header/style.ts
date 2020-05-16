@@ -109,7 +109,7 @@ export const Container = styled.header<{ floating: boolean, flat: boolean }>`
       position: fixed;
 
       ${({ theme }) => !props.flat && css`
-        box-shadow: 0 0.3rem 0.8rem -0.5rem ${transparentize(0.05, theme.colors.primaryCompliment)};
+        box-shadow: 0 0.5rem 0.8rem -0.8rem ${transparentize(0.05, theme.colors.primaryCompliment)};
       `};
     `};
 `;
