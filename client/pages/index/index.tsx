@@ -20,6 +20,28 @@ function cardParams(cnt: number) {
   return Array(cnt).fill(0).map(_ => content);
 }
 
+const MainLayout = styled(Layout).attrs({ main: true })`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  & > * {
+    width: 100%;
+  }
+
+  ${M.MEDIA_MEDIUM} {
+    flex-direction: row;
+
+    & > *:nth-child(1) {
+      width: 65%;
+    }
+
+    & > *:nth-child(2) {
+      width: 35%;
+    }
+  }
+`;
+
 const TopNovels = styled(CardCarousel)`
   margin: 0 auto;
   margin-top: 3rem;
@@ -75,14 +97,14 @@ function Index() {
 
   return(
     <Page>
-      <Layout layoutType="primarySecondary" main>
+      <MainLayout>
         <Layout gutterRight>
           <TopNovels heading={topNovels.heading} contents={cardParams(20)}/>
           <LatestReleases heading={latestReleases.heading} contents={cardParams(6)} cardType='wide' responsive={wideCardResponsive}/>
           <NewNovels heading={newNovels.heading} contents={cardParams(20)}/>
         </Layout>
         <SidePanel/>
-      </Layout>
+      </MainLayout>
     </Page>
   );
 }

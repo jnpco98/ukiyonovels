@@ -29,7 +29,7 @@ function NovelByHandle() {
   return(
     <Page>
       <Layout layoutType="primarySecondary" main>
-        <Layout gutterRight>
+        <Layout gutterRight className="something">
           <Novel content={mockNovel}/>
         </Layout>
         <SidePanel/>

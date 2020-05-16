@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
-import * as M from 'utilities/media'
 import { gutter, GUTTER_LEFT, GUTTER_RIGHT } from '@utilities/mixins';
+import * as M from 'utilities/media'
 import { Layout } from '.';
 
 export const PrimarySecondary = css`
@@ -16,11 +16,11 @@ export const PrimarySecondary = css`
     flex-direction: row;
 
     & > *:nth-child(1) {
-      width: 65%;
+      width: 70%;
     }
 
     & > *:nth-child(2) {
-      width: 35%;
+      width: 30%;
     }
   }
 `;
@@ -38,11 +38,11 @@ export const SecondaryPrimary = css`
     flex-direction: row;
 
     & > *:nth-child(1) {
-      width: 35%;
+      width: 30%;
     }
 
     & > *:nth-child(2) {
-      width: 65%;
+      width: 70%;
     }
   }
 `;

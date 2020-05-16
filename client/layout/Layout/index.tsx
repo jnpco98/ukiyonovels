@@ -12,6 +12,7 @@ type Props = {
   main?: boolean;
   gutterLeft?: boolean;
   gutterRight?: boolean;
+  ratio?: number;
 } & HTMLAttributes<HTMLDivElement>
 
 function Layout(props: Props) {
