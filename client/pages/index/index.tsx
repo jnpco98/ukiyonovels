@@ -63,22 +63,7 @@ const LatestReleases = styled(CardList)`
   margin-bottom: 3rem;
 `;
 
-const cardResponsive: Responsive = {
-  itemsPerRow: 2,
-  gap: 0.2,
-  breakpoints: {
-    [M.MEDIA_XXSMALL]: {
-      itemsPerRow: 3,
-      gap: 0.4
-    },
-    [M.MEDIA_SMALL]: {
-      itemsPerRow: 4,
-      gap: 0.7
-    }
-  }
-}
-
-const wideCardResponsive: Responsive = {
+const cardReponsive: Responsive = {
   itemsPerRow: 1,
   gap: 0.2,
   breakpoints: {
@@ -101,7 +86,7 @@ function Index() {
       <MainLayout navOffset>
         <Layout gutterRight>
           <TopNovels heading={topNovels.heading} contents={cardParams(20)}/>
-          <LatestReleases heading={latestReleases.heading} contents={cardParams(6)} cardType='wide' responsive={wideCardResponsive}/>
+          <LatestReleases heading={latestReleases.heading} contents={cardParams(6)} cardType='wide' responsive={cardReponsive}/>
           <NewNovels heading={newNovels.heading} contents={cardParams(20)}/>
         </Layout>
         <SidePanel/>

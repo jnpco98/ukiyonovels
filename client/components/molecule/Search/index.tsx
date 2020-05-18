@@ -4,11 +4,12 @@ import * as S from './style';
 type Props = {
   active?: boolean;
   placeholder?: string;
+  advancedSearch?: string;
   onSubmit?: Function;
 };
 
 function Search(props: Props, ref: RefObject<HTMLDivElement>) {
-  const { onSubmit, active, placeholder } = props;
+  const { onSubmit, active, advancedSearch, placeholder } = props;
 
   const [searchInput, setSearchInput] = useState('');
 
@@ -32,6 +33,7 @@ function Search(props: Props, ref: RefObject<HTMLDivElement>) {
           <S.Icon />
         </S.Submit>
       </S.Form>
+      <S.AdvancedSearch link="/advanced-search">{advancedSearch}</S.AdvancedSearch>
     </S.Container>
   );
 }

@@ -32,6 +32,7 @@ function SearchOverlay(props: Props) {
           setActive(false);
         }}
         placeholder={placeholder || t('components.search.placeholder') as unknown as string || ''}
+        advancedSearch={t('components.search.advancedSearch') as unknown as string || ''}
       />
     </S.Container>
   );

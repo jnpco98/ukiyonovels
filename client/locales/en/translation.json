@@ -1,7 +1,8 @@
 {
   "components": {
     "search": {
-      "placeholder": "Search for a novel..."
+      "placeholder": "Search for a novel...",
+      "advancedSearch": "Advanced Search"
     },
     "cardList": {
       "loadMore": "Load More"

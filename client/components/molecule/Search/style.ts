@@ -3,6 +3,8 @@ import dynamic from 'next/dynamic';
 import { center, CENTER_BOTH, subsectionFontSize } from '@utilities/mixins';
 import { search } from '@icons';
 import * as M from '@utilities/media';
+import Text, { TextType } from '@components/atom/Text';
+import { transparentize } from 'polished';
 
 const DynamicIcon = dynamic(() => import('@components/molecule/DynamicIcon'), { ssr: false });
 
@@ -39,14 +41,9 @@ export const Icon = styled(DynamicIcon).attrs({ SVGString: search })`
     fill: ${({ theme }) => theme.colors.primary};
   }
   
-  width: 1.4rem;
-  height: 1.4rem;
+  width: 1.2rem;
+  height: 1.2rem;
   margin-left: 1rem;
-
-  ${M.MEDIA_XSMALL} {
-    width: 1.7rem;
-    height: 1.7rem;
-  }
 `;
 
 export const Input = styled.input.attrs({ type: 'text' })`
@@ -58,10 +55,16 @@ export const Input = styled.input.attrs({ type: 'text' })`
   width: 12rem;
 
   &::placeholder {
-    color: ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => transparentize(0.2, theme.colors.primary)};
   }
 
   ${M.MEDIA_XSMALL} {
     width: 20rem;
   }
+`;
+
+export const AdvancedSearch = styled(Text).attrs({ textType: TextType.Anchor })`
+  z-index: 80;
+  margin-top: 5rem;
+  position: relative;
 `;

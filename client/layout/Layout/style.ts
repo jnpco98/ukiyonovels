@@ -85,7 +85,7 @@ export const Container = styled.section<{ layoutType: Layout, navOffset: boolean
   ${(props) =>
     props.navOffset &&
     css`
-      margin-top: 2rem;
+      padding-top: 2rem;
     `};
 
   ${(props) =>
@@ -102,6 +102,12 @@ export const Container = styled.section<{ layoutType: Layout, navOffset: boolean
       props.navOffset &&
       css`
         margin-top: 4rem;
+      `};
+    
+    ${(props) =>
+      props.footerOffset &&
+      css`
+        padding-bottom:4rem;
       `};
   }
 
