@@ -4,26 +4,40 @@ import * as S from './style';
 import Link from '../Link';
 
 export interface RowContent {
+  prefix?: string;
   title: string;
-  subtitle?: number;
+  subtitle?: string | number;
   link?: string;
 }
 
 type Props = {
   className?: string;
-  bulleted?: boolean;
   content: RowContent;
 };
 
 function Row(props: Props) {
-  const { className, content, bulleted } = props;
-  const { title, subtitle, link } = content;
+  const { className, content } = props;
+  const { prefix, title, subtitle, link } = content;
 
-  const Element = 
-    <S.Container className={className}>
-      <S.Title bulleted={bulleted} link={link}>{title}</S.Title>
-      <Text>{subtitle}</Text>
-    </S.Container>
+  const alternate = !!(prefix && subtitle);
+
+  const Element = <S.Container className={className} alternate={alternate}>
+      {
+        alternate ?
+        <>
+          <S.Prefix link={link}>{prefix}</S.Prefix>
+          <S.Wrapper>
+            <S.Title link={link}>{title}</S.Title>
+            <Text>{subtitle}</Text>
+          </S.Wrapper>
+        </>
+        :
+        <>
+          <S.Title link={link}>{title}</S.Title>
+          {subtitle && <Text>{subtitle}</Text>}
+        </>
+      }
+    </S.Container>;
 
   return link ? <Link href={link} passHref>{Element}</Link> : Element;
 }
