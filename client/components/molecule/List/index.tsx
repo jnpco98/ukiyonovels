@@ -1,21 +1,28 @@
 import React from 'react';
+import Simplebar from 'simplebar-react';
 import { RowContent } from '@components/atom/Row';
 import * as S from './style';
+import { Responsive } from '@utilities/mixins';
 
 type Props = {
   className?: string;
   heading?: string;
   contents: RowContent[];
-  bulleted?: boolean;
+  responsive?: Responsive;
+  maxHeight?: string;
 }
 
 function List(props: Props) {
-  const { className, heading, contents, bulleted } = props;
+  const { className, heading, contents, responsive, maxHeight } = props;
 
   return(
     <S.Container className={className}>
       {heading && <S.Heading>{heading}</S.Heading>}
-      {contents.map(c => <S.Item content={c} bulleted={bulleted} key={c.title + c.link}/>)}
+      <Simplebar style={{ maxHeight }}>
+        <S.Wrapper responsive={responsive}>
+          {contents.map(c => <S.Item content={c} key={c.title + c.link}/>)}
+        </S.Wrapper>
+      </Simplebar>
     </S.Container>
   );
 }

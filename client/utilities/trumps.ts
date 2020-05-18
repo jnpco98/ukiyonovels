@@ -104,6 +104,13 @@ const swiper = css`
   }
 `;
 
+const simpleBar = css`
+  .simplebar-scrollbar:before {
+    background: ${({ theme, ...props }) => theme.colors.primary};
+  }
+`;
+
 export default createGlobalStyle`
   ${swiper}
+  ${simpleBar}
 `;

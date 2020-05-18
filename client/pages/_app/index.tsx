@@ -10,6 +10,7 @@ import { initializeGoogleAnalytics } from '@utilities/analytics';
 import { SITE_TITLE } from '@constants/head';
 
 import 'swiper/css/swiper.min.css';
+import 'simplebar/dist/simplebar.min.css';
 
 type Props = {
   Component: NextComponentType<NextPageContext, any, {}>;
