@@ -52,19 +52,19 @@ function Header() {
       <BannerLogo ref={bannerRef}/>
       <S.Container floating={floating} flat={drawerActive || searchOverlayActive}>
 
-        <S.MobileMenuItem>
+        <S.MobileMenuItems>
           <S.DrawerTrigger onClick={(): void => setDrawerActive(!drawerActive)}>
             <S.DrawerTriggerIcon active={drawerActive} />
           </S.DrawerTrigger>
-        </S.MobileMenuItem>
+        </S.MobileMenuItems>
         <S.Drawer drawerActive={drawerActive}>
           {mobileSecondaryMenu.map((item) => renderLinks(item, `${item.key}`))}
         </S.Drawer>
         <S.DrawerBackdrop active={drawerActive} onClick={(): void => setDrawerActive(false)} />
-        <S.MobileMenuItem>{mobilePrimaryMenu.map((item) => renderLinks(item, `${item.key}`))}</S.MobileMenuItem>
+        <S.MobileMenuItems>{mobilePrimaryMenu.map((item) => renderLinks(item, `${item.key}`))}</S.MobileMenuItems>
 
-        <S.DesktopMenuItem>{secondaryMenu.map((item) => renderLinks(item, `${item.key}`))}</S.DesktopMenuItem>
-        <S.DesktopMenuItem>{primaryMenu.map((item) => renderLinks(item, `${item.key}`))}</S.DesktopMenuItem>
+        <S.DesktopMenuItems>{secondaryMenu.map((item) => renderLinks(item, `${item.key}`))}</S.DesktopMenuItems>
+        <S.DesktopMenuItems>{primaryMenu.map((item) => renderLinks(item, `${item.key}`))}</S.DesktopMenuItems>
 
         <SearchOverlay
           active={searchOverlayActive}

@@ -8,12 +8,7 @@ export const BaseTheme: DefaultTheme = {
   gutterHorizontal: {
     base: '0.8rem',
     xxsmall: '1.8rem',
-    xsmall: '4rem',
-    small: '4rem',
-    medium: '4rem',
-    large: '4rem',
-    xlarge: '4rem',
-    xxlarge: '4rem'
+    xsmall: '4rem'
   },
   gutterVertical: {
     base: '1rem',
@@ -21,9 +16,6 @@ export const BaseTheme: DefaultTheme = {
     xsmall: '1rem',
     small: '3rem',
     medium: '5rem',
-    large: '5rem',
-    xlarge: '5rem',
-    xxlarge: '5rem'
   },
   font: {
     baseSize: '1rem',

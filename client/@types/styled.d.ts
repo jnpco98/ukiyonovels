@@ -2,13 +2,13 @@ import 'styled-components';
 
 export interface Gutter {
   base: string;
-  xxsmall: string;
-  xsmall: string;
-  small: string;
-  medium: string;
-  large: string;
-  xlarge: string;
-  xxlarge: string;
+  xxsmall?: string;
+  xsmall?: string;
+  small?: string;
+  medium?: string;
+  large?: string;
+  xlarge?: string;
+  xxlarge?: string;
 }
 
 export interface Colors {

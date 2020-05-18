@@ -14,55 +14,37 @@ const textCommons = css<{ center?: boolean }>`
   `}
 `;
 
-export const PageTitle = styled.h1<{ decorate: boolean }>`
+export const pageTitleStyle = css`
   ${pageTitleFontSize};
-  ${textCommons};
   text-transform: uppercase;
   font-family: ${({ theme }) => theme.font.secondary};
   font-weight: ${({ theme }) => theme.font.bold};
-
   ${margin('1.4rem', null, '1.4rem', null)};
-
-  ${(props) => props.decorate && headingDecoration};
 `;
 
-export const SectionTitle = styled.h2<{ decorate: boolean }>`
+export const sectionTitleStyle = css`
   ${sectionFontSize};
-  ${textCommons};
   text-transform: uppercase;
   font-family: ${({ theme }) => theme.font.secondary};
   font-weight: ${({ theme }) => theme.font.bold};
   ${margin('0.7rem', null, '0.7rem', null)};
-
-  ${(props) => props.decorate && headingDecoration};
 `;
 
-export const SubsectionTitle = styled.h3`
+export const subsectionTitleStyle = css`
   ${subsectionFontSize};
-  ${textCommons};
   text-transform: uppercase;
   font-family: ${({ theme }) => theme.font.secondary};
   font-weight: ${({ theme }) => theme.font.bold};
   ${margin('1rem', null, '1rem', null)};
 `;
 
-export const Paragraph = styled.p`
+export const regularTextStyle = css`
   ${regularFontSize};
-  ${textCommons};
-
   ${margin('0.2rem', null, '0.2rem', null)};
 `;
 
-export const Span = styled.span`
-  ${regularFontSize};
-  ${textCommons};
-
-  ${margin('0.2rem', null, '0.2rem', null)};
-`;
-
-export const Anchor = styled.a<{ active?: boolean, decorateActive?: boolean }>`
-  ${regularFontSize};
-  ${textCommons};
+export const anchorTextStyle = css`
+  ${regularTextStyle};
   display: inline-block;
 
   color: ${({ theme }) => theme.colors.primary};
@@ -86,6 +68,42 @@ export const Anchor = styled.a<{ active?: boolean, decorateActive?: boolean }>`
       transform: translateX(0%);
     }
   }
+`;
+
+export const PageTitle = styled.h1<{ decorate: boolean }>`
+  ${textCommons};
+  ${pageTitleStyle};
+  ${(props) => props.decorate && headingDecoration};
+`;
+
+export const SectionTitle = styled.h2<{ decorate: boolean }>`
+  ${textCommons};
+  ${sectionTitleStyle};
+  ${(props) => props.decorate && headingDecoration};
+`;
+
+export const SubsectionTitle = styled.h3`
+  ${textCommons};
+  ${subsectionTitleStyle};
+`;
+
+export const Paragraph = styled.p`
+  ${textCommons};
+  ${regularTextStyle};
+`;
+
+export const Span = styled.span`
+  ${textCommons};
+  ${regularTextStyle};
+`;
+
+export const Label = styled.label`
+  ${regularTextStyle};
+`;
+
+export const Anchor = styled.a<{ active?: boolean, decorateActive?: boolean }>`
+  ${textCommons};
+  ${anchorTextStyle};
 
   ${props => 
     props.active && props.decorateActive && css`
@@ -93,13 +111,5 @@ export const Anchor = styled.a<{ active?: boolean, decorateActive?: boolean }>`
         transform: translateX(0);
       }
     `};
-
-  ${margin('0.2rem', null, '0.2rem', null)};
 `;
 
-export const Label = styled.label`
-  ${regularFontSize};
-  ${textCommons};
-
-  ${margin('0.2rem', null, '0.2rem', null)};
-`;

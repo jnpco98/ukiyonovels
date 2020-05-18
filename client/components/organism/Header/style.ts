@@ -12,7 +12,7 @@ const DynamicIcon = dynamic(() => import('@components/molecule/DynamicIcon'), { 
 
 const topBarHeight = '4rem';
 
-export const MobileMenuItem = styled.ul`
+export const MobileMenuItems = styled.ul`
   display: flex;
 
   ${M.MEDIA_SMALL} {
@@ -20,7 +20,7 @@ export const MobileMenuItem = styled.ul`
   }
 `;
 
-export const DesktopMenuItem = styled.ul`
+export const DesktopMenuItems = styled.ul`
   display: none;
 
   ${M.MEDIA_SMALL} {
