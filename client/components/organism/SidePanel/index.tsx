@@ -16,9 +16,9 @@ function SidePanel() {
 
   return(
     <Layout gutterLeft>
-      <S.QuickFilter heading={searchByGenre.heading} contents={generateList(10)} bulleted/>
+      <S.QuickFilter heading={searchByGenre.heading} contents={generateList(10)} maxHeight='25rem'/>
       <S.Text heading={advancedSearch.heading} subtitle={advancedSearch.subtitle} link={advancedSearch.link} linkLabel={advancedSearch.linkLabel}/>
-      <S.QuickFilter heading={searchByType.heading} contents={generateList(10)} bulleted/>
+      <S.QuickFilter heading={searchByType.heading} contents={generateList(10)} maxHeight='25rem'/>
       <S.Text heading={report.heading} subtitle={report.subtitle} link={report.link} linkLabel={report.linkLabel}/>
       <S.Text heading={request.heading} subtitle={request.subtitle} link={request.link} linkLabel={request.linkLabel}/>
     </Layout>

@@ -61,7 +61,8 @@
     "descriptionHeading": "Description",
     "alternativeNamesHeading": "Alternative Names",
     "relatedNovelsHeading": "Related Novels",
-    "recommendedNovelsHeading": "Recommended Novels"
+    "recommendedNovelsHeading": "Recommended Novels",
+    "chapterListHeading": "Chapters"
   },
   "footer": {
     "copyright": "Copyright © 2020 by Ukiyo"

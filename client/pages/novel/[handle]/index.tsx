@@ -8,6 +8,8 @@ import Text, { TextType } from '@components/atom/Text';
 import * as M from '@utilities/media';
 import NovelInfo, { NovelInfoContent } from '@components/organism/NovelPanel';
 import { t } from '@utilities/locales';
+import List from '@components/molecule/List';
+import { Responsive } from '@utilities/mixins';
 
 type NovelInfo = { title: string, description: string, alternativeNames: string[], relatedNovels: string[], recommendedNovels: string[] } & NovelInfoContent;
 
@@ -51,21 +53,38 @@ const Wrapper = styled(Layout)`
 `;
 
 const SubHeading = styled(Text).attrs({ textType: TextType.SubsectionTitle })`
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 `;
 
 const Description = styled.div`
   margin-bottom: 1.5rem;
-
-  ${M.MEDIA_MEDIUM} {
-    margin-bottom: 1.5rem;
-  }
 `;
+
+const ChapterList = styled(List)`
+  margin-bottom: 3rem;
+`;
+  
+function generateList(cnt: number) {
+  return Array(cnt).fill(0).map(_ => ({
+    title: 'Kaguya-Sama: Love is War',
+    subtitle: Math.floor(Math.random() * 4023) + 1,
+    link: '/',
+    prefix: '23'
+  }));
+}
+
+const chapterListResponsive: Responsive = {
+  itemsPerRow: 2,
+  gap: 0.7,
+  breakpoints: {
+    
+  }
+}
 
 function NovelByHandle() {
   const router = useRouter();
   const { handle } = router.query;
-  const { descriptionHeading, alternativeNamesHeading, relatedNovelsHeading, recommendedNovelsHeading } = t('novel');
+  const { descriptionHeading, alternativeNamesHeading, relatedNovelsHeading, recommendedNovelsHeading, chapterListHeading } = t('novel');
   
   const { title, description, alternativeNames, relatedNovels, recommendedNovels, ...novelInfo } = mockNovel;
 
@@ -75,7 +94,7 @@ function NovelByHandle() {
         <SubHeading>{heading}</SubHeading>
         {data.map((info, idx) => <Text key={idx}>{info}</Text>)}
       </Description>
-    )
+    );
   }
 
   return(
@@ -90,6 +109,7 @@ function NovelByHandle() {
               {renderInfo(alternativeNamesHeading, alternativeNames)}
               {renderInfo(relatedNovelsHeading, relatedNovels)}
               {renderInfo(recommendedNovelsHeading, recommendedNovels)}
+              <ChapterList heading={chapterListHeading} contents={generateList(20)} responsive={chapterListResponsive} maxHeight='30rem'/>
             </Layout>
           </Wrapper>
         </Layout>
