@@ -34,11 +34,11 @@ const MainLayout = styled(Layout).attrs({ main: true })`
     flex-direction: row;
 
     & > *:nth-child(1) {
-      width: 65%;
+      width: 66%;
     }
 
     & > *:nth-child(2) {
-      width: 35%;
+      width: 34%;
     }
   }
 `;

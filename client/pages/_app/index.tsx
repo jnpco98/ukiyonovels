@@ -8,6 +8,7 @@ import Animate from '@utilities/animate';
 import Trumps from '@utilities/trumps';
 import { initializeGoogleAnalytics } from '@utilities/analytics';
 import { SITE_TITLE } from '@constants/head';
+import Simplebar from 'simplebar-react';
 
 import 'swiper/css/swiper.min.css';
 import 'simplebar/dist/simplebar.min.css';
@@ -32,7 +33,9 @@ function App(props: Props) {
       <Head>
         <title>{SITE_TITLE}</title>
       </Head>
-      <Component {...pageProps} />
+      <Simplebar style={{ maxHeight: '100vh' }}>
+        <Component {...pageProps} />
+      </Simplebar>
     </ThemeProvider>
   );
 }
