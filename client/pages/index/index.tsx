@@ -43,12 +43,12 @@ const MainLayout = styled(Layout).attrs({ main: true })`
 `;
 
 const TopNovels = styled(CardCarousel)`
-  margin: 0 auto;
-  margin-top: 3rem;
+  margin-left: auto;
+  margin-right: auto;
   margin-bottom: 3rem;
 
   ${M.MEDIA_MEDIUM} {
-    margin-top: 4rem;
+    margin-top: 2rem;
   }
 `;
 
@@ -97,7 +97,7 @@ function Index() {
 
   return(
     <Page>
-      <MainLayout>
+      <MainLayout navOffset>
         <Layout gutterRight>
           <TopNovels heading={topNovels.heading} contents={cardParams(20)}/>
           <LatestReleases heading={latestReleases.heading} contents={cardParams(6)} cardType='wide' responsive={wideCardResponsive}/>

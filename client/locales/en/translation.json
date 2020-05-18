@@ -34,6 +34,16 @@
         "link": "/request",
         "linkLabel": "Got requests?"
       }
+    },
+    "novelPanel": {
+      "typeHeading": "Type",
+      "genreHeading": "Genre",
+      "tagsHeading": "Tags",
+      "originHeading": "Origin",
+      "authorsHeading": "Authors",
+      "artistsHeading": "Artists",
+      "yearHeading": "Year",
+      "statusHeading": "Status"
     }
   },
   "homepage": {
@@ -46,6 +56,12 @@
     "newNovels": {
       "heading": "New Novels"
     }
+  },
+  "novel": {
+    "descriptionHeading": "Description",
+    "alternativeNamesHeading": "Alternative Names",
+    "relatedNovelsHeading": "Related Novels",
+    "recommendedNovelsHeading": "Recommended Novels"
   },
   "footer": {
     "copyright": "Copyright © 2020 by Ukiyo"

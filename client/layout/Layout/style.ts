@@ -85,7 +85,7 @@ export const Container = styled.section<{ layoutType: Layout, navOffset: boolean
   ${(props) =>
     props.navOffset &&
     css`
-      padding-top: 9rem;
+      margin-top: 2rem;
     `};
 
   ${(props) =>
@@ -97,24 +97,16 @@ export const Container = styled.section<{ layoutType: Layout, navOffset: boolean
   ${M.MEDIA_MEDIUM} {
     ${props => props.gutterLeft && css`margin-left: 1.5rem;`};
     ${props => props.gutterRight && css`margin-right: 1.5rem;`};
+    
+    ${(props) =>
+      props.navOffset &&
+      css`
+        margin-top: 4rem;
+      `};
   }
 
   ${M.MEDIA_LARGE} {
     ${props => props.gutterLeft && css`margin-left: 2rem;`};
     ${props => props.gutterRight && css`margin-right: 2rem;`};
-  }
-
-  ${M.MEDIA_LARGE} {
-    ${(props) =>
-      props.navOffset &&
-      css`
-        padding-top: 12rem;
-      `};
-
-    ${(props) =>
-      props.footerOffset &&
-      css`
-        padding-bottom: 3rem;
-      `};
   }
 `;
