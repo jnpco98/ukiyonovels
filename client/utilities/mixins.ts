@@ -1,4 +1,4 @@
-import { css, AnyStyledComponent } from 'styled-components';
+import { css, AnyStyledComponent, FlattenSimpleInterpolation } from 'styled-components';
 import { math, margin, padding } from 'polished';
 import * as M from './media';
 
@@ -339,6 +339,34 @@ export function ratioImage(image: AnyStyledComponent, width: string, height?: st
       left: 0;
 
       object-fit: cover;
+    }
+  `;
+}
+
+export type Responsive = {
+  itemsPerRow: number;
+  gap?: number;
+  breakpoints?: {
+    [key: string]: {
+      itemsPerRow: number;
+      gap?: number;
+    };
+  }
+}
+
+export function responsive(responsive: Responsive, mediaCallback:(itemsPerRow: number, gap: number) => FlattenSimpleInterpolation) {
+  const { itemsPerRow, gap, breakpoints } = responsive;
+  return css`
+    ${itemsPerRow && css`
+      ${mediaCallback(itemsPerRow, gap)}
+    `}
+
+    ${Object.keys(breakpoints)
+      .reduce((mqs, breakpoint) => css`
+        ${mqs}
+        ${breakpoint} {
+          ${mediaCallback(breakpoints[breakpoint].itemsPerRow, breakpoints[breakpoint].gap)}
+      }`, css``)
     }
   `;
 }

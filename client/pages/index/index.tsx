@@ -3,10 +3,11 @@ import styled from 'styled-components';
 import Page from '@layout/Page';
 import Layout from '@layout/Layout';
 import CardCarousel from '@components/organism/CardCarousel';
-import CardList, { Responsive } from '@components/organism/CardList';
+import CardList from '@components/organism/CardList';
 import SidePanel from '@components/organism/SidePanel';
 import { t } from '@utilities/locales';
 import * as M from '@utilities/media';
+import { Responsive } from '@utilities/mixins';
 
 function cardParams(cnt: number) {
   const thumbnail = `https://occ-0-2954-2568.1.nflxso.net/dnm/api/v6/XsrytRUxks8BtTRf9HNlZkW2tvY/AAAABcvEUXtNFRBthcDmFXo8Lhc4L10J5s2WVkm9ipP6V_9fM5Jl5x8mmacyTnR8pj_Y2ZM3gaiwontqaMdQh7gG4cdELHgbILEQzg.jpg`;
@@ -63,30 +64,30 @@ const LatestReleases = styled(CardList)`
 `;
 
 const cardResponsive: Responsive = {
-  cardsPerRow: 2,
+  itemsPerRow: 2,
   gap: 0.2,
   breakpoints: {
     [M.MEDIA_XXSMALL]: {
-      cardsPerRow: 3,
+      itemsPerRow: 3,
       gap: 0.4
     },
     [M.MEDIA_SMALL]: {
-      cardsPerRow: 4,
+      itemsPerRow: 4,
       gap: 0.7
     }
   }
 }
 
 const wideCardResponsive: Responsive = {
-  cardsPerRow: 1,
+  itemsPerRow: 1,
   gap: 0.2,
   breakpoints: {
     [M.MEDIA_XXSMALL]: {
-      cardsPerRow: 2,
+      itemsPerRow: 2,
       gap: 0.4
     },
     [M.MEDIA_SMALL]: {
-      cardsPerRow: 2,
+      itemsPerRow: 2,
       gap: 0.7
     }
   }

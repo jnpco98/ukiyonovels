@@ -3,7 +3,7 @@ import Card from '@components/molecule/Card';
 import WideCard from '@components/molecule/WideCard';
 import Text, { TextType } from '@components/atom/Text';
 import Button from '@components/atom/Button';
-import { Responsive } from '.';
+import { responsive, Responsive } from '@utilities/mixins';
 
 export const Standard = styled(Card)``;
 
@@ -27,22 +27,14 @@ export const Wrapper = styled.div<{ responsive?: Responsive }>`
 
   ${props => {
     if(!props.responsive) return css``;
-    const { cardsPerRow, gap, breakpoints } = props.responsive;
+
     return css`
       ${Standard}, ${Wide} {
-        ${cardsPerRow && css`
+        ${responsive(props.responsive, (itemsPerRow, gap) => css`
           height: auto;
-          width: calc(${100 / cardsPerRow}% - ${cardsPerRow * (gap || 0.5)}rem);
-        `}
-
-        ${Object.keys(breakpoints)
-          .reduce((mqs, breakpoint) => css`
-            ${mqs}
-            ${breakpoint} {
-              height: auto;
-              width: calc(${100 / breakpoints[breakpoint].cardsPerRow}% - ${cardsPerRow * (breakpoints[breakpoint].gap || 0.5)}rem);
-          }`, css``)
-        }
+          width: ${100 / itemsPerRow}%;
+          padding-right: ${gap || 0.5}rem;
+        `)}
       }
     `;
   }};

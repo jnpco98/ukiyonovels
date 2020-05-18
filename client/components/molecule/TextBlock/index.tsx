@@ -5,7 +5,7 @@ import * as S from './style';
 type Props = {
   className?: string;
   heading: string;
-  subtitle?: string;
+  subtitle?: string | number;
   linkLabel?: string;
   link?: string;
 }

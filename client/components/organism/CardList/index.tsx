@@ -2,17 +2,7 @@ import React from 'react';
 import { CardContent } from '@components/molecule/Card';
 import { t } from '@utilities/locales';
 import * as S from './style';
-
-export type Responsive = {
-  cardsPerRow: number;
-  gap?: number;
-  breakpoints?: {
-    [key: string]: {
-      cardsPerRow: number;
-      gap?: number;
-    };
-  }
-}
+import { Responsive } from '@utilities/mixins';
 
 type Props = {
   className?: string;
