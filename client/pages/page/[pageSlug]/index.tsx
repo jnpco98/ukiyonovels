@@ -1,10 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import Page from '@layout/Page';
 import Layout from '@layout/Layout';
 import dynamic from 'next/dynamic';
-import { pageTitleStyle, sectionTitleStyle, subsectionTitleStyle, regularTextStyle, anchorTextStyle } from '@components/atom/Text/style';
 
 const DynamicHtml = dynamic(() => import('@components/molecule/DynamicHtml'), { ssr: false });
 
@@ -48,45 +46,15 @@ const htmlString = `
   </div>
 `;
 
-const Wrapper = styled(Layout)`
-  h1 {
-    ${pageTitleStyle};
-  }
-
-  h2 {
-    ${sectionTitleStyle};
-  }
-
-  h3 {
-    ${subsectionTitleStyle};
-  }
-
-  h4, h5, h6 p, span, label {
-    ${regularTextStyle};
-  }
-
-  a {
-    ${anchorTextStyle};
-  }
-  
-  .is-center {
-    text-align: center;
-  }
-
-  section {
-    margin-bottom: 3rem;
-  }
-`;
-
 function StandardPage() {
   const router = useRouter();
   const { pageSlug } = router.query;
 
   return(
     <Page>
-      <Wrapper main navOffset footerOffset className={`page__${pageSlug}`}>
+      <Layout main navOffset footerOffset className={`page__${pageSlug}`}>
         <DynamicHtml HTMLString={htmlString}/>
-      </Wrapper>
+      </Layout>
     </Page>
   );
 }
