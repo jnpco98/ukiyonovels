@@ -10,13 +10,16 @@ import NovelInfo, { NovelInfoContent } from '@components/organism/NovelPanel';
 import { t } from '@utilities/locales';
 import List from '@components/molecule/List';
 import { Responsive } from '@utilities/mixins';
+import dynamic from 'next/dynamic';
 
-type NovelInfo = { title: string, description: string, alternativeNames: string[], relatedNovels: string[], recommendedNovels: string[] } & NovelInfoContent;
+const DynamicHtml = dynamic(() => import('@components/molecule/DynamicHtml'), { ssr: false });
 
-const mockNovel: NovelInfo = {
+export type NovelInfo = { title: string, description: string, alternativeNames: string[], relatedNovels: string[], recommendedNovels: string[] } & NovelInfoContent;
+
+export const mockNovel: NovelInfo = {
   coverImage: `https://occ-0-2954-2568.1.nflxso.net/dnm/api/v6/XsrytRUxks8BtTRf9HNlZkW2tvY/AAAABcvEUXtNFRBthcDmFXo8Lhc4L10J5s2WVkm9ipP6V_9fM5Jl5x8mmacyTnR8pj_Y2ZM3gaiwontqaMdQh7gG4cdELHgbILEQzg.jpg`,
   title: `Anohana: The Flower We Saw That Day`,
-  description: `Tsukuru, attending school as usual, is suddenly summoned to a different world with his classmates. However, what awaits them after being summoned is a hero auction. in which each country bid for heroes to defeat the demon king. While his classmates who got cheat jobs sold for sky-high prices, Tsukuru, with the obvious loser jobs of “Chef” wasn’t sold at all, and was thrown out a transfer gate to a magic forest in the middle of nowhere, inhabited by many powerful monsters. Tsukuru, narrowly avoiding death many times at the hands of monsters, is thrust onto the path of the strongest!`,
+  description: `<p>Tsukuru, attending school as usual, is suddenly summoned to a different world with his classmates. However, what awaits them after being summoned is a hero auction. in which each country bid for heroes to defeat the demon king.</p><p>While his classmates who got cheat jobs sold for sky-high prices, Tsukuru, with the obvious loser jobs of “Chef” wasn’t sold at all, and was thrown out a transfer gate to a magic forest in the middle of nowhere, inhabited by many powerful monsters. Tsukuru, narrowly avoiding death many times at the hands of monsters, is thrust onto the path of the strongest!</p>`,
   type: 'Light Novel',
   genres: ['Action', 'Adventure', 'Fantasy', 'Harem', 'Mystery', 'Romance', 'Shounen', 'Action', 'Adventure', 'Fantasy', 'Harem', 'Mystery', 'Romance', 'Shounen'],
   tags: ['Action', 'Adventure', 'Fantasy', 'Harem', 'Mystery', 'Romance', 'Shounen', 'Action', 'Adventure', 'Fantasy', 'Harem', 'Mystery', 'Romance', 'Shounen'],
@@ -53,11 +56,11 @@ const Wrapper = styled(Layout)`
 `;
 
 const SubHeading = styled(Text).attrs({ textType: TextType.SubsectionTitle })`
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 `;
 
 const Description = styled.div`
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 `;
 
 const ChapterList = styled(List)`
@@ -81,18 +84,18 @@ const chapterListResponsive: Responsive = {
   }
 }
 
-function NovelByHandle() {
+function Novel() {
   const router = useRouter();
-  const { handle } = router.query;
+  const { novelSlug } = router.query;
   const { descriptionHeading, alternativeNamesHeading, relatedNovelsHeading, recommendedNovelsHeading, chapterListHeading } = t('novel');
   
   const { title, description, alternativeNames, relatedNovels, recommendedNovels, ...novelInfo } = mockNovel;
 
-  function renderInfo(heading: string, data: string[]) {
+  function renderInfo(heading: string, data: string[], dynamicHtml?: boolean) {
     return(
       <Description>
         <SubHeading>{heading}</SubHeading>
-        {data.map((info, idx) => <Text key={idx}>{info}</Text>)}
+        {data.map((info, idx) => dynamicHtml ? <DynamicHtml key={idx} HTMLString={info}/> : <Text key={idx}>{info}</Text>)}
       </Description>
     );
   }
@@ -105,7 +108,7 @@ function NovelByHandle() {
           <Wrapper>
             <NovelInfo content={novelInfo} gutterRight/>
             <Layout>
-              {renderInfo(descriptionHeading, [description])}
+              {renderInfo(descriptionHeading, [description], true)}
               {renderInfo(alternativeNamesHeading, alternativeNames)}
               {renderInfo(relatedNovelsHeading, relatedNovels)}
               {renderInfo(recommendedNovelsHeading, recommendedNovels)}
@@ -119,4 +122,4 @@ function NovelByHandle() {
   );
 }
 
-export default NovelByHandle;
+export default Novel;

@@ -63,6 +63,7 @@ export const Span = styled.span`
 export const Anchor = styled.a<{ active?: boolean, decorateActive?: boolean }>`
   ${regularFontSize};
   ${textCommons};
+  display: inline-block;
 
   color: ${({ theme }) => theme.colors.primary};
   position: relative;
