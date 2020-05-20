@@ -15,17 +15,17 @@
       "module-resolver",
       {
         "alias": {
-          "@components": "./components/",
-          "@layout": "./layout/",
-          "@actions": "./actions/",
-          "@actionTypes": "./actionTypes/",
-          "@store": "./store/",
-          "@sagas": "./sagas/",
-          "@reducers": "./reducers/",
-          "@constants": "./constants/",
-          "@utilities": "./utilities/",
-          "@themeTypes": "@types/styled.d.ts",
-          "@icons": ".icons.ts"
+          "@components": "./src/components/",
+          "@layout": "./src/layout/",
+          "@actions": "./src/actions/",
+          "@actionTypes": "./src/actionTypes/",
+          "@store": "./src/store/",
+          "@sagas": "./src/sagas/",
+          "@reducers": "./src/reducers/",
+          "@constants": "./src/constants/",
+          "@utilities": "./src/utilities/",
+          "@themeTypes": "./src@types/styled.d.ts",
+          "@icons": "./src/.icons.ts"
         }
       }
     ],

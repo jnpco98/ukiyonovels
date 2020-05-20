@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import { gutter, GUTTER_LEFT, GUTTER_RIGHT } from '@utilities/mixins';
-import * as M from 'utilities/media'
+import * as M from '@utilities/media'
 import { Layout } from '.';
 
 export const PrimarySecondary = css`

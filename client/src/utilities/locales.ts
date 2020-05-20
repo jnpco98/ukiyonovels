@@ -1,6 +1,7 @@
 import { jsonDotNotation } from '@utilities/json';
-import language from 'locales/en/translation.json';
 
 export function t(key: string) {
+  const region = 'en';
+  const language = require(`../locales/${region}/translation.json`);
   return jsonDotNotation(typeof language === 'object' ? language : {}, key);
 }
