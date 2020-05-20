@@ -29,31 +29,31 @@
     "baseUrl": ".",
     "paths": {
       "@components/*": [
-        "components/*"
+        "./src/components/*"
       ],
       "@layout/*": [
-        "layout/*"
+        "./src/layout/*"
       ],
       "@actions/*": [
-        "actions/*"
+        "./src/actions/*"
       ],
       "@actionTypes/*": [
-        "actionTypes/*"
+        "./src/actionTypes/*"
       ],
       "@store/*": [
-        "store/*"
+        "./src/store/*"
       ],
       "@sagas/*": [
-        "sagas/*"
+        "./src/sagas/*"
       ],
       "@reducers/*": [
-        "reducers/*"
+        "./src/reducers/*"
       ],
       "@constants/*": [
-        "constants/*"
+        "./src/constants/*"
       ],
       "@utilities/*": [
-        "utilities/*"
+        "./src/utilities/*"
       ],
       "@themeTypes": [
         "./@types/styled.d.ts"
