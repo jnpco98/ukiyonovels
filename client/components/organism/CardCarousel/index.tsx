@@ -4,7 +4,7 @@ import { getRawDimension, XXSMALL, SMALL } from '@utilities/media';
 import Card, { CardContent } from '@components/molecule/Card';
 import * as S from './style';
 
-const carouselParams = {
+const DEFAULT_CAROUSEL_PARAMS = {
   slidesPerView: 2,
   slidesPerGroup: 2,
   centeredSlides: false,
@@ -30,11 +30,14 @@ type Props = {
   className?: string;
   heading?: string,
   contents: CardContent[];
+  breakpoints?: { [key: string]: any };
 }
 
 function CardCarousel(props: Props) {
-  const { className, heading, contents } = props;
+  const { className, heading, contents, breakpoints = DEFAULT_CAROUSEL_PARAMS.breakpoints } = props;
   const [swiper, updateSwiper] = useState<SwiperInstance>(null);
+
+  const carouselParams = { DEFAULT_CAROUSEL_PARAMS, breakpoints };
 
   function nextSlide() {
     if(swiper) swiper.slideNext();

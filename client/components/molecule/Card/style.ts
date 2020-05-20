@@ -59,7 +59,7 @@ export const Image = styled.div<{ img: string; }>`
   display: block;
   background: url(${props => props.img}) no-repeat;
   background-size: 100.1%;
-  background-position: 50% 50%;
+  background-position: center top;
   border-radius: 0.3rem;
   overflow: hidden;
   position: relative;
@@ -76,7 +76,11 @@ export const Image = styled.div<{ img: string; }>`
 
 export const DotSeparatedList = styled(InlineList)``;
 
-export const TabbedList = styled(Tabs)``;
+export const TabbedList = styled(Tabs)`
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+`;
 
 export const Overlay = styled.a`
   position: absolute;
@@ -128,12 +132,18 @@ export const Content = styled.div`
     }
   }
 
-  ${M.MEDIA_SMALL} {
+  ${M.MEDIA_MEDIUM} {
+    ${Details} {
+      padding-top: 0.8rem;
+      padding-bottom: 1rem;
+    }
+
     &:hover {
       ${Details} {
         transform: translateY(-2.5rem) scale(${HOVER_SCALE}, ${HOVER_SCALE});
         background-color: ${({ theme }) => theme.colors.background};
-        padding: 0.8rem 0.7rem 1rem;
+        padding-left: 0.7rem;
+        padding-right: 0.7rem;
         z-index: 4;
       }
 

@@ -12,10 +12,8 @@ function Tabs(props: Props) {
 
   return(
     <S.Container className={className}>
-      <S.Wrapper>
-        {heading && <S.Heading>{heading}</S.Heading>}
-        {items.map((item, idx) => <S.Item key={idx}>{item}</S.Item>)}
-      </S.Wrapper>
+      {heading && <S.Heading>{heading}</S.Heading>}
+      {items.map((item, idx) => <S.Item key={idx}>{item}</S.Item>)}
     </S.Container>
   )
 }

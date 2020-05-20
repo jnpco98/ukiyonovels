@@ -85,7 +85,11 @@ export const Image = styled.div<{ img: string; }>`
 
 export const DotSeparatedList = styled(InlineList)``;
 
-export const TabbedList = styled(Tabs)``;
+export const TabbedList = styled(Tabs)`
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+`;
 
 export const Overlay = styled.a`
   position: absolute;
@@ -106,6 +110,13 @@ export const Content = styled.div`
   border-radius: 0.9rem;
   z-index: 3;
 
+  ${M.MEDIA_MEDIUM} {
+    ${Details} {
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+  }
+
   &:hover {
     ${Details} {
       transform: scale(${HOVER_SCALE}, ${HOVER_SCALE});
@@ -117,11 +128,12 @@ export const Content = styled.div`
       z-index: 3;
     }
 
-    ${M.MEDIA_SMALL} {
+    ${M.MEDIA_MEDIUM} {
       ${Details} {
         transform: translateY(-2rem) scale(${HOVER_SCALE}, ${HOVER_SCALE});
         background-color: ${({ theme }) => theme.colors.background};
-        padding: 1rem 0.8rem;
+        padding-left: 0.8rem;
+        padding-right: 0.8rem;
         z-index: 4;
       }
 

@@ -18,8 +18,6 @@ export const Container = styled.div`
   margin-top: 0.6rem;
 `;
 
-export const Wrapper = styled.div``;
-
 export const Heading = styled(Text).attrs({ textType: TextType.SubsectionTitle })`
   margin-bottom: 1rem;
 `;
