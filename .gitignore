@@ -3,6 +3,7 @@
 .vs/
 .next/
 .env
+schemas/
 node_modules/
 build/
 dist/
@@ -11,6 +12,3 @@ temp/
 logs/
 out/
 .netlify/
-
-# Ignore import script data
-import-scripts/**/data/*
