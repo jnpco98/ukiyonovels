@@ -25,7 +25,7 @@ describe('Create User', () => {
 
     const mutation = `
       mutation {
-        createUser (
+        userCreate (
           data: {
             username: "${username}"
             email: "${email}"
@@ -42,7 +42,7 @@ describe('Create User', () => {
     const gqlResult = await graphql({ schema, source: mutation });
     expect(gqlResult).toEqual({
       data: {
-        createUser: {
+        userCreate: {
           id: expect.any(String),
           username: username,
           email: email
@@ -66,7 +66,7 @@ describe('Create User', () => {
 
     const mutation = `
       mutation {
-        createUser (
+        userCreate (
           data: {
             username: "${username}"
             email: "${email}"

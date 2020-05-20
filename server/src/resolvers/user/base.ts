@@ -10,7 +10,7 @@ import { Context } from '../../lib/resolver/context';
  * create the user resource
  */
 @InputType()
-class CreateUserInput {
+class UserCreateInput {
   @Field()
   @Length(6, 40, { message: 'Username should be between 6 to 40 characters' })
   username: string;
@@ -29,10 +29,10 @@ class CreateUserInput {
  * and a hashed password
  */
 @Resolver()
-export class CreateUserResolver {
+export class UserCreateResolver {
   @Mutation((returns) => User, { nullable: true })
-  async createUser(
-    @Arg('data') { username, password, email }: CreateUserInput
+  async userCreate(
+    @Arg('data') { username, password, email }: UserCreateInput
   ): Promise<User | null> {
     const user = new User();
     user.username = username;

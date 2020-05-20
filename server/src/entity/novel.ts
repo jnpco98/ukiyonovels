@@ -22,7 +22,7 @@ const origins = [
   'Indonesia',
   'Vietnamese'
 ];
-export const novelTypes = origins.map((origin) => `${origin} Novel`);
+export const novelTypes = origins.map((origin) => `${origin}`);
 
 /**
  * Valid novel status, checked in validation
@@ -65,8 +65,8 @@ export class Novel extends BaseEntity implements Partial<Novel> {
 
   @Field({ nullable: true })
   @Column({ type: 'text', nullable: true })
-  @Length(20, 10000, {
-    message: 'Description should be between 20-10000 characters'
+  @Length(0, 10000, {
+    message: 'Description should be 10000 characters or less'
   })
   @IsOptional()
   description?: string;
@@ -128,7 +128,7 @@ export class Novel extends BaseEntity implements Partial<Novel> {
   /**
    * Comma separated related novels
    * - prequel, sequel, related universe
-   * ex: "\"Related1\", \"Related2 with space\""
+   * ex: "\"Related1 novel id\", \"Related2 novel id\""
    */
   @Field((returns) => String, { nullable: true })
   @Column({ name: 'related_novels', type: 'text', nullable: true })
@@ -137,9 +137,9 @@ export class Novel extends BaseEntity implements Partial<Novel> {
 
   /**
    * Comma separated associated names
-   * ex: "\"Recommended1\", \"Recommended2 with space\""
+   * ex: "\"Recommended1 novel id\", \"Recommended2 novel id\""
    */
-  @Field((returns) => String, { nullable: true })
+  @Field((returns) => String, { nullable: true, description: 'Manual recommendations' })
   @Column({ name: 'recommended_novels', type: 'text', nullable: true })
   @IsOptional()
   recommendedNovels?: string;
