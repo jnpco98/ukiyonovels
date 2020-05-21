@@ -71,5 +71,9 @@
   "404": {
     "heading": "404",
     "content": "Page not found"
+  },
+  "500": {
+    "serverError": "An error {{statusCode}} occurred on server",
+    "clientError": "An error occurred on client"
   }
 }
