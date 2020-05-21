@@ -11,7 +11,7 @@
     "deploy:prod": "yarn deploy -p",
     "postinstall": "patch-package",
     "relay": "yarn run relay:schema && yarn run relay:compile",
-    "relay:schema": "cross-var get-graphql-schema http://localhost:5000/graphql > ./schemas/schema.graphql",
+    "relay:schema": "get-graphql-schema http://localhost:5000/graphql > ./schemas/schema.graphql",
     "relay:compile": "relay-compiler --src . --schema ./schemas/schema.graphql --language typescript --artifactDirectory ./schemas/__generated__"
   },
   "devDependencies": {
@@ -20,8 +20,10 @@
     "@types/node": "^13.13.5",
     "@types/qs": "^6.9.2",
     "@types/react": "^16.9.35",
+    "@types/react-relay": "^7.0.8",
     "@types/react-select": "^3.0.12",
     "@types/react-transition-group": "^4.2.4",
+    "@types/relay-runtime": "^8.0.10",
     "@types/styled-components": "^5.1.0",
     "babel-plugin-module-resolver": "^4.0.0",
     "babel-plugin-relay": "^9.1.0",
@@ -56,6 +58,7 @@
     "react-id-swiper": "^3.0.0",
     "react-select": "^3.1.0",
     "react-transition-group": "^4.4.1",
+    "relay-runtime": "^9.1.0",
     "simplebar": "^5.2.0",
     "simplebar-react": "^2.2.0",
     "styled-components": "^5.1.0",

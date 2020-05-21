@@ -11,6 +11,13 @@
     ]
   ],
   "plugins": [
+    
+    [
+      "relay",
+      {
+        "artifactDirectory": "./schemas/__generated__"
+      }
+    ],
     [
       "module-resolver",
       {
