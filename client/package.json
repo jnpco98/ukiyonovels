@@ -12,7 +12,7 @@
     "postinstall": "patch-package",
     "relay": "yarn run relay:schema && yarn run relay:compile",
     "relay:schema": "get-graphql-schema http://localhost:5000/graphql > ./schemas/schema.graphql",
-    "relay:compile": "relay-compiler --src . --schema ./schemas/schema.graphql --language typescript --artifactDirectory ./schemas/__generated__"
+    "relay:compile": "relay-compiler"
   },
   "devDependencies": {
     "@types/dompurify": "^2.0.2",

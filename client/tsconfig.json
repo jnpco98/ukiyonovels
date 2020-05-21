@@ -29,40 +29,40 @@
     "baseUrl": ".",
     "paths": {
       "@components/*": [
-        "src/components/*"
+        "./src/components/*"
       ],
       "@layout/*": [
-        "src/layout/*"
+        "./src/layout/*"
       ],
       "@schemas/*": [
-        "schemas/__generated__/*"
+        "./schemas/__generated__/*"
       ],
       "@actions/*": [
-        "src/actions/*"
+        "./src/actions/*"
       ],
       "@actionTypes/*": [
-        "src/actionTypes/*"
+        "./src/actionTypes/*"
       ],
       "@store/*": [
-        "src/store/*"
+        "./src/store/*"
       ],
       "@sagas/*": [
-        "src/sagas/*"
+        "./src/sagas/*"
       ],
       "@reducers/*": [
-        "src/reducers/*"
+        "./src/reducers/*"
       ],
       "@constants/*": [
-        "src/constants/*"
+        "./src/constants/*"
       ],
       "@utilities/*": [
-        "src/utilities/*"
+        "./src/utilities/*"
       ],
       "@themeTypes": [
-        "src/@types/styled.d.ts"
+        "./src/@types/styled.d.ts"
       ],
       "@icons": [
-        ".icons.ts"
+        "./src/.icons.ts"
       ]
     }
   },
