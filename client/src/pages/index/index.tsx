@@ -80,8 +80,10 @@ const cardReponsive: Responsive = {
   }
 };
 
-function Index() {
+function Index(props: any) {
   const { topNovels, latestReleases, newNovels } = t('homepage');
+  console.log('sss')
+  console.log(props)
 
   return (
     <Page>
