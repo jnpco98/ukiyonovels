@@ -8,12 +8,12 @@ type Props = {
   subtitle?: string | number;
   linkLabel?: string;
   link?: string;
-}
+};
 
 function TextBlock(props: Props) {
   const { className, heading, subtitle, linkLabel, link } = props;
 
-  return(
+  return (
     <S.Container className={className}>
       <Text textType={TextType.SubsectionTitle}>{heading}</Text>
       {subtitle && <Text>{subtitle}</Text>}

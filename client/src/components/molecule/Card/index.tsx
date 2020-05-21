@@ -22,15 +22,18 @@ function Card(props: Props) {
     <S.Container className={className}>
       <div>
         <S.Content>
-          <S.Image img={thumbnail}><S.Overlay /></S.Image>
+          <S.Image img={thumbnail}>
+            <S.Overlay />
+          </S.Image>
           <S.Details>
             <S.Title>{heading}</S.Title>
-            <S.DotSeparatedList items={inline}/>
-            <S.TabbedList items={tabbed}/>
+            <S.DotSeparatedList items={inline} />
+            <S.TabbedList items={tabbed} />
           </S.Details>
           <S.Reveal>
             <S.RevealContent>
-              <S.RevealIcon/>{t('components.card.cta')}
+              <S.RevealIcon />
+              {t('components.card.cta')}
             </S.RevealContent>
           </S.Reveal>
         </S.Content>

@@ -31,8 +31,10 @@ function SearchOverlay(props: Props) {
           onSearchSubmit(query);
           setActive(false);
         }}
-        placeholder={placeholder || t('components.search.placeholder') as unknown as string || ''}
-        advancedSearch={t('components.search.advancedSearch') as unknown as string || ''}
+        placeholder={
+          placeholder || ((t('components.search.placeholder') as unknown) as string) || ''
+        }
+        advancedSearch={((t('components.search.advancedSearch') as unknown) as string) || ''}
       />
     </S.Container>
   );

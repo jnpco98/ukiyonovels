@@ -5,11 +5,9 @@ import Layout from '@layout/Layout';
 import CardCarousel from '@components/organism/CardCarousel';
 import CardList from '@components/organism/CardList';
 import SidePanel from '@components/organism/SidePanel';
-import { t } from '@utilities/locales';
 import * as M from '@utilities/media';
 import { Responsive } from '@utilities/mixins';
-import withData from '@utilities/with-data';
-import { graphql } from 'react-relay';
+import { t } from '@utilities/locales';
 
 function cardParams(cnt: number) {
   const thumbnail = `https://occ-0-2954-2568.1.nflxso.net/dnm/api/v6/XsrytRUxks8BtTRf9HNlZkW2tvY/AAAABcvEUXtNFRBthcDmFXo8Lhc4L10J5s2WVkm9ipP6V_9fM5Jl5x8mmacyTnR8pj_Y2ZM3gaiwontqaMdQh7gG4cdELHgbILEQzg.jpg`;
@@ -18,9 +16,11 @@ function cardParams(cnt: number) {
     inline: ['MA15+', '2014', '24Chs'],
     tabbed: ['Web Novel', 'Chinese'],
     thumbnail
-  }
+  };
 
-  return Array(cnt).fill(0).map(_ => content);
+  return Array(cnt)
+    .fill(0)
+    .map((_) => content);
 }
 
 const MainLayout = styled(Layout).attrs({ main: true })`
@@ -78,43 +78,28 @@ const cardReponsive: Responsive = {
       gap: 0.7
     }
   }
-}
+};
 
-function Index(props: {}) {
-  console.log((props as any).novels)
+function Index() {
   const { topNovels, latestReleases, newNovels } = t('homepage');
 
-  return(
+  return (
     <Page>
       <MainLayout navOffset>
         <Layout gutterRight>
-          <TopNovels heading={topNovels.heading} contents={cardParams(20)}/>
-          <LatestReleases heading={latestReleases.heading} contents={cardParams(6)} cardType='wide' responsive={cardReponsive}/>
-          <NewNovels heading={newNovels.heading} contents={cardParams(20)}/>
+          <TopNovels heading={topNovels.heading} contents={cardParams(20)} />
+          <LatestReleases
+            heading={latestReleases.heading}
+            contents={cardParams(6)}
+            cardType="wide"
+            responsive={cardReponsive}
+          />
+          <NewNovels heading={newNovels.heading} contents={cardParams(20)} />
         </Layout>
-        <SidePanel/>
+        <SidePanel />
       </MainLayout>
     </Page>
   );
 }
 
-export default withData(Index, {
-  query: graphql`
-    query indexQuery {
-      novels(first: 5) {
-        edges{
-          node{
-            id
-            title
-            lastModified
-            description
-            slug
-            genres
-            tags
-            origins
-          }
-        }
-      }
-    }
-  `
-});
+export default Index;

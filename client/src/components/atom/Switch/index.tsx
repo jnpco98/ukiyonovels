@@ -9,11 +9,11 @@ type Props = {
 
 function Switch(props: Props, ref: RefObject<HTMLInputElement>) {
   const { className, label, name, ...restProps } = props;
-  
+
   return (
     <S.Container className={className}>
       <S.Label htmlFor={name}>{label}</S.Label>
-      <S.Checkbox ref={ref} name={name} {...restProps}/>
+      <S.Checkbox ref={ref} name={name} {...restProps} />
     </S.Container>
   );
 }

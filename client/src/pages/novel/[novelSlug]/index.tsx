@@ -14,24 +14,69 @@ import dynamic from 'next/dynamic';
 
 const DynamicHtml = dynamic(() => import('@components/molecule/DynamicHtml'), { ssr: false });
 
-export type NovelInfo = { title: string, description: string, alternativeNames: string[], relatedNovels: string[], recommendedNovels: string[] } & NovelInfoContent;
+export type NovelInfo = {
+  title: string;
+  description: string;
+  alternativeNames: string[];
+  relatedNovels: string[];
+  recommendedNovels: string[];
+} & NovelInfoContent;
 
 export const mockNovel: NovelInfo = {
   coverImage: `https://occ-0-2954-2568.1.nflxso.net/dnm/api/v6/XsrytRUxks8BtTRf9HNlZkW2tvY/AAAABcvEUXtNFRBthcDmFXo8Lhc4L10J5s2WVkm9ipP6V_9fM5Jl5x8mmacyTnR8pj_Y2ZM3gaiwontqaMdQh7gG4cdELHgbILEQzg.jpg`,
   title: `Anohana: The Flower We Saw That Day`,
   description: `<p>Tsukuru, attending school as usual, is suddenly summoned to a different world with his classmates. However, what awaits them after being summoned is a hero auction. in which each country bid for heroes to defeat the demon king.</p><p>While his classmates who got cheat jobs sold for sky-high prices, Tsukuru, with the obvious loser jobs of “Chef” wasn’t sold at all, and was thrown out a transfer gate to a magic forest in the middle of nowhere, inhabited by many powerful monsters. Tsukuru, narrowly avoiding death many times at the hands of monsters, is thrust onto the path of the strongest!</p>`,
   type: 'Light Novel',
-  genres: ['Action', 'Adventure', 'Fantasy', 'Harem', 'Mystery', 'Romance', 'Shounen', 'Action', 'Adventure', 'Fantasy', 'Harem', 'Mystery', 'Romance', 'Shounen'],
-  tags: ['Action', 'Adventure', 'Fantasy', 'Harem', 'Mystery', 'Romance', 'Shounen', 'Action', 'Adventure', 'Fantasy', 'Harem', 'Mystery', 'Romance', 'Shounen'],
+  genres: [
+    'Action',
+    'Adventure',
+    'Fantasy',
+    'Harem',
+    'Mystery',
+    'Romance',
+    'Shounen',
+    'Action',
+    'Adventure',
+    'Fantasy',
+    'Harem',
+    'Mystery',
+    'Romance',
+    'Shounen'
+  ],
+  tags: [
+    'Action',
+    'Adventure',
+    'Fantasy',
+    'Harem',
+    'Mystery',
+    'Romance',
+    'Shounen',
+    'Action',
+    'Adventure',
+    'Fantasy',
+    'Harem',
+    'Mystery',
+    'Romance',
+    'Shounen'
+  ],
   origins: ['Chinese'],
   authors: ['Nanjamonja', 'なんじゃもんじゃ'],
   artists: ['Nanjamonja', 'なんじゃもんじゃ'],
   year: '2000',
-  alternativeNames: ['Garbage Brave【Revenge story of the hero who was been thrown away after summoned to another world】', 'ガベージブレイブ【異世界に召喚され捨てられた勇者の復讐物語】'],
-  relatedNovels: ['Garbage Brave【Revenge story of the hero who was been thrown away after summoned to another world】', 'ガベージブレイブ【異世界に召喚され捨てられた勇者の復讐物語】'],
-  recommendedNovels: ['Garbage Brave【Revenge story of the hero who was been thrown away after summoned to another world】', 'ガベージブレイブ【異世界に召喚され捨てられた勇者の復讐物語】'],
+  alternativeNames: [
+    'Garbage Brave【Revenge story of the hero who was been thrown away after summoned to another world】',
+    'ガベージブレイブ【異世界に召喚され捨てられた勇者の復讐物語】'
+  ],
+  relatedNovels: [
+    'Garbage Brave【Revenge story of the hero who was been thrown away after summoned to another world】',
+    'ガベージブレイブ【異世界に召喚され捨てられた勇者の復讐物語】'
+  ],
+  recommendedNovels: [
+    'Garbage Brave【Revenge story of the hero who was been thrown away after summoned to another world】',
+    'ガベージブレイブ【異世界に召喚され捨てられた勇者の復讐物語】'
+  ],
   status: 'Complete'
-} 
+};
 
 const Wrapper = styled(Layout)`
   display: flex;
@@ -66,57 +111,77 @@ const Description = styled.div`
 const ChapterList = styled(List)`
   margin-bottom: 3rem;
 `;
-  
+
 function generateList(cnt: number) {
-  return Array(cnt).fill(0).map(_ => ({
-    title: 'Kaguya-Sama: Love is War',
-    subtitle: Math.floor(Math.random() * 4023) + 1,
-    link: '/',
-    prefix: '23'
-  }));
+  return Array(cnt)
+    .fill(0)
+    .map((_) => ({
+      title: 'Kaguya-Sama: Love is War',
+      subtitle: Math.floor(Math.random() * 4023) + 1,
+      link: '/',
+      prefix: '23'
+    }));
 }
 
 const chapterListResponsive: Responsive = {
   itemsPerRow: 2,
   gap: 0.7,
-  breakpoints: {
-    
-  }
-}
+  breakpoints: {}
+};
 
 function Novel() {
   const router = useRouter();
   const { novelSlug } = router.query;
-  const { descriptionHeading, alternativeNamesHeading, relatedNovelsHeading, recommendedNovelsHeading, chapterListHeading } = t('novel');
-  
-  const { title, description, alternativeNames, relatedNovels, recommendedNovels, ...novelInfo } = mockNovel;
+  const {
+    descriptionHeading,
+    alternativeNamesHeading,
+    relatedNovelsHeading,
+    recommendedNovelsHeading,
+    chapterListHeading
+  } = t('novel');
+
+  const {
+    title,
+    description,
+    alternativeNames,
+    relatedNovels,
+    recommendedNovels,
+    ...novelInfo
+  } = mockNovel;
 
   function renderInfo(heading: string, data: string[], dynamicHtml?: boolean) {
-    return(
+    return (
       <Description>
         <SubHeading>{heading}</SubHeading>
-        {data.map((info, idx) => dynamicHtml ? <DynamicHtml key={idx} HTMLString={info}/> : <Text key={idx}>{info}</Text>)}
+        {data.map((info, idx) =>
+          dynamicHtml ? <DynamicHtml key={idx} HTMLString={info} /> : <Text key={idx}>{info}</Text>
+        )}
       </Description>
     );
   }
 
-  return(
+  return (
     <Page>
       <Layout layoutType="primarySecondary" main navOffset>
         <Layout gutterRight>
           <Text textType={TextType.PageTitle}>{title}</Text>
           <Wrapper>
-            <NovelInfo content={novelInfo} gutterRight/>
+            <NovelInfo content={novelInfo} gutterRight />
             <Layout>
               {renderInfo(descriptionHeading, [description], true)}
               {renderInfo(alternativeNamesHeading, alternativeNames)}
               {renderInfo(relatedNovelsHeading, relatedNovels)}
               {renderInfo(recommendedNovelsHeading, recommendedNovels)}
-              <ChapterList heading={chapterListHeading} contents={generateList(20)} responsive={chapterListResponsive} maxHeight='30rem'/>
+              <ChapterList
+                heading={chapterListHeading}
+                contents={generateList(20)}
+                responsive={chapterListResponsive}
+                maxHeight="30rem"
+              />
             </Layout>
           </Wrapper>
         </Layout>
-        <SidePanel/>
+        <SidePanel />
       </Layout>
     </Page>
   );

@@ -36,7 +36,11 @@ function Button(props: Props) {
   if (!link) buttonProps.as = 'button';
   if (absolute) buttonProps.href = link;
 
-  const Element = <S.Container {...buttonProps} {...restProps}>{loading ? <S.LoadMoreIcon /> : children}</S.Container>;
+  const Element = (
+    <S.Container {...buttonProps} {...restProps}>
+      {loading ? <S.LoadMoreIcon /> : children}
+    </S.Container>
+  );
 
   if (link) return <Link href={link}>{Element}</Link>;
 

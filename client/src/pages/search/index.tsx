@@ -1,10 +1,10 @@
-import { useRouter } from "next/router";
-import Layout from "@layout/Layout";
-import Page from "@layout/Page";
-import SidePanel from "@components/organism/SidePanel";
-import CardList from "@components/organism/CardList";
-import styled from "styled-components";
-import { Responsive } from "@utilities/mixins";
+import { useRouter } from 'next/router';
+import Layout from '@layout/Layout';
+import Page from '@layout/Page';
+import SidePanel from '@components/organism/SidePanel';
+import CardList from '@components/organism/CardList';
+import styled from 'styled-components';
+import { Responsive } from '@utilities/mixins';
 import * as M from '@utilities/media';
 
 const SearchResults = styled(CardList).attrs({ cardType: 'standard' })``;
@@ -16,9 +16,11 @@ function searchResults(cnt: number) {
     inline: ['MA15+', '2014', '24Chs'],
     tabbed: ['Web', 'Chinese'],
     thumbnail
-  }
+  };
 
-  return Array(cnt).fill(0).map(_ => content);
+  return Array(cnt)
+    .fill(0)
+    .map((_) => content);
 }
 
 const cardResponsive: Responsive = {
@@ -34,7 +36,7 @@ const cardResponsive: Responsive = {
       gap: 0.8
     }
   }
-}
+};
 
 function Search() {
   const router = useRouter();
@@ -42,13 +44,17 @@ function Search() {
 
   const count = 20;
 
-  return(
+  return (
     <Page>
-      <Layout layoutType='primarySecondary' main navOffset footerOffset>
+      <Layout layoutType="primarySecondary" main navOffset footerOffset>
         <Layout gutterRight>
-          <SearchResults heading={`Found ${count} results for keyword "Anohana"`} contents={searchResults(count)} responsive={cardResponsive}/>
+          <SearchResults
+            heading={`Found ${count} results for keyword "Anohana"`}
+            contents={searchResults(count)}
+            responsive={cardResponsive}
+          />
         </Layout>
-        <SidePanel/>
+        <SidePanel />
       </Layout>
     </Page>
   );

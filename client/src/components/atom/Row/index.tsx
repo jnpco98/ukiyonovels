@@ -21,9 +21,9 @@ function Row(props: Props) {
 
   const alternate = !!(prefix && subtitle);
 
-  const Element = <S.Container className={className} alternate={alternate}>
-      {
-        alternate ?
+  const Element = (
+    <S.Container className={className} alternate={alternate}>
+      {alternate ? (
         <>
           <S.Prefix link={link}>{prefix}</S.Prefix>
           <S.Wrapper>
@@ -31,15 +31,22 @@ function Row(props: Props) {
             <Text>{subtitle}</Text>
           </S.Wrapper>
         </>
-        :
+      ) : (
         <>
           <S.Title link={link}>{title}</S.Title>
           {subtitle && <Text>{subtitle}</Text>}
         </>
-      }
-    </S.Container>;
+      )}
+    </S.Container>
+  );
 
-  return link ? <Link href={link} passHref>{Element}</Link> : Element;
+  return link ? (
+    <Link href={link} passHref>
+      {Element}
+    </Link>
+  ) : (
+    Element
+  );
 }
 
 export default Row;

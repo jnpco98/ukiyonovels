@@ -1,4 +1,10 @@
-import React, { ReactElement, forwardRef, ForwardRefRenderFunction, HTMLAttributes, RefObject } from 'react';
+import React, {
+  ReactElement,
+  forwardRef,
+  ForwardRefRenderFunction,
+  HTMLAttributes,
+  RefObject
+} from 'react';
 import { AnyStyledComponent } from 'styled-components';
 import * as S from './style';
 
@@ -12,10 +18,7 @@ type Props = {
   inputType?: InputType;
 } & (HTMLAttributes<HTMLInputElement> | HTMLAttributes<HTMLTextAreaElement>);
 
-function Input(
-  props: Props,
-  ref: RefObject<HTMLInputElement | HTMLTextAreaElement>
-): ReactElement {
+function Input(props: Props, ref: RefObject<HTMLInputElement | HTMLTextAreaElement>): ReactElement {
   const { className, inputType, ...restProps } = props;
 
   let StyledInput: AnyStyledComponent;

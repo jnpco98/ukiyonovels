@@ -28,10 +28,10 @@ const DEFAULT_CAROUSEL_PARAMS = {
 
 type Props = {
   className?: string;
-  heading?: string,
+  heading?: string;
   contents: CardContent[];
   breakpoints?: { [key: string]: any };
-}
+};
 
 function CardCarousel(props: Props) {
   const { className, heading, contents, breakpoints = DEFAULT_CAROUSEL_PARAMS.breakpoints } = props;
@@ -40,20 +40,20 @@ function CardCarousel(props: Props) {
   const carouselParams = { DEFAULT_CAROUSEL_PARAMS, breakpoints };
 
   function nextSlide() {
-    if(swiper) swiper.slideNext();
+    if (swiper) swiper.slideNext();
   }
 
   function previousSlide() {
-    if(swiper) swiper.slidePrev();
+    if (swiper) swiper.slidePrev();
   }
 
   return (
     <S.Container className={className}>
       {heading && <S.Heading>{heading}</S.Heading>}
       <Swiper {...carouselParams} shouldSwiperUpdate getSwiper={updateSwiper}>
-        {contents.map((content, idx) => 
+        {contents.map((content, idx) => (
           <Card key={idx} content={content} />
-        )}
+        ))}
       </Swiper>
     </S.Container>
   );

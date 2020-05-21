@@ -2,10 +2,15 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/dist/client/router';
 import { ENABLE_ACCOUNTS } from '@constants/head';
 import SearchOverlay from '@components/organism/SearchOverlay';
-import { MenuItem, mobilePrimaryMenu, mobileSecondaryMenu, primaryMenu, secondaryMenu } from '@constants/menu';
+import {
+  MenuItem,
+  mobilePrimaryMenu,
+  mobileSecondaryMenu,
+  primaryMenu,
+  secondaryMenu
+} from '@constants/menu';
 import BannerLogo from '@components/organism/BannerLogo';
 import * as S from './style';
-
 
 function Header() {
   const [floating, setFloating] = useState(false);
@@ -21,7 +26,7 @@ function Header() {
   }, []);
 
   function handleScroll() {
-    if(!bannerRef.current || typeof bannerRef.current.getBoundingClientRect !== 'function') return;
+    if (!bannerRef.current || typeof bannerRef.current.getBoundingClientRect !== 'function') return;
     setFloating(window.pageYOffset >= bannerRef.current.getBoundingClientRect().height);
   }
 
@@ -40,7 +45,11 @@ function Header() {
           </S.Link>
         ) : (
           <>
-            {menuItem.icon ? <S.Icon SVGString={menuItem.icon} /> : <S.Button>menuItem.label</S.Button>}
+            {menuItem.icon ? (
+              <S.Icon SVGString={menuItem.icon} />
+            ) : (
+              <S.Button>menuItem.label</S.Button>
+            )}
           </>
         )}
       </S.MenuItem>
@@ -49,9 +58,8 @@ function Header() {
 
   return (
     <>
-      <BannerLogo ref={bannerRef}/>
+      <BannerLogo ref={bannerRef} />
       <S.Container floating={floating} flat={drawerActive || searchOverlayActive}>
-
         <S.MobileMenuItems>
           <S.DrawerTrigger onClick={(): void => setDrawerActive(!drawerActive)}>
             <S.DrawerTriggerIcon active={drawerActive} />
@@ -61,10 +69,16 @@ function Header() {
           {mobileSecondaryMenu.map((item) => renderLinks(item, `${item.key}`))}
         </S.Drawer>
         <S.DrawerBackdrop active={drawerActive} onClick={(): void => setDrawerActive(false)} />
-        <S.MobileMenuItems>{mobilePrimaryMenu.map((item) => renderLinks(item, `${item.key}`))}</S.MobileMenuItems>
+        <S.MobileMenuItems>
+          {mobilePrimaryMenu.map((item) => renderLinks(item, `${item.key}`))}
+        </S.MobileMenuItems>
 
-        <S.DesktopMenuItems>{secondaryMenu.map((item) => renderLinks(item, `${item.key}`))}</S.DesktopMenuItems>
-        <S.DesktopMenuItems>{primaryMenu.map((item) => renderLinks(item, `${item.key}`))}</S.DesktopMenuItems>
+        <S.DesktopMenuItems>
+          {secondaryMenu.map((item) => renderLinks(item, `${item.key}`))}
+        </S.DesktopMenuItems>
+        <S.DesktopMenuItems>
+          {primaryMenu.map((item) => renderLinks(item, `${item.key}`))}
+        </S.DesktopMenuItems>
 
         <SearchOverlay
           active={searchOverlayActive}
@@ -72,7 +86,7 @@ function Header() {
           onSearchSubmit={(query: string) => router.push(`/search?query=${query}`)}
         />
       </S.Container>
-      <S.Filler active={floating}/>
+      <S.Filler active={floating} />
     </>
   );
 }

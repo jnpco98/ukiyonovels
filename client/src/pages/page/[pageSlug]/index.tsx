@@ -50,10 +50,10 @@ function StandardPage() {
   const router = useRouter();
   const { pageSlug } = router.query;
 
-  return(
+  return (
     <Page>
       <Layout main navOffset footerOffset className={`page__${pageSlug}`}>
-        <DynamicHtml HTMLString={htmlString}/>
+        <DynamicHtml HTMLString={htmlString} />
       </Layout>
     </Page>
   );

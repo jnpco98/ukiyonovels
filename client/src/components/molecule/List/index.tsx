@@ -10,17 +10,19 @@ type Props = {
   contents: RowContent[];
   responsive?: Responsive;
   maxHeight?: string;
-}
+};
 
 function List(props: Props) {
   const { className, heading, contents, responsive, maxHeight } = props;
 
-  return(
+  return (
     <S.Container className={className}>
       {heading && <S.Heading>{heading}</S.Heading>}
       <Simplebar style={{ maxHeight }}>
         <S.Wrapper responsive={responsive}>
-          {contents.map(c => <S.Item content={c} key={c.title + c.link}/>)}
+          {contents.map((c) => (
+            <S.Item content={c} key={c.title + c.link} />
+          ))}
         </S.Wrapper>
       </Simplebar>
     </S.Container>

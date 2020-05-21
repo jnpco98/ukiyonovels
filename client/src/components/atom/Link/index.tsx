@@ -11,7 +11,11 @@ function Link(props: Props) {
   const router = useRouter();
 
   const active = router.pathname === href;
-  return <NextLink href={href} {...restProps}>{cloneElement(children, { active })}</NextLink> 
+  return (
+    <NextLink href={href} {...restProps}>
+      {cloneElement(children, { active })}
+    </NextLink>
+  );
 }
 
 export default Link;
