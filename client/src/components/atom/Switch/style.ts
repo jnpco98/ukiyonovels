@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { transparentize } from 'polished';
-import Text, { TextType } from '../Text';
+import Text, { TextType } from '@components/atom/Text';
 
 export const Container = styled.div`
   display: flex;

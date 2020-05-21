@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import { center, FLEX_ALIGN_MAIN, regularFontSize } from '@utilities/mixins';
 import { ButtonType } from '.';
-import Loader from '../Loader';
+import Loader from '@components/atom/Loader';
 
 const Success = css`
   color: ${({ theme }) => theme.colors.backgroundTertiary};

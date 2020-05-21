@@ -21,18 +21,18 @@
       "module-resolver",
       {
         "alias": {
-          "@components": "./src/components/",
-          "@layout": "./src/layout/",
-          "@schema": "./schemas/__generated__",
-          "@actions": "./src/actions/",
-          "@actionTypes": "./src/actionTypes/",
-          "@store": "./src/store/",
-          "@sagas": "./src/sagas/",
-          "@reducers": "./src/reducers/",
-          "@constants": "./src/constants/",
-          "@utilities": "./src/utilities/",
-          "@themeTypes": "./src@types/styled.d.ts",
-          "@icons": "./src/.icons.ts"
+          "@components": "src/components/",
+          "@layout": "src/layout/",
+          "@schemas": "schemas/__generated__/",
+          "@actions": "src/actions/",
+          "@actionTypes": "src/actionTypes/",
+          "@store": "src/store/",
+          "@sagas": "src/sagas/",
+          "@reducers": "src/reducers/",
+          "@constants": "src/constants/",
+          "@utilities": "src/utilities/",
+          "@themeTypes": "src/@types/styled.d.ts",
+          "@icons": "src/.icons.ts"
         }
       }
     ],

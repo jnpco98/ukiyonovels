@@ -1,6 +1,6 @@
 import { MutableRefObject, useEffect, useState } from 'react';
 
-import { debounce } from './delay';
+import { debounce } from '@utilities/delay';
 
 export function useInterval(callback: Function, delay: number) {
   let currentCallback: Function;

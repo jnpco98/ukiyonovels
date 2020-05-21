@@ -1,6 +1,6 @@
 import { css, AnyStyledComponent, FlattenSimpleInterpolation } from 'styled-components';
 import { math, margin, padding } from 'polished';
-import * as M from './media';
+import * as M from '@utilities/media';
 
 export const CENTER_VERTICAL = 'CENTER_VERTICAL';
 export const CENTER_HORIZONTAL = 'CENTER_HORIZONTAL';

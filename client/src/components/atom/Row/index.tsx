@@ -1,7 +1,7 @@
 import React from 'react';
 import Text from '@components/atom/Text';
 import * as S from './style';
-import Link from '../Link';
+import Link from '@components/atom/Link';
 
 export interface RowContent {
   prefix?: string;
