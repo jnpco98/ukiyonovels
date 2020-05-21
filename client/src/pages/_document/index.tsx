@@ -1,6 +1,7 @@
 import React, { Children } from 'react';
 import NextDocument, { Head, Main, NextScript, DocumentContext } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
+
 import {
   SITE_NAME,
   SITE_TITLE,

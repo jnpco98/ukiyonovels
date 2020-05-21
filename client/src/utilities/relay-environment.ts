@@ -3,7 +3,7 @@ import { Environment, Network, RecordSource, Store, RequestParameters, Variables
 let relayEnvironment: Environment = null;
 
 async function fetchQuery(operation: RequestParameters, variables: Variables) {
-  const response = await fetch('http://localhost:5000/graphql', {
+  const response = await fetch(process.env.RELAY_ENDPOINT, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
