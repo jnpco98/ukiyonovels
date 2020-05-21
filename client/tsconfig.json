@@ -35,7 +35,7 @@
         "./src/layout/*"
       ],
       "@schemas/*": [
-        "./schemas/__generated__/*"
+        "./schema/generated/*"
       ],
       "@actions/*": [
         "./src/actions/*"

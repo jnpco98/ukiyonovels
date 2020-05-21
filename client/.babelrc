@@ -17,7 +17,7 @@
         "alias": {
           "@components": "./src/components/",
           "@layout": "./src/layout/",
-          "@schemas": "./schemas/__generated__/",
+          "@schemas": "./schema/generated/",
           "@actions": "./src/actions/",
           "@actionTypes": "./src/actionTypes/",
           "@store": "./src/store/",

@@ -3,9 +3,9 @@
  */
 
 import React, { FunctionComponent } from 'react';
-import { NextPageContext } from 'next';
 import App from 'next/app';
 import Head from 'next/head';
+import { NextPageContext } from 'next';
 import { IncomingMessage } from 'http';
 import { HttpLink } from 'apollo-link-http';
 import ApolloClient from 'apollo-client';
