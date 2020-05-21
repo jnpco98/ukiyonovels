@@ -12,8 +12,7 @@ const ErrorPage: NextPage<ErrorPageProps> = ({ statusCode }) => {
     <Page>
       {statusCode
         ? t('500.serverError').replace('{{statusCode}}', statusCode)
-        : t('500.clientError')
-      }
+        : t('500.clientError')}
     </Page>
   );
 };
