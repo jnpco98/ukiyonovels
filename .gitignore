@@ -3,6 +3,7 @@
 .vs/
 .next/
 .env
+schema/
 schemas/
 node_modules/
 build/

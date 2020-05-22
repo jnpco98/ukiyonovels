@@ -5,9 +5,10 @@ import Layout from '@layout/Layout';
 import CardCarousel from '@components/organism/CardCarousel';
 import CardList from '@components/organism/CardList';
 import SidePanel from '@components/organism/SidePanel';
-import * as M from '@utilities/media';
 import { Responsive } from '@utilities/mixins';
+import { withApollo } from '@utilities/apollo';
 import { t } from '@utilities/locales';
+import * as M from '@utilities/media';
 
 function cardParams(cnt: number) {
   const thumbnail = `https://occ-0-2954-2568.1.nflxso.net/dnm/api/v6/XsrytRUxks8BtTRf9HNlZkW2tvY/AAAABcvEUXtNFRBthcDmFXo8Lhc4L10J5s2WVkm9ipP6V_9fM5Jl5x8mmacyTnR8pj_Y2ZM3gaiwontqaMdQh7gG4cdELHgbILEQzg.jpg`;
@@ -80,7 +81,8 @@ const cardReponsive: Responsive = {
   }
 };
 
-function Index() {
+
+function Index(props: any) {
   const { topNovels, latestReleases, newNovels } = t('homepage');
 
   return (
@@ -102,4 +104,4 @@ function Index() {
   );
 }
 
-export default Index;
+export default withApollo({ ssr: true })(Index);
