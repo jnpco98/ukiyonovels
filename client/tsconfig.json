@@ -34,8 +34,11 @@
       "@layout/*": [
         "./src/layout/*"
       ],
+      "@graphql/*": [
+        "./src/graphql/*"
+      ],
       "@schemas/*": [
-        "./schema/generated/*"
+        "./schemas/generated/*"
       ],
       "@actions/*": [
         "./src/actions/*"
