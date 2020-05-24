@@ -40,14 +40,14 @@ function NovelInfo(props: Props) {
       <S.FeaturedImageWrapper>
         <S.FeaturedImage src={coverImage} />
       </S.FeaturedImageWrapper>
-      <S.Info heading={typeHeading} items={[type]} />
-      <S.Info heading={genreHeading} items={genres} />
-      <S.Info heading={tagsHeading} items={tags} />
-      <S.Info heading={originHeading} items={origins} />
-      <S.Info heading={authorsHeading} items={authors} />
-      <S.Info heading={artistsHeading} items={artists} />
-      <S.Info heading={yearHeading} items={[year]} />
-      <S.Info heading={statusHeading} items={[status]} />
+      {type && <S.Info heading={typeHeading} items={[type]} />}
+      {genres && genres.length && <S.Info heading={genreHeading} items={genres} />}
+      {tags && tags.length ? <S.Info heading={tagsHeading} items={tags} /> : <></>}
+      {origins && origins.length ? <S.Info heading={originHeading} items={origins} /> : <></>}
+      {authors && authors.length ? <S.Info heading={authorsHeading} items={authors} /> : <></>}
+      {artists && artists.length ? <S.Info heading={artistsHeading} items={artists} /> : <></>}
+      {year && <S.Info heading={yearHeading} items={[year]} />}
+      {status && <S.Info heading={statusHeading} items={[status]} />}
     </S.Container>
   );
 }
