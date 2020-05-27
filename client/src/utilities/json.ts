@@ -8,3 +8,12 @@ export function jsonDotNotation(src: KeysOfString<any>, key: string, separator: 
     return value
   }, src);
 }
+
+export function arrayFromJson(json: string, defVal: Array<any> = []) {
+  try {
+    const array = JSON.parse(json || null);
+    return Array.isArray(array) ? array : defVal;
+  } catch(e) {
+    return defVal;
+  }
+}

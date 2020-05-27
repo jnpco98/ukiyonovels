@@ -6,11 +6,17 @@ import Layout from '@layout/Layout';
 import SidePanel from '@components/organism/SidePanel';
 import Text, { TextType } from '@components/atom/Text';
 import * as M from '@utilities/media';
-import NovelInfo, { NovelInfoContent } from '@components/organism/NovelPanel';
+import NovelInfo, { NovelInfoContent } from '@components/organism/NovelInfo';
 import { t } from '@utilities/locales';
 import List from '@components/molecule/List';
 import { Responsive } from '@utilities/mixins';
 import dynamic from 'next/dynamic';
+import { NovelInfoQuery, NovelChapterListQuery, NovelInfoQueryVariables, NovelChapterListQueryVariables } from '@schemas/apollo-components';
+import { useQuery } from '@apollo/react-hooks';
+import gql from 'graphql-tag';
+import { withApollo } from '@utilities/apollo';
+import { arrayFromJson } from '@utilities/json';
+import moment from 'moment';
 
 const DynamicHtml = dynamic(() => import('@components/molecule/DynamicHtml'), { ssr: false });
 
@@ -22,61 +28,30 @@ export type NovelInfo = {
   recommendedNovels: string[];
 } & NovelInfoContent;
 
-export const mockNovel: NovelInfo = {
-  coverImage: `https://occ-0-2954-2568.1.nflxso.net/dnm/api/v6/XsrytRUxks8BtTRf9HNlZkW2tvY/AAAABcvEUXtNFRBthcDmFXo8Lhc4L10J5s2WVkm9ipP6V_9fM5Jl5x8mmacyTnR8pj_Y2ZM3gaiwontqaMdQh7gG4cdELHgbILEQzg.jpg`,
-  title: `Anohana: The Flower We Saw That Day`,
-  description: `<p>Tsukuru, attending school as usual, is suddenly summoned to a different world with his classmates. However, what awaits them after being summoned is a hero auction. in which each country bid for heroes to defeat the demon king.</p><p>While his classmates who got cheat jobs sold for sky-high prices, Tsukuru, with the obvious loser jobs of “Chef” wasn’t sold at all, and was thrown out a transfer gate to a magic forest in the middle of nowhere, inhabited by many powerful monsters. Tsukuru, narrowly avoiding death many times at the hands of monsters, is thrust onto the path of the strongest!</p>`,
-  type: 'Light Novel',
-  genres: [
-    'Action',
-    'Adventure',
-    'Fantasy',
-    'Harem',
-    'Mystery',
-    'Romance',
-    'Shounen',
-    'Action',
-    'Adventure',
-    'Fantasy',
-    'Harem',
-    'Mystery',
-    'Romance',
-    'Shounen'
-  ],
-  tags: [
-    'Action',
-    'Adventure',
-    'Fantasy',
-    'Harem',
-    'Mystery',
-    'Romance',
-    'Shounen',
-    'Action',
-    'Adventure',
-    'Fantasy',
-    'Harem',
-    'Mystery',
-    'Romance',
-    'Shounen'
-  ],
-  origins: ['Chinese'],
-  authors: ['Nanjamonja', 'なんじゃもんじゃ'],
-  artists: ['Nanjamonja', 'なんじゃもんじゃ'],
-  year: '2000',
-  alternativeNames: [
-    'Garbage Brave【Revenge story of the hero who was been thrown away after summoned to another world】',
-    'ガベージブレイブ【異世界に召喚され捨てられた勇者の復讐物語】'
-  ],
-  relatedNovels: [
-    'Garbage Brave【Revenge story of the hero who was been thrown away after summoned to another world】',
-    'ガベージブレイブ【異世界に召喚され捨てられた勇者の復讐物語】'
-  ],
-  recommendedNovels: [
-    'Garbage Brave【Revenge story of the hero who was been thrown away after summoned to another world】',
-    'ガベージブレイブ【異世界に召喚され捨てられた勇者の復讐物語】'
-  ],
-  status: 'Complete'
-};
+const NOVEL_INFO_QUERY = gql`
+  query NovelInfo($slug: String!) {
+    novelBySlug(slug: $slug){
+      id, title, slug, description, type, tags, genres, 
+      origins, authors, artists, alternativeNames, coverImage, 
+      likes, views, status, year
+    }
+  }
+`;
+
+const NOVEL_CHAPTER_LIST_QUERY = gql`
+  query NovelChapterList($first: Float!, $after: String, $where: ChapterWhere) {
+    chapters(first: $first, after: $after, where: $where, sortKey: "idx", reverse: true) {
+      pageInfo { hasNextPage, endCursor }
+      edges {
+        node {
+          slug, title, lastModified, idx
+        }
+      }
+    }
+  }
+`;
+
+const CHAPTERS_PER_PAGE = 50;
 
 const Wrapper = styled(Layout)`
   display: flex;
@@ -112,17 +87,6 @@ const ChapterList = styled(List)`
   margin-bottom: 3rem;
 `;
 
-function generateList(cnt: number) {
-  return Array(cnt)
-    .fill(0)
-    .map((_) => ({
-      title: 'Kaguya-Sama: Love is War',
-      subtitle: Math.floor(Math.random() * 4023) + 1,
-      link: '/',
-      prefix: '23'
-    }));
-}
-
 const chapterListResponsive: Responsive = {
   itemsPerRow: 2,
   gap: 0.7,
@@ -135,21 +99,17 @@ function Novel() {
   const {
     descriptionHeading,
     alternativeNamesHeading,
-    relatedNovelsHeading,
-    recommendedNovelsHeading,
     chapterListHeading
   } = t('novel');
 
-  const {
-    title,
-    description,
-    alternativeNames,
-    relatedNovels,
-    recommendedNovels,
-    ...novelInfo
-  } = mockNovel;
+  const { data: novelInfo, loading: novelInfoLoading, error: novelInfoError } = useQuery<NovelInfoQuery, NovelInfoQueryVariables>(NOVEL_INFO_QUERY, { variables: { slug: Array.isArray(novelSlug) ? novelSlug.pop() : novelSlug }});
+  const initialVariables: NovelChapterListQueryVariables = { first: CHAPTERS_PER_PAGE };
+  if(novelInfo && novelInfo.novelBySlug.id) initialVariables.where = { AND: [{ novelId: { is: novelInfo.novelBySlug.id } }] };
+
+  const { data: novelChapters, loading: novelChaptersLoading, error: novelChaptersError } = useQuery<NovelChapterListQuery, NovelChapterListQueryVariables>(NOVEL_CHAPTER_LIST_QUERY, { variables: initialVariables });
 
   function renderInfo(heading: string, data: string[], dynamicHtml?: boolean) {
+    if(!data || !data.length) return <></>;
     return (
       <Description>
         <SubHeading>{heading}</SubHeading>
@@ -160,26 +120,62 @@ function Novel() {
     );
   }
 
+  function generateNovelChapterList(data: NovelChapterListQuery) {
+    if(!data || !data.chapters || !data.chapters.edges) return [];
+    const chapters  = data.chapters.edges;
+
+    return chapters.map(({ node }) => {
+      const date = moment(node.lastModified).format('ddd, MMMM Do')
+      return {
+        title: node.title, link: `/novel/${Array.isArray(novelSlug) ? novelSlug.pop() : novelSlug}/${node.slug}`, subtitle: date || '', prefix: `${node.idx}` 
+      } 
+    });
+  }
+
+  function generateNovelContent(data: NovelInfoQuery) {
+    if(!data || !data.novelBySlug) return null;
+    const { coverImage, type, genres, tags, origins, authors, artists, year, status } = data.novelBySlug;
+    const content = {
+      coverImage,
+      type,
+      genres: arrayFromJson(genres),
+      tags: arrayFromJson(tags),
+      origins: arrayFromJson(origins),
+      authors: arrayFromJson(authors),
+      artists: arrayFromJson(artists),
+      year: year ? year.toString() : null,
+      status: status
+    }
+
+    return content;
+  }
+
   return (
     <Page>
       <Layout layoutType="primarySecondary" main navOffset>
         <Layout gutterRight>
-          <Text textType={TextType.PageTitle}>{title}</Text>
-          <Wrapper>
-            <NovelInfo content={novelInfo} gutterRight />
-            <Layout>
-              {renderInfo(descriptionHeading, [description], true)}
-              {renderInfo(alternativeNamesHeading, alternativeNames)}
-              {renderInfo(relatedNovelsHeading, relatedNovels)}
-              {renderInfo(recommendedNovelsHeading, recommendedNovels)}
-              <ChapterList
-                heading={chapterListHeading}
-                contents={generateList(20)}
-                responsive={chapterListResponsive}
-                maxHeight="30rem"
-              />
-            </Layout>
-          </Wrapper>
+            {
+              novelInfoLoading ? <div>Loading</div> : novelInfoError ? <div>Error</div> :
+              <>
+                <Text textType={TextType.PageTitle}>{novelInfo.novelBySlug.title}</Text>
+                <Wrapper>
+                  <NovelInfo content={generateNovelContent(novelInfo)} gutterRight />
+                  <Layout>
+                    {renderInfo(descriptionHeading, [novelInfo.novelBySlug.description], true)}
+                    {renderInfo(alternativeNamesHeading, arrayFromJson(novelInfo.novelBySlug.alternativeNames))}
+                    {
+                      novelChaptersLoading ? <div>Loading</div> : novelChaptersError ? <div>Error</div> :
+                      <ChapterList
+                        heading={chapterListHeading}
+                        contents={generateNovelChapterList(novelChapters)}
+                        responsive={chapterListResponsive}
+                        maxHeight="30rem"
+                      />
+                    }
+                  </Layout>
+                </Wrapper>
+              </>
+            }
         </Layout>
         <SidePanel />
       </Layout>
@@ -187,4 +183,4 @@ function Novel() {
   );
 }
 
-export default Novel;
+export default withApollo({ ssr: process.env.NODE_ENV === 'production' })(Novel);
