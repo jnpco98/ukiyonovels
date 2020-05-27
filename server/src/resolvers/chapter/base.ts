@@ -15,6 +15,7 @@ import { WhereAndOrParams } from '../../lib/query/types/where-and-or';
 import { createCursorConnection } from '../../lib/relay/create-cursor-connection';
 import { Comment } from '../../entity/comment';
 import { CommentConnectionType, CommentWhereInputType } from '../comment/base';
+import { slugify } from '../../utilities/string/slugify';
 
 /**
  * Required parameters to
@@ -22,6 +23,9 @@ import { CommentConnectionType, CommentWhereInputType } from '../comment/base';
  */
 @InputType()
 export class ChapterQueryableInput {
+  @Field((type) => StringWhere, { nullable: true })
+  slug?: typeof StringWhere;
+
   @Field((type) => StringWhere, { nullable: true })
   novelId?: typeof StringWhere;
 
@@ -41,7 +45,14 @@ const authorization = {
   delete: [ROLES.owner]
 };
 
-const contextHooks: ContextHooks<Chapter> = {};
+const contextHooks: ContextHooks<Chapter> = {
+  create: async (entity, ctx, data) => {
+    const { title, novelId } = data as Chapter;
+    const existing = await getRepository(Chapter).findOne({ where: { slug: slugify(title), archived: false, novelId }});
+    if(existing) return null;
+    return await entity.save();
+  }
+};
 
 const resolverConfig: BaseResolverParams<Chapter, Chapter> = {
   EntityType: Chapter,

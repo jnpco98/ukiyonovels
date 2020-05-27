@@ -28,7 +28,7 @@ export class Chapter extends BaseEntity implements Partial<Chapter> {
   idx: number;
 
   @Field({ nullable: true })
-  @Column({ type: 'text', unique: true })
+  @Column({ type: 'text' })
   slug: string;
 
   @Field({ nullable: true })

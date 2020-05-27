@@ -14,6 +14,7 @@ import { ConnectionArgs } from '../../lib/relay/connection-args';
 import { WhereAndOrParams } from '../../lib/query/types/where-and-or';
 import { Chapter } from '../../entity/chapter';
 import { createCursorConnection } from '../../lib/relay/create-cursor-connection';
+import { slugify } from '../../utilities/string/slugify';
 
 /**
  * Filters for querying resource
@@ -42,7 +43,14 @@ const authorization = {
   delete: [ROLES.owner]
 };
 
-const contextHooks: ContextHooks<Book> = {};
+const contextHooks: ContextHooks<Book> = {
+  create: async (entity, ctx, data) => {
+    const { title, novelId } = data as Book;
+    const existing = await getRepository(Book).findOne({ where: { slug: slugify(title), archived: false, novelId }});
+    if(existing) return null;
+    return await entity.save();
+  }
+};
 
 const resolverConfig: BaseResolverParams<Book, Book> = {
   EntityType: Book,

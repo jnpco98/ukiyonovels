@@ -25,7 +25,7 @@ export class Book extends BaseEntity implements Partial<Book> {
   title: string;
 
   @Field({ nullable: true })
-  @Column({ type: 'text', unique: true })
+  @Column({ type: 'text' })
   slug: string;
 
   @Field({ nullable: true })
