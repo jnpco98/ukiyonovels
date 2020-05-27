@@ -75,6 +75,7 @@ export async function createCursorConnection<T extends BaseEntity>(
   if (direction === 'backward') edges.reverse();
 
   return {
+    totalCount: count,
     /**
      * Calculate the pageinfo, to give
      * more information about the previous/next page
@@ -84,7 +85,7 @@ export async function createCursorConnection<T extends BaseEntity>(
       hasPreviousPage: connArgs.last ? (count > entities.length ? true : false) : false,
       startCursor: entities.length ? createCursor(firstEdge, sortKey) : null,
       endCursor: entities.length ? createCursor(lastEdge, sortKey) : null,
-      count
+      count: entities.length
     },
     edges
   };

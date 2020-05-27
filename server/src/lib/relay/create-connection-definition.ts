@@ -34,6 +34,9 @@ export function createConnectionDefinition<T extends ClassType<BaseEntity>>(
   @ObjectType(`${resource}Connection`)
   class Connection {
     @Field()
+    totalCount: number;
+    
+    @Field()
     pageInfo: PageInfo;
 
     @Field(() => [Edge])
