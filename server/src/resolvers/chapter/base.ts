@@ -86,7 +86,7 @@ export class ChapterDeleteResolver extends BaseDeleteResolver {}
  *
  * Gets a single resource using the resource id
  */
-@Resolver((of) => Novel)
+@Resolver()
 export class ChapterGetResolver extends BaseGetResolver {
   @Query((returns) => Chapter, { name: `chapterBySlug`, nullable: true })
   async getChapterBySlug(@Arg('novelId') novelId?: string, @Arg('slug') slug?: string) {
@@ -96,6 +96,37 @@ export class ChapterGetResolver extends BaseGetResolver {
   @Query((returns) => Chapter, { name: `chapterByIdx`, nullable: true })
   async getChapterByChapterIdx(@Arg('novelId') novelId?: string, @Arg('idx') idx?: number) {
     return await Chapter.findOne({ where: { idx, archived: false, novelId } });
+  }
+}
+
+@Resolver((of) => Chapter)
+export class PaginationResolver {
+  /**
+   * Gets the previous chapter
+   * of the chapter entity
+   *
+   * @param chapter Chapter root object
+   */
+  @FieldResolver((returns) => Chapter)
+  async getPreviousChapter(@Root() chapter: Chapter) {
+    return await getRepository(Chapter).findOne({
+      id: chapter.previousId,
+      archived: false
+    });
+  }
+
+  /**
+   * Gets the next chapter
+   * of the chapter entity
+   *
+   * @param chapter Chapter root object
+   */
+  @FieldResolver((returns) => Chapter)
+  async getNextChapter(@Root() chapter: Chapter) {
+    return await getRepository(Chapter).findOne({
+      id: chapter.nextId,
+      archived: false
+    });
   }
 }
 
