@@ -1,6 +1,6 @@
 overwrite: true
 schema: "http://localhost:5000/graphql"
-documents: "src/**/*.ts"
+documents: "src/**/*.{ts,tsx}"
 generates:
   schemas/generated/apollo-components.tsx:
     plugins:

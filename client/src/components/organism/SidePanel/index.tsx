@@ -2,25 +2,26 @@ import React from 'react';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 import Layout from '@layout/Layout';
-import { SidePanelQuery} from '@schemas/apollo-components';
+import { SidePanelGenresQuery, SidePanelTagsQuery, SidePanelStatusQuery } from '@schemas/apollo-components';
 import { t } from '@utilities/locales';
 import { slugify } from '@utilities/string';
 import * as S from './style';
 
-const SIDEPANEL_QUERY = gql`
-  query SidePanel {
-    novelAggregateGenres {
-      field
-      count
-    }
-    novelAggregateTags {
-      field
-      count
-    }
-    novelAggregateStatus {
-      field
-      count
-    }
+const SIDEPANEL_GENRES_QUERY = gql`
+  query SidePanelGenres {
+    novelAggregateGenres { field, count }
+  }
+`;
+
+const SIDEPANEL_TAGS_QUERY = gql`
+  query SidePanelTags {
+    novelAggregateTags { field, count }
+  }
+`;
+
+const SIDEPANEL_STATUS_QUERY = gql`
+  query SidePanelStatus {
+    novelAggregateStatus { field, count }
   }
 `;
 
@@ -29,13 +30,15 @@ function SidePanel() {
     'components.sidePanel'
   );
 
-  const { data, loading, error } = useQuery<SidePanelQuery>(SIDEPANEL_QUERY);
+  const { data: genres, loading: genresLoading, error: genresError } = useQuery<SidePanelGenresQuery>(SIDEPANEL_GENRES_QUERY);
+  const { data: tags, loading: tagsLoading, error: tagsError } = useQuery<SidePanelTagsQuery>(SIDEPANEL_TAGS_QUERY);
+  const { data: status, loading: statusLoading, error: statusError } = useQuery<SidePanelStatusQuery>(SIDEPANEL_STATUS_QUERY);
   
   return (
     <Layout gutterLeft>
-      {loading ? <div>Loading</div> : error ? <div>Error</div> : <S.QuickFilter
+      {genresLoading ? <div>Loading genres</div> : genresError ? <div>Error</div> : <S.QuickFilter
         heading={searchByGenre.heading}
-        contents={data.novelAggregateGenres.map(g => ({ title: g.field, subtitle: g.count, link: `/genres/${slugify(g.field)}` }))}
+        contents={genres.novelAggregateGenres.map(g => ({ title: g.field, subtitle: g.count, link: `/genres/${slugify(g.field)}` }))}
         maxHeight="25rem"
       />}
       <S.Text
@@ -44,9 +47,9 @@ function SidePanel() {
         link={advancedSearch.link}
         linkLabel={advancedSearch.linkLabel}
       />
-      {loading ? <div>Loading</div> : error ? <div>Error</div> : <S.QuickFilter
+      {statusLoading ? <div>Loading status</div> : statusError ? <div>Error</div> : <S.QuickFilter
         heading={searchByStatus.heading}
-        contents={data.novelAggregateStatus.map(g => ({ title: g.field, subtitle: g.count, link: `/genres/${slugify(g.field)}` }))}
+        contents={status.novelAggregateStatus.map(g => ({ title: g.field, subtitle: g.count, link: `/genres/${slugify(g.field)}` }))}
         maxHeight="25rem"
       />}
       <S.Text
@@ -61,9 +64,9 @@ function SidePanel() {
         link={request.link}
         linkLabel={request.linkLabel}
       />
-      {loading ? <div>Loading</div> : error ? <div>Error</div> : <S.QuickFilter
+      {tagsLoading ? <div>Loading tags</div> : tagsError ? <div>Error</div> : <S.QuickFilter
         heading={searchByTags.heading}
-        contents={data.novelAggregateTags.map(g => ({ title: g.field, subtitle: g.count, link: `/genres/${slugify(g.field)}` }))}
+        contents={tags.novelAggregateTags.map(g => ({ title: g.field, subtitle: g.count, link: `/genres/${slugify(g.field)}` }))}
         maxHeight="25rem"
       />}
     </Layout>
