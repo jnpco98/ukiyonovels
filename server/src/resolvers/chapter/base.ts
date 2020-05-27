@@ -1,4 +1,4 @@
-import { InputType, Field, Resolver, FieldResolver, Root, Args, Arg } from 'type-graphql';
+import { InputType, Field, Resolver, FieldResolver, Root, Args, Arg, Query } from 'type-graphql';
 import { getRepository } from 'typeorm';
 import { GraphQLObjectType } from 'graphql';
 
@@ -22,6 +22,9 @@ import { CommentConnectionType, CommentWhereInputType } from '../comment/base';
  */
 @InputType()
 export class ChapterQueryableInput {
+  @Field((type) => StringWhere, { nullable: true })
+  novelId?: typeof StringWhere;
+
   @Field((type) => StringWhere, { nullable: true })
   title?: typeof StringWhere;
 }
@@ -83,8 +86,13 @@ export class ChapterDeleteResolver extends BaseDeleteResolver {}
  *
  * Gets a single resource using the resource id
  */
-@Resolver()
-export class ChapterGetResolver extends BaseGetResolver {}
+@Resolver((of) => Novel)
+export class ChapterGetResolver extends BaseGetResolver {
+  @Query((returns) => Chapter, { name: `chapterBySlug`, nullable: true })
+  async getChapterBySlug(@Arg('novelId') novelId?: string, @Arg('slug') slug?: string) {
+    return await Chapter.findOne({ where: { slug, archived: false, novelId } });
+  }
+}
 
 /**
  * Chapter Search Resolver

@@ -77,7 +77,7 @@ export class ArticleGetResolver extends BaseGetResolver {
    * Gets a single resource using the resource id or slug
    */
   @Query((returns) => Article, { name: `articleBySlug`, nullable: true })
-  async getNovelBySlug(@Arg('slug') slug?: string) {
+  async getArticleBySlug(@Arg('slug') slug?: string) {
     return await Article.findOne({ where: { slug, archived: false } });
   }
 }

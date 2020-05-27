@@ -21,7 +21,6 @@ import { slugify } from '../utilities/string/slugify';
 export class Chapter extends BaseEntity implements Partial<Chapter> {
   @Field()
   @Column({ type: 'text' })
-  @Length(10, 50, { message: 'Title should be between 10-50 characters' })
   title: string;
 
   @Field({ nullable: true })
