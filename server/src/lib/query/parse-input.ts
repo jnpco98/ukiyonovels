@@ -1,5 +1,6 @@
 import { WhereExpression } from 'typeorm';
 import { snakeCase } from '../../utilities/string/snake-case';
+import nanoid from 'nanoid';
 
 /**
  * Parses the where input to sql operations
@@ -18,6 +19,7 @@ export function parseInput<T extends { [key: string]: T | T[] }>(
 
     ops.map((parameters) => {
       const [operation, value] = parameters;
+      const key = nanoid(10).replace(/\W+/g, '-');
 
       switch (operation) {
         /**
@@ -25,7 +27,7 @@ export function parseInput<T extends { [key: string]: T | T[] }>(
          * field value is equals the query value
          */
         case 'is': {
-          query[andOr](`${sFieldName} = :isvalue`, { isvalue: value });
+          query[andOr](`${sFieldName} = :${key}`, { [key]: value });
           break;
         }
 
@@ -34,7 +36,7 @@ export function parseInput<T extends { [key: string]: T | T[] }>(
          * field value is not equals the query value
          */
         case 'not': {
-          query[andOr](`${sFieldName} != :notvalue`, { notvalue: value });
+          query[andOr](`${sFieldName} != :${key}`, { [key]: value });
           break;
         }
 
@@ -43,7 +45,7 @@ export function parseInput<T extends { [key: string]: T | T[] }>(
          * field value is in the query set
          */
         case 'in': {
-          query[andOr](`${sFieldName} IN (:...invalue)`, { invalue: value });
+          query[andOr](`${sFieldName} IN (:...${key})`, { [key]: value });
           break;
         }
 
@@ -52,8 +54,8 @@ export function parseInput<T extends { [key: string]: T | T[] }>(
          * field value is not in the query set
          */
         case 'notIn': {
-          query[andOr](`${sFieldName} NOT IN (:...notinvalue)`, {
-            notinvalue: value
+          query[andOr](`${sFieldName} NOT IN (:...${key})`, {
+            [key]: value
           });
           break;
         }
@@ -63,7 +65,7 @@ export function parseInput<T extends { [key: string]: T | T[] }>(
          * field value is less than the query value
          */
         case 'lt': {
-          query[andOr](`${sFieldName} < :ltvalue`, { ltvalue: value });
+          query[andOr](`${sFieldName} < :${key}`, { [key]: value });
           break;
         }
 
@@ -72,7 +74,7 @@ export function parseInput<T extends { [key: string]: T | T[] }>(
          * field value is less than or equals the query value
          */
         case 'lte': {
-          query[andOr](`${sFieldName} <= :ltevalue`, { ltevalue: value });
+          query[andOr](`${sFieldName} <= :${key}`, { [key]: value });
           break;
         }
 
@@ -81,7 +83,7 @@ export function parseInput<T extends { [key: string]: T | T[] }>(
          * field value is greater than the query value
          */
         case 'gt': {
-          query[andOr](`${sFieldName} > :gtvalue`, { gtvalue: value });
+          query[andOr](`${sFieldName} > :${key}`, { [key]: value });
           break;
         }
 
@@ -90,7 +92,7 @@ export function parseInput<T extends { [key: string]: T | T[] }>(
          * field value is greater than or equals the query value
          */
         case 'gte': {
-          query[andOr](`${sFieldName} >= :gtevalue`, { gtevalue: value });
+          query[andOr](`${sFieldName} >= :${key}`, { [key]: value });
           break;
         }
 
@@ -102,8 +104,8 @@ export function parseInput<T extends { [key: string]: T | T[] }>(
          * should both be of type string
          */
         case 'contains': {
-          query[andOr](`${sFieldName} ILIKE :convalue`, {
-            convalue: `%${value}%`
+          query[andOr](`${sFieldName} ILIKE :${key}`, {
+            [key]: `%${value}%`
           });
           break;
         }
@@ -116,8 +118,8 @@ export function parseInput<T extends { [key: string]: T | T[] }>(
          * should both be of type string
          */
         case 'notContains': {
-          query[andOr](`${sFieldName} NOT ILIKE :notconvalue`, {
-            notconvalue: `%${value}%`
+          query[andOr](`${sFieldName} NOT ILIKE :${key}`, {
+            [key]: `%${value}%`
           });
           break;
         }
@@ -130,8 +132,8 @@ export function parseInput<T extends { [key: string]: T | T[] }>(
          * should both be of type string
          */
         case 'startsWith': {
-          query[andOr](`${sFieldName} ILIKE :swvalue`, {
-            swvalue: `${value}%`
+          query[andOr](`${sFieldName} ILIKE :${key}`, {
+            [key]: `${value}%`
           });
           break;
         }
@@ -144,8 +146,8 @@ export function parseInput<T extends { [key: string]: T | T[] }>(
          * should both be of type string
          */
         case 'notStartsWith': {
-          query[andOr](`${sFieldName} NOT ILIKE :nswvalue`, {
-            nswvalue: `${value}%`
+          query[andOr](`${sFieldName} NOT ILIKE :${key}`, {
+            [key]: `${value}%`
           });
           break;
         }
@@ -158,8 +160,8 @@ export function parseInput<T extends { [key: string]: T | T[] }>(
          * should both be of type string
          */
         case 'endsWith': {
-          query[andOr](`${sFieldName} ILIKE :ewvalue`, {
-            ewvalue: `%${value}`
+          query[andOr](`${sFieldName} ILIKE :${key}`, {
+            [key]: `%${value}`
           });
           break;
         }
@@ -172,8 +174,8 @@ export function parseInput<T extends { [key: string]: T | T[] }>(
          * should both be of type string
          */
         case 'notEndsWith': {
-          query[andOr](`${sFieldName} ILIKE :newvalue`, {
-            newvalue: `%${value}`
+          query[andOr](`${sFieldName} ILIKE :${key}`, {
+            [key]: `%${value}`
           });
           break;
         }
@@ -193,8 +195,8 @@ export function parseInput<T extends { [key: string]: T | T[] }>(
             value.trim().length &&
             value.length < 1000
           ) {
-            query[andOr](`${sFieldName} ILIKE :newvalue`, {
-              newvalue: `%${value.replace(/\s/g, '%')}%`
+            query[andOr](`${sFieldName} ILIKE :${key}`, {
+              [key]: `%${value.replace(/\s/g, '%')}%`
             });
           }
           break;
