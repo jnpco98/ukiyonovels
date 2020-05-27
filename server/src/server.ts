@@ -6,6 +6,7 @@ import { GraphQLError, separateOperations } from 'graphql';
 import { ArgumentValidationError } from 'type-graphql';
 import { fieldConfigEstimator, getComplexity, simpleEstimator } from 'graphql-query-complexity';
 import cookieParser from 'cookie-parser';
+import { verify } from 'jsonwebtoken';
 import cors from 'cors';
 
 import {
@@ -23,6 +24,7 @@ import { authenticateToken } from './middleware/authentication/authenticate-toke
 import { createSchema } from './schema/create-schema';
 import { initializeConnection } from './utilities/connection/initialize-connection';
 import { logInternalError } from './utilities/log/log-internal-error';
+import ROLES from './constants/roles';
 
 /**
  * Handles and transforms the errors
@@ -100,8 +102,17 @@ async function main() {
               variables: request.variables,
               estimators: [fieldConfigEstimator(), simpleEstimator({ defaultComplexity: 1 })]
             });
-            if (complexity > MAX_QUERY_COST) {
-              throw new MaxComplexityError(complexity, MAX_QUERY_COST);
+
+            try {
+              if(request.http && request.http.headers && request.http?.headers.get('authorization')) {
+                const authorization = request.http?.headers.get('authorization');
+                const authDecoded = verify(authorization || '', process.env.ACCESS_TOKEN_SECRET!);
+                if(complexity > MAX_QUERY_COST && (authDecoded as any).role !== ROLES.owner) 
+                  throw new MaxComplexityError(complexity, MAX_QUERY_COST);
+              }
+            } catch (e) {
+              if(complexity > MAX_QUERY_COST) 
+                throw new MaxComplexityError(complexity, MAX_QUERY_COST);
             }
           }
         })
