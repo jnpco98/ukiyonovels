@@ -1,4 +1,4 @@
-import { BeforeInsert, Column, Entity } from 'typeorm';
+import { BeforeInsert, Column, Entity, BeforeUpdate } from 'typeorm';
 import { Field, ID, InputType, ObjectType } from 'type-graphql';
 import { IsOptional, Length, MinLength } from 'class-validator';
 
@@ -23,6 +23,10 @@ export class Chapter extends BaseEntity implements Partial<Chapter> {
   @Column({ type: 'text' })
   title: string;
 
+  @Field()
+  @Column({ type: 'float' })
+  idx: number;
+
   @Field({ nullable: true })
   @Column({ type: 'text', unique: true })
   slug: string;
@@ -45,6 +49,7 @@ export class Chapter extends BaseEntity implements Partial<Chapter> {
    * Create slug on chapter create
    */
   @BeforeInsert()
+  @BeforeUpdate()
   createSlug() {
     this.slug = slugify(this.title);
   }

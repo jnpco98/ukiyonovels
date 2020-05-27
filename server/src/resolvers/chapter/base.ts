@@ -92,6 +92,11 @@ export class ChapterGetResolver extends BaseGetResolver {
   async getChapterBySlug(@Arg('novelId') novelId?: string, @Arg('slug') slug?: string) {
     return await Chapter.findOne({ where: { slug, archived: false, novelId } });
   }
+
+  @Query((returns) => Chapter, { name: `chapterByIdx`, nullable: true })
+  async getChapterByChapterIdx(@Arg('novelId') novelId?: string, @Arg('idx') idx?: number) {
+    return await Chapter.findOne({ where: { idx, archived: false, novelId } });
+  }
 }
 
 /**
