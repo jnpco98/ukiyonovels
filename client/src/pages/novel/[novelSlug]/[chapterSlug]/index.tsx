@@ -6,44 +6,34 @@ import Layout from '@layout/Layout';
 import SidePanel from '@components/organism/SidePanel';
 import Text, { TextType } from '@components/atom/Text';
 import dynamic from 'next/dynamic';
-import { NovelInfo, mockNovel } from '..';
+import gql from 'graphql-tag';
+import { useQuery } from '@apollo/react-hooks';
+import Link from 'next/link';
+import { ChapterDataQuery, ChapterDataQueryVariables } from '@schemas/apollo-components';
+import { withApollo } from '@utilities/apollo';
 
 const DynamicHtml = dynamic(() => import('@components/molecule/DynamicHtml'), { ssr: false });
 
-type ContentInfo = { novel: NovelInfo; title: string; content: string };
-
-const mockChapter: ContentInfo = {
-  novel: mockNovel,
-  title: 'Chapter 1227',
-  content: `
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
-    `
-};
+const CHAPTER_QUERY = gql`
+  query ChapterData($novelWhere: NovelWhere!, $where: ChapterWhere!) {
+    novels(first: 1, where: $novelWhere) {
+      edges {
+        node {
+          id, title,
+          chapters(first: 1, where: $where) {
+            edges {
+              node {
+                id, title, content,
+                previousChapter { title, slug }
+                nextChapter { title, slug }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
 
 const Content = styled(Text)`
   margin-bottom: 6rem;
@@ -58,23 +48,78 @@ const ChapterTitle = styled(Text).attrs({ textType: TextType.PageTitle })`
   margin-bottom: 2rem;
 `;
 
+const PaginationControllerContainers = styled.div`
+  display: flex;
+`;
+
+// const PreviousButton = styled(Text).attrs({ textType: TextType.Anchor })`
+//   display: flex;
+//   flex-direction: column;
+//   margin-right: auto;
+// `;
+
+// const NextButton = styled(Text).attrs({ textType: TextType.Anchor })`
+//   display: flex;
+//   flex-direction: column;
+//   margin-left: auto;
+// `;
+
+const PreviousButton = styled.a`
+  display: flex;
+  flex-direction: column;
+  margin-right: auto;
+`;
+
+const NextButton = styled.a`
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+`;
+
 function Chapter() {
   const router = useRouter();
   const { novelSlug, chapterSlug } = router.query;
-  const { novel, title, content } = mockChapter;
+
+  const initialVariables: ChapterDataQueryVariables = { 
+    novelWhere: { AND: [{ slug: { is: Array.isArray(novelSlug) ? novelSlug.pop() : novelSlug } }] }, 
+    where: { AND: [{ slug: { is: Array.isArray(chapterSlug) ? chapterSlug.pop() : chapterSlug } }] } 
+  } 
+  const { data: chapterData, loading: chaptersLoading, error: chaptersError } = useQuery<ChapterDataQuery, ChapterDataQueryVariables>(CHAPTER_QUERY, { variables: initialVariables });
+
+  function generateChapterContent(data: ChapterDataQuery) {
+    if(!data.novels.edges.length) return null;
+    const { title: novelTitle, chapters } = data.novels.edges[0].node;
+    const { title: chapterTitle, content, previousChapter, nextChapter } = chapters.edges[0].node;
+
+    if(!chapterTitle || !novelTitle || !content) return null;
+
+    return(
+      <>
+        <NovelTitle
+          textType={TextType.Anchor}
+          link={typeof novelSlug === 'string' ? `/novel/${novelSlug}` : null}
+        >
+          {novelTitle}
+        </NovelTitle>
+        <ChapterTitle>{chapterTitle}</ChapterTitle>
+        <Content>{<DynamicHtml HTMLString={content} />}</Content>
+        <PaginationControllerContainers>
+          {previousChapter && previousChapter.slug && <Link href={`/novel/[novelSlug]/[chapterSlug]`} as={`/novel/${novelSlug}/${previousChapter.slug}`} passHref><PreviousButton><span>Previous {previousChapter.title}</span></PreviousButton></Link>}
+          {nextChapter && nextChapter.slug && <Link href={`/novel/[novelSlug]/[chapterSlug]`} as={`/novel/${novelSlug}/${nextChapter.slug}`} passHref><NextButton><span>Next {nextChapter.title}</span></NextButton></Link>}
+        </PaginationControllerContainers>
+      </>
+    );
+  }
+
 
   return (
     <Page>
       <Layout layoutType="primarySecondary" main navOffset>
         <Layout gutterRight>
-          <NovelTitle
-            textType={TextType.Anchor}
-            link={typeof novelSlug === 'string' ? `/novel/${novelSlug}` : null}
-          >
-            {novel.title}
-          </NovelTitle>
-          <ChapterTitle>{title}</ChapterTitle>
-          <Content>{<DynamicHtml HTMLString={content} />}</Content>
+          {
+            chaptersLoading ? <div>Loading</div> : chaptersError ? <div>Error</div> :
+              generateChapterContent(chapterData)
+          }
         </Layout>
         <SidePanel />
       </Layout>
@@ -82,4 +127,4 @@ function Chapter() {
   );
 }
 
-export default Chapter;
+export default withApollo({ ssr: process.env.NODE_ENV === 'production' })(Chapter);

@@ -37,7 +37,7 @@ function CardCarousel(props: Props) {
   const { className, heading, contents, breakpoints = DEFAULT_CAROUSEL_PARAMS.breakpoints } = props;
   const [swiper, updateSwiper] = useState<SwiperInstance>(null);
 
-  const carouselParams = { DEFAULT_CAROUSEL_PARAMS, breakpoints };
+  const carouselParams = { ...DEFAULT_CAROUSEL_PARAMS, breakpoints };
 
   function nextSlide() {
     if (swiper) swiper.slideNext();
