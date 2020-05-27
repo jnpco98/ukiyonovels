@@ -2,7 +2,7 @@ import React from 'react';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 import Layout from '@layout/Layout';
-import { SidePanelGenresQuery, SidePanelTagsQuery, SidePanelStatusQuery } from '@schemas/apollo-components';
+import { SidePanelGenresQuery, SidePanelTagsQuery, SidePanelStatusQuery, SidePanelGenresQueryVariables, SidePanelTagsQueryVariables, SidePanelStatusQueryVariables } from '@schemas/apollo-components';
 import { t } from '@utilities/locales';
 import { slugify } from '@utilities/string';
 import * as S from './style';
@@ -30,9 +30,9 @@ function SidePanel() {
     'components.sidePanel'
   );
 
-  const { data: genres, loading: genresLoading, error: genresError } = useQuery<SidePanelGenresQuery>(SIDEPANEL_GENRES_QUERY);
-  const { data: tags, loading: tagsLoading, error: tagsError } = useQuery<SidePanelTagsQuery>(SIDEPANEL_TAGS_QUERY);
-  const { data: status, loading: statusLoading, error: statusError } = useQuery<SidePanelStatusQuery>(SIDEPANEL_STATUS_QUERY);
+  const { data: genres, loading: genresLoading, error: genresError } = useQuery<SidePanelGenresQuery, SidePanelGenresQueryVariables>(SIDEPANEL_GENRES_QUERY);
+  const { data: tags, loading: tagsLoading, error: tagsError } = useQuery<SidePanelTagsQuery, SidePanelTagsQueryVariables>(SIDEPANEL_TAGS_QUERY);
+  const { data: status, loading: statusLoading, error: statusError } = useQuery<SidePanelStatusQuery, SidePanelStatusQueryVariables>(SIDEPANEL_STATUS_QUERY);
   
   return (
     <Layout gutterLeft>

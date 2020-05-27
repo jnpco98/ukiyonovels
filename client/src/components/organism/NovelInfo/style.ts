@@ -20,6 +20,7 @@ export const FeaturedImage = styled.img``;
 
 export const FeaturedImageWrapper = styled.div`
   ${ratioImage(FeaturedImage, '100%', '150%')};
+  margin-top: 1rem;
   margin-bottom: 1.4rem;
 `;
 

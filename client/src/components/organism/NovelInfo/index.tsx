@@ -18,12 +18,12 @@ type Props = {
   className?: string;
   gutterLeft?: boolean;
   gutterRight?: boolean;
-  content: NovelInfoContent;
+  content?: NovelInfoContent;
 };
 
 function NovelInfo(props: Props) {
   const { className, content, gutterLeft, gutterRight } = props;
-  const { coverImage, type, genres, tags, origins, authors, artists, year, status } = content;
+  const { coverImage, type, genres, tags, origins, authors, artists, year, status } = content || {};
   const {
     typeHeading,
     genreHeading,

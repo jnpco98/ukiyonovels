@@ -14,8 +14,11 @@
       "searchByGenre": {
         "heading": "Search by Genre"
       },
-      "searchByType": {
-        "heading": "Search by Type"
+      "searchByStatus": {
+        "heading": "Search by Status"
+      },
+      "searchByTags": {
+        "heading": "Search by Tags"
       },
       "advancedSearch": {
         "heading": "Advanced Search",
