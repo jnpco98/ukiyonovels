@@ -107,7 +107,7 @@ export class PaginationResolver {
    *
    * @param chapter Chapter root object
    */
-  @FieldResolver((returns) => Chapter)
+  @FieldResolver((returns) => Chapter, { name: `previousChapter`, nullable: true })
   async getPreviousChapter(@Root() chapter: Chapter) {
     return await getRepository(Chapter).findOne({
       id: chapter.previousId,
@@ -121,7 +121,7 @@ export class PaginationResolver {
    *
    * @param chapter Chapter root object
    */
-  @FieldResolver((returns) => Chapter)
+  @FieldResolver((returns) => Chapter, { name: `nextChapter`, nullable: true })
   async getNextChapter(@Root() chapter: Chapter) {
     return await getRepository(Chapter).findOne({
       id: chapter.nextId,

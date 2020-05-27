@@ -105,7 +105,7 @@ async function main() {
 
             try {
               if(request.http && request.http.headers && request.http?.headers.get('authorization')) {
-                const authorization = request.http?.headers.get('authorization');
+                const authorization = request.http?.headers.get('authorization')?.split(' ')[1];
                 const authDecoded = verify(authorization || '', process.env.ACCESS_TOKEN_SECRET!);
                 if(complexity > MAX_QUERY_COST && (authDecoded as any).role !== ROLES.owner) 
                   throw new MaxComplexityError(complexity, MAX_QUERY_COST);
