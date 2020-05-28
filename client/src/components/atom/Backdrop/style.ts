@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import { center, FLEX_ALIGN_BOTH } from '@utilities/mixins';
 
-export const Container = styled.div<{ active: boolean, transparent: boolean, centerContent: boolean }>`
+export const Container = styled.div<{ active?: boolean, transparent?: boolean, centerContent?: boolean }>`
   top: 0;
   left: 0;
   opacity: 0;

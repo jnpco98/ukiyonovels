@@ -10,16 +10,10 @@ type Props = {
 } & HTMLAttributes<HTMLDivElement>;
 
 function Backdrop(props: Props) {
-  const { active, className, children, transparent, centerContent, ...restProps } = props;
+  const { children, ...restProps } = props;
 
   return (
-    <S.Container
-      className={className}
-      active={active}
-      transparent={transparent}
-      centerContent={centerContent}
-      {...restProps}
-    >
+    <S.Container {...restProps}>
       {children}
     </S.Container>
   );

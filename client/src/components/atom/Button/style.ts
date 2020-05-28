@@ -33,7 +33,7 @@ const Danger = css`
   }
 `;
 
-export const Container = styled.a<{ buttonType: ButtonType, loading: boolean, disabled: boolean }>`
+export const Container = styled.a<{ buttonType?: ButtonType, loading?: boolean, disabled?: boolean }>`
   ${regularFontSize};
   ${center(FLEX_ALIGN_MAIN)};
 

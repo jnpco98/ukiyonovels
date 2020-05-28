@@ -8,12 +8,6 @@ import {
 } from '@utilities/mixins';
 import { margin } from 'polished';
 
-const textCommons = css<{ center?: boolean }>`
-  ${props => props.center && css`
-    text-align: center;
-  `}
-`;
-
 export const pageTitleStyle = css`
   ${pageTitleFontSize};
   text-transform: uppercase;
@@ -71,29 +65,24 @@ export const anchorTextStyle = css`
 `;
 
 export const PageTitle = styled.h1<{ decorate: boolean }>`
-  ${textCommons};
   ${pageTitleStyle};
   ${(props) => props.decorate && headingDecoration};
 `;
 
 export const SectionTitle = styled.h2<{ decorate: boolean }>`
-  ${textCommons};
   ${sectionTitleStyle};
   ${(props) => props.decorate && headingDecoration};
 `;
 
 export const SubsectionTitle = styled.h3`
-  ${textCommons};
   ${subsectionTitleStyle};
 `;
 
 export const Paragraph = styled.p`
-  ${textCommons};
   ${regularTextStyle};
 `;
 
 export const Span = styled.span`
-  ${textCommons};
   ${regularTextStyle};
 `;
 
@@ -102,7 +91,6 @@ export const Label = styled.label`
 `;
 
 export const Anchor = styled.a<{ active?: boolean, decorateActive?: boolean }>`
-  ${textCommons};
   ${anchorTextStyle};
 
   ${props => 

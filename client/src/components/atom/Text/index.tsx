@@ -1,6 +1,5 @@
-import React, { ReactNode } from 'react';
+import React, { HTMLAttributes, AnchorHTMLAttributes, LabelHTMLAttributes } from 'react';
 import { AnyStyledComponent } from 'styled-components';
-import Link from '@components/atom/Link';
 import * as S from './style';
 
 export enum TextType {
@@ -14,21 +13,19 @@ export enum TextType {
 }
 
 type Props = {
-  link?: string;
-  absolute?: boolean;
-  className?: string;
-  children?: ReactNode;
   textType?: TextType;
-  htmlFor?: string;
   decorateActive?: boolean;
-  center?: boolean;
-};
+} & (
+  HTMLAttributes<HTMLHeadingElement> | 
+  HTMLAttributes<HTMLParagraphElement> | 
+  LabelHTMLAttributes<HTMLLabelElement> | 
+  AnchorHTMLAttributes<HTMLAnchorElement>
+);
 
 function Text(props: Props) {
-  const { children, className, textType, link, absolute, htmlFor, decorateActive, center } = props;
+  const { children, textType, ...restProps } = props;
 
   let StyledText: AnyStyledComponent;
-  const textProps: any = { className, textType, htmlFor, center };
 
   switch (textType) {
     case TextType.PageTitle:
@@ -49,22 +46,13 @@ function Text(props: Props) {
       break;
     case TextType.Anchor:
       StyledText = S.Anchor;
-      if (absolute) textProps.href = link;
-      textProps.decorateActive = !!decorateActive;
       break;
     case TextType.Label:
       StyledText = S.Label;
       break;
   }
 
-  const Element = <StyledText {...textProps}>{children || ''}</StyledText>;
-  if (link)
-    return (
-      <Link href={link} passHref>
-        {Element}
-      </Link>
-    );
-  return Element;
+  return <StyledText {...restProps}>{children || ''}</StyledText>;
 }
 
 export default Text;
