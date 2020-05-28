@@ -10,8 +10,7 @@ export const Divider = styled(FontAwesomeIcon).attrs({ icon: faCircle })`
 
 export const Container = styled.div`
   ${smallFontSize};
-  display: flex;
-  align-items: center;
+  display: block;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

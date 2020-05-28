@@ -11,6 +11,7 @@ import { useQuery } from '@apollo/react-hooks';
 import Link from 'next/link';
 import { ChapterDataQuery, ChapterDataQueryVariables } from '@schemas/apollo-components';
 import { withApollo } from '@utilities/apollo';
+import ConditionalWrapper from '@components/atom/ConditionalWrapper';
 
 const DynamicHtml = dynamic(() => import('@components/molecule/DynamicHtml'), { ssr: false });
 
@@ -39,7 +40,7 @@ const Content = styled(Text)`
   margin-bottom: 6rem;
 `;
 
-const NovelTitle = styled(Text)`
+const NovelTitle = styled(Text).attrs({ textType: TextType.Anchor })`
   font-family: ${({ theme }) => theme.font.secondary};
 `;
 
@@ -52,25 +53,13 @@ const PaginationControllerContainers = styled.div`
   display: flex;
 `;
 
-// const PreviousButton = styled(Text).attrs({ textType: TextType.Anchor })`
-//   display: flex;
-//   flex-direction: column;
-//   margin-right: auto;
-// `;
-
-// const NextButton = styled(Text).attrs({ textType: TextType.Anchor })`
-//   display: flex;
-//   flex-direction: column;
-//   margin-left: auto;
-// `;
-
-const PreviousButton = styled.a`
+const PreviousButton = styled(Text).attrs({ textType: TextType.Anchor })`
   display: flex;
   flex-direction: column;
   margin-right: auto;
 `;
 
-const NextButton = styled.a`
+const NextButton = styled(Text).attrs({ textType: TextType.Anchor })`
   display: flex;
   flex-direction: column;
   margin-left: auto;
@@ -95,22 +84,18 @@ function Chapter() {
 
     return(
       <>
-        <NovelTitle
-          textType={TextType.Anchor}
-          link={typeof novelSlug === 'string' ? `/novel/${novelSlug}` : null}
-        >
-          {novelTitle}
-        </NovelTitle>
+        <ConditionalWrapper condition={!!novelSlug} wrapper={children => <Link href={`/novel/[novelSlug]`} as={`/novel/${novelSlug}`} passHref>{children}</Link>}>
+          <NovelTitle>{novelTitle}</NovelTitle>
+        </ConditionalWrapper>
         <ChapterTitle>{chapterTitle}</ChapterTitle>
         <Content>{<DynamicHtml HTMLString={content} />}</Content>
         <PaginationControllerContainers>
-          {previousChapter && previousChapter.slug && <Link href={`/novel/[novelSlug]/[chapterSlug]`} as={`/novel/${novelSlug}/${previousChapter.slug}`} passHref><PreviousButton><span>Previous {previousChapter.title}</span></PreviousButton></Link>}
-          {nextChapter && nextChapter.slug && <Link href={`/novel/[novelSlug]/[chapterSlug]`} as={`/novel/${novelSlug}/${nextChapter.slug}`} passHref><NextButton><span>Next {nextChapter.title}</span></NextButton></Link>}
+          {previousChapter && previousChapter.slug && <Link href={`/novel/[novelSlug]/[chapterSlug]`} as={`/novel/${novelSlug}/${previousChapter.slug}`} passHref><PreviousButton><span>Previous</span><span>{previousChapter.title}</span></PreviousButton></Link>}
+          {nextChapter && nextChapter.slug && <Link href={`/novel/[novelSlug]/[chapterSlug]`} as={`/novel/${novelSlug}/${nextChapter.slug}`} passHref><NextButton><span>Next</span><span>{nextChapter.title}</span></NextButton></Link>}
         </PaginationControllerContainers>
       </>
     );
   }
-
 
   return (
     <Page>

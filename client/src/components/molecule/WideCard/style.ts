@@ -39,6 +39,7 @@ export const Title = styled(Text).attrs({ textType: TextType.Paragraph })`
 
 export const Meta = styled.div`
   flex: 0.7;
+  overflow: hidden;
 `;
 
 export const Reveal = styled.div`

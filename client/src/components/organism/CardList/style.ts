@@ -2,7 +2,6 @@ import styled, { css } from 'styled-components';
 import Card from '@components/molecule/Card';
 import WideCard from '@components/molecule/WideCard';
 import Text, { TextType } from '@components/atom/Text';
-import Button from '@components/atom/Button';
 import { responsive, Responsive } from '@utilities/mixins';
 
 export const Standard = styled(Card)``;
@@ -38,8 +37,4 @@ export const Wrapper = styled.div<{ responsive?: Responsive }>`
       }
     `;
   }};
-`;
-
-export const CtaButton = styled(Button)`
-  width: 100%;
 `;

@@ -1,6 +1,5 @@
 import React from 'react';
 import { CardContent } from '@components/molecule/Card';
-import { t } from '@utilities/locales';
 import * as S from './style';
 import { Responsive } from '@utilities/mixins';
 
@@ -27,7 +26,6 @@ function CardList(props: Props) {
           )
         )}
       </S.Wrapper>
-      <S.CtaButton>{t('components.cardList.loadMore')}</S.CtaButton>
     </S.Container>
   );
 }
