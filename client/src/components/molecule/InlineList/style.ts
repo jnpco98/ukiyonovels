@@ -8,6 +8,11 @@ export const Divider = styled(FontAwesomeIcon).attrs({ icon: faCircle })`
   height: 0.3rem;
 `;
 
+export const DividerWrapper = styled.span`
+  height: 100%;
+  display: inline-flex;
+`;
+
 export const Container = styled.div`
   ${smallFontSize};
   display: block;

@@ -14,7 +14,7 @@ function InlineList(props: Props) {
       {items.map((item, idx) => (
         <Fragment key={idx}>
           {item}
-          {idx !== items.length - 1 && <S.Divider />}
+          {idx !== items.length - 1 && <S.DividerWrapper><S.Divider /></S.DividerWrapper>}
         </Fragment>
       ))}
     </S.Container>
