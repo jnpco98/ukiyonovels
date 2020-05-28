@@ -1,8 +1,10 @@
 import React from 'react';
 import Section from '@layout/Layout';
+import ConditionalWrapper from '@components/atom/ConditionalWrapper';
 import Text, { TextType } from '@components/atom/Text';
 import { footerMenu } from '@constants/menu';
 import { t } from '@utilities/locales';
+import Link from '@components/atom/Link';
 import * as S from './style';
 
 function Footer() {
@@ -14,9 +16,11 @@ function Footer() {
           <Text>{t('footer.copyright')}</Text>
           <S.TermsGroup>
             {footerMenu.map(({ label, link, key }) => (
-              <Text textType={TextType.Anchor} link={link} key={key} decorateActive>
-                {label}
-              </Text>
+              <ConditionalWrapper condition={!!(link && link.href)} wrapper={children => <Link as={link.as} href={link.href} passHref>{children}</Link>}>   
+                <Text textType={TextType.Anchor} key={key} decorateActive>
+                  {label}
+                </Text>
+              </ConditionalWrapper>
             ))}
           </S.TermsGroup>
         </S.TextGroup>

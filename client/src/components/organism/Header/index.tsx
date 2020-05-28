@@ -10,6 +10,7 @@ import {
   secondaryMenu
 } from '@constants/menu';
 import BannerLogo from '@components/organism/BannerLogo';
+import Link from '@components/atom/Link';
 import * as S from './style';
 
 function Header() {
@@ -31,7 +32,7 @@ function Header() {
   }
 
   function renderLinks(menuItem: MenuItem, key: string) {
-    if (menuItem.key === 'account' && !ENABLE_ACCOUNTS) return <></>;
+    if (menuItem.key.includes('account') && !ENABLE_ACCOUNTS) return <></>;
 
     return (
       <S.MenuItem
@@ -39,10 +40,12 @@ function Header() {
         icon={!!menuItem.icon}
         onClick={() => menuItem.key.includes('_search') && setSearchOverlayActive(true)}
       >
-        {menuItem.link ? (
-          <S.Link decorateActive link={menuItem.link}>
-            {menuItem.icon ? <S.Icon SVGString={menuItem.icon} /> : menuItem.label}
-          </S.Link>
+        {menuItem.link && menuItem.link.href ? (
+          <Link href={menuItem.link.href} as={menuItem.link.as} passHref>
+            <S.Link decorateActive>
+              {menuItem.icon ? <S.Icon SVGString={menuItem.icon} /> : menuItem.label}
+            </S.Link>
+          </Link>
         ) : (
           <>
             {menuItem.icon ? (

@@ -33,7 +33,7 @@ export const Icon = styled(DynamicIcon)`
   height: 1rem;
 `;
 
-export const Link = styled(Text).attrs({ textType: TextType.Anchor })<{ decorateActive?: boolean, link: string; }>`
+export const Link = styled(Text).attrs({ textType: TextType.Anchor })<{ decorateActive?: boolean }>`
   overflow: hidden;
 `;
 
