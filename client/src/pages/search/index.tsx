@@ -6,53 +6,76 @@ import CardList from '@components/organism/CardList';
 import styled from 'styled-components';
 import { Responsive } from '@utilities/mixins';
 import * as M from '@utilities/media';
+import { withApollo } from '@utilities/apollo';
+import { useQuery } from '@apollo/react-hooks';
+import gql from 'graphql-tag';
+import { SearchQuery, SearchQueryVariables } from '@schemas/apollo-components';
+import { arrayFromJson } from '@utilities/json';
+import Button from '@components/atom/Button';
 
-const SearchResults = styled(CardList).attrs({ cardType: 'standard' })``;
-
-function searchResults(cnt: number) {
-  const thumbnail = `https://occ-0-2954-2568.1.nflxso.net/dnm/api/v6/XsrytRUxks8BtTRf9HNlZkW2tvY/AAAABcvEUXtNFRBthcDmFXo8Lhc4L10J5s2WVkm9ipP6V_9fM5Jl5x8mmacyTnR8pj_Y2ZM3gaiwontqaMdQh7gG4cdELHgbILEQzg.jpg`;
-  const content = {
-    heading: 'Kaguya-Sama: Love is War',
-    inline: ['MA15+', '2014', '24Chs'],
-    tabbed: ['Web', 'Chinese'],
-    thumbnail
-  };
-
-  return Array(cnt)
-    .fill(0)
-    .map((_) => content);
-}
+const SearchResults = styled(CardList).attrs({ cardType: 'wide' })``;
 
 const cardResponsive: Responsive = {
-  itemsPerRow: 2,
+  itemsPerRow: 1,
   gap: 0.2,
   breakpoints: {
     [M.MEDIA_XXSMALL]: {
-      itemsPerRow: 3,
+      itemsPerRow: 2,
       gap: 0.4
     },
     [M.MEDIA_SMALL]: {
-      itemsPerRow: 4,
-      gap: 0.8
+      itemsPerRow: 2,
+      gap: 0.7
     }
   }
 };
 
+const SEARCH_QUERY = gql`
+  query Search($where: NovelWhere, $count: Float) {
+    novels(first: $count, where: $where) {
+      totalCount
+      edges {
+        node {
+          id, slug, title, genres, origins, status, coverImage
+        }
+      }
+    }
+  }
+`;
+
+const LoadMoreButton = styled(Button)`
+  width: 100%;
+`;
+
+const RESULTS_PER_PAGE = 20;
+
 function Search() {
   const router = useRouter();
   const { keyword } = router.query;
-
-  const count = 20;
+  
+  const { data: searchResults, loading: searchResultsLoading, error: searchResultsError } = useQuery<SearchQuery, SearchQueryVariables>(SEARCH_QUERY, {
+    variables: {
+      count: RESULTS_PER_PAGE,
+      where: { AND: [{ title: { search: Array.isArray(keyword) ? keyword[0] : keyword } }] }
+    }
+  });
 
   return (
     <Page>
       <Layout layoutType="primarySecondary" main navOffset footerOffset>
         <Layout gutterRight>
-          <SearchResults
-            heading={`Found ${count} results for keyword "Anohana"`}
-            contents={searchResults(count)}
-            responsive={cardResponsive}
-          />
+          {
+            !keyword ? <SearchResults heading={`Empty keyword`} contents={[]} responsive={cardResponsive} /> :
+            searchResultsLoading ? <div>Loading results</div> : searchResultsError ? <div>Error</div> :
+              <>
+                <SearchResults
+                  heading={`Found ${searchResults.novels.totalCount} results for keyword "${keyword}"`}
+                  contents={searchResults.novels.edges.map(({ node }) => ({ heading: node.title, inline: arrayFromJson(node.genres), tabbed: [node.status, ...arrayFromJson(node.origins)], thumbnail: node.coverImage }))}
+                  responsive={cardResponsive}
+                />
+                <LoadMoreButton>Load More</LoadMoreButton>
+              </>
+          }
         </Layout>
         <SidePanel />
       </Layout>
@@ -60,4 +83,4 @@ function Search() {
   );
 }
 
-export default Search;
+export default withApollo({ ssr: process.env.NODE_ENV === 'production' })(Search);

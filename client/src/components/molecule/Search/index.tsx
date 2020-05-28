@@ -1,5 +1,6 @@
 import React, { useState, forwardRef, ForwardRefRenderFunction, FormEvent, RefObject } from 'react';
 import * as S from './style';
+import Link from 'next/link';
 
 type Props = {
   active?: boolean;
@@ -33,7 +34,9 @@ function Search(props: Props, ref: RefObject<HTMLDivElement>) {
           <S.Icon />
         </S.Submit>
       </S.Form>
-      <S.AdvancedSearch link="/advanced-search">{advancedSearch}</S.AdvancedSearch>
+      <Link href='/advanced-search'>
+        <S.AdvancedSearch>{advancedSearch}</S.AdvancedSearch>
+      </Link>
     </S.Container>
   );
 }

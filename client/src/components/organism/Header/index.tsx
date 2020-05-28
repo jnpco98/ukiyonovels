@@ -83,7 +83,7 @@ function Header() {
         <SearchOverlay
           active={searchOverlayActive}
           setActive={setSearchOverlayActive}
-          onSearchSubmit={(query: string) => router.push(`/search?query=${query}`)}
+          onSearchSubmit={(query: string) => router.push(`/search?keyword=${query}`)}
         />
       </S.Container>
       <S.Filler active={floating} />
