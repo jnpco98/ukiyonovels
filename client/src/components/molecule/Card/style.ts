@@ -58,8 +58,8 @@ export const RevealContent = styled(Button)`
 export const Image = styled.div<{ img: string; }>`
   display: block;
   background: url(${props => props.img}) no-repeat;
-  background-size: 100.1%;
-  background-position: center top;
+  background-size: cover;
+  background-position: 50% 50%;
   border-radius: 0.3rem;
   overflow: hidden;
   position: relative;

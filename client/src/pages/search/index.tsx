@@ -70,7 +70,7 @@ function Search() {
               <>
                 <SearchResults
                   heading={`Found ${searchResults.novels.totalCount} results for keyword "${keyword}"`}
-                  contents={searchResults.novels.edges.map(({ node }) => ({ heading: node.title, inline: arrayFromJson(node.genres), tabbed: [node.status, ...arrayFromJson(node.origins)], thumbnail: node.coverImage }))}
+                  contents={searchResults.novels.edges.map(({ node }) => ({ heading: node.title, inline: arrayFromJson(node.genres), tabbed: [node.status, ...arrayFromJson(node.origins)], thumbnail: node.coverImage, link: { href: `/novel/[novelSlug]`, as: `/novel/${node.slug}` } }))}
                   responsive={cardResponsive}
                 />
                 <LoadMoreButton>Load More</LoadMoreButton>
