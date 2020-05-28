@@ -68,7 +68,7 @@ export const RevealIcon = styled(FontAwesomeIcon).attrs({ icon: faArrowRight })`
 export const Image = styled.div<{ img: string; }>`
   display: block;
   background: url(${props => props.img}) no-repeat;
-  background-size: 100.1%;
+  background-size: cover;
   background-position: 50% 50%;
   border-radius: 0.3rem;
   overflow: hidden;
