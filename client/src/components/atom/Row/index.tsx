@@ -6,44 +6,55 @@ import { LinkProps } from 'next/link';
 import ConditionalWrapper from '../ConditionalWrapper';
 
 export interface RowContent {
-  prefix?: string;
   title: string;
+  secondary?: string;
   subtitle?: string | number;
   link?: LinkProps;
   linkSecondary?: LinkProps;
 }
 
+export type RowType = 'standard' | 'preview' | 'alternate';
+
 type Props = {
   className?: string;
   content: RowContent;
+  rowType?: RowType;
 };
 
 function Row(props: Props) {
-  const { className, content } = props;
-  const { prefix, title, subtitle, link, linkSecondary } = content;
-
-  const alternate = !!(prefix && subtitle);
+  const { className, content, rowType = 'standard' } = props;
+  const { secondary, title, subtitle, link, linkSecondary } = content;
 
   return (
-    <S.Container className={className} alternate={alternate}>
-      {alternate ? (
+    <S.Container className={className} rowType={rowType}>
+      {rowType === 'alternate' ? (
         <>
-          <ConditionalWrapper condition={!!(linkSecondary && linkSecondary.href)} wrapper={children => <Link as={linkSecondary.as} href={linkSecondary.href} passHref>{children}</Link>}>
-            <S.Prefix>{prefix}</S.Prefix>
-          </ConditionalWrapper>
+          {secondary && <ConditionalWrapper condition={!!(linkSecondary && linkSecondary.href)} wrapper={children => <Link as={linkSecondary.as} href={linkSecondary.href} passHref>{children}</Link>}>
+            <S.Secondary>{secondary}</S.Secondary>
+          </ConditionalWrapper>}
           
-          <S.Wrapper>
+          {title && <S.Wrapper>
             <ConditionalWrapper condition={!!(link && link.href)} wrapper={children => <Link as={link.as} href={link.href} passHref>{children}</Link>}>
               <S.Title>{title}</S.Title>
             </ConditionalWrapper>
-            <Text>{subtitle}</Text>
-          </S.Wrapper>
+            {subtitle && <Text>{subtitle}</Text>}
+          </S.Wrapper>}
+        </>
+      ) : rowType === 'preview' ? (
+        <>
+          {title && <ConditionalWrapper condition={!!(link && link.href)} wrapper={children => <Link as={link.as} href={link.href} passHref>{children}</Link>}>
+            <S.Title>{title}</S.Title>
+          </ConditionalWrapper>}
+          {secondary && <ConditionalWrapper condition={!!(linkSecondary && linkSecondary.href)} wrapper={children => <Link as={linkSecondary.as} href={linkSecondary.href} passHref>{children}</Link>}>
+            <S.Secondary>{secondary}</S.Secondary>
+          </ConditionalWrapper>}
+          {subtitle && <Text>{subtitle}</Text>}
         </>
       ) : (
         <>
-          <ConditionalWrapper condition={!!(link && link.href)} wrapper={children => <Link as={link.as} href={link.href} passHref>{children}</Link>}>
+          {title && <ConditionalWrapper condition={!!(link && link.href)} wrapper={children => <Link as={link.as} href={link.href} passHref>{children}</Link>}>
             <S.Title>{title}</S.Title>
-          </ConditionalWrapper>
+          </ConditionalWrapper>}
           {subtitle && <Text>{subtitle}</Text>}
         </>
       )}

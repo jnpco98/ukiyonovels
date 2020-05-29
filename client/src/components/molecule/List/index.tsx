@@ -1,6 +1,6 @@
 import React from 'react';
 import Simplebar from 'simplebar-react';
-import { RowContent } from '@components/atom/Row';
+import { RowContent, RowType } from '@components/atom/Row';
 import * as S from './style';
 import { Responsive } from '@utilities/mixins';
 
@@ -10,10 +10,11 @@ type Props = {
   contents: RowContent[];
   responsive?: Responsive;
   maxHeight?: string;
+  rowType?: RowType;
 };
 
 function List(props: Props) {
-  const { className, heading, contents, responsive, maxHeight } = props;
+  const { className, heading, contents, responsive, maxHeight, rowType } = props;
 
   return (
     <S.Container className={className}>
@@ -21,7 +22,7 @@ function List(props: Props) {
       <Simplebar style={{ maxHeight }}>
         <S.Wrapper responsive={responsive}>
           {contents.map((c) => (
-            <S.Item content={c} key={c.title + c.link} />
+            <S.Item content={c} key={c.title + c.link} rowType={rowType}/>
           ))}
         </S.Wrapper>
       </Simplebar>

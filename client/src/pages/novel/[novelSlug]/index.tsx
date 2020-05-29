@@ -21,15 +21,6 @@ import { RowContent } from '@components/atom/Row';
 import { Wrapper as RowWrapper } from '@components/atom/Row/style';
 
 const DynamicHtml = dynamic(() => import('@components/molecule/DynamicHtml'), { ssr: false });
-
-export type NovelInfo = {
-  title: string;
-  description: string;
-  alternativeNames: string[];
-  relatedNovels: string[];
-  recommendedNovels: string[];
-} & NovelInfoContent;
-
 const NOVEL_INFO_QUERY = gql`
   query NovelInfo($slug: String!) {
     novelBySlug(slug: $slug){
@@ -52,6 +43,13 @@ const NOVEL_CHAPTER_LIST_QUERY = gql`
     }
   }
 `;
+export type NovelInfo = {
+  title: string;
+  description: string;
+  alternativeNames: string[];
+  relatedNovels: string[];
+  recommendedNovels: string[];
+} & NovelInfoContent;
 
 const CHAPTERS_PER_PAGE = 50;
 
@@ -87,16 +85,6 @@ const Description = styled.div`
 
 const ChapterList = styled(List)`
   margin-bottom: 3rem;
-
-  ${RowWrapper} {
-    width: 80%;
-
-    & > * {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-  }
 `;
 
 const chapterListResponsive: Responsive = {
@@ -137,9 +125,13 @@ function Novel() {
     const chapters  = data.chapters.edges;
 
     return chapters.map(({ node }) => {
-      const date = moment(node.lastModified).format('ddd, MMMM Do')
+      const date = moment(node.lastModified).format('ddd, MMMM Do');
+      const link = { href: '/novel/[novelSlug]/[chapterSlug]', as: `/novel/${Array.isArray(novelSlug) ? novelSlug.pop() : novelSlug}/${node.slug}`}
       return {
-        title: node.title, link: { href: '/novel/[novelSlug]/[chapterSlug]', as: `/novel/${Array.isArray(novelSlug) ? novelSlug.pop() : novelSlug}/${node.slug}`, subtitle: date || '', prefix: `${node.idx}` }, subtitle: date || '', prefix: `${node.idx}` 
+        title: node.title, 
+        link, linkSecondary: link, 
+        secondary: `${node.idx}`,
+        subtitle: date || ''
       } 
     });
   }
@@ -182,6 +174,7 @@ function Novel() {
                         contents={generateNovelChapterList(novelChapters)}
                         responsive={chapterListResponsive}
                         maxHeight="30rem"
+                        rowType="alternate"
                       />
                     }
                   </Layout>

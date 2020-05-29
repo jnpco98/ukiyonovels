@@ -7,4 +7,5 @@ export const Container = styled.div`
 
 export const Heading = styled(Text).attrs({ textType: TextType.SectionTitle })`
   text-align: center;
+  margin-bottom: 1.3rem;
 `;

@@ -2,7 +2,6 @@ import styled, { css } from 'styled-components';
 import Row from '@components/atom/Row';
 import Text, { TextType } from '@components/atom/Text';
 import { Responsive, responsive } from '@utilities/mixins';
-import * as M from '@utilities/media';
 
 export const Container = styled.div`
   width: 100%;
@@ -22,12 +21,6 @@ export const Item = styled(Row)`
 export const Heading = styled(Text).attrs({ textType: TextType.SectionTitle })`
   text-align: center;
   margin-bottom: 2.1rem;
-  margin-right: 0.5rem;
-
-  ${M.MEDIA_MEDIUM} {
-    margin-top: 2rem;
-    margin-right: 0.8rem;
-  }
 `;
 
 export const Wrapper = styled.div<{ responsive?: Responsive }>`
