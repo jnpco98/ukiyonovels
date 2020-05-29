@@ -16,8 +16,8 @@ function Footer() {
           <Text>{t('footer.copyright')}</Text>
           <S.TermsGroup>
             {footerMenu.map(({ label, link, key }) => (
-              <ConditionalWrapper condition={!!(link && link.href)} wrapper={children => <Link as={link.as} href={link.href} passHref>{children}</Link>}>   
-                <Text textType={TextType.Anchor} key={key} decorateActive>
+              <ConditionalWrapper condition={!!(link && link.href)} wrapper={children => <Link as={link.as} href={link.href} passHref key={key}>{children}</Link>}>   
+                <Text key={key} textType={TextType.Anchor} decorateActive>
                   {label}
                 </Text>
               </ConditionalWrapper>

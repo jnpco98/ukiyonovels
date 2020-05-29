@@ -33,7 +33,7 @@ export const Heading = styled(Text).attrs({ textType: TextType.SectionTitle })`
 export const Wrapper = styled.div<{ responsive?: Responsive }>`
   display: flex;
   flex-wrap: wrap;
-  padding: 0.2rem;
+  padding: 0.5rem;
 
   ${props => {
     if(!props.responsive) return css``;

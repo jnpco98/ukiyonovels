@@ -10,6 +10,7 @@ export interface RowContent {
   title: string;
   subtitle?: string | number;
   link?: LinkProps;
+  linkSecondary?: LinkProps;
 }
 
 type Props = {
@@ -19,29 +20,34 @@ type Props = {
 
 function Row(props: Props) {
   const { className, content } = props;
-  const { prefix, title, subtitle, link } = content;
+  const { prefix, title, subtitle, link, linkSecondary } = content;
 
   const alternate = !!(prefix && subtitle);
 
   return (
-    <ConditionalWrapper condition={!!(link && link.href)} wrapper={children => <Link as={link.as} href={link.href} passHref>{children}</Link>}>
-      <S.Container className={className} alternate={alternate}>
-        {alternate ? (
-          <>
+    <S.Container className={className} alternate={alternate}>
+      {alternate ? (
+        <>
+          <ConditionalWrapper condition={!!(linkSecondary && linkSecondary.href)} wrapper={children => <Link as={linkSecondary.as} href={linkSecondary.href} passHref>{children}</Link>}>
             <S.Prefix>{prefix}</S.Prefix>
-            <S.Wrapper>
+          </ConditionalWrapper>
+          
+          <S.Wrapper>
+            <ConditionalWrapper condition={!!(link && link.href)} wrapper={children => <Link as={link.as} href={link.href} passHref>{children}</Link>}>
               <S.Title>{title}</S.Title>
-              <Text>{subtitle}</Text>
-            </S.Wrapper>
-          </>
-        ) : (
-          <>
+            </ConditionalWrapper>
+            <Text>{subtitle}</Text>
+          </S.Wrapper>
+        </>
+      ) : (
+        <>
+          <ConditionalWrapper condition={!!(link && link.href)} wrapper={children => <Link as={link.as} href={link.href} passHref>{children}</Link>}>
             <S.Title>{title}</S.Title>
-            {subtitle && <Text>{subtitle}</Text>}
-          </>
-        )}
-      </S.Container>
-    </ConditionalWrapper>
+          </ConditionalWrapper>
+          {subtitle && <Text>{subtitle}</Text>}
+        </>
+      )}
+    </S.Container>
   );
 }
 
