@@ -66,7 +66,7 @@ function SidePanel() {
       />
       {tagsLoading ? <div>Loading tags</div> : tagsError ? <div>Error</div> : <S.QuickFilter
         heading={searchByTags.heading}
-        contents={tags.novelAggregateTags.map(g => ({ title: g.field, subtitle: g.count, link: { href: '/novels/[typeSlug]/[filterSlug]', as: `/novels/tags/${g.field}`} }))}
+        contents={tags.novelAggregateTags.map(g => ({ title: g.field, subtitle: g.count, link: { href: '/novels/[typeSlug]/[filterSlug]', as: `/novels/tagged/${g.field}`} }))}
         maxHeight="25rem"
       />}
     </Layout>

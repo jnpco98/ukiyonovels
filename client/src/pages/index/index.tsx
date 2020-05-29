@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Page from '@layout/Page';
 import Layout from '@layout/Layout';
@@ -16,7 +16,7 @@ import { wideCardResponsive } from '@components/molecule/WideCard';
 
 const TOP_NOVELS_QUERY = gql`
   query TopNovels($where: NovelWhere, $count: Float) {
-    novels(first: $count, where: $where, sortKey: "views", reverse: true) {
+    novels(first: $count, where: $where, sortKey: "views") {
       totalCount
       edges {
         node {

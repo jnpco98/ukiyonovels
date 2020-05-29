@@ -22,12 +22,12 @@ export const mobileSecondaryMenu: MenuItem[] = [
   {
     label: 'Latest Updates',
     key: 'ms_latest-updates',
-    link: { href: `/novels/[...filterSlug]`, as: `/novels/latest` }
+    link: { href: `/latest-releases` }
   },
   {
     label: 'Top Novels',
     key: 'ms_most-popular',
-    link: { href: `/novels/[...filterSlug]`, as: `/novels/most-popular` }
+    link: { href: `/top-novels` }
   },
   {
     label: 'Advanced Search',
@@ -57,12 +57,12 @@ export const secondaryMenu: MenuItem[] = [
   {
     label: 'Latest Updates',
     key: 's_latest-updates',
-    link: { href: `/novels/[...filterSlug]`, as: `/novels/latest` }
+    link: { href: `/latest-releases` }
   },
   {
     label: 'Top Novels',
     key: 's_most-popular',
-    link: { href: `/novels/[...filterSlug]`, as: `/novels/most-popular` }
+    link: { href: `/top-novels` }
   },
   {
     label: 'Advanced Search',

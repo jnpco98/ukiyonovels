@@ -21,7 +21,7 @@ export const Wrapper = styled.div<{ responsive?: Responsive }>`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
   margin-bottom: 2rem;
 
   ${props => {
