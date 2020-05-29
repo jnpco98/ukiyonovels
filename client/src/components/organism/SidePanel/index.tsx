@@ -38,7 +38,7 @@ function SidePanel() {
     <Layout gutterLeft>
       {genresLoading ? <div>Loading genres</div> : genresError ? <div>Error</div> : <S.QuickFilter
         heading={searchByGenre.heading}
-        contents={genres.novelAggregateGenres.map(g => ({ title: g.field, subtitle: g.count, link: `/genres/${slugify(g.field)}` }))}
+        contents={genres.novelAggregateGenres.map(g => ({ title: g.field, subtitle: g.count, link: { href: '/novels/[typeSlug]/[filterSlug]', as: `/novels/genre/${g.field}`} }))}
         maxHeight="25rem"
       />}
       <S.Text
@@ -49,7 +49,7 @@ function SidePanel() {
       />
       {statusLoading ? <div>Loading status</div> : statusError ? <div>Error</div> : <S.QuickFilter
         heading={searchByStatus.heading}
-        contents={status.novelAggregateStatus.map(g => ({ title: g.field, subtitle: g.count, link: `/genres/${slugify(g.field)}` }))}
+        contents={status.novelAggregateStatus.map(g => ({ title: g.field, subtitle: g.count, link: { href: '/novels/[typeSlug]/[filterSlug]', as: `/novels/status/${g.field}`} }))}
         maxHeight="25rem"
       />}
       <S.Text
@@ -66,7 +66,7 @@ function SidePanel() {
       />
       {tagsLoading ? <div>Loading tags</div> : tagsError ? <div>Error</div> : <S.QuickFilter
         heading={searchByTags.heading}
-        contents={tags.novelAggregateTags.map(g => ({ title: g.field, subtitle: g.count, link: `/genres/${slugify(g.field)}` }))}
+        contents={tags.novelAggregateTags.map(g => ({ title: g.field, subtitle: g.count, link: { href: '/novels/[typeSlug]/[filterSlug]', as: `/novels/tags/${g.field}`} }))}
         maxHeight="25rem"
       />}
     </Layout>

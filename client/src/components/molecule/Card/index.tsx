@@ -3,6 +3,22 @@ import { t } from '@utilities/locales';
 import * as S from './style';
 import Link, { LinkProps } from 'next/link';
 import ConditionalWrapper from '@components/atom/ConditionalWrapper';
+import * as M from '@utilities/media';
+
+export const cardResponsive = {
+  itemsPerRow: 2,
+  gap: 0.2,
+  breakpoints: {
+    [M.MEDIA_XXSMALL]: {
+      itemsPerRow: 3,
+      gap: 0.4
+    },
+    [M.MEDIA_SMALL]: {
+      itemsPerRow: 4,
+      gap: 0.7
+    }
+  }
+}
 
 export interface CardContent {
   thumbnail?: string;

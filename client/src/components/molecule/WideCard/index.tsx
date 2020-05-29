@@ -3,6 +3,22 @@ import Link, { LinkProps } from 'next/link';
 import { CardContent } from '@components/molecule/Card';
 import * as S from './style';
 import ConditionalWrapper from '@components/atom/ConditionalWrapper';
+import * as M from '@utilities/media';
+
+export const wideCardResponsive = {
+  itemsPerRow: 1,
+  gap: 0.2,
+  breakpoints: {
+    [M.MEDIA_XXSMALL]: {
+      itemsPerRow: 2,
+      gap: 0.4
+    },
+    [M.MEDIA_SMALL]: {
+      itemsPerRow: 2,
+      gap: 0.7
+    }
+  }
+}
 
 type Props = {
   className?: string;

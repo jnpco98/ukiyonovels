@@ -17,6 +17,8 @@ import gql from 'graphql-tag';
 import { withApollo } from '@utilities/apollo';
 import { arrayFromJson } from '@utilities/json';
 import moment from 'moment';
+import { RowContent } from '@components/atom/Row';
+import { Wrapper as RowWrapper } from '@components/atom/Row/style';
 
 const DynamicHtml = dynamic(() => import('@components/molecule/DynamicHtml'), { ssr: false });
 
@@ -85,6 +87,16 @@ const Description = styled.div`
 
 const ChapterList = styled(List)`
   margin-bottom: 3rem;
+
+  ${RowWrapper} {
+    width: 80%;
+
+    & > * {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
 `;
 
 const chapterListResponsive: Responsive = {
@@ -120,14 +132,14 @@ function Novel() {
     );
   }
 
-  function generateNovelChapterList(data: NovelChapterListQuery) {
+  function generateNovelChapterList(data: NovelChapterListQuery): RowContent[] {
     if(!data || !data.chapters || !data.chapters.edges) return [];
     const chapters  = data.chapters.edges;
 
     return chapters.map(({ node }) => {
       const date = moment(node.lastModified).format('ddd, MMMM Do')
       return {
-        title: node.title, link: `/novel/${Array.isArray(novelSlug) ? novelSlug.pop() : novelSlug}/${node.slug}`, subtitle: date || '', prefix: `${node.idx}` 
+        title: node.title, link: { href: '/novel/[novelSlug]/[chapterSlug]', as: `/novel/${Array.isArray(novelSlug) ? novelSlug.pop() : novelSlug}/${node.slug}`, subtitle: date || '', prefix: `${node.idx}` }, subtitle: date || '', prefix: `${node.idx}` 
       } 
     });
   }

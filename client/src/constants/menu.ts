@@ -20,24 +20,24 @@ export const mobileSecondaryMenu: MenuItem[] = [
     link: { href: `/` }
   },
   {
-    label: 'Contact',
-    key: 'ms_contact',
-    link: { href: `/contact` }
-  },
-  {
     label: 'Latest Updates',
     key: 'ms_latest-updates',
-    link: { href: `/novels/[pageSlug]`, as: `/page/dmca` }
+    link: { href: `/novels/[...filterSlug]`, as: `/novels/latest` }
   },
   {
     label: 'Top Novels',
     key: 'ms_most-popular',
-    link: { href: `/novels/[pageSlug]`, as: `/page/dmca` }
+    link: { href: `/novels/[...filterSlug]`, as: `/novels/most-popular` }
   },
   {
     label: 'Advanced Search',
     key: 'ms_advanced-search',
     link: { href: `/advanced-search` }
+  },
+  {
+    label: 'Contact',
+    key: 'ms_contact',
+    link: { href: `/contact` }
   }
 ];
 
@@ -57,22 +57,22 @@ export const secondaryMenu: MenuItem[] = [
   {
     label: 'Latest Updates',
     key: 's_latest-updates',
-    link: { href: `/novels/[filterSlug]`, as: `/novels/latest` }
+    link: { href: `/novels/[...filterSlug]`, as: `/novels/latest` }
   },
   {
     label: 'Top Novels',
     key: 's_most-popular',
-    link: { href: `/novels/[filterSlug]`, as: `/novels/most-popular` }
-  },
-  {
-    label: 'Contact',
-    key: 's_contact',
-    link: { href: `/contact` }
+    link: { href: `/novels/[...filterSlug]`, as: `/novels/most-popular` }
   },
   {
     label: 'Advanced Search',
     key: 's_advanced-search',
     link: { href: `/advanced-search` }
+  },
+  {
+    label: 'Contact',
+    key: 's_contact',
+    link: { href: `/contact` }
   }
 ];
 

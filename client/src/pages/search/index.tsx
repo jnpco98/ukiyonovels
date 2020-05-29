@@ -12,23 +12,9 @@ import gql from 'graphql-tag';
 import { SearchQuery, SearchQueryVariables } from '@schemas/apollo-components';
 import { arrayFromJson } from '@utilities/json';
 import Button from '@components/atom/Button';
+import { cardResponsive } from '@components/molecule/Card';
 
-const SearchResults = styled(CardList).attrs({ cardType: 'wide' })``;
-
-const cardResponsive: Responsive = {
-  itemsPerRow: 1,
-  gap: 0.2,
-  breakpoints: {
-    [M.MEDIA_XXSMALL]: {
-      itemsPerRow: 2,
-      gap: 0.4
-    },
-    [M.MEDIA_SMALL]: {
-      itemsPerRow: 2,
-      gap: 0.7
-    }
-  }
-};
+const SearchResults = styled(CardList).attrs({ cardType: 'standard' })``;
 
 const SEARCH_QUERY = gql`
   query Search($where: NovelWhere, $count: Float) {
