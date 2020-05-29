@@ -10,7 +10,7 @@ export const Container = styled.div`
 `;
 
 export const Item = styled(Row)`
-  padding-bottom: 0.7rem;
+  padding: 0.35rem;
   transition: all 0.15s ease;
   
   &:hover {
@@ -20,7 +20,7 @@ export const Item = styled(Row)`
 
 export const Heading = styled(Text).attrs({ textType: TextType.SectionTitle })`
   text-align: center;
-  margin-bottom: 2.1rem;
+  margin-bottom: 1.3rem;
 `;
 
 export const Wrapper = styled.div<{ responsive?: Responsive }>`

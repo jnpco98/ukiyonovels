@@ -2,7 +2,7 @@ import ReactGa from 'react-ga';
 import Router from 'next/router';
 import qs from 'qs';
 
-import { GA_TRACKING_ID } from '@constants/head';
+import { GA_TRACKING_ID } from '@constants/site';
 
 export function initializeGoogleAnalytics() {
   const dev = process.env.NODE_ENV !== 'production';

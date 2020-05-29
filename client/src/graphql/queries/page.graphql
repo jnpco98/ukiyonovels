@@ -1,0 +1,11 @@
+query Page($slug: String!) {
+  data: pageBySlug(slug: $slug){
+    id
+    title
+    slug
+    createdAt
+    lastModified
+    title
+    content
+  }
+}

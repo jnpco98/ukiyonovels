@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/dist/client/router';
-import { ENABLE_ACCOUNTS } from '@constants/head';
+import { ENABLE_ACCOUNTS } from '@constants/site';
 import SearchOverlay from '@components/organism/SearchOverlay';
 import {
   MenuItem,

@@ -1,0 +1,64 @@
+query Novel($slug: String!) {
+  data: novelBySlug(slug: $slug){
+    id
+    title
+    slug
+    description
+    type
+    tags
+    genres
+    origins
+    authors
+    artists
+    alternativeNames
+    coverImage
+    likes
+    views
+    status
+    year
+  }
+}
+
+query Novels($first: Float, $after: String, $last: Float, $before: String, $where: NovelWhere, $sortKey: String, $reverse: Boolean) {
+  data: novels(first: $first, after: $after, last: $last, before: $before, where: $where, sortKey: $sortKey, reverse: $reverse) {
+    totalCount
+    pageInfo { 
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor 
+    }
+    edges {
+      node {
+        id
+        slug
+        title
+        genres
+        origins
+        status
+        coverImage
+      }
+    }
+  }
+}
+
+query NovelAggregateGenres {
+  data: novelAggregateGenres { 
+    field
+    count
+  }
+}
+
+query NovelAggregateTags {
+  data: novelAggregateTags { 
+    field
+    count
+  }
+}
+
+query NovelAggregateStatus {
+  data: novelAggregateStatus { 
+    field
+    count
+  }
+}

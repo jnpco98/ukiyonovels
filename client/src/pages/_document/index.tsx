@@ -8,7 +8,7 @@ import {
   SITE_DESCRIPTION,
   SITE_IMAGE,
   SITE_KEYWORDS
-} from '@constants/head';
+} from '@constants/site';
 
 class Document extends NextDocument {
   static async getInitialProps(ctx: DocumentContext) {

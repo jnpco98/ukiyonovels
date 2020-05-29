@@ -1,0 +1,44 @@
+query ChapterList($first: Float, $after: String, $last: Float, $before: String, $where: ChapterWhere, $sortKey: String, $reverse: Boolean) {
+  data: chapters(first: $first, after: $after, last: $last, before: $before, where: $where, sortKey: $sortKey, reverse: $reverse) {
+    totalCount
+    pageInfo { 
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor 
+    }
+    edges {
+      node {
+        id
+        slug
+        title
+        lastModified
+        idx
+      }
+    }
+  }
+}
+
+query ChapterListWithNovel($first: Float, $after: String, $last: Float, $before: String, $where: ChapterWhere, $sortKey: String, $reverse: Boolean) {
+  data: chapters(first: $first, after: $after, last: $last, before: $before, where: $where, sortKey: $sortKey, reverse: $reverse) {
+    totalCount
+    pageInfo { 
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor 
+    }
+    edges {
+      node {
+        id
+        slug
+        title
+        createdAt
+        novel {
+          slug
+          title
+        }
+      }
+    }
+  }
+}

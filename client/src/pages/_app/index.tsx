@@ -7,7 +7,7 @@ import Reset from '@utilities/reset';
 import Animate from '@utilities/animate';
 import Trumps from '@utilities/trumps';
 import { initializeGoogleAnalytics } from '@utilities/analytics';
-import { SITE_TITLE } from '@constants/head';
+import { SITE_TITLE } from '@constants/site';
 import Simplebar from 'simplebar-react';
 
 import 'swiper/css/swiper.min.css';

@@ -7,50 +7,11 @@ import SidePanel from '@components/organism/SidePanel';
 import { withApollo } from '@utilities/apollo';
 import { t } from '@utilities/locales';
 import * as M from '@utilities/media';
-import { TopNovelsQuery, TopNovelsQueryVariables, LatestReleaseNovelsQuery, LatestReleaseNovelsQueryVariables, NewNovelsQuery, NewNovelsQueryVariables } from '@schemas/apollo-components';
-import { useQuery } from '@apollo/react-hooks';
-import gql from 'graphql-tag';
+import { useNovelsQuery, useChapterListWithNovelQuery } from '@schemas/apollo-queries';
 import { arrayFromJson } from '@utilities/json';
 import List from '@components/molecule/List';
-
-const TOP_NOVELS_QUERY = gql`
-  query TopNovels($where: NovelWhere, $count: Float) {
-    novels(first: $count, where: $where, sortKey: "views") {
-      totalCount
-      edges {
-        node {
-          id, slug, title, genres, origins, status, coverImage
-        }
-      }
-    }
-  }
-`;
-
-const LATEST_RELEASE_NOVELS_QUERY = gql`
-  query LatestReleaseNovels($where: NovelWhere, $count: Float) {
-    novels(first: $count, where: $where, sortKey: "lastModified", reverse: true) {
-      totalCount
-      edges {
-        node {
-          id, slug, title, genres, origins, status, coverImage
-        }
-      }
-    }
-  }
-`;
-
-const NEW_NOVELS_QUERY = gql`
-  query NewNovels($where: NovelWhere, $count: Float) {
-    novels(first: $count, where: $where, sortKey: "createdAt", reverse: true) {
-      totalCount
-      edges {
-        node {
-          id, slug, title, genres, origins, status, coverImage
-        }
-      }
-    }
-  }
-`;
+import moment from 'moment';
+import { DATE_FORMAT } from '@constants/format';
 
 const MainLayout = styled(Layout).attrs({ main: true })`
   display: flex;
@@ -82,7 +43,7 @@ const TopNovels = styled(CardCarousel)`
 
 const LatestReleases = styled(List)`
   margin: 0 auto;
-  margin-bottom: 5rem;
+  margin-bottom:4.5rem;
 `;
 
 const NewNovels = styled(CardCarousel)`
@@ -92,28 +53,32 @@ const NewNovels = styled(CardCarousel)`
 
 // const { data, error, loading, refetch: _refetch } = useQuery(indexPage);
 // const refetch = useCallback(() => { setTimeout(() => _refetch(), 0) }, [_refetch]);
-function Index(props: any) {
-  const { data: topNovels, loading: topNovelsLoading, error: topNovelsError } = useQuery<TopNovelsQuery, TopNovelsQueryVariables>(TOP_NOVELS_QUERY, { variables: { count: 10 } });
-  const { data: latestReleaseNovels, loading: latestReleaseNovelsLoading, error: latestReleaseNovelsError } = useQuery<LatestReleaseNovelsQuery, LatestReleaseNovelsQueryVariables>(LATEST_RELEASE_NOVELS_QUERY, { variables: { count: 40 } });
-  const { data: newNovels, loading: newNovelsLoading, error: newNovelsError } = useQuery<NewNovelsQuery, NewNovelsQueryVariables>(NEW_NOVELS_QUERY, { variables: { count: 10 } });
 
+const CAROUSEL_DEFAULT_FETCH = 10;
+const LIST_DEFAULT_FETCH = 40;
+
+function Index() {
+  const { data: topNovels, loading: topNovelsLoading, error: topNovelsError } = useNovelsQuery({ variables: { first: CAROUSEL_DEFAULT_FETCH, sortKey: 'views' } });
+  const { data: latestReleaseChapters, loading: latestReleaseChaptersLoading, error: latestReleaseChaptersError } = useChapterListWithNovelQuery({ variables: { first: LIST_DEFAULT_FETCH, sortKey: 'lastModified' } })
+  const { data: newNovels, loading: newNovelsLoading, error: newNovelsError } = useNovelsQuery({ variables: { first: CAROUSEL_DEFAULT_FETCH, sortKey: 'createdAt' } });
+  
   return (
     <Page>
       <MainLayout navOffset>
         <Layout gutterRight>
           {topNovelsLoading ? <div>Loading</div> : topNovelsError ? <div>Error</div> :
-            <TopNovels heading={t('homepage.topNovels.heading')} contents={topNovels.novels.edges.map(({ node }) => ({ heading: node.title, inline: arrayFromJson(node.genres), tabbed: [node.status, ...arrayFromJson(node.origins)], thumbnail: node.coverImage, link: { href: `/novel/[novelSlug]`, as: `/novel/${node.slug}` } }))} />
+            <TopNovels heading={t('homepage.topNovels.heading')} contents={topNovels.data.edges.map(({ node }) => ({ heading: node.title, inline: arrayFromJson(node.genres), tabbed: [node.status, ...arrayFromJson(node.origins)], thumbnail: node.coverImage, link: { href: `/novel/[novelSlug]`, as: `/novel/${node.slug}` } }))} />
           }
-          {latestReleaseNovelsLoading ? <div>Loading</div> : latestReleaseNovelsError ? <div>Error</div> :
+          {latestReleaseChaptersLoading ? <div>Loading</div> : latestReleaseChaptersError ? <div>Error</div> :
             <LatestReleases
               heading={t('homepage.latestReleases.heading')}
-              contents={latestReleaseNovels.novels.edges.map(({ node }) => ({ secondary: "Chapter 2", title: node.title, subtitle: "Mar 20, 2020" ,link: { href: `/novel/[novelSlug]`, as: `/novel/${node.slug}` } }))}
+              contents={latestReleaseChapters.data.edges.map(({ node }) => ({ title: node.novel.title, secondary: node.title, subtitle: moment(node.createdAt).format(DATE_FORMAT), link: { href: `/novel/[novelSlug]`, as: `/novel/${node.novel.slug}` }, linkSecondary: { href: `/novel/[novelSlug]/[chapterSlug]`, as: `/novel/${node.novel.slug}/${node.slug}` } }))}
               rowType="preview"
               maxHeight="40rem"       
             />
           }
           {newNovelsLoading ? <div>Loading</div> : newNovelsError ? <div>Error</div> :
-            <NewNovels heading={t('homepage.newNovels.heading')} contents={newNovels.novels.edges.map(({ node }) => ({ heading: node.title, inline: arrayFromJson(node.genres), tabbed: [node.status, ...arrayFromJson(node.origins)], thumbnail: node.coverImage, link: { href: `/novel/[novelSlug]`, as: `/novel/${node.slug}` } }))} />
+            <NewNovels heading={t('homepage.newNovels.heading')} contents={newNovels.data.edges.map(({ node }) => ({ heading: node.title, inline: arrayFromJson(node.genres), tabbed: [node.status, ...arrayFromJson(node.origins)], thumbnail: node.coverImage, link: { href: `/novel/[novelSlug]`, as: `/novel/${node.slug}` } }))} />
           }
         </Layout>
         <SidePanel />

@@ -18,6 +18,7 @@ import { withApollo } from '@utilities/apollo';
 import { arrayFromJson } from '@utilities/json';
 import moment from 'moment';
 import { RowContent } from '@components/atom/Row';
+import { DATE_FORMAT } from '@constants/format';
 
 const DynamicHtml = dynamic(() => import('@components/molecule/DynamicHtml'), { ssr: false });
 const NOVEL_INFO_QUERY = gql`
@@ -124,7 +125,7 @@ function Novel() {
     const chapters  = data.chapters.edges;
 
     return chapters.map(({ node }) => {
-      const date = moment(node.lastModified).format('ddd, MMMM Do');
+      const date = moment(node.lastModified).format(DATE_FORMAT);
       const link = { href: '/novel/[novelSlug]/[chapterSlug]', as: `/novel/${Array.isArray(novelSlug) ? novelSlug.pop() : novelSlug}/${node.slug}`}
       return {
         title: node.title, 

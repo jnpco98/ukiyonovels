@@ -1,0 +1,6 @@
+mutation tokenCreate($data: TokenCreateInput!) {
+  tokenCreate(data: $data) {
+    accessToken
+    refreshToken
+  }
+}
