@@ -82,7 +82,7 @@ const TopNovels = styled(CardCarousel)`
 
 const LatestReleases = styled(List)`
   margin: 0 auto;
-  margin-bottom: 3rem;
+  margin-bottom: 5rem;
 `;
 
 const NewNovels = styled(CardCarousel)`

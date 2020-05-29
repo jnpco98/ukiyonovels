@@ -18,7 +18,6 @@ import { withApollo } from '@utilities/apollo';
 import { arrayFromJson } from '@utilities/json';
 import moment from 'moment';
 import { RowContent } from '@components/atom/Row';
-import { Wrapper as RowWrapper } from '@components/atom/Row/style';
 
 const DynamicHtml = dynamic(() => import('@components/molecule/DynamicHtml'), { ssr: false });
 const NOVEL_INFO_QUERY = gql`

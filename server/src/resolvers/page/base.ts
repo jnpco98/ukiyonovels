@@ -1,4 +1,4 @@
-import { InputType, Field, Resolver } from 'type-graphql';
+import { InputType, Field, Resolver, Query, Arg } from 'type-graphql';
 import { createBaseResolver } from '../base/base-resolver';
 import ROLES from '../../constants/roles';
 import { StringWhere } from '../../lib/query/where-type';
@@ -72,7 +72,12 @@ export class PageDeleteResolver extends BaseDeleteResolver {}
  * Gets a single resource using the resource id
  */
 @Resolver()
-export class PageGetResolver extends BaseGetResolver {}
+export class PageGetResolver extends BaseGetResolver {
+  @Query((returns) => Page, { name: `pageBySlug`, nullable: true })
+  async getPageBySlug(@Arg('slug') slug?: string) {
+    return await Page.findOne({ where: { slug, archived: false } });
+  }
+}
 
 /**
  * Page Search Resolver
