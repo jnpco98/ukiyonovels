@@ -25,7 +25,7 @@ export class Page extends BaseEntity implements Partial<Page> {
 
   @Field()
   @Column({ type: 'text' })
-  @Length(20, 100, { message: 'Title should be between 20-100 characters' })
+  @Length(5, 100, { message: 'Title should be between 5-100 characters' })
   title: string;
 
   @Field()
