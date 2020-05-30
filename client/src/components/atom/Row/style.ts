@@ -70,5 +70,15 @@ export const Container = styled.div<{ rowType: RowType }>`
 
     ` : css`
       justify-content: space-between;
+
+      & > :last-child {
+        margin-right: 0;
+        
+        ${M.MEDIA_SMALL} {
+          & > * {
+          margin-right: 0;
+          }
+        }
+      }
     `}
 `;

@@ -9,7 +9,7 @@ import dynamic from 'next/dynamic';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 import Link from 'next/link';
-import { ChapterDataQuery, ChapterDataQueryVariables } from '@schemas/apollo-components';
+import { ChapterQueryVariables, useChapterQuery, ChapterQuery } from '@schemas/apollo-queries';
 import { withApollo } from '@utilities/apollo';
 import ConditionalWrapper from '@components/atom/ConditionalWrapper';
 
@@ -69,15 +69,11 @@ function Chapter() {
   const router = useRouter();
   const { novelSlug, chapterSlug } = router.query;
 
-  const initialVariables: ChapterDataQueryVariables = { 
-    novelWhere: { AND: [{ slug: { is: Array.isArray(novelSlug) ? novelSlug.pop() : novelSlug } }] }, 
-    where: { AND: [{ slug: { is: Array.isArray(chapterSlug) ? chapterSlug.pop() : chapterSlug } }] } 
-  } 
-  const { data: chapterData, loading: chaptersLoading, error: chaptersError } = useQuery<ChapterDataQuery, ChapterDataQueryVariables>(CHAPTER_QUERY, { variables: initialVariables });
+  const { data: chapterData, loading: chaptersLoading, error: chaptersError } = useChapterQuery({ variables: { novelSlug: Array.isArray(novelSlug) ? novelSlug.pop() : novelSlug, chapterSlug: Array.isArray(chapterSlug) ? chapterSlug.pop() : chapterSlug } });
 
-  function generateChapterContent(data: ChapterDataQuery) {
-    if(!data.novels.edges.length) return null;
-    const { title: novelTitle, chapters } = data.novels.edges[0].node;
+  function generateChapterContent(chapter: ChapterQuery) {
+    if(!chapter.data.edges.length) return null;
+    const { title: novelTitle, chapters } = chapter.data.edges[0].node;
     const { title: chapterTitle, content, previousChapter, nextChapter } = chapters.edges[0].node;
 
     if(!chapterTitle || !novelTitle || !content) return null;

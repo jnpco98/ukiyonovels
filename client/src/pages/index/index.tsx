@@ -12,6 +12,7 @@ import { arrayFromJson } from '@utilities/json';
 import List from '@components/molecule/List';
 import moment from 'moment';
 import { DATE_FORMAT } from '@constants/format';
+import { CAROUSEL_DEFAULT_FETCH, LIST_DEFAULT_FETCH } from '@constants/fetch';
 
 const MainLayout = styled(Layout).attrs({ main: true })`
   display: flex;
@@ -54,13 +55,10 @@ const NewNovels = styled(CardCarousel)`
 // const { data, error, loading, refetch: _refetch } = useQuery(indexPage);
 // const refetch = useCallback(() => { setTimeout(() => _refetch(), 0) }, [_refetch]);
 
-const CAROUSEL_DEFAULT_FETCH = 10;
-const LIST_DEFAULT_FETCH = 40;
-
 function Index() {
   const { data: topNovels, loading: topNovelsLoading, error: topNovelsError } = useNovelsQuery({ variables: { first: CAROUSEL_DEFAULT_FETCH, sortKey: 'views' } });
-  const { data: latestReleaseChapters, loading: latestReleaseChaptersLoading, error: latestReleaseChaptersError } = useChapterListWithNovelQuery({ variables: { first: LIST_DEFAULT_FETCH, sortKey: 'lastModified' } })
-  const { data: newNovels, loading: newNovelsLoading, error: newNovelsError } = useNovelsQuery({ variables: { first: CAROUSEL_DEFAULT_FETCH, sortKey: 'createdAt' } });
+  const { data: latestReleaseChapters, loading: latestReleaseChaptersLoading, error: latestReleaseChaptersError } = useChapterListWithNovelQuery({ variables: { first: LIST_DEFAULT_FETCH, sortKey: 'lastModified', reverse: true } })
+  const { data: newNovels, loading: newNovelsLoading, error: newNovelsError } = useNovelsQuery({ variables: { first: CAROUSEL_DEFAULT_FETCH, sortKey: 'createdAt', reverse: true } });
   
   return (
     <Page>

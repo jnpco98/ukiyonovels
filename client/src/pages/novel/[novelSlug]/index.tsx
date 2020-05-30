@@ -11,38 +11,16 @@ import { t } from '@utilities/locales';
 import List from '@components/molecule/List';
 import { Responsive } from '@utilities/mixins';
 import dynamic from 'next/dynamic';
-import { NovelInfoQuery, NovelChapterListQuery, NovelInfoQueryVariables, NovelChapterListQueryVariables } from '@schemas/apollo-components';
-import { useQuery } from '@apollo/react-hooks';
-import gql from 'graphql-tag';
+import { useNovelQuery, ChapterWhere, useChapterListWithNovelQuery, ChapterListWithNovelQuery, NovelQuery } from '@schemas/apollo-queries';
 import { withApollo } from '@utilities/apollo';
 import { arrayFromJson } from '@utilities/json';
 import moment from 'moment';
 import { RowContent } from '@components/atom/Row';
 import { DATE_FORMAT } from '@constants/format';
+import { LIST_DEFAULT_FETCH } from '@constants/fetch';
 
 const DynamicHtml = dynamic(() => import('@components/molecule/DynamicHtml'), { ssr: false });
-const NOVEL_INFO_QUERY = gql`
-  query NovelInfo($slug: String!) {
-    novelBySlug(slug: $slug){
-      id, title, slug, description, type, tags, genres, 
-      origins, authors, artists, alternativeNames, coverImage, 
-      likes, views, status, year
-    }
-  }
-`;
 
-const NOVEL_CHAPTER_LIST_QUERY = gql`
-  query NovelChapterList($first: Float!, $after: String, $where: ChapterWhere) {
-    chapters(first: $first, after: $after, where: $where, sortKey: "idx", reverse: true) {
-      pageInfo { hasNextPage, endCursor }
-      edges {
-        node {
-          slug, title, lastModified, idx
-        }
-      }
-    }
-  }
-`;
 export type NovelInfo = {
   title: string;
   description: string;
@@ -50,8 +28,6 @@ export type NovelInfo = {
   relatedNovels: string[];
   recommendedNovels: string[];
 } & NovelInfoContent;
-
-const CHAPTERS_PER_PAGE = 50;
 
 const Wrapper = styled(Layout)`
   display: flex;
@@ -102,11 +78,10 @@ function Novel() {
     chapterListHeading
   } = t('novel');
 
-  const { data: novelInfo, loading: novelInfoLoading, error: novelInfoError } = useQuery<NovelInfoQuery, NovelInfoQueryVariables>(NOVEL_INFO_QUERY, { variables: { slug: Array.isArray(novelSlug) ? novelSlug.pop() : novelSlug }});
-  const initialVariables: NovelChapterListQueryVariables = { first: CHAPTERS_PER_PAGE };
-  if(novelInfo && novelInfo.novelBySlug.id) initialVariables.where = { AND: [{ novelId: { is: novelInfo.novelBySlug.id } }] };
+  const { data: novelInfo, loading: novelInfoLoading, error: novelInfoError } = useNovelQuery({ variables: { slug: Array.isArray(novelSlug) ? novelSlug.pop() : novelSlug } });
 
-  const { data: novelChapters, loading: novelChaptersLoading, error: novelChaptersError } = useQuery<NovelChapterListQuery, NovelChapterListQueryVariables>(NOVEL_CHAPTER_LIST_QUERY, { variables: initialVariables });
+  const novelChaptersWhere: ChapterWhere = novelInfo && novelInfo.data && novelInfo.data.id ? { AND: [{ novelId: { is: novelInfo.data.id } }] } : null;
+  const { data: novelChapters, loading: novelChaptersLoading, error: novelChaptersError } = useChapterListWithNovelQuery({ variables: { first: LIST_DEFAULT_FETCH, where: novelChaptersWhere, reverse: true, sortKey: 'createdAt' } })
 
   function renderInfo(heading: string, data: string[], dynamicHtml?: boolean) {
     if(!data || !data.length) return <></>;
@@ -120,12 +95,11 @@ function Novel() {
     );
   }
 
-  function generateNovelChapterList(data: NovelChapterListQuery): RowContent[] {
-    if(!data || !data.chapters || !data.chapters.edges) return [];
-    const chapters  = data.chapters.edges;
+  function generateNovelChapterList(chapters: ChapterListWithNovelQuery): RowContent[] {
+    if(!chapters || !chapters.data || !chapters.data.edges) return [];
 
-    return chapters.map(({ node }) => {
-      const date = moment(node.lastModified).format(DATE_FORMAT);
+    return chapters.data.edges.map(({ node }) => {
+      const date = moment(node.createdAt).format(DATE_FORMAT);
       const link = { href: '/novel/[novelSlug]/[chapterSlug]', as: `/novel/${Array.isArray(novelSlug) ? novelSlug.pop() : novelSlug}/${node.slug}`}
       return {
         title: node.title, 
@@ -136,9 +110,10 @@ function Novel() {
     });
   }
 
-  function generateNovelContent(data: NovelInfoQuery) {
-    if(!data || !data.novelBySlug) return null;
-    const { coverImage, type, genres, tags, origins, authors, artists, year, status } = data.novelBySlug;
+  function generateNovelContent(novel: NovelQuery) {
+    if(!novel || !novel.data) return null;
+    const { coverImage, type, genres, tags, origins, authors, artists, year, status } = novel.data;
+
     const content = {
       coverImage,
       type,
@@ -159,16 +134,16 @@ function Novel() {
       <Layout layoutType="primarySecondary" main navOffset>
         <Layout gutterRight>
             {
-              novelInfoLoading ? <div>Loading</div> : novelInfoError ? <div>Error</div> :
+              novelInfoLoading ? <div>Loading</div> : (novelInfoError || !novelInfo.data) ? <div>Error</div> :
               <>
-                <Text textType={TextType.PageTitle}>{novelInfo.novelBySlug.title}</Text>
+                <Text textType={TextType.PageTitle}>{novelInfo.data.title}</Text>
                 <Wrapper>
                   <NovelInfo content={generateNovelContent(novelInfo)} gutterRight />
                   <Layout>
-                    {renderInfo(descriptionHeading, [novelInfo.novelBySlug.description], true)}
-                    {renderInfo(alternativeNamesHeading, arrayFromJson(novelInfo.novelBySlug.alternativeNames))}
+                    {renderInfo(descriptionHeading, [novelInfo.data.description], true)}
+                    {renderInfo(alternativeNamesHeading, arrayFromJson(novelInfo.data.alternativeNames))}
                     {
-                      novelChaptersLoading ? <div>Loading</div> : novelChaptersError ? <div>Error</div> :
+                      novelChaptersLoading ? <div>Loading</div> : (novelChaptersError || !novelChapters.data) ? <div>Error</div> :
                       <ChapterList
                         heading={chapterListHeading}
                         contents={generateNovelChapterList(novelChapters)}

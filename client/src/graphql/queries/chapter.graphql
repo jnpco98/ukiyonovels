@@ -1,3 +1,33 @@
+query Chapter($novelSlug: String!, $chapterSlug: String!) {
+  data: novels(first: 1, where: { AND: { slug: { is: $novelSlug } } }) {
+    edges{
+      node{
+        id
+        title
+        slug
+        chapters(first: 1, where: { AND : { slug: { is: $chapterSlug } } }) {
+          edges{
+            node{
+              id
+              title
+              slug
+              content
+              previousChapter {
+                title
+                slug
+              }
+              nextChapter {
+                title
+                slug 
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 query ChapterList($first: Float, $after: String, $last: Float, $before: String, $where: ChapterWhere, $sortKey: String, $reverse: Boolean) {
   data: chapters(first: $first, after: $after, last: $last, before: $before, where: $where, sortKey: $sortKey, reverse: $reverse) {
     totalCount
@@ -31,6 +61,7 @@ query ChapterListWithNovel($first: Float, $after: String, $last: Float, $before:
     edges {
       node {
         id
+        idx
         slug
         title
         createdAt

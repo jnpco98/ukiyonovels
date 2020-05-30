@@ -90,7 +90,7 @@ export const footerMenu: MenuItem[] = [
   {
     label: 'Privacy',
     key: 'f_privacy',
-    link: { href: `/page/[pageSlug]`, as: `/page/privacy` }
+    link: { href: `/page/[pageSlug]`, as: `/page/privacy-policy` }
   },
   {
     label: 'Terms and conditions',
