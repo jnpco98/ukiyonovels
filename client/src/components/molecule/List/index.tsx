@@ -22,7 +22,7 @@ function List(props: Props) {
       <Simplebar style={{ maxHeight }}>
         <S.Wrapper responsive={responsive}>
           {contents.map((c) => (
-            <S.Item content={c} key={c.title + c.link} rowType={rowType}/>
+            <S.Item content={c} key={c.title + c.link.href + c.link.as} rowType={rowType}/>
           ))}
         </S.Wrapper>
       </Simplebar>

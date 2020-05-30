@@ -11,6 +11,7 @@ export const Checkbox = styled.input.attrs({ type: 'checkbox' })`
   position: relative;
   width: 3rem;
   height: 1.5rem;
+  margin-left: 1rem;
   appearance: none;
   background: ${({ theme }) => theme.colors.disabled};
   border-radius: 1rem;
@@ -38,8 +39,4 @@ export const Checkbox = styled.input.attrs({ type: 'checkbox' })`
       left: 1.5625rem;
     }
   }
-`;
-
-export const Label = styled(Text).attrs({ textType: TextType.Label })`
-  margin-right: 1rem;
 `;

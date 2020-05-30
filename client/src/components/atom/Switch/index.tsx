@@ -1,5 +1,6 @@
 import React, { forwardRef, ForwardRefRenderFunction, RefObject, HTMLAttributes } from 'react';
 import * as S from './style';
+import Text, { TextType } from '../Text';
 
 type Props = {
   className?: string;
@@ -12,7 +13,7 @@ function Switch(props: Props, ref: RefObject<HTMLInputElement>) {
 
   return (
     <S.Container className={className}>
-      <S.Label htmlFor={name}>{label}</S.Label>
+      <Text textType={TextType.Label} htmlFor={name}>{label}</Text>
       <S.Checkbox ref={ref} name={name} {...restProps} />
     </S.Container>
   );
