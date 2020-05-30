@@ -7,12 +7,13 @@ type Props = {
 } & LinkProps;
 
 function Link(props: Props) {
-  const { children, href, ...restProps } = props;
+  const { children, as, href, ...restProps } = props;
   const router = useRouter();
 
-  const active = router.pathname === href;
+  const active = as ? router.asPath === as : router.pathname === href;
+
   return (
-    <NextLink href={href} {...restProps}>
+    <NextLink href={href} as={as} {...restProps}>
       {cloneElement(children, { active })}
     </NextLink>
   );
