@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { xSmallFontSize } from '@utilities/mixins';
 import Text, { TextType } from '@components/atom/Text';
 
-export const Item = styled.span`
+export const Item = styled.a`
   display: inline-block;
   color: ${({ theme }) => theme.colors.primary};
   background: ${({ theme }) => theme.colors.backgroundSecondary};

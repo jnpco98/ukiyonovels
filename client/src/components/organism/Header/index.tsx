@@ -31,12 +31,12 @@ function Header() {
     setFloating(window.pageYOffset >= bannerRef.current.getBoundingClientRect().height);
   }
 
-  function renderLinks(menuItem: MenuItem, key: string) {
+  function renderLinks(menuItem: MenuItem) {
     if (menuItem.key.includes('account') && !ENABLE_ACCOUNTS) return <></>;
 
     return (
       <S.MenuItem
-        key={key}
+        key={menuItem.key}
         icon={!!menuItem.icon}
         onClick={() => menuItem.key.includes('_search') && setSearchOverlayActive(true)}
       >
@@ -69,18 +69,18 @@ function Header() {
           </S.DrawerTrigger>
         </S.MobileMenuItems>
         <S.Drawer drawerActive={drawerActive}>
-          {mobileSecondaryMenu.map((item) => renderLinks(item, `${item.key}`))}
+          {mobileSecondaryMenu.map((item) => renderLinks(item))}
         </S.Drawer>
         <S.DrawerBackdrop active={drawerActive} onClick={(): void => setDrawerActive(false)} />
         <S.MobileMenuItems>
-          {mobilePrimaryMenu.map((item) => renderLinks(item, `${item.key}`))}
+          {mobilePrimaryMenu.map((item) => renderLinks(item))}
         </S.MobileMenuItems>
 
         <S.DesktopMenuItems>
-          {secondaryMenu.map((item) => renderLinks(item, `${item.key}`))}
+          {secondaryMenu.map((item) => renderLinks(item))}
         </S.DesktopMenuItems>
         <S.DesktopMenuItems>
-          {primaryMenu.map((item) => renderLinks(item, `${item.key}`))}
+          {primaryMenu.map((item) => renderLinks(item))}
         </S.DesktopMenuItems>
 
         <SearchOverlay

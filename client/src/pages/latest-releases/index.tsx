@@ -9,6 +9,7 @@ import { arrayFromJson } from '@utilities/json';
 import Button from '@components/atom/Button';
 import { cardResponsive } from '@components/molecule/Card';
 import { CARD_LIST_DEFAULT_FETCH } from '@constants/fetch';
+import { createNovelFilterLink } from '../novels/[typeSlug]/[filterSlug]';
 
 const SearchResults = styled(CardList).attrs({ cardType: 'standard' })``;
 
@@ -28,7 +29,15 @@ function LatestReleases() {
               <>
                 <SearchResults
                   heading={`Latest Releases`}
-                  contents={latestReleaseNovels.data.edges.map(({ node }) => ({ heading: node.title, inline: arrayFromJson(node.genres), tabbed: [node.status, ...arrayFromJson(node.origins)], thumbnail: node.coverImage, link: { href: `/novel/[novelSlug]`, as: `/novel/${node.slug}` } }))}
+                  contents={latestReleaseNovels.data.edges.map(({ node }) => 
+                    ({ 
+                      key: node.id,
+                      heading: node.title, 
+                      inline: arrayFromJson(node.genres).map(i => ({ key: i, label: i, link: createNovelFilterLink('genre', i) })), 
+                      tabbed: [{ key: node.status, label: node.status, link: createNovelFilterLink('status', node.status)}, ...arrayFromJson(node.origins).map(i => ({ key: i, label: i, link: createNovelFilterLink('origin', i) }))],
+                      thumbnail: node.coverImage, 
+                      link: { href: `/novel/[novelSlug]`, as: `/novel/${node.slug}` } 
+                    }))}
                   responsive={cardResponsive}
                 />
                 <LoadMoreButton>Load More</LoadMoreButton>

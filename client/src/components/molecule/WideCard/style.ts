@@ -4,8 +4,8 @@ import Text, { TextType } from '@components/atom/Text';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { center, CENTER_BOTH } from '@utilities/mixins';
-import Tabs from '@components/molecule/TabbedList';
-import InlineList from '@components/molecule/InlineList';
+import Tabbed from '@components/molecule/TabbedList';
+import Inline from '@components/molecule/InlineList';
 import * as M from '@utilities/media';
 import Button from '@components/atom/Button';
 
@@ -84,9 +84,9 @@ export const Image = styled.div<{ img: string; }>`
   }
 `;
 
-export const DotSeparatedList = styled(InlineList)``;
+export const DotSeparatedList = styled(Inline)``;
 
-export const TabbedList = styled(Tabs)`
+export const TabbedList = styled(Tabbed)`
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;

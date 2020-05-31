@@ -4,6 +4,8 @@ import * as S from './style';
 import Link, { LinkProps } from 'next/link';
 import ConditionalWrapper from '@components/atom/ConditionalWrapper';
 import * as M from '@utilities/media';
+import { InlineListItem } from '../InlineList';
+import { TabbedListItem } from '../TabbedList';
 
 export const cardResponsive = {
   itemsPerRow: 2,
@@ -21,10 +23,11 @@ export const cardResponsive = {
 }
 
 export interface CardContent {
+  key: string;
   thumbnail?: string;
   heading: string;
-  inline: string[];
-  tabbed: string[];
+  inline: InlineListItem[];
+  tabbed: TabbedListItem[];
   link?: LinkProps;
 }
 

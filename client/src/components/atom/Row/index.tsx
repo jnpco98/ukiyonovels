@@ -6,6 +6,7 @@ import { LinkProps } from 'next/link';
 import ConditionalWrapper from '../ConditionalWrapper';
 
 export interface RowContent {
+  key: string;
   title: string;
   secondary?: string;
   subtitle?: string | number;

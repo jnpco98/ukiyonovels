@@ -18,11 +18,11 @@ function CardList(props: Props) {
     <S.Container className={className}>
       {heading && <S.Heading>{heading}</S.Heading>}
       <S.Wrapper responsive={responsive}>
-        {contents.map((content, idx) =>
+        {contents.map(c =>
           cardType === 'wide' ? (
-            <S.Wide key={idx} content={content} />
+            <S.Wide key={c.key} content={c} />
           ) : (
-            <S.Standard key={idx} content={content} />
+            <S.Standard key={c.key} content={c} />
           )
         )}
       </S.Wrapper>

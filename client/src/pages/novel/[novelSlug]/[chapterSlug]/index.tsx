@@ -7,34 +7,13 @@ import SidePanel from '@components/organism/SidePanel';
 import Text, { TextType } from '@components/atom/Text';
 import dynamic from 'next/dynamic';
 import gql from 'graphql-tag';
-import { useQuery } from '@apollo/react-hooks';
 import Link from 'next/link';
-import { ChapterQueryVariables, useChapterQuery, ChapterQuery } from '@schemas/apollo-queries';
+import { useChapterQuery, ChapterQuery } from '@schemas/apollo-queries';
 import { withApollo } from '@utilities/apollo';
 import ConditionalWrapper from '@components/atom/ConditionalWrapper';
 
 const DynamicHtml = dynamic(() => import('@components/molecule/DynamicHtml'), { ssr: false });
 
-const CHAPTER_QUERY = gql`
-  query ChapterData($novelWhere: NovelWhere!, $where: ChapterWhere!) {
-    novels(first: 1, where: $novelWhere) {
-      edges {
-        node {
-          id, title,
-          chapters(first: 1, where: $where) {
-            edges {
-              node {
-                id, title, content,
-                previousChapter { title, slug }
-                nextChapter { title, slug }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`;
 
 const Content = styled(Text)`
   margin-bottom: 6rem;

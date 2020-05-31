@@ -9,6 +9,7 @@ import { arrayFromJson } from '@utilities/json';
 import Button from '@components/atom/Button';
 import { cardResponsive } from '@components/molecule/Card';
 import { CARD_LIST_DEFAULT_FETCH } from '@constants/fetch';
+import { createNovelFilterLink } from '../novels/[typeSlug]/[filterSlug]';
 
 const SearchResults = styled(CardList).attrs({ cardType: 'standard' })``;
 
@@ -28,8 +29,13 @@ function TopNovels() {
               <>
                 <SearchResults
                   heading={`Top Novels`}
-                  contents={topNovels.data.edges.map(({ node }, idx) => ({ heading: `#${idx + 1} ${node.title}`, inline: arrayFromJson(node.genres), tabbed: [node.status, ...arrayFromJson(node.origins)], thumbnail: node.coverImage, link: { href: `/novel/[novelSlug]`, as: `/novel/${node.slug}` } }))}
-                  responsive={cardResponsive}
+                  contents={topNovels.data.edges.map(({ node }, idx) => ({
+                    key: node.id,
+                    heading: `#${idx + 1} ${node.title}`, 
+                    inline: arrayFromJson(node.genres).map(i => ({ key: i, label: i, link: createNovelFilterLink('genre', i) })), 
+                    tabbed: [{ key: node.status, label: node.status, link: createNovelFilterLink('status', node.status)}, ...arrayFromJson(node.origins).map(i => ({ key: i, label: i, link: createNovelFilterLink('origin', i) }))],
+                    thumbnail: node.coverImage, link: { href: `/novel/[novelSlug]`, as: `/novel/${node.slug}` } }))}
+                    responsive={cardResponsive}
                 />
                 <LoadMoreButton>Load More</LoadMoreButton>
               </>

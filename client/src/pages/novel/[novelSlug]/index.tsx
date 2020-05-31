@@ -88,8 +88,8 @@ function Novel() {
     return (
       <Description>
         <SubHeading>{heading}</SubHeading>
-        {data.map((info, idx) =>
-          dynamicHtml ? <DynamicHtml key={idx} HTMLString={info} /> : <Text key={idx}>{info}</Text>
+        {data.map(info =>
+          dynamicHtml ? <DynamicHtml key={info} HTMLString={info} /> : <Text key={info}>{info}</Text>
         )}
       </Description>
     );
@@ -105,7 +105,8 @@ function Novel() {
         title: node.title, 
         link, linkSecondary: link, 
         secondary: `${node.idx}`,
-        subtitle: date || ''
+        subtitle: date || '',
+        key: `${node.id}`
       } 
     });
   }
@@ -129,6 +130,19 @@ function Novel() {
     return content;
   }
 
+  function renderChapterContent() {
+    const chapterList = generateNovelChapterList(novelChapters);
+    if(!chapterList.length) return<div>No chapters found</div>
+    return(                      
+    <ChapterList
+      heading={chapterListHeading}
+      contents={chapterList}
+      responsive={chapterListResponsive}
+      maxHeight="30rem"
+      rowType="alternate"
+    />);
+  }
+
   return (
     <Page>
       <Layout layoutType="primarySecondary" main navOffset>
@@ -144,13 +158,7 @@ function Novel() {
                     {renderInfo(alternativeNamesHeading, arrayFromJson(novelInfo.data.alternativeNames))}
                     {
                       novelChaptersLoading ? <div>Loading</div> : (novelChaptersError || !novelChapters.data) ? <div>Error</div> :
-                      <ChapterList
-                        heading={chapterListHeading}
-                        contents={generateNovelChapterList(novelChapters)}
-                        responsive={chapterListResponsive}
-                        maxHeight="30rem"
-                        rowType="alternate"
-                      />
+                      renderChapterContent()
                     }
                   </Layout>
                 </Wrapper>

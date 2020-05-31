@@ -13,6 +13,7 @@ import List from '@components/molecule/List';
 import moment from 'moment';
 import { DATE_FORMAT } from '@constants/format';
 import { CAROUSEL_DEFAULT_FETCH, LIST_DEFAULT_FETCH } from '@constants/fetch';
+import { createNovelFilterLink } from '../novels/[typeSlug]/[filterSlug]';
 
 const MainLayout = styled(Layout).attrs({ main: true })`
   display: flex;
@@ -65,18 +66,35 @@ function Index() {
       <MainLayout navOffset>
         <Layout gutterRight>
           {topNovelsLoading ? <div>Loading</div> : topNovelsError ? <div>Error</div> :
-            <TopNovels heading={t('homepage.topNovels.heading')} contents={topNovels.data.edges.map(({ node }) => ({ heading: node.title, inline: arrayFromJson(node.genres), tabbed: [node.status, ...arrayFromJson(node.origins)], thumbnail: node.coverImage, link: { href: `/novel/[novelSlug]`, as: `/novel/${node.slug}` } }))} />
+            <TopNovels heading={t('homepage.topNovels.heading')} contents={topNovels.data.edges.map(({ node }) => 
+            ({ 
+              key: node.id,
+              heading: node.title, 
+              inline: arrayFromJson(node.genres).map(i => ({ key: i, label: i, link: createNovelFilterLink('genre', i) })), 
+              tabbed: [{ key: node.status, label: node.status, link: createNovelFilterLink('status', node.status)}, ...arrayFromJson(node.origins).map(i => ({ key: i, label: i, link: createNovelFilterLink('origin', i) }))],
+              thumbnail: node.coverImage, 
+              link: { href: `/novel/[novelSlug]`, as: `/novel/${node.slug}` } }))} />
           }
           {latestReleaseChaptersLoading ? <div>Loading</div> : latestReleaseChaptersError ? <div>Error</div> :
             <LatestReleases
               heading={t('homepage.latestReleases.heading')}
-              contents={latestReleaseChapters.data.edges.map(({ node }) => ({ title: node.novel.title, secondary: node.title, subtitle: moment(node.createdAt).format(DATE_FORMAT), link: { href: `/novel/[novelSlug]`, as: `/novel/${node.novel.slug}` }, linkSecondary: { href: `/novel/[novelSlug]/[chapterSlug]`, as: `/novel/${node.novel.slug}/${node.slug}` } }))}
+              contents={latestReleaseChapters.data.edges.map(({ node }) => ({ 
+                key: node.id, title: node.novel.title, 
+                secondary: node.title, subtitle: moment(node.createdAt).format(DATE_FORMAT), 
+                link: { href: `/novel/[novelSlug]`, as: `/novel/${node.novel.slug}` }, 
+                linkSecondary: { href: `/novel/[novelSlug]/[chapterSlug]`, as: `/novel/${node.novel.slug}/${node.slug}` } }))}
               rowType="preview"
               maxHeight="40rem"       
             />
           }
           {newNovelsLoading ? <div>Loading</div> : newNovelsError ? <div>Error</div> :
-            <NewNovels heading={t('homepage.newNovels.heading')} contents={newNovels.data.edges.map(({ node }) => ({ heading: node.title, inline: arrayFromJson(node.genres), tabbed: [node.status, ...arrayFromJson(node.origins)], thumbnail: node.coverImage, link: { href: `/novel/[novelSlug]`, as: `/novel/${node.slug}` } }))} />
+            <NewNovels heading={t('homepage.newNovels.heading')} contents={newNovels.data.edges.map(({ node }) => 
+            ({
+              key: node.id,
+              heading: node.title, 
+              inline: arrayFromJson(node.genres).map(i => ({ key: i, label: i, link: createNovelFilterLink('genre', i) })), 
+              tabbed: [{ key: node.status, label: node.status, link: createNovelFilterLink('status', node.status)}, ...arrayFromJson(node.origins).map(i => ({ key: i, label: i, link: createNovelFilterLink('origin', i) }))],
+              thumbnail: node.coverImage, link: { href: `/novel/[novelSlug]`, as: `/novel/${node.slug}` } }))} />
           }
         </Layout>
         <SidePanel />
