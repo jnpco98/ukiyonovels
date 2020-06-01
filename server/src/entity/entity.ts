@@ -2,10 +2,9 @@ import {
   BaseEntity as ActiveRecordBaseEntity,
   BeforeInsert,
   Column,
-  CreateDateColumn,
   Generated,
   PrimaryColumn,
-  UpdateDateColumn
+  BeforeUpdate
 } from 'typeorm';
 import { Field, ID, ObjectType } from 'type-graphql';
 
@@ -41,13 +40,14 @@ export abstract class BaseEntity extends ActiveRecordBaseEntity {
    * Cannot be modified after it's been added
    * to the database
    */
+  // default: () => "cast(date_part('epoch', CURRENT_TIMESTAMP) as bigint)"
   @Field()
-  @CreateDateColumn({ name: 'created_at', type: 'timestamp', update: false })
-  createdAt: Date;
+  @Column({ name: 'created_at', type: 'bigint' })
+  createdAt: number;
 
   @Field()
-  @UpdateDateColumn({ name: 'last_modified', type: 'timestamp' })
-  lastModified: Date;
+  @Column({ name: 'last_modified', type: 'bigint' })
+  lastModified: number;
 
   /**
    * Id of the resource creator
@@ -68,7 +68,14 @@ export abstract class BaseEntity extends ActiveRecordBaseEntity {
    * database, generate a nanoid
    */
   @BeforeInsert()
-  generateUID() {
+  beforeInsert() {
     this.id = nanoid();
+    this.createdAt = new Date().getTime();
+    this.lastModified = new Date().getTime();
+  }
+
+  @BeforeUpdate()
+  beforeUpdate() {
+    this.lastModified = new Date().getTime();
   }
 }
