@@ -100,7 +100,8 @@ export async function createCursorConnection<T extends BaseEntity>(
  * @param sortKey Entity property
  */
 export function createCursor(node: BaseEntity, sortKey?: string) {
-  const secondary = (node as any)[sortKey || '_'] || node.incrementId;
+  let secondary = (node as any)[sortKey || '_'];
+  if(typeof secondary === 'undefined') secondary = node.incrementId;
 
   const cursorEncoded: CursorDecoded = {
     primary: node.incrementId,
