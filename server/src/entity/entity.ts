@@ -40,13 +40,12 @@ export abstract class BaseEntity extends ActiveRecordBaseEntity {
    * Cannot be modified after it's been added
    * to the database
    */
-  // default: () => "cast(date_part('epoch', CURRENT_TIMESTAMP) as bigint)"
   @Field()
-  @Column({ name: 'created_at', type: 'bigint' })
+  @Column({ name: 'created_at', type: 'bigint', default: () => "cast(date_part('epoch', CURRENT_TIMESTAMP) as bigint)" })
   createdAt: number;
 
   @Field()
-  @Column({ name: 'last_modified', type: 'bigint' })
+  @Column({ name: 'last_modified', type: 'bigint', default: () => "cast(date_part('epoch', CURRENT_TIMESTAMP) as bigint)" })
   lastModified: number;
 
   /**
