@@ -2,7 +2,7 @@
 
 ### TODO
 ---
-[ ] User and token context hooks
+[x] User and token context hooks
 
 [x] Implement costs
 
@@ -10,11 +10,7 @@
 
 [ ] Implement hourly rates
 
-[ ] Add tests
-
 [x] Clean up with codemaid
-
-[ ] Add context hooks for resources
 
 [x] Pageinfo fix
 
@@ -24,9 +20,9 @@
 
 [x] Remove graphql-relay
 
-[ ] Add types for cursors and stuff
+[x] Add types for cursors and stuff
 
-[ ] Better types
+[x] Better types
 
 [x] Error classes
 
@@ -46,7 +42,12 @@
 
 [ ] Deployment
 
-[ ] Update Base{Entity}{Action}Resolver to be a function that could accept a context hook 
+[x] Update Base{Entity}{Action}Resolver to be a function that could accept a context hook
+
+[ ] Refactor abstract resolvers to have an apply function instead of a context hook.
+
+[ ] Merge the rest of the resolvers as one class 
+      ex: all other resolvers other than the ones that inherit from the base resolvers will all be in the ${Entity}Resolver class
 
 ---
 ### Prettier config
