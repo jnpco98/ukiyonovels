@@ -84,6 +84,8 @@ async function main() {
     schema,
     context: ({ req, res }) => ({ req, res }),
     formatError: formatGraphqlError,
+    introspection: !isProduction() || process.env.ENABLE_PLAYGROUND == 'true',
+    playground: !isProduction() || process.env.ENABLE_PLAYGROUND == 'true',
     plugins: [
       {
         requestDidStart: () => ({
