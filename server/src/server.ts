@@ -35,13 +35,19 @@ import ROLES from './constants/roles';
  */
 function formatGraphqlError(error: GraphQLError) {
   if (!isProduction()) return error;
-  if (error.originalError instanceof ApolloError) return error;
-  if (error.originalError instanceof ArgumentValidationError) {
+
+  const genericError = new GraphQLError(`Internal Server Error: ${logInternalError(error)}`);
+
+  if(error.message.includes('Database Error:')) 
+    return genericError;
+  if (error instanceof ApolloError || error.originalError instanceof ApolloError) 
+    return error;
+  if (error instanceof ArgumentValidationError || error.originalError instanceof ArgumentValidationError) {
     if (error.extensions) error.extensions.code = 'GRAPHQL_VALIDATION_FAILED';
     return error;
   }
 
-  return new GraphQLError(`Internal Server Error: ${logInternalError(error)}`);
+  return genericError;
 }
 
 /**
