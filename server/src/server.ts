@@ -106,12 +106,17 @@ async function main() {
             });
 
             try {
+              let role = ROLES.member;
+
               if(request.http && request.http.headers && request.http?.headers.get('authorization')) {
                 const authorization = request.http?.headers.get('authorization')?.split(' ')[1];
                 const authDecoded = verify(authorization || '', process.env.ACCESS_TOKEN_SECRET!);
-                if(complexity > MAX_QUERY_COST && (authDecoded as any).role !== ROLES.owner) 
-                  throw new MaxComplexityError(complexity, MAX_QUERY_COST);
+                if(authDecoded && (authDecoded as any).role) role = (authDecoded as any).role;
               }
+
+              if(complexity > MAX_QUERY_COST && role !== ROLES.owner)
+                throw new MaxComplexityError(complexity, MAX_QUERY_COST);
+
             } catch (e) {
               if(complexity > MAX_QUERY_COST) 
                 throw new MaxComplexityError(complexity, MAX_QUERY_COST);
