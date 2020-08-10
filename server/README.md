@@ -1,3 +1,6 @@
+# -- Refactored to a lib for gen use --
+https://github.com/jnpco98/GqlServer.git
+
 # Ukiyonovels
 
 ### TODO
